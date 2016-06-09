@@ -1,7 +1,0 @@
-<project>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.szhernovoy</groupId>
-	<artifactId>java-from-a-to-z</artifactId>
-	<version>1.0.0.0</version>
-	<packaging>jar</packaging>
-</project>
