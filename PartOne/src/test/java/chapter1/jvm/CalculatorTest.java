@@ -20,7 +20,7 @@ public class CalculatorTest {
 		Calculator calc = new Calculator("Hello world");
 		String message = "Hello world";
 		String result = calc.sayResult();		
-		Assert.assertThat(result,message);
+		Assert.assertThat(result,is(message));
 
 	}
 
