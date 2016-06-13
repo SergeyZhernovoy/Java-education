@@ -9,16 +9,16 @@ package chapter1.condition;
 
 public class TriangleCalc {
    
-   private double ab;
-   private double ac; 
-   private double bc;	
+   private Point a;
+   private Point b; 
+   private Point c;	
 
 
    public TriangleCalc(Point a, Point b, Point c) {
-     
-      ab = a.distanceTo(b);
-      ac = a.distanceTo(c);
-      bc = b.distanceTo(c); 
+     	this.a = a;
+ 	this.b = b;
+	this.c = c;
+      
 
    }
 
@@ -26,7 +26,11 @@ public class TriangleCalc {
       
     double result = 0;	    	
 	
-    if(ab == 0 || ac == 0 || bc == 0 ){
+   double   ab = a.distanceTo(b);
+   double   ac = a.distanceTo(c);
+   double   bc = b.distanceTo(c); 
+
+    if(isTriangle(ab,ac,bc)){
       System.out.println("Error - not available create triangle");
     }	
     else {
@@ -50,6 +54,19 @@ public class TriangleCalc {
 	System.out.println("Area max side - " + maxSide());
    }
 	
+
+ private boolean isTriangle(double distance1,double distance2, double distance3 ){
+
+	boolean itTriangle = true;
+	if(a.getX() == b.getX() && a.getX() == c.getX()){
+	  itTriangle = false;}
+	if(a.getY() == b.getY() && a.getY() == c.getY()){
+	  itTriangle = false;}
+	if(distance1  == 0 || distance2 == 0 ||  distance3 == 0){
+	  itTriangle = false;}
+	return itTriangle;
+
+}
 
   public static void main (String[] args){
 	

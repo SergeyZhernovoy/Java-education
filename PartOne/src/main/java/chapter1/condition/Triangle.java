@@ -26,7 +26,7 @@ public class Triangle {
     double bc = b.distanceTo(c); 
     double result = 0;	    	
 	
-    if(ab == 0 || ac == 0 || bc == 0 ){
+    if(isTriangle(ab,ac,bc)){
       System.out.println("Error - not available create triangle");
     }	
     else {
@@ -43,6 +43,23 @@ public class Triangle {
 	System.out.println("Area triangle - " + area());
    }
 	
+   private boolean isTriangle(double distance1,double distance2, double distance3 ){
+
+	boolean itTriangle = true;
+	if(a.getX() == b.getX() && a.getX() == c.getX()){
+	  itTriangle = false;}
+	if(a.getY() == b.getY() && a.getY() == c.getY()){
+	  itTriangle = false;	
+          }
+	if(distance1  == 0 || distance2 == 0 ||  distance3 == 0){
+	  itTriangle = false;	
+          }
+	return itTriangle;
+
+
+}
+
+
 
   public static void main (String[] args){
 	Point a = new Point(1,1);
