@@ -22,7 +22,7 @@ public class TriangleCalc {
 
    }
 
-   private double maxSide() {
+   public double maxSide() {
       
     double result = 0;	    	
 	

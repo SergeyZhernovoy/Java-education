@@ -19,7 +19,7 @@ public class Triangle {
       this.c = c;
    }
 
-   private double area() {
+   public double area() {
       //calculate the triangle area
     double ab = a.distanceTo(b);
     double ac = a.distanceTo(c);
