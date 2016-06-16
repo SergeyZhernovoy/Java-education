@@ -27,7 +27,7 @@ public double calcFactorial(){
 
 public void print() {
 
-	System.out.printf("Factorial " + num + " = "+calcFactorial());
+	System.out.printf("Factorial %d = %f",num,calcFactorial());
 
 }
 

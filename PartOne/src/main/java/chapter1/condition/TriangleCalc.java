@@ -30,7 +30,7 @@ public class TriangleCalc {
    double   ac = a.distanceTo(c);
    double   bc = b.distanceTo(c); 
 
-    if(isTriangle(ab,ac,bc)){
+    if(!isTriangle(ab,ac,bc)){
       System.out.println("Error - not available create triangle");
     }	
     else {
