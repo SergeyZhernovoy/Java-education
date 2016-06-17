@@ -7,47 +7,51 @@ package chapter1.loop;
 
 public class Square {
 
- private double [] initial; // a,b,c,x1,x2,step
+ private double a; // a,b,c,x1,x2,step
+ private double b;
+ private double c;
+ private double x1;
+ private double x2;
+ private double step;
 
- public Square(String [] args){
+ public Square(double a,double b,double c,double x1,double x2,double step){
  
-	initial = new double[args.length];
-
-	for(int index = 0; index < args.length; index++){
-	    initial[index] = Double.valueOf(args[index]);	
-	}	
+	this.a = a;
+this.b = b;
+this.c = c;
+this.x1 = x1;
+this.x2 = x2;
+this.step = step;
 
 
 }
 
 public double calcFunction(double x){
 
-	double result = 0;
-	if(initial.length  == 6){
-	   result = initial[0] * x * x + initial[1]*x + initial[2];  
-  	}
-
-	return result;
+	return a*x*x+b*x+c;
 
 } 
 
 public void print(){
 
-	if(initial.length  == 6){
-	double x1 = initial[3];  
-	double x2 = initial[4];     
-	while(x1 < x2){
-	 System.out.println(calcFunction(x1));
-	 x1 += initial[5];
+	double xInit = x1; 
+	while(xInit < x2){
+	 System.out.println(calcFunction(xInit));
+	 xInit += step;
 	}
-	}
-	else System.out.println("Nothing to print...");
+	
+	
 
 }
 
 public static void main (String[] args){
+
+	for(int index = 0; index < args.length;index++){
+	    Validator.setValue(args[index]);		
+	}
+	
 		
-	Square fSquare = new Square(args);
+	Square fSquare = new Square(Validator.a,Validator.b,Validator.c,Validator.x1,Validator.x2,Validator.step);
 	fSquare.print();
 
 	}

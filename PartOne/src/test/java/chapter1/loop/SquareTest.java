@@ -17,8 +17,7 @@ public class SquareTest {
 	@Test
 	public void calcFuncOneValue(){
 
-		String [] massive = {"1","2","3","1","10","1"};
-		Square sq = new Square(massive);
+		Square sq = new Square(1,2,3,1,10,1);
 		double control = 11; //3;
 		double result = sq.calcFunction(2);		
 		Assert.assertThat(result,is(control));

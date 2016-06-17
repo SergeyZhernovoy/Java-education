@@ -19,7 +19,7 @@ public class TriangleCalcTest {
    	@Test
 	public void whenIsTriangleItHaveMaxSide(){
 		Point a = new Point(1,1);
-		Point b = new Point(1,1);
+		Point b = new Point(2,1);
 		Point c = new Point(5,11);
 		TriangleCalc triangle = new TriangleCalc(a,b,c);
 		double result = new BigDecimal(triangle.maxSide()).setScale(2, RoundingMode.UP).doubleValue();;
