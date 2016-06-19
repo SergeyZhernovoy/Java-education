@@ -9,8 +9,8 @@ public class Rotate{
 	
 	public static void main(String[] args){
 		
-		final int RAZMER_MATRICA = 4; //razmer
-		int[RAZMER_MATRICA][RAZMER_MATRICA] kvadrat = new int[RAZMER_MATRICA][RAZMER_MATRICA] {{1,2,3,4},{2,3,4,5},{6,7,8,9},{2,5,6,9}};
+		final int SIZE = 4; //razmer
+		int[SIZE][SIZE] kvadrat = new int[SIZE][SIZE] {{1,2,3,4},{2,3,4,5},{6,7,8,9},{2,5,6,9}};
 		
 		/*
 		1 2 3 4
@@ -20,43 +20,42 @@ public class Rotate{
 		i = str 
 		j - kol 
 		
-		a11 = a14
-		a12 = a24
-		a13 = a34
-		a14 = a44
+		a00 = a03
+		a01 = a13
+		a02 = a23
+		a03 = a33
 		
-		a21 = a13
-		a22 = a23
-		a23 = a33
-		a24 = a43
+		a10 = a02
+		a11 = a12
+		a12 = a22
+		a13 = a32
 		
-		a31 = a12
-		a32 = a22
-		a33 = a32
-		a34 = a42
+		a20 = a01
+		a21 = a11
+		a22 = a21
+		a23 = a31
 		
-		a41 = a11
-		a42 = a12
-		a43 = a13
-		a44 = a14
+		a30 = a00
+		a31 = a10
+		a32 = a20
+		a33 = a30
 		*/
 		
-		for(int i = 0;i < RAZMER_MATRICA; i++){
-			for{int j = 0 ; j < RAZMER_MATRICA; j++){
-				int temp = kvadrat[j][RAZMER_MATRICA - 1-j]
-				kvadrat[][] = kvadrat[][]
+		for(int i = 0;i < SIZE/2; i++){
+		    for{int j = i ; j< SIZE - 1 - i; j++){
+			
+				int temp = kvadrat[i][j];
+				kvadrat[i][j] 	= kvadrat[j][SIZE-1-i];
+				kvadrat[j][SIZE-1-i] = kvadrat[SIZE-1-i][SIZE-1-j];
+                		kvadrat[SIZE-1-i][SIZE-1-j] = kvadrat[SIZE-1-j][i];
+                		kvadrat[SIZE-1-j][i]     = tmp;
 				
 				
 			}
 			
 		}	
 		
-		
-		
-		
-	
-	
-	
+
 	
 	
 	}
