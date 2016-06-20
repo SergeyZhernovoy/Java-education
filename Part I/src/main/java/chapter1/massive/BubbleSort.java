@@ -33,6 +33,10 @@ public void sortMassive(){
 	}
 }
 
+public int[] getMassive(){
+	return myMassive;
+}
+
 public void printMassive(){
 
 	for(int index = 0; index < myMassive.length;index++){
