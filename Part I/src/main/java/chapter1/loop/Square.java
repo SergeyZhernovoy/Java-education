@@ -7,23 +7,17 @@ package chapter1.loop;
 
 public class Square {
 
- private double a; // a,b,c,x1,x2,step
+ private double a; // a,b,c
  private double b;
  private double c;
- private double x1;
- private double x2;
- private double step;
+ 
 
- public Square(double a,double b,double c,double x1,double x2,double step){
+ public Square(double a,double b,double c){
  
 	this.a = a;
-this.b = b;
-this.c = c;
-this.x1 = x1;
-this.x2 = x2;
-this.step = step;
-
-
+	this.b = b;
+	this.c = c;
+	
 }
 
 public double calcFunction(double x){
@@ -32,28 +26,23 @@ public double calcFunction(double x){
 
 } 
 
-public void print(){
-
-	double xInit = x1; 
-	while(xInit < x2){
-	 System.out.println(calcFunction(xInit));
-	 xInit += step;
-	}
-	
-	
-
-}
-
 public static void main (String[] args){
 
-	for(int index = 0; index < args.length;index++){
-	    Validator.setValue(args[index]);		
-	}
+			
+	Square fSquare = new Square(Double.valueOf(args[0]),Double.valueOf(args[1]),Double.valueOf(args[2]));
 	
+	double x1,x2,step;
+	x1 = Double.valueOf(args[3]);
+	x2 = Double.valueOf(args[4]);
+	step = Double.valueOf(args[5]);
 		
-	Square fSquare = new Square(Validator.a,Validator.b,Validator.c,Validator.x1,Validator.x2,Validator.step);
-	fSquare.print();
+	while(x1 < x2){
+	 System.out.println(fSquare.calcFunction(x1));
+	 x1 += step;
+	}
 
 	}
 
 }
+
+
