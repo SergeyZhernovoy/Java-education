@@ -1,5 +1,5 @@
 /**
-*удаление дубликатов строк
+*
 *@author Sergey Zhernovoy
 *@since 20/06/2016
 */
@@ -20,7 +20,7 @@ public class Duplicate {
 		int count = deleteCopy();
 		//copy in new array
 		String []tmp = new String[count];
-		System.arraycopy(strFull,0,tmp,0,count);
+		//System.arraycopy(strFull,0,tmp,0,count);
 		return tmp;
 	
 		
@@ -30,7 +30,7 @@ public class Duplicate {
 	        
 		   int count = 0;
 		   for(int i = 0; i < strFull.length; i++){
-		   	   if(strFull[i] == null){
+		   	  /* if(strFull[i] == null){
 		   	   	   break;
 		   	   }
 		   	   else {
@@ -41,24 +41,25 @@ public class Duplicate {
 		   	   	   	 strFull[j] = strFull[strFull.length - 1 - i];
 		   	   	   	 strFull[strFull.length - 1 - i] = null;
 		   	   	   
-		   	   }
+		   	   }*/
 		   	   
 		   	   
 	
 		
 	}
+	return count;
 
 }
 
 
-	}
+	
 	
 	public static void main(String []args){
-		String [] unsort = {"as","sa","as","as","as","ki","as","as","as","as","ds","we","az","vf","vf","as","as","ki","as","as","vf","as","as","vf","as","as"};
+		/*String [] unsort = {"as","sa","as","as","as","ki","as","as","as","as","ds","we","az","vf","vf","as","as","ki","as","as","vf","as","as","vf","as","as"};
 		for(String str : unsort){
 		 System.out.print(str + " ");		
-		}
-		Duplicate myArr = new myArr()
+		}*/
+		//Duplicate myArr = new myArr(unsort);
 	}
 	
 }
