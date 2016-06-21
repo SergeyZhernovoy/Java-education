@@ -39,6 +39,13 @@ public class Rotate {
 		
 	}
 	
+public int[][] getMassive(){
+
+	return kvadrat;
+
+}
+
+
 	
 	public static void main(String[] args){
 		
