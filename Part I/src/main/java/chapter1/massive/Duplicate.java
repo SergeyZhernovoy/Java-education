@@ -15,7 +15,7 @@ public class Duplicate {
 		System.arraycopy(unsort,0,strFull,0,unsort.length);
 	}
 	
-	public void DoUniqueArray(){
+	public void doUniqueArray(){
 		
 		//delete copy
 		int count = deleteCopy();
@@ -74,7 +74,7 @@ public class Duplicate {
 		System.out.println("Massive with duplicate...\n");
 		myArr.printArray();
 		System.out.println("\nUniquie massive ...");
-		myArr.DoUniqueArray();
+		myArr.doUniqueArray();
 		myArr.printArray();
 		
 	}

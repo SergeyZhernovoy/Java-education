@@ -19,7 +19,7 @@ public class DuplicateTest {
 
 		String []massive = {"as","sa","as","as","as"};
 		Duplicate bs =  new Duplicate(massive);
-		bs.DoUniqueArray();
+		bs.doUniqueArray();
 		String []control = {"as","sa"};
 		Assert.assertThat(bs.strFull,is(control));
 
