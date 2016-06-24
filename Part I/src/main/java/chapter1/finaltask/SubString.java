@@ -5,29 +5,35 @@
 *
 */
 
-package chapter1.finaltest;
+package chapter1.finaltask;
 
 public class SubString {
 
 public char[] original;
 
 
-public boolean contains(String original, String subStr){
+public boolean contains(String source, String subStr){
 	
 	char [] sub = subStr.toCharArray();
-	this.original = original.toCharArray();
+	original = source.toCharArray();
 	int count = 0;
 	int j = 0;
-	for(int i = 0; i < sub.length; i ++){
-	   for(; j < original.length; j++){
-			if(original[j] == sub[i]){
-		           count++;
-			   break;
+	for(int i = 0; i < original.length; i ++){
+	   if(count == sub.length){
+	   	   break;
+	   }
+	   while(j < sub.length )
+	   {
+			if(original[i] == sub[j]){
+		       count++;
+			   j++;
+		  		   
 			}
 			else{
 			count = 0;
+			j = 0;
 			}
-		
+			break;
 		}	
 	}
 	
@@ -36,12 +42,12 @@ public boolean contains(String original, String subStr){
 }
 
 
-public static void main(Sting[] args){
+public static void main(String[] args){
 
 	boolean compare = false;
 	SubString subCompare = new SubString();
-	String str = "asdffghjklytyujvbfghsewr";
-	String sub = "dsdfew";
+	String str = "asdffgdsdhjklytyujvdsdfewbfgdsdferhsewr";
+	String sub = "dsdfeu";
 	compare = subCompare.contains(str,sub);
 	if(compare){
 		System.out.printf("This string %s contains %s",str,sub);
