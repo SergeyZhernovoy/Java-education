@@ -18,8 +18,8 @@ public class SubStringTest {
 	public void setWrongSubstringShouldFalseSearch(){
 
 		SubString testContains = new SubString();
-		String origin = "assasddsdsrtrtggdfgdhrhrtyetfdghlgkjsgohsifhiguhdopghspfhpofhifgvbpidghsifhsiuirhaojf";
-		String sub    = "gdfgdhrhrv";
+		String origin = "fdfdfg";
+		String sub    = "fdg";
 
 		boolean result = testContains.contains(origin,sub); 
 		boolean testResult = false;		
@@ -30,8 +30,8 @@ public class SubStringTest {
 	public void setRigthSubstringShouldTrueSearch(){
 
 		SubString testContains = new SubString();
-		String origin = "assasddsdsrtrtggdfgdhrhrtyetfdghlgkjsgohsifhiguhdopghspfhpofhifgvbpidghsifhsiuirhaojf";
-		String sub    = "hsifhiguhdopghspfhpofhifgvbpi";
+		String origin = "asasdfgh";
+		String sub    = "dfg";
 
 		boolean result = testContains.contains(origin,sub); 
 		boolean testResult = true;		

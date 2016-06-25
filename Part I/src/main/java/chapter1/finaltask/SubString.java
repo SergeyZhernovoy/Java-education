@@ -22,7 +22,7 @@ public boolean contains(String source, String subStr){
 	   if(count == sub.length){
 	   	   break;
 	   }
-	   while(j < sub.length )
+	   if(j < sub.length )
 	   {
 			if(original[i] == sub[j]){
 		       count++;
@@ -33,7 +33,7 @@ public boolean contains(String source, String subStr){
 			count = 0;
 			j = 0;
 			}
-			break;
+			
 		}	
 	}
 	
@@ -46,8 +46,8 @@ public static void main(String[] args){
 
 	boolean compare = false;
 	SubString subCompare = new SubString();
-	String str = "asdffgdsdhjklytyujvdsdfewbfgdsdferhsewr";
-	String sub = "dsdfeu";
+	String str = "asdsdfds";
+	String sub = "ds";
 	compare = subCompare.contains(str,sub);
 	if(compare){
 		System.out.printf("This string %s contains %s",str,sub);
