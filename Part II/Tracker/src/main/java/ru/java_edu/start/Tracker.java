@@ -12,23 +12,18 @@ public class Tracker{
 	
 	private Item[] items;
 	private int position = 0;
-	private int last_pos = 0;
 	private static final Random RN = Random();
 	
 	public void addItem(Item item){
 		item.setId(this.generateId());
 		if(this.position == this.items.length-1) {
-			this.last_pos = this.position;
-			this.position = 0;
-		}
-		else {
-			this.last_pos = this.position;
+		   this.position = 0;
 		}
 		this.items[position++] = item;
 		
 	}
 	
-	protected findById(String id){
+	protected Item findById(String id){
 		Item result =null;
 		for(Item item : this.items){
 				if(item != null && item.getId().equals(id)){
@@ -45,11 +40,24 @@ public class Tracker{
 	
 	public Item[] getAll(){
 		
-		Item[] result = new Item[this.last_pos == 0?1:this.last_pos];
-		for(int index = 0; index!=last_pos; last_pos++){
+		Item[] result = new Item[this.position == 0?1:this.position];
+		for(int index = 0; index!=position; index++){
 			result[index] = this.items[index];
 		}
 		return result;
 	}
+	
+	public Item[] findByFilter(String name){
+		Item result =null;
+		for(Item item : this.items){
+				if(item != null && item.getId().equals(id)){
+					result = item;
+					break;
+				}
+		}
+		return result;		
+	}
+	
+	
 	
 }
