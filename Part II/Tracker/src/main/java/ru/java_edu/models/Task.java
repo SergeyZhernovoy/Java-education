@@ -1,18 +1,18 @@
 /**
 *@author Sergey Zhernovoy
 *@since 01-07-2016
-*это класс документ заявка 
+*СЌС‚Рѕ РєР»Р°СЃСЃ РґРѕРєСѓРјРµРЅС‚ Р·Р°СЏРІРєР° 
 */
 
 package ru.java_edu.models;
 
 public class Task extends Item {
 	
-	private String[] comment = new String[15];
+	private String[] comment = new String[5];
 	private int current = 0;
 	
 	public Task(String name, String descr){
-		super(name,decr,System.CurrentTimeMillis());
+		super(name,descr,System.currentTimeMillis());
 	}
 	
 	public void setComment(String comm){
@@ -23,7 +23,8 @@ public class Task extends Item {
 	}
 	
 	public String getComm(){
-		return this.comment[this.current];
+		int pos = this.current == 0 ?this.current : this.current  - 1;
+		return this.comment[pos];
 	}
 	
 	public String getComm(int position){

@@ -4,27 +4,28 @@
 *это класс хранения заявок 
 */
 
-package ru.java_edu.start
+package ru.java_edu.start;
 import ru.java_edu.models.*;
 import java.util.Random;
 
 public class Tracker{
 	
-	private Task[] items = new Task[8];
+	private Task[] items = new Task[6];
 	private int position = 0;
-	private static final Random RN = Random();
+	private static final Random RN = new Random();
 	
-	public void addItem(Item item){
+	public Task addItem(Task item){
 		item.setId(this.generateId());
 		if(this.position == this.items.length-1) {
 		   this.position = 0;
 		}
 		this.items[position++] = item;
+		return item;
 	}
 	
-	protected Task findById(String id){
+	public Task findById(String id){
 		Task result =null;
-		for(Item item : this.items){
+		for(Task item : this.items){
 				if(item != null && item.getId().equals(id)){
 					result = item;
 					break;
@@ -34,13 +35,13 @@ public class Tracker{
 	}
 	
 	String generateId(){
-		return String.valueOf(System.CurrentTimeMillis() + RN.nextInt());
+		return String.valueOf(System.currentTimeMillis() + RN.nextInt());
 	}
 	
 	public Task[] getAll(){
 		
-		Task[] result = new Task[this.position == 0?1:this.position];
-		for(int index = 0; index!=position; index++){
+		Task[] result = new Task[this.position-1];// позиция всегда указывает на пустой или возможно пустой элемент
+		for(int index = 0; index!=(this.position-1); index++){
 			result[index] = this.items[index];
 		}
 		return result;
@@ -50,14 +51,15 @@ public class Tracker{
 		int length = this.items.length;
 		Task[] copy = new Task[length];
 		int filterIndex = 0;
-		for(int fullIndex = 0;index < length;index++){
-				if(this.items[index] != null && this.items[index].getName().contains(name)){
-					copy[filterIndex++] = this.items[index];
+		for(int fullIndex = 0;fullIndex < length;fullIndex++){
+				if(this.items[fullIndex] != null && this.items[fullIndex].getName().contains(name)){
+					copy[filterIndex++] = this.items[fullIndex];
 				}
 		}
 		
-		Task[] result = new Task[++filterIndex];
+		Task[] result = new Task[filterIndex];
 		System.arraycopy(copy,0,result,0,filterIndex);
+		
 		return result;		
 	}
 	
@@ -66,19 +68,19 @@ public class Tracker{
 		int length = this.items.length;
 		Task[] copy = new Task[length];
 		int filterIndex = 0;
-		for(int fullIndex = 0;index < length;index++){
-				if(this.items[index] != null && this.items[index].getName().contains(name)&&this.items[index].getDescr().contains(decr)){
-					copy[filterIndex++] = this.items[index];
+		for(int fullIndex = 0;fullIndex < length;fullIndex++){
+				if(this.items[fullIndex] != null && this.items[fullIndex].getName().contains(name)&&this.items[fullIndex].getDescr().contains(decr)){
+					copy[filterIndex++] = this.items[fullIndex];
 				}
 		}
 		
-		Task[] result = new Task[++filterIndex];
+		Task[] result = new Task[filterIndex];
 		System.arraycopy(copy,0,result,0,filterIndex);
 		return result;		
 	
 	}
 	
-	public void deleteItem(Item item){
+	public void deleteItem(Task item){
 		String id = item.getId();
 		if(id != null){
 			for(int index = 0; index < this.items.length; index++){
@@ -89,17 +91,20 @@ public class Tracker{
 				if(this.items[index] == null && (index+1) != this.items.length){
 				   this.items[index] = this.items[index+1];
 				   this.items[index+1] = null;
-				   position = index+1;	
+				   if(this.items[index] != null){
+					  this.position = (index+1)<this.items.length?(index+1):index;  
+				   }
+				   	
 				}
 			}
 		}
 	}
 	
-	public void updateItem(Item item){
+	public void updateItem(Task item){
 		String id = item.getId();
 		if(id != null){
 			for(int index = 0; index < this.items.length; index++){
-				if(this.items[index] == null && this.items[index].getId().equals(id)){
+				if(this.items[index] != null && this.items[index].getId().equals(id)){
 				   this.items[index] = item;
 				   break;
 				}
@@ -107,19 +112,19 @@ public class Tracker{
 		}
 	}
 		
-	public void addCommentary(Item item, String comm){
+	public void addCommentary(Task item, String comm){
 		
-		Item inner_item = findById(item.getId());
+		Task inner_item = findById(item.getId());
 		if(inner_item != null){
 		   inner_item.setComment(comm);
 		}
 	
 	}
 	
-	public String getCommentary(Item item){
+	public String getCommentary(Task item){
 	
-		String result;
-		Item inner_item = findById(item.getId());
+		String result =null;
+		Task inner_item = findById(item.getId());
 			
 		if(inner_item != null){
 			result = inner_item.getComm();
@@ -128,13 +133,13 @@ public class Tracker{
 		return result;
 	}
 	
-	public String getCommentary(Item item, index pos){
+	public String getCommentary(Task item, int pos){
 		
-		String result;
-		Item inner_item = findById(item.getId());
+		String result = null;
+		Task inner_item = findById(item.getId());
 			
 		if(inner_item != null){
-			result = inner_item.getComm(pos));
+			result = inner_item.getComm(pos);
 		}
 			
 		return result;
