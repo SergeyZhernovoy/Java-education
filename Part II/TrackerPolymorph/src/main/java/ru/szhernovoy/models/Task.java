@@ -4,7 +4,7 @@
 *это класс документ заявка 
 */
 
-package ru.java_edu.models;
+package ru.szhernovoy.models;
 
 public class Task extends Item {
 	

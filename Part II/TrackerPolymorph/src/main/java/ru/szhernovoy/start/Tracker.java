@@ -4,8 +4,8 @@
 *это класс хранения заявок 
 */
 
-package ru.java_edu.start;
-import ru.java_edu.models.*;
+package ru.szhernovoy.start;
+import ru.szhernovoy.models.*;
 import java.util.Random;
 
 public class Tracker{
@@ -40,8 +40,8 @@ public class Tracker{
 	
 	public Task[] getAll(){
 		
-		Task[] result = new Task[this.position-1];// позиция всегда указывает на пустой или возможно пустой элемент
-		for(int index = 0; index!=(this.position-1); index++){
+		Task[] result = new Task[this.position];// позиция всегда указывает на пустой или возможно пустой элемент
+		for(int index = 0; index<this.position; index++){
 			result[index] = this.items[index];
 		}
 		return result;

@@ -4,7 +4,7 @@
 *это класс документ заявка 
 */
 
-package ru.java_edu.models;
+package ru.szhernovoy.models;
 
 class Item {
 

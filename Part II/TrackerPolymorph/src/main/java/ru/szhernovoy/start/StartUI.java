@@ -4,65 +4,129 @@
 *это класс выполнения трекера 
 */
 
-package ru.java_edu.start;
-import ru.java_edu.models.*;
+package ru.szhernovoy.start;
+import ru.szhernovoy.models.*;
 
 public class StartUI{
 	
-	public static void main(String[] args){
+	private Input input;
+	private final String menu = 
+	  "\nPress num for choice action"+
+	  "\n1)add task"+
+	  "\n2)update task"+
+	  "\n3)delete task"+
+	  "\n4)print all task"+
+	  "\n5)print by filter"+
+	  "\n6)add commentary"+
+	  "\n7)print commentary"+
+	  "\n8)exit\n\n";
+	  
+	private Tracker myTrack = new Tracker();
+	
+	public StartUI(Input input){
+		this.input = input;
+	}
+	
+	public void init(){
 		
-		Tracker myTrack = new Tracker();
+		boolean exit = false;	
+	    
 		
-		Task task1 = new Task("ord 1", "Eto zajavka 1");
-		Task task2 = new Task("ord 2", "Eto zajavka 2");
-		Task task3 = new Task("ord 3", "Eto zajavka 3");
-		Task task4 = new Task("ord 4", "Eto zajavka 4");
-		Task task5 = new Task("ord 5", "Eto zajavka 5");
-		Task task6 = new Task("ord 4", "Eto zajavka 6");
-		Task task7 = new Task("ord 7", "Eto zajavka 7");
-		Task task8 = new Task("ord 8", "Eto zajavka 8");
-		Task task9 = new Task("ord 9", "Eto zajavka 9");
+		while(!exit){
+			int numMenu = Integer.parseInt(this.input.ask(this.menu));
+			
+			switch(numMenu){
+				case 1: addTask();
+						break;
+				case 2: updateTask();
+						break;
+				case 3: deleteTask();
+						break;
+				case 4: printAllTask();
+						break;
+				case 5: printByFilter();
+						break;
+				case 6: addComment();
+						break;
+				case 7: printComment();
+						break;
+				case 8: exit = true;
+						break;		
+				default:
+					System.out.println("\nError, wrong num...");			
+			}
+		}
+	}	
 		
-		//add 
-		myTrack.addItem(task1);
-		myTrack.addItem(task2);
-		myTrack.addItem(task3);
-		myTrack.addItem(task4);
-		myTrack.addItem(task5);
-		//update itemem
-		task7.setId(task1.getId());
-		myTrack.updateItem(task7);
+	public void addTask(){
+		String name = input.ask("\nPlease enter the task name:>\t");
+		String descr = input.ask("\nPlease enter decription task:>\t");
+		if(name != null && !name.equals("")){
+			this.myTrack.addItem(new Task(name,descr));
+			System.out.println("add task");
+		}
+	}	
+	
+	public void updateTask(){
+		String name = input.ask("\nPlease enter the task name:>\t");
+		String descr = input.ask("\nPlease enter decription task:>\t");
+		String idSearch = input.ask("\nPlease enter id task for update:>\t");
+		 
+		if(name != null && !name.equals("")){
+			Task task = new Task(name,descr);
+			task.setId(idSearch);
+			this.myTrack.updateItem(task);
+			System.out.println("update task");
+		}
+	}		
 		
-		//delete item
-		myTrack.deleteItem(task2);
-		myTrack.deleteItem(task5);
+	public void deleteTask(){
+		
+		String idSearch = input.ask("\nPlease enter id task for delete:>\t");
+		if(idSearch != null && !idSearch.equals("")){
+			this.myTrack.deleteItem(myTrack.findById(idSearch));
+			System.out.println("delete task");
+		}
+	}	
+
+	public void printAllTask(){
 		System.out.println("Print all task");
 		//print all task	
-		for(Task item : myTrack.getAll()){
-			System.out.println(item.getName());
+		for(Task item : this.myTrack.getAll()){
+			System.out.println("name = "+item.getName()+" id = "+item.getId());
 		}
-		System.out.println("Print task with filter");
+	}
+
+	public void printByFilter(){
+		
+		String filter = input.ask("Please enter filter for print task:>\t");
 		//print  task with filter	
-		for(Task item : myTrack.findByFilter("4")){
-			System.out.println(item.getName());
+		for(Task item : this.myTrack.findByFilter(filter)){
+			System.out.println("name = "+item.getName()+" id = "+item.getId());
 		}
+	}
+					
+	public void addComment(){
+		String idSearch = input.ask("\nPlease enter id task for add comment:>\t");
+		String comment  = input.ask("\nPlease enter comment:>\t");
+		if(idSearch != null && !idSearch.equals("")){
+			this.myTrack.addCommentary(this.myTrack.findById(idSearch),comment);
+			System.out.println("add comment in task");
+		}
+	}
+
+	public void printComment(){
+		String idSearch = input.ask("\nPlease enter id task for print comment:>\t");
+		if(idSearch != null && !idSearch.equals("")){
+		   System.out.println("comment =  "+this.myTrack.getCommentary(this.myTrack.findById(idSearch)));
+		}
+	}
 		
-		
-		//add commentary
-		myTrack.addCommentary(task1,"first commi");
-		myTrack.addCommentary(task1,"second commi");
-		myTrack.addCommentary(task1,"third commi");
-		myTrack.addCommentary(task1,"four commi");
-		myTrack.addCommentary(task1,"five commi");
-		myTrack.addCommentary(task1,"six commi");
-		myTrack.addCommentary(task1,"seven commi");
-		
-		System.out.println("Print commetary");
-		//print commentary
-		System.out.println(myTrack.getCommentary(task1));
-		
-		
-		
+	
+	public static void main(String[] args){
+	
+		StartUI start = new StartUI(new ConsoleInput());
+		start.init();
 	}
 	
 	
