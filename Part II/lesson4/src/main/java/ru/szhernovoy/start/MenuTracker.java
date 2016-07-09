@@ -144,7 +144,7 @@ class MenuTracker {
 		public void execute(Input input, Tracker tracker){
 			String id = input.ask("Please enter id task for print comment: ");
 			if(id != null && !id.equals("")){
-			   System.out.println(String.format("task %s. comment %s",tracker.findById(id), tracker.getCommentary(tracker.findById(id))));
+			   System.out.println(String.format("task %s. comment %s",tracker.findById(id).getId(), tracker.getCommentary(tracker.findById(id))));
 			}
 		}
 		
