@@ -1,0 +1,48 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.java_edu</groupId>
+	<artifactId>tracker</artifactId>
+	<version>1.0.0</version>
+	<name>tracker</name>
+	<packaging>jar</packaging>
+	
+	<dependencies>
+		<dependency>
+    			<groupId>junit</groupId>
+    			<artifactId>junit</artifactId>
+    			<version>4.12</version>
+		</dependency>
+		<dependency>
+    			<groupId>org.hamcrest</groupId>
+    			<artifactId>hamcrest-all</artifactId>
+    			<version>1.3</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>ru.szhernovoy.start.StartUI</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+	
+</project>
