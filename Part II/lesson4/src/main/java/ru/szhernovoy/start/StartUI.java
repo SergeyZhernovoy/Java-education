@@ -15,8 +15,7 @@ public class StartUI{
 		this.input = input;
 	}
 	
-	public void init(){
-		Tracker myTrack = new Tracker();
+	public void init(Tracker myTrack){
 		MenuTracker menu = new MenuTracker(input,myTrack);
 		menu.fillActions();
 		do{
@@ -31,6 +30,6 @@ public class StartUI{
 		
 	public static void main(String[] args){
 	
-		new StartUI(new ConsoleInput()).init();
+		new StartUI(new ConsoleInput()).init(new Tracker());
 	}
 }
