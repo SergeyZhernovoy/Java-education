@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>Lessons</artifactId>
+    <groupId>JavaEducationFromAtoZ</groupId>
+    <version>1.0.0</version>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ru.java_edu</groupId>
-  <artifactId>tracker</artifactId>
-  <name>tracker</name>
+  <groupId>lesson4</groupId>
+  <artifactId>innerclass</artifactId>
+  <name>IinnerclassTracker</name>
   <version>1.0.0</version>
   <build>
     <plugins>
