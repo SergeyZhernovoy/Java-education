@@ -6,9 +6,9 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>lesson5</groupId>
-  <artifactId>Exception</artifactId>
-  <name>ExceptionTracker</name>
+  <groupId>lesson6</groupId>
+  <artifactId>AbstractClass</artifactId>
+  <name>AbstractClassInTracker</name>
   <version>1.0.0</version>
   <build>
     <plugins>

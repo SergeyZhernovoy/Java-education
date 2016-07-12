@@ -5,6 +5,7 @@
 
 package ru.szhernovoy.start;
 import ru.szhernovoy.models.*;
+import ru.szhernovoy.templates.*;
 
 
 class MenuTracker {
@@ -29,13 +30,13 @@ class MenuTracker {
 	}
 	
 	public void fillActions(){
-		this.actions[0] = this.new AddTask();
-		this.actions[1] = new MenuTracker.ShowTask();
-		this.actions[2] = new EditTask();
-		this.actions[3] = this.new DeleteTask();
-		this.actions[4] = this.new PrintByFilter();
-		this.actions[5] = this.new AddComment();
-		this.actions[6] = this.new PrintCommentary();
+		this.actions[0] = this.new AddTask("Add the new task.");
+		this.actions[1] = new MenuTracker.ShowTask("Show all task.");
+		this.actions[2] = new EditTask("Edit the task.");
+		this.actions[3] = this.new DeleteTask("Delete the task.");
+		this.actions[4] = this.new PrintByFilter("Print a task by filter.");
+		this.actions[5] = this.new AddComment("Add the new commentary.");
+		this.actions[6] = this.new PrintCommentary("Print the commentary of task.");
 	}
 	
 	public void select(int key){
@@ -50,8 +51,12 @@ class MenuTracker {
 		}
 	}
 	
-	private class AddTask implements UserAction {
+	private class AddTask extends BaseAction {
 		
+		public AddTask(String action){
+			super(action);
+		}
+				
 		public int key(){
 			return 0;
 		}
@@ -63,15 +68,14 @@ class MenuTracker {
 			   tracker.addItem(new Task(name,descr));
 			}
 		}
-		
-		public String info(){
-			return String.format("%s.) %s", this.key(),"Add the new task.");
-		}
-		
 	}
 	
-	private static class ShowTask implements UserAction {
+	private static class ShowTask extends BaseAction {
 		
+		public ShowTask(String action){
+			super(action);
+		}
+				
 		public int key(){
 			return 1;
 		}
@@ -82,13 +86,13 @@ class MenuTracker {
 			}
 		}
 		
-		public String info(){
-			return String.format("%s.) %s", this.key(),"Show all task.");
-		}
-		
 	}
 		
-	private class DeleteTask implements UserAction {
+	private class DeleteTask extends BaseAction {
+		
+		public DeleteTask(String action){
+			super(action);
+		}
 		
 		public int key(){
 			return 3;
@@ -101,13 +105,13 @@ class MenuTracker {
 				tracker.deleteItem(tracker.findById(id));
 			}
 		}
-		
-		public String info(){
-			return String.format("%s.) %s", this.key(),"Delete the task.");
-		}
 	}
 	
-	private class PrintByFilter implements UserAction {
+	private class PrintByFilter extends BaseAction {
+		
+		public PrintByFilter(String action){
+			super(action);
+		}
 		
 		public int key(){
 			return 4;
@@ -120,14 +124,14 @@ class MenuTracker {
 				System.out.println(String.format("id %s. %s", task.getId(), task.getName()));
 			}
 		}
-		
-		public String info(){
-			return String.format("%s.) %s", this.key(),"Print a task by filter.");
-		}
 	}
 	
-	private class AddComment implements UserAction {
+	private class AddComment extends BaseAction {
 		
+		public AddComment(String action){
+			super(action);
+		}
+				
 		public int key(){
 			return 5;
 		}
@@ -139,14 +143,14 @@ class MenuTracker {
 				tracker.addCommentary(tracker.findById(id),comment);
 			}
 		}
-		
-		public String info(){
-			return String.format("%s.) %s", this.key(),"Add the new commentary.");
-		}
 	}
 	
-	private class PrintCommentary implements UserAction {
+	private class PrintCommentary extends BaseAction {
 		
+		public PrintCommentary(String action){
+			super(action);
+		}
+				
 		public int key(){
 			return 6;
 		}
@@ -156,10 +160,6 @@ class MenuTracker {
 			if(id != null && !id.equals("")){
 			   System.out.println(String.format("task %s. comment %s",tracker.findById(id).getId(), tracker.getCommentary(tracker.findById(id))));
 			}
-		}
-		
-		public String info(){
-			return String.format("%s.) %s", this.key(),"Print the commentary of task.");
 		}
 	}
 	

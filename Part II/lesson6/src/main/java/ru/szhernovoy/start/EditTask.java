@@ -1,12 +1,18 @@
 /**
 *@author Sergey Zhernovoy
-*@since 09/07/2016
+*@since 12/07/2016
 */
 
 package ru.szhernovoy.start;
 import ru.szhernovoy.models.*;
+import ru.szhernovoy.templates.*;
 
-class EditTask implements UserAction{
+class EditTask extends BaseAction{
+	
+	public EditTask(String action){
+		super(action);
+	}
+	
 	
 	public int key(){
 		return 2;
@@ -23,9 +29,4 @@ class EditTask implements UserAction{
 			tracker.updateItem(task);
 		}
 	}
-	
-	public String info(){
-		return String.format("%s.) %s", this.key(),"Edit the task.");
-	}
-	
 }
