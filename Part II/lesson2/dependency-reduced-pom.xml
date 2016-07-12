@@ -6,9 +6,9 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>lesson5</groupId>
-  <artifactId>Exception</artifactId>
-  <name>ExceptiontrTracker</name>
+  <groupId>lesson2</groupId>
+  <artifactId>Incapsulation</artifactId>
+  <name>IncapsulationTracker</name>
   <version>1.0.0</version>
   <build>
     <plugins>
@@ -24,7 +24,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>ru.szhernovoy.start.StartUI</mainClass>
+                  <mainClass>ru.java_edu.start.StartUI</mainClass>
                 </transformer>
               </transformers>
             </configuration>

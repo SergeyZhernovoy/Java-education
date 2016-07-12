@@ -6,9 +6,9 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>lesson5</groupId>
-  <artifactId>Exception</artifactId>
-  <name>ExceptiontrTracker</name>
+  <groupId>lesson3</groupId>
+  <artifactId>Polimorphizm</artifactId>
+  <name>PolimorphizmTracker</name>
   <version>1.0.0</version>
   <build>
     <plugins>
