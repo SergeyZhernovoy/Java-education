@@ -1,6 +1,6 @@
 /**
 *@author Sergey Zernovoy
-/*@since 05/07/2016
+/*@since 12/07/2016
 *
 */
 
@@ -14,6 +14,26 @@ public class ConsoleInput implements Input {
 	public String ask(String question){
 		System.out.print(question);
 		return scanner.nextLine();
+	}
+	
+	public int ask(String question, int[] range){
+		
+		int key = Integer.valueOf(this.ask(question));
+		boolean exist = false;
+		
+		for(int value : range){
+			if(value == key){
+				exist = true;
+				break;
+			}
+		}
+		if(exist){
+		   return key;
+		}
+		else{
+			throw new MenuOfException("out of menu range");
+		}
+		
 	}
 
 }

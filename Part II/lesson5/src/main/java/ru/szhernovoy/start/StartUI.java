@@ -19,10 +19,10 @@ public class StartUI{
 		Tracker myTrack = new Tracker();
 		MenuTracker menu = new MenuTracker(input,myTrack);
 		menu.fillActions();
+		int[] range = menu.getRangeKeys();
 		do{
 		   menu.show();	
-		   int key = Integer.valueOf(input.ask("select: "));
-		   menu.select(key);
+		   menu.select(input.ask("select: ",range));
 			
 		}
 		while(!"y".equals(this.input.ask("Exit? (y)")));
@@ -31,6 +31,6 @@ public class StartUI{
 		
 	public static void main(String[] args){
 	
-		new StartUI(new ConsoleInput()).init();
+		new StartUI(new ValidateInput()).init();
 	}
 }

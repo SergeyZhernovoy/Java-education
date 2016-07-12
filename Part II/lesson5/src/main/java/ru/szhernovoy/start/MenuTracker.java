@@ -18,6 +18,16 @@ class MenuTracker {
 		this.input = input;
 	}
 	
+	public int[] getRangeKeys(){
+		int[] range = new int[actions.length];
+		int position = 0;
+		for(UserAction action : actions){
+			range[position++] = action.key();
+		}
+		
+		return range;
+	}
+	
 	public void fillActions(){
 		this.actions[0] = this.new AddTask();
 		this.actions[1] = new MenuTracker.ShowTask();

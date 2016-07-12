@@ -3,7 +3,7 @@
 	<groupId>lesson5</groupId>
 	<artifactId>Exception</artifactId>
 	<version>1.0.0</version>
-	<name>ExceptiontrTracker</name>
+	<name>ExceptionTracker</name>
 	<packaging>jar</packaging>
 	
 	<parent>
