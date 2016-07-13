@@ -1,0 +1,15 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>PartI</groupId>
+	<artifactId>java-from-a-to-z</artifactId>
+	<version>1.0.0.0</version>
+	<packaging>jar</packaging>
+	
+	<parent>
+		<groupId>JavaEducation</groupId>
+		<artifactId>Parts</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	
+	
+</project>

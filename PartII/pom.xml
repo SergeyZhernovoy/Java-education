@@ -1,0 +1,30 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>PartII</groupId>
+	<artifactId>Lessons</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	
+	<parent>
+		<groupId>JavaEducation</groupId>
+		<artifactId>Parts</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	
+	
+	<modules>
+		<module>lesson2</module>
+		<module>lesson3</module>
+		<module>lesson4</module>
+		<module>lesson5</module>
+		<module>lesson6</module>
+	</modules>
+	
+	<properties>
+	 <maven.compiler.source>1.7</maven.compiler.source>
+	 <maven.compiler.target>1.7</maven.compiler.target>
+	</properties>
+	
+	
+
+</project>

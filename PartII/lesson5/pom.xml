@@ -1,17 +1,25 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>lesson4</groupId>
-	<artifactId>innerclass</artifactId>
+	<groupId>lesson5</groupId>
+	<artifactId>Exception</artifactId>
 	<version>1.0.0</version>
-	<name>IinnerclassTracker</name>
+	<name>ExceptionTracker</name>
 	<packaging>jar</packaging>
 	
-	
 	<parent>
-		<groupId>JavaEducationFromAtoZ</groupId>
+		<groupId>PartII</groupId>
 		<artifactId>Lessons</artifactId>
 		<version>1.0.0</version>
 	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>lesson4</groupId>
+			<artifactId>innerclass</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+	
 	
 	<build>
     <plugins>
@@ -28,7 +36,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ru.szhernovoy.start.StartUITest</mainClass>
+                  <mainClass>ru.szhernovoy.start.StartUI</mainClass>
                 </transformer>
               </transformers>
             </configuration>

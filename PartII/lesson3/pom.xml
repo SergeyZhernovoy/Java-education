@@ -1,25 +1,17 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>lesson5</groupId>
-	<artifactId>Exception</artifactId>
+	<groupId>lesson3</groupId>
+	<artifactId>Polimorphizm</artifactId>
 	<version>1.0.0</version>
-	<name>ExceptionTracker</name>
+	<name>PolimorphizmTracker</name>
 	<packaging>jar</packaging>
 	
+	
 	<parent>
-		<groupId>JavaEducationFromAtoZ</groupId>
+		<groupId>PartII</groupId>
 		<artifactId>Lessons</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	
-	<dependencies>
-		<dependency>
-			<groupId>lesson4</groupId>
-			<artifactId>innerclass</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-	</dependencies>
-	
 	
 	<build>
     <plugins>
