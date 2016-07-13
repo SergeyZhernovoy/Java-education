@@ -17,8 +17,14 @@ public class Pawn extends Figure{
 		return "P";
 	}
 	
-	public void move(){
+	public boolean chekMove(Point A, Point B){
+		boolean chek = false;
 		
+		if(A.getY() == B.getY() && ((B.getX() - A.getX()) == 1){
+			chek = true;
+		}
+				
+		return chek;
 	}
 	
 } 

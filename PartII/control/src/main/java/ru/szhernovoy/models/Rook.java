@@ -16,7 +16,16 @@ public class Rook extends Figure{
 		return "R";
 	}
 	
-	public void move(){
+	public boolean chekMove(Point A, Point B){
+		
+		boolean chek = false;
+		
+		if((A.getY() == B.getY() && B.getX() != A.getX()) || (A.getY() != B.getY() && B.getX() == A.getX()) ){
+			chek = true;
+		}
+				
+		return chek;
+		
 		
 	}
 	

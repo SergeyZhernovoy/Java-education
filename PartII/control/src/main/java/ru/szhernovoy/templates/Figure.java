@@ -20,10 +20,10 @@ public abstract class Figure implements ChessAction{
 	private String colorName(){
 		String result;
 		if(color == Color.Black){
-			result = "B";
+			result = "b";
 		}
 		else {
-			result = "W";
+			result = "w";
 		}
 		return result; 
 	}
