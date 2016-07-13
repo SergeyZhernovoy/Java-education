@@ -1,0 +1,42 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>control</groupId>
+	<artifactId>Chess</artifactId>
+	<version>1.0.0</version>
+	<name>ChessGame</name>
+	<packaging>jar</packaging>
+	
+	<parent>
+		<groupId>PartII</groupId>
+		<artifactId>Lessons</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>ru.szhernovoy.start.ChessGame</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+	
+	
+	
+</project>
