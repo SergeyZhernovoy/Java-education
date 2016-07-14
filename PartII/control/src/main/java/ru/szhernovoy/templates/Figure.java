@@ -5,7 +5,7 @@
 */
 
 package ru.szhernovoy.templates;
-import ru.szhernovoy.model.*;
+import ru.szhernovoy.models.*;
 
 public abstract class Figure implements ChessAction{
 	

@@ -4,7 +4,7 @@
 * this class figure of chess 
 * Movement max path - 1 pos
 */
-package ru.szhernovoy.model;
+package ru.szhernovoy.models;
 import ru.szhernovoy.templates.*;
 
 public class King extends Figure{
@@ -25,7 +25,11 @@ public class King extends Figure{
 		if(izmY <= 1 && izmX <= 1){
 			chek = true;
 		}
-				
+			
+		if(!chek){
+			System.out.println("Uncorrect move for this figure");
+		}
+		
 		return chek;
 	}
 	

@@ -4,7 +4,7 @@
 * this class position figure in field
 */
 
-package ru.szhernovoy.model;
+package ru.szhernovoy.models;
 import ru.szhernovoy.templates.*;
 
 public class ChessBox extends Point{
@@ -14,6 +14,10 @@ public class ChessBox extends Point{
 	
 	public  ChessBox(int x, int y){
 	        super(x,y);
+	}
+	
+	public Figure getFigure(){
+		return this.chessFigure;
 	}
 	
 	public void setFigure(Figure figure){

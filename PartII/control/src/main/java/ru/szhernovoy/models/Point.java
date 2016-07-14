@@ -1,4 +1,4 @@
-package ru.szhernovoy.model;
+package ru.szhernovoy.models;
 
 public class Point{
 	

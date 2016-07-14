@@ -4,7 +4,7 @@
 * this class action chess figure 
 */
 
-package ru.szhernovoy.model;
+package ru.szhernovoy.models;
 
 public interface ChessAction{
 	

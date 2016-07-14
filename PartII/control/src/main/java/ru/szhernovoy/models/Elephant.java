@@ -4,7 +4,7 @@
 * this class figure of chess
 *Movement G 
 */
-package ru.szhernovoy.model;
+package ru.szhernovoy.models;
 import ru.szhernovoy.templates.*;
 
 public class Elephant extends Figure{
@@ -20,10 +20,18 @@ public class Elephant extends Figure{
 	public boolean chekMove(Point A, Point B){
 		boolean chek = false;
 		
-		if((A.getY() == B.getY() && B.getX() != A.getX()) || (A.getY() != B.getY() && B.getX() == A.getX()) ){
+		int subX = B.getX() - A.getX() >0?B.getX() - A.getX():A.getX() - B.getX();
+		int subY = B.getY() - A.getY()>0?B.getY() - A.getY():B.getY() - A.getY();
+	
+		//diagonal
+		if(subX == subY){
 			chek = true;
 		}
-				
+		
+		if(!chek){
+			System.out.println("Uncorrect move for this figure");
+		}
+			
 		return chek;
 	}
 	
