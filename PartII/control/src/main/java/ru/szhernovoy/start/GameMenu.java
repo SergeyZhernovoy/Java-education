@@ -86,9 +86,7 @@ public class GameMenu{
 			Point A = new Point(startX,startY);
 			Point B = new Point(finishX,finishY);
 			if(board.getBox(A).getFigure().chekMove(A,B)){
-				System.out.println("1");
 				if(board.chekCourse(A,B)){
-					System.out.println("2");
 					board.setBox(A,B);
 				}
 			}
