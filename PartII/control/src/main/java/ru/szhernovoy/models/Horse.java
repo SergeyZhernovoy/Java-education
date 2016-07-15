@@ -21,8 +21,8 @@ public class Horse extends Figure{
 		boolean chek = false;
 		
 		int subX = B.getX() - A.getX() >0?B.getX() - A.getX():A.getX() - B.getX();
-		int subY = B.getY() - A.getY()>0?B.getY() - A.getY():B.getY() - A.getY();
-	
+		int subY = B.getY() - A.getY()>0?B.getY() - A.getY():A.getY() - B.getY();
+		
 		if((subX== 2 && subY == 1) || (subY == 2 && subX == 1)){
 			chek = true;
 		}

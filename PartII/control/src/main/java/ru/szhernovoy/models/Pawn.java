@@ -30,7 +30,6 @@ public class Pawn extends Figure{
 		if(!chek){
 			System.out.println("Uncorrect move for this figure");
 		}
-				
 		return chek;
 	}
 	

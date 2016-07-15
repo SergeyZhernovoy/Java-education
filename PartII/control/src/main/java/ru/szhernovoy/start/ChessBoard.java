@@ -84,14 +84,17 @@ public class ChessBoard{
 		int subX = finishX - startX >0?finishX - startX:startX - finishX;
 		int subY = finishY - startY>0?finishY - startY:startY - finishY;
 		ChessBox[] result = new ChessBox[1];
-		int delta;
+		int delta,deltaX,deltaY;
 		//diagonal
 		if(subX == subY){
 			result = new ChessBox[subX];
-			delta = (finishX - startX) > 0?1:-1;
+			deltaX = (finishX - startX) > 0?1:-1;
+			deltaY = (finishY - startY) > 0?1:-1;
+			System.out.println(4+" dleta y " + deltaY+" delta x "+ deltaX );
 			for(int index =0 ; index < subX;index++){
-				startX +=delta;
-				startY +=delta;
+				startX +=deltaX;
+				startY +=deltaY;
+				System.out.println(5+" "+startX +" "+startY);
 				result[index] = this.board[startX][startY];	
 			}
 		}

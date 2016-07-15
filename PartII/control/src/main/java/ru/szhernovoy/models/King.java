@@ -19,8 +19,8 @@ public class King extends Figure{
 	
 	public boolean chekMove(Point A, Point B){
 		boolean chek = false;
-		int izmY = A.getY() > B.getY()?A.getY() - B.getY():B.getY() - A.getY() ;
-		int izmX = A.getX() > B.getX()?A.getX() - B.getX():B.getX() - A.getX() ;
+		int izmY = B.getY() > A.getY()?B.getY() - A.getY():A.getY() - B.getY() ;
+		int izmX = B.getX() > A.getX()?B.getX() - A.getX():A.getX() - B.getX() ;
 		
 		if(izmY <= 1 && izmX <= 1){
 			chek = true;

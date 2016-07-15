@@ -25,9 +25,9 @@ public class ChessGame{
 		int[] range = menu.getRangeKeys();
 	
 		do{
-		   board.drawBoard();	
 		   menu.show();	
 		   menu.select(input.ask("select: ",range));
+		   board.drawBoard();
 		}
 		while(!"y".equals(this.input.ask("Exit? (y)")));
 	}	
