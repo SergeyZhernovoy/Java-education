@@ -21,13 +21,13 @@ public class ChessGame{
 		GameMenu menu = new GameMenu(this.input,board);
 		menu.fillActions();
 		board.fillBoard();
-		board.drawBoard();
+		
 		int[] range = menu.getRangeKeys();
 	
 		do{
+		   board.drawBoard();	
 		   menu.show();	
 		   menu.select(input.ask("select: ",range));
-		   board.drawBoard();
 		}
 		while(!"y".equals(this.input.ask("Exit? (y)")));
 	}	

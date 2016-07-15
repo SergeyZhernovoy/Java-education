@@ -12,4 +12,6 @@ public interface UserAction{
 	
 	void execute(Input input, ChessBoard board);
 	
+	String info();
+	
 }

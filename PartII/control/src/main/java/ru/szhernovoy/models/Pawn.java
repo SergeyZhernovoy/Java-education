@@ -22,7 +22,7 @@ public class Pawn extends Figure{
 		
 		int subX = B.getX() - A.getX() >0?B.getX() - A.getX():A.getX() - B.getX();
 		int subY = B.getY() - A.getY()>0?B.getY() - A.getY():B.getY() - A.getY();
-	
+		
 		if(subY == 0 && subX == 1){
 		   chek = true;
 		}

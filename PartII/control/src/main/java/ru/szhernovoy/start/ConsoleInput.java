@@ -38,24 +38,24 @@ public class ConsoleInput implements Input {
 	
 	public String[] ask(String question, String[] rangeAbc, String[] rangeNum){
 		
-		String toChek = this.ask(question);
-		String[] array = new String[toChek.length()];
-		for(int index = 0; index < toChek.length(); index++){
-			array[index] = new String(toChek.CharAt(index));
+		String toCheck = this.ask(question);
+		String[] array = new String[toCheck.length()];
+		for(int index = 0; index < toCheck.length(); index++){
+			array[index] = String.valueOf(toCheck.charAt(index));
 		}
-				
+		
 		boolean exist = false;
 		int right = 0;
 		if(array.length ==2){
 			for(String value : rangeAbc){
-				if(value == array[0]){
+				if(value.equals(array[0])){
 				right++;
 				break;
 				}
 			}
-			
+				
 			for(String value : rangeNum){
-				if(value == array[1]){
+				if(value.equals(array[1])){
 				right++;
 				break;
 				}

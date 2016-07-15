@@ -78,14 +78,14 @@ public class GameMenu{
 			String[] finish = input.ask("Please enter finish position (example a2): ",abc,num);
 			int startX, startY, finishX, finishY;
 			startX = startY = finishX = finishY = 0;
-			startX  = findIndex(start[0], abc);
-			startY  = findIndex(start[1], num);
-			finishX = findIndex(finish[0], abc);
-			finishY = findIndex(finish[1], num);
-					
+			startY  = findIndex(start[0], num);
+			startX  = findIndex(start[1], abc);
+			finishY = findIndex(finish[0], num);
+			finishX = findIndex(finish[1], abc);
+			
 			Point A = new Point(startX,startY);
 			Point B = new Point(finishX,finishY);
-		
+			System.out.println(startX + ""+startY);
 			if(board.getBox(A).getFigure().chekMove(A,B)){
 				if(board.chekCourse(A,B)){
 					board.setBox(A,B);

@@ -83,7 +83,7 @@ public class ChessBoard{
 		
 		int subX = finishX - startX >0?finishX - startX:startX - finishX;
 		int subY = finishY - startY>0?finishY - startY:startY - finishY;
-		ChessBox[] result;
+		ChessBox[] result = new ChessBox[1];
 		int delta;
 		//diagonal
 		if(subX == subY){
@@ -117,7 +117,6 @@ public class ChessBoard{
 		}
 		//horse
 		if((subX== 2 && subY == 1) || (subY == 2 && subX == 1)){
-			result = new ChessBox[1];
 			result[0] = this.board[finishX][finishY];
 		}
 		
@@ -145,6 +144,7 @@ public class ChessBoard{
 				System.out.printf("%s\t",verticalName[indexX]);
 			for(int indexY = 0; indexY < SIZE_BOARD;indexY++){
 				System.out.print(String.format("%s\t",board[indexX][indexY].drawBox()));
+				//System.out.print(indexX +""+indexY+"\t");
 			}
 			System.out.print("\n\n");
 		}
