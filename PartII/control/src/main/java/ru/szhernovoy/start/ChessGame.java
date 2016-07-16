@@ -11,14 +11,15 @@ import ru.szhernovoy.templates.*;
 public class ChessGame{
 	
 	private Input input;
+	private ChessBoard board;
 		  
 	public ChessGame(Input input){
 		this.input = input;
 	}
 	
-	public void init(){
-		ChessBoard board = new ChessBoard();
-		GameMenu menu = new GameMenu(this.input,board);
+	public void init(ChessBoard board){
+		this.board = board;
+		GameMenu menu = new GameMenu(this.input,this.board);
 		menu.fillActions();
 		board.fillBoard();
 		
@@ -34,7 +35,7 @@ public class ChessGame{
 		
 	public static void main(String[] args){
 	
-		new ChessGame(new ValidateInput()).init();
+		new ChessGame(new ValidateInput()).init(new ChessBoard());
 	}
 	
 	

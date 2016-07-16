@@ -126,7 +126,7 @@ public class ChessBoard{
 		return result;		
 	}
 	
-	public boolean chekCourse(Point A, Point B){
+	public boolean cheсkCourse(Point A, Point B){
 		boolean result = true;
 		for(ChessBox box : this.getChessBoxes(A.getX(),A.getY(),B.getX(),B.getY())){
 			if(box.getFigure() != null){

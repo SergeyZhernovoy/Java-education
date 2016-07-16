@@ -17,20 +17,20 @@ public class King extends Figure{
 		return "K";
 	}
 	
-	public boolean chekMove(Point A, Point B){
-		boolean chek = false;
+	public boolean cheсkMove(Point A, Point B){
+		boolean cheсk = false;
 		int izmY = B.getY() > A.getY()?B.getY() - A.getY():A.getY() - B.getY() ;
 		int izmX = B.getX() > A.getX()?B.getX() - A.getX():A.getX() - B.getX() ;
 		
 		if(izmY <= 1 && izmX <= 1){
-			chek = true;
+			cheсk = true;
 		}
 			
-		if(!chek){
+		if(!cheсk){
 			System.out.println("Uncorrect move for this figure");
 		}
 		
-		return chek;
+		return cheсk;
 	}
 	
 } 

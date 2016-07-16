@@ -17,20 +17,20 @@ public class Pawn extends Figure{
 		return "P";
 	}
 	
-	public boolean chekMove(Point A, Point B){
-		boolean chek = false;
+	public boolean cheсkMove(Point A, Point B){
+		boolean cheсk = false;
 		
 		int subX = B.getX() - A.getX() >0?B.getX() - A.getX():A.getX() - B.getX();
 		int subY = B.getY() - A.getY()>0?B.getY() - A.getY():B.getY() - A.getY();
 		
 		if(subY == 0 && subX == 1){
-		   chek = true;
+		   cheсk = true;
 		}
 		
-		if(!chek){
+		if(!cheсk){
 			System.out.println("Uncorrect move for this figure");
 		}
-		return chek;
+		return cheсk;
 	}
 	
 } 

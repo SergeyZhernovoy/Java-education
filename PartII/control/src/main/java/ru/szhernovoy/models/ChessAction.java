@@ -8,6 +8,6 @@ package ru.szhernovoy.models;
 
 public interface ChessAction{
 	
-	boolean chekMove(Point A, Point B);
+	boolean cheсkMove(Point A, Point B);
 	
 }

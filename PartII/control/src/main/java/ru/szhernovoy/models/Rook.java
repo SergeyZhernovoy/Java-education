@@ -16,20 +16,20 @@ public class Rook extends Figure{
 		return "R";
 	}
 	
-	public boolean chekMove(Point A, Point B){
+	public boolean cheсkMove(Point A, Point B){
 		
-		boolean chek = false;
+		boolean cheсk = false;
 		int subX = B.getX() - A.getX() >0?B.getX() - A.getX():A.getX() - B.getX();
 		int subY = B.getY() - A.getY()>0?B.getY() - A.getY():A.getY() - B.getY();
 		
 		if((subX == 0 && subY != 0) || (subX != 0 && subY == 0) ){
-			chek = true;
+			cheсk = true;
 		}
-		if(!chek){
+		if(!cheсk){
 			System.out.println("Uncorrect move for this figure");
 		}
 				
-		return chek;
+		return cheсk;
 		
 		
 	}
