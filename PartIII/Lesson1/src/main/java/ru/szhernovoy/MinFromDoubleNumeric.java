@@ -17,7 +17,7 @@ public class MinFromDoubleNumeric {
         do{
             System.out.print("\nPlease , enter numeric: ");
             try{
-                num[count++] = Double.parseDouble(br.readLine());
+                num[count++] = Math.abs(Double.parseDouble(br.readLine()));
             }
             catch(NumberFormatException iexc){
                 System.out.println("Wrong numeric");
