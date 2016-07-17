@@ -8,10 +8,6 @@ import java.io.InputStreamReader;
  * Created by admin on 17.07.2016.
  */
 public class OddNumeric {
-
-
-
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,8 +31,5 @@ public class OddNumeric {
                 System.out.println("Wrong numeric");
             }
         }while(!enough);
-
-
-
     }
 }
