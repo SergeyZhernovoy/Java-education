@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PartII/lesson6/AbstractClass.iml" filepath="$PROJECT_DIR$/PartII/lesson6/AbstractClass.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartII/control/Chess.iml" filepath="$PROJECT_DIR$/PartII/control/Chess.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartII/lesson5/Exception.iml" filepath="$PROJECT_DIR$/PartII/lesson5/Exception.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartII/lesson2/Incapsulation.iml" filepath="$PROJECT_DIR$/PartII/lesson2/Incapsulation.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartIII/Lesson1/JavaIO.iml" filepath="$PROJECT_DIR$/PartIII/Lesson1/JavaIO.iml" group="LessonsIO and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartIII/Lesson1/Lesson1.iml" filepath="$PROJECT_DIR$/PartIII/Lesson1/Lesson1.iml" group="PartIII and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartII/Lessons.iml" filepath="$PROJECT_DIR$/PartII/Lessons.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartIII/LessonsIO.iml" filepath="$PROJECT_DIR$/PartIII/LessonsIO.iml" group="LessonsIO and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartIII/PartIII.iml" filepath="$PROJECT_DIR$/PartIII/PartIII.iml" group="PartIII and modules" />
+      <module fileurl="file://$PROJECT_DIR$/Parts.iml" filepath="$PROJECT_DIR$/Parts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PartII/lesson3/Polimorphizm.iml" filepath="$PROJECT_DIR$/PartII/lesson3/Polimorphizm.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartII/lesson4/innerclass.iml" filepath="$PROJECT_DIR$/PartII/lesson4/innerclass.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartI/java-from-a-to-z.iml" filepath="$PROJECT_DIR$/PartI/java-from-a-to-z.iml" />
+    </modules>
+  </component>
+</project>

@@ -8,6 +8,7 @@
 	<modules>
 		<module>PartI</module>
 		<module>PartII</module>
+		<module>PartIII</module>
 	</modules>
 	
 	<properties>
