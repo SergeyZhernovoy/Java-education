@@ -42,11 +42,21 @@ public class Polindrom {
 
     public boolean polindromTest(String testString) {
 
-        boolean result = false;
+        boolean result = true;
         char[] array = testString.toLowerCase().toCharArray();
-        if (array[0] == array[4] && array[1] == array[3]) {
-            result = true;
+        int j = 0;
+        for(int i = testString.length() - 1; i >=0; i-- ){
+            if(j < i){
+                if(array[j++] != array[i]){
+                    result = false;
+                    break;
+                }
+            }
+            else {
+                break;
+            }
         }
+
         return result;
     }
 }
