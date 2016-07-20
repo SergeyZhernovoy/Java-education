@@ -18,14 +18,8 @@ public class TestAddTwoNum {
     public void WhenPutInFlowIntThanGetItFromFlow() throws IOException {
         AddTwoNum obj = new AddTwoNum();
         System.setIn(new StringBufferInputStream("1"));
-        try {
-            int result = obj.mainFlow(new InputStreamReader(System.in));
-            int message = 1;
-            Assert.assertThat(result,is(message));
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int result = obj.mainFlow(new InputStreamReader(System.in));
+        int message = 1;
+        Assert.assertThat(result,is(message));
     }
 }
