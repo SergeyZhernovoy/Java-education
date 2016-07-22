@@ -11,12 +11,12 @@ public class ChatConsole {
     private final String CONTINUE = "продолжить";
     private final String EXIT = "закончить";
     private final String FILEPHRASE = "D:\\temp\\Chat.txt";
-    private BufferedReader messageReader;
+    private final IO io;
     private StringBuilder chatMessages;
     private String[] phraseArray;
 
-    public ChatConsole(Reader in){
-        this.messageReader = new BufferedReader(in);
+    public ChatConsole(final IO io){
+        this.io = io;
         this.chatMessages = new StringBuilder();
     }
 
@@ -47,7 +47,7 @@ public class ChatConsole {
             fileReader.close();
         }
        catch (FileNotFoundException e) {
-            System.out.println(String.format("File %s not found or not exist",FILEPHRASE));
+            this.io.println(String.format("File %s not found or not exist",FILEPHRASE));
        }
         catch (IOException e) {
             e.printStackTrace();
@@ -67,24 +67,15 @@ public class ChatConsole {
         return phraseArray[new Random().nextInt(phraseArray.length)];
     }
 
-    private String getInput(){
-
-        String recieveMessage = "Error reading";
-        try{
-            recieveMessage = messageReader.readLine();
-
-        } catch (IOException e) {
-            System.out.println("Error input reading");
-            e.printStackTrace();
-        }
-        return  recieveMessage;
+    private String getInput() {
+        return  io.read();
     }
 
     public void work(){
         String input,phrase;
         boolean getPrhase = true;
-        System.out.println("Welcome to chat...");
-        System.out.print("you :");
+        this.io.println("Welcome to chat...");
+        this.io.print("you :");
         while(!(input = this.getInput()).equalsIgnoreCase(EXIT)){
             this.setString(input);
 
@@ -99,9 +90,9 @@ public class ChatConsole {
             if(getPrhase){
                 phrase =  this.getRandomLine();
                 this.setString(phrase);
-                System.out.println(String.format("answer: %s",phrase));
+                this.io.println(String.format("answer: %s",phrase));
             }
-            System.out.print("you :");
+            this.io.print("you :");
         }
         this.setString(input);
 
@@ -115,7 +106,7 @@ public class ChatConsole {
     }
 
     public static void main(String[] args) {
-        ChatConsole cht = new ChatConsole(new InputStreamReader(System.in));
+        ChatConsole cht = new ChatConsole(new ConsoleIO(new BufferedReader(new InputStreamReader(System.in)),  System.out));
         cht.init();
         cht.work();
     }
