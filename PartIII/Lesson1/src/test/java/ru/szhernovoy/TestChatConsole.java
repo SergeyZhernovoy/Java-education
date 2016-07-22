@@ -19,6 +19,6 @@ public class TestChatConsole {
         ChatConsole cht = new ChatConsole(io);
         cht.init();
         cht.work();
-        Assert.assertThat(0,is(0));
+        Assert.assertThat(io.getOut().split("\n")[0],is("Welcome to chat..."));
     }
 }
