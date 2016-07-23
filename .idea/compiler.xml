@@ -30,6 +30,7 @@
         <module name="java-from-a-to-z" />
         <module name="JavaIO" />
         <module name="Lesson1" />
+        <module name="Lesson2" />
         <module name="Polimorphizm" />
       </profile>
     </annotationProcessing>
@@ -42,6 +43,7 @@
       <module name="java-from-a-to-z" target="1.7" />
       <module name="JavaIO" target="1.7" />
       <module name="Lesson1" target="1.7" />
+      <module name="Lesson2" target="1.7" />
       <module name="Lessons" target="1.7" />
       <module name="LessonsIO" target="1.7" />
       <module name="PartIII" target="1.7" />
