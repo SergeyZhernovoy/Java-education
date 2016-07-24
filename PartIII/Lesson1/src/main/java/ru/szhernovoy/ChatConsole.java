@@ -96,7 +96,12 @@ public class ChatConsole {
         }
         this.setString(input);
 
-        LogWriter lgwr = new LogWriter();
+        LogWriter lgwr = null;
+        try {
+            lgwr = new LogWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         lgwr.init();
         lgwr.writeLog(chatMessages.toString());
     }

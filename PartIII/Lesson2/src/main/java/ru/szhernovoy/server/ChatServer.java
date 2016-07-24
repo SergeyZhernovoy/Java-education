@@ -1,9 +1,9 @@
 package ru.szhernovoy.server;
 
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.Random;
+
 
 /**
  * Created by admin on 22.07.2016.
@@ -13,8 +13,7 @@ public class ChatServer {
     private final String STOP = "стоп";
     private final String CONTINUE = "продолжить";
     private final String EXIT = "закончить";
-    private final String FILEPHRASE = "D:\\temp\\Chat.txt";
-
+    private final String FILEPHRASE = String.format("%s%sChat.txt",System.getProperty("user.home"), File.separator);
     private String[] phraseArray;
 
     //server properties
@@ -22,6 +21,9 @@ public class ChatServer {
     private final int port = 5000;
     private DataInputStream  in;
     private DataOutputStream out;
+
+    public ChatServer() throws IOException {
+    }
 
     public void init()  {
         //initialize answers server
@@ -33,8 +35,7 @@ public class ChatServer {
             in = new DataInputStream(serverSocket.accept().getInputStream());
             out = new DataOutputStream(serverSocket.accept().getOutputStream());
 
-        }
-        catch (IOException exc){
+        }   catch (IOException exc){
             System.out.println("Error create socket");
         }
     }
@@ -65,11 +66,9 @@ public class ChatServer {
             System.arraycopy(this.phraseArray,0,temp,0,position);
             this.phraseArray = temp;
             fileReader.close();
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println(String.format("File %s not found or not exist",FILEPHRASE));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -109,7 +108,7 @@ public class ChatServer {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ChatServer cht = new ChatServer();
         cht.init();
         cht.work();

@@ -14,6 +14,7 @@
       <module fileurl="file://$PROJECT_DIR$/PartIII/PartIII.iml" filepath="$PROJECT_DIR$/PartIII/PartIII.iml" group="PartIII and modules" />
       <module fileurl="file://$PROJECT_DIR$/Parts.iml" filepath="$PROJECT_DIR$/Parts.iml" />
       <module fileurl="file://$PROJECT_DIR$/PartII/lesson3/Polimorphizm.iml" filepath="$PROJECT_DIR$/PartII/lesson3/Polimorphizm.iml" group="Lessons and modules" />
+      <module fileurl="file://$PROJECT_DIR$/PartIII/control/control.iml" filepath="$PROJECT_DIR$/PartIII/control/control.iml" group="PartIII and modules" />
       <module fileurl="file://$PROJECT_DIR$/PartII/lesson4/innerclass.iml" filepath="$PROJECT_DIR$/PartII/lesson4/innerclass.iml" group="Lessons and modules" />
       <module fileurl="file://$PROJECT_DIR$/PartI/java-from-a-to-z.iml" filepath="$PROJECT_DIR$/PartI/java-from-a-to-z.iml" />
     </modules>

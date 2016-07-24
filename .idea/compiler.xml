@@ -24,6 +24,7 @@
         <processorPath useClasspath="true" />
         <module name="AbstractClass" />
         <module name="Chess" />
+        <module name="control" />
         <module name="Exception" />
         <module name="Incapsulation" />
         <module name="innerclass" />
@@ -37,6 +38,7 @@
     <bytecodeTargetLevel>
       <module name="AbstractClass" target="1.7" />
       <module name="Chess" target="1.7" />
+      <module name="control" target="1.7" />
       <module name="Exception" target="1.7" />
       <module name="Incapsulation" target="1.7" />
       <module name="innerclass" target="1.7" />

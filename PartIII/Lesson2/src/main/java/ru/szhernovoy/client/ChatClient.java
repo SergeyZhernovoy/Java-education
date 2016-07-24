@@ -3,11 +3,9 @@ package ru.szhernovoy.client;
 import ru.szhernovoy.*;
 
 import java.io.*;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Random;
+
 
 /**
  * Created by admin on 22.07.2016.
@@ -80,7 +78,12 @@ public class ChatClient {
         }
 
         this.setString(input);
-        LogWriter lgwr = new LogWriter();
+        LogWriter lgwr = null;
+        try {
+            lgwr = new LogWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         lgwr.init();
         lgwr.writeLog(chatMessages.toString());
     }
