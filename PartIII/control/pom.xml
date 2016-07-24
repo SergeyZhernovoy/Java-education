@@ -13,7 +13,13 @@
     <artifactId>FindFilesByMask</artifactId>
     <name>FindFilesByMask</name>
     <version>1.0.0</version>
-
+    <dependencies>
+        <dependency>
+            <groupId>Lesson1</groupId>
+            <artifactId>JavaIO</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

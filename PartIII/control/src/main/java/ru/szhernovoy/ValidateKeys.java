@@ -5,4 +5,17 @@ package ru.szhernovoy;
  */
 public class ValidateKeys {
 
+    //keys
+    private final String DIR     = "-d";
+    private final String NAME    = "-n";
+    private final String MASK_M  = "-m";
+    private final String MASK_F  = "-f";
+    private final String MASK_R  = "-r";
+    private final String LOG     = "-o";
+    //message error
+
+
+    public ValidateKeys(String[] keys) {
+
+    }
 }
