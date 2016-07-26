@@ -1,5 +1,7 @@
 package ru.szhernovoy;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 /**
@@ -7,12 +9,10 @@ import java.io.IOException;
  */
 public class Find {
 
-    //private LogWriter lgwr = new LogWriter();
-    //private IO io;
+    private LogWriter lgwr = new LogWriter();
     private String[] keys;
-
-    private ValidateKeys valid = new ValidateKeys(keys);
-
+    private FilenameFilter filter;
+    private ValidateKeys valid ;
 
     public Find(String...keys) throws IOException {
         this.keys = new String[keys.length];
@@ -20,10 +20,36 @@ public class Find {
         for (String key: keys) {
             this.keys[index++] = key;
         }
+        valid =new ValidateKeys(this.keys);
+    }
+
+    public  void work(){
+        if(this.valid.validate()){
+           this.filter = valid.getAction();
+           StringBuilder builder = new StringBuilder();
+           String result = getFileNames(this.directory,this.filter,builder).toString();
+           lgwr.writeLog(result);
+        }
+    }
+
+    public StringBuilder getFileNames(String directory, FilenameFilter obj,StringBuilder builder){
+
+           File file = new File(directory);
+           for(String name : file.list(obj)){
+               File isDirectory = new File(name);
+               if(isDirectory.exists() && isDirectory.isDirectory()){
+                   this.getFileNames(directory,obj,builder);
+               }
+               else{
+                   builder.append(String.format("\n%s",name));
+               }
+           }
+           return  builder;
     }
 
     public static void main(String[] args) throws IOException {
         Find find = new Find(args);
+        find.work();
     }
 
 }
