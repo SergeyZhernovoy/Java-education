@@ -17,6 +17,7 @@ class ValidateKeys {
     private String filter;
     private String[] keys;
     private String typeKey;
+    private String directoryName;
     //keys
     private final String DIR     = "-d";
     private final String NAME    = "-n";
@@ -38,6 +39,7 @@ class ValidateKeys {
             if(keys[index].equals(DIR)) {
                 count++;
                 this.msg.delete(DIR);
+                this.directoryName = keys[index+1];
             }
 
             if(keys[index].equals(MASK_M)||keys[index].equals(MASK_F)||keys[index].equals(MASK_R)) {
@@ -51,7 +53,7 @@ class ValidateKeys {
             if(keys[index].equals(NAME)) {
                 count++;
                 this.msg.delete(NAME);
-                this.filter = keys[index];
+                this.filter = keys[index+1];
             }
 
             if(keys[index].equals(LOG)) {
@@ -68,16 +70,23 @@ class ValidateKeys {
             this.fillAction();
         }
         else{
-            System.out.println(error);
+            ;
+            System.out.println(new StringBuilder()
+                    .append("\nUse: find [-d <directory>] [-n <filename or mask or regular>] [-m/-f/-r] [-o <log file name>]\n")
+                    .append(error));
         }
         return result;
     }
 
+    public String getDirectory(){
+        return this.directoryName;
+    }
+
     public void fillAction(){
 
-        action[0] = this.new FindByName(filter);
-        action[1] = this.new FindByMask(filter);
-        action[2] = this.new FindByRegex(filter);
+        this.action[0] = this.new FindByName(filter);
+        this.action[1] = this.new FindByMask(filter);
+        this.action[2] = this.new FindByRegex(filter);
     }
 
     public ValidateKeys(String[] keys) {
@@ -86,12 +95,13 @@ class ValidateKeys {
         this.filterKey[2] = MASK_R;
         this.keys = keys;
 
-        msg.add(DIR);
-        msg.add(NAME);
-        msg.add(MASK_M);
-        msg.add(MASK_F);
-        msg.add(MASK_R);
-        msg.add(LOG);
+        this.msg.add(DIR);
+        this.msg.add(NAME);
+        this.msg.add(MASK_M);
+        this.msg.add(MASK_F);
+        this.msg.add(MASK_R);
+        this.msg.add(LOG);
+        this.directoryName = String.format("c:%s",File.separator);
     }
 
     public FilenameFilter getAction(){

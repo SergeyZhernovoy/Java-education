@@ -10,8 +10,8 @@ public class ErrorMsg {
     private int position =0;
 
     public int add(String msg){
-        if(this.position != msg.length()) {
-            this.msg[position++] = msg;
+        if(this.position < this.msg.length) {
+            this.msg[this.position++] = msg;
         }
         return position;
     }
@@ -32,8 +32,7 @@ public class ErrorMsg {
         int index = 0;
         for (; index < this.msg.length; index++){
              if(this.msg[index] != null ){
-                 this.msg[index] = String.format("\n%s %s",this.msg[index],correct[index]);
-                 break;
+                 this.msg[index] = String.format("\n%s\t\t%s",this.msg[index],correct[index]);
              }
         }
         return index;

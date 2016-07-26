@@ -13,6 +13,7 @@ public class Find {
     private String[] keys;
     private FilenameFilter filter;
     private ValidateKeys valid ;
+    private String directory;
 
     public Find(String...keys) throws IOException {
         this.keys = new String[keys.length];
@@ -26,22 +27,25 @@ public class Find {
     public  void work(){
         if(this.valid.validate()){
            this.filter = valid.getAction();
+           this.directory = valid.getDirectory();
            StringBuilder builder = new StringBuilder();
            String result = getFileNames(this.directory,this.filter,builder).toString();
+           lgwr.init();
            lgwr.writeLog(result);
+           System.out.println("It's fine !!!");
         }
     }
 
     public StringBuilder getFileNames(String directory, FilenameFilter obj,StringBuilder builder){
 
            File file = new File(directory);
-           for(String name : file.list(obj)){
-               File isDirectory = new File(name);
-               if(isDirectory.exists() && isDirectory.isDirectory()){
+           for(File name : file.listFiles(obj)){
+               //File itCatalog = new File(name);
+               if(name.exists() && name.isDirectory()){
                    this.getFileNames(directory,obj,builder);
                }
                else{
-                   builder.append(String.format("\n%s",name));
+                   builder.append(String.format("\n%s", name.getName()));
                }
            }
            return  builder;
