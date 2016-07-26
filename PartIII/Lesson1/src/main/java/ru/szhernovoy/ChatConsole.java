@@ -10,7 +10,7 @@ public class ChatConsole {
     private final String STOP = "стоп";
     private final String CONTINUE = "продолжить";
     private final String EXIT = "закончить";
-    private final String FILEPHRASE = "D:\\temp\\Chat.txt";
+    private final String FILEPHRASE = String.format("%s%sChat.txt",System.getProperty("user.home"), File.separator);
     private final IO io;
     private StringBuilder chatMessages;
     private String[] phraseArray;
