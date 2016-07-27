@@ -39,18 +39,18 @@ public class Find {
     public StringBuilder getFileNames(String directory, FilenameFilter obj,StringBuilder builder){
 
            File file = new File(directory);
-
+           if(file.canRead() && !file.isHidden()){
            for(File nameFile : file.listFiles(obj)){
                builder.append(String.format("\npath:%s\tname:%s",directory, nameFile.getName()));
            }
 
            for(File nameDirectory : file.listFiles()){
                //File itCatalog = new File(name);
-               if(nameDirectory.exists() && nameDirectory.isDirectory()){
+               if(nameDirectory.exists() && nameDirectory.isDirectory() && nameDirectory.canRead()){
                    this.getFileNames(nameDirectory.getAbsolutePath(),obj,builder);
                }
               }
-
+           }
            return  builder;
     }
 
