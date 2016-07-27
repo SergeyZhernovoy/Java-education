@@ -32,22 +32,25 @@ public class Find {
            String result = getFileNames(this.directory,this.filter,builder).toString();
            lgwr.init();
            lgwr.writeLog(result);
-           System.out.println("It's fine !!!");
+           System.out.println("It's find OK!!! Let's see log file");
         }
     }
 
     public StringBuilder getFileNames(String directory, FilenameFilter obj,StringBuilder builder){
 
            File file = new File(directory);
-           for(File name : file.listFiles(obj)){
-               //File itCatalog = new File(name);
-               if(name.exists() && name.isDirectory()){
-                   this.getFileNames(directory,obj,builder);
-               }
-               else{
-                   builder.append(String.format("\n%s", name.getName()));
-               }
+
+           for(File nameFile : file.listFiles(obj)){
+               builder.append(String.format("\npath:%s\tname:%s",directory, nameFile.getName()));
            }
+
+           for(File nameDirectory : file.listFiles()){
+               //File itCatalog = new File(name);
+               if(nameDirectory.exists() && nameDirectory.isDirectory()){
+                   this.getFileNames(nameDirectory.getAbsolutePath(),obj,builder);
+               }
+              }
+
            return  builder;
     }
 
