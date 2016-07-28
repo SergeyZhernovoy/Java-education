@@ -32,7 +32,7 @@ public class ChatClient {
     public void init(){
         try {
             InetAddress inetAddres = InetAddress.getByName(addressServer);
-            out = new PrintWriter (new Socket(inetAddres,port).getOutputStream());
+            out = new PrintWriter (new Socket(inetAddres,port).getOutputStream(),true);
             in = new BufferedReader( new InputStreamReader(new Socket(inetAddres,port).getInputStream()));
             System.out.println("Connect to server succesfully...");
 

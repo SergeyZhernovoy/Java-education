@@ -2,6 +2,7 @@ package ru.szhernovoy.server;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Random;
 
 
@@ -19,25 +20,27 @@ public class ChatServer {
     //server properties
     private ServerSocket serverSocket;
     private final int port = 5000;
-    private DataInputStream  in;
+    private BufferedReader  in;
     private PrintWriter out;
 
     public ChatServer() throws IOException {
     }
 
-    public void init()  {
+    public boolean init()  {
         //initialize answers server
         this.initializeAnswers();
-
+        boolean success = true;
         //init socket
         try (ServerSocket serverSocket = this.serverSocket = new ServerSocket(port)) {
             System.out.println("Wait connect to server...");
-            in = new DataInputStream(serverSocket.accept().getInputStream());
-            out = new DataOutputStream(serverSocket.accept().getOutputStream());
+            in = new BufferedReader( new InputStreamReader(serverSocket.accept().getInputStream()));
+            out =  new PrintWriter (serverSocket.accept().getOutputStream(),true);
 
         }   catch (IOException exc){
+            success = false;
             System.out.println("Error create socket");
         }
+        return success;
     }
 
     private void initializeAnswers(){
@@ -89,7 +92,7 @@ public class ChatServer {
         String input,phrase;
         boolean getPrhase = true;
         try {
-            while(!(input = this.in.readUTF()).equalsIgnoreCase(EXIT)){
+            while(!(input = this.in.readLine()).equalsIgnoreCase(EXIT)){
                 System.out.println(String.format("We recieve message - %s",input));
                 if(input.equalsIgnoreCase(STOP)){
                     getPrhase = false;
@@ -99,7 +102,7 @@ public class ChatServer {
                 }
                 if(getPrhase){
                     phrase =  this.getRandomLine();
-                    out.writeUTF(phrase);
+                    out.println(phrase);
                 }
           }
           out.flush();
@@ -110,7 +113,9 @@ public class ChatServer {
 
     public static void main(String[] args) throws IOException {
         ChatServer cht = new ChatServer();
-        cht.init();
-        cht.work();
+        if(cht.init()){
+           cht.work();
+        }
+
     }
 }
