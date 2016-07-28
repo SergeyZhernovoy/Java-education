@@ -20,7 +20,7 @@ public class ChatServer {
     private ServerSocket serverSocket;
     private final int port = 5000;
     private DataInputStream  in;
-    private DataOutputStream out;
+    private PrintWriter out;
 
     public ChatServer() throws IOException {
     }

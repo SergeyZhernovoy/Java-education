@@ -20,8 +20,8 @@ public class ChatClient {
     //properties server
     private final int port = 5000;
     private final String addressServer = "127.0.0.1";
-    private DataOutputStream out;
-    private DataInputStream in;
+    private PrintWriter  out;
+    private BufferedReader  in;
 
     public ChatClient(final IO io){
         this.io = io;
@@ -32,8 +32,8 @@ public class ChatClient {
     public void init(){
         try {
             InetAddress inetAddres = InetAddress.getByName(addressServer);
-            out = new DataOutputStream(new Socket(inetAddres,port).getOutputStream());
-            in = new DataInputStream(new Socket(inetAddres,port).getInputStream());
+            out = new PrintWriter (new Socket(inetAddres,port).getOutputStream());
+            in = new BufferedReader( new InputStreamReader(new Socket(inetAddres,port).getInputStream()));
             System.out.println("Connect to server succesfully...");
 
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class ChatClient {
         while(!(input = this.getInput()).equalsIgnoreCase(EXIT)){
             try {
                 this.setString(input);
-                out.writeUTF(input);
+                out.println(input);
 
                 if (input.equalsIgnoreCase(STOP)) {
                     getPrhase = false;
@@ -67,7 +67,7 @@ public class ChatClient {
 
                 if (getPrhase) {
 
-                    phrase = in.readUTF();
+                    phrase = in.readLine();
                     this.setString(phrase);
                     this.io.println(String.format("answer: %s", phrase));
                 }
