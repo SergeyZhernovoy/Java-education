@@ -12,7 +12,6 @@ class ValidateKeys {
 
     private ErrorMsg msg =new ErrorMsg();
     private SearchMethod method;
-    private boolean valid;
 
     //parametrs from keys
     private String filter;
@@ -90,7 +89,6 @@ class ValidateKeys {
 
     public ValidateKeys(String[] keys) {
         this.keys = keys;
-        this.valid = false;
         //all error add
         this.msg.add(DIR);
         this.msg.add(NAME);
