@@ -16,11 +16,7 @@ public class Find {
     private String directory;
 
     public Find(String...keys) throws IOException {
-        this.keys = new String[keys.length];
-        int index = 0;
-        for (String key: keys) {
-            this.keys[index++] = key;
-        }
+        this.keys = keys;
         valid =new ValidateKeys(this.keys);
     }
 
