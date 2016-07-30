@@ -27,24 +27,38 @@ class ValidateKeys {
     private final String MASK_R  = "-r";
     private final String LOG     = "-o";
 
+    public ValidateKeys(String[] keys) {
+        this.keys = keys;
+        //all error add
+        this.msg.add(DIR);
+        this.msg.add(NAME);
+        this.msg.add(MASK_M);
+        this.msg.add(MASK_F);
+        this.msg.add(MASK_R);
+        this.msg.add(LOG);
+    }
+
+
     public  boolean validate(){
 
         boolean result =  true;
-        int count = 0;
-
         String[] messageErrorFull = new String[]
-                {"not found directory key","not found name file","not found mask (fullname / regular) key",
-                 "not found mask (fullname / regular) key","not found mask (fullname / regular) key", "not found log file key"};
+                {
+                 "not found directory key",
+                 "not found name file",
+                 "not found mask (fullname / regular) key",
+                 "not found mask (fullname / regular) key",
+                 "not found mask (fullname / regular) key",
+                 "not found log file key"
+                };
 
         for(int index = 0;index < keys.length;index++){
             if(keys[index].equals(DIR)) {
-                count++;
                 this.msg.delete(DIR);
                 this.directoryName = keys[index+1];
             }
 
             if(keys[index].equals(MASK_M)||keys[index].equals(MASK_F)||keys[index].equals(MASK_R)) {
-                count++;
                 this.msg.delete(MASK_M);
                 this.msg.delete(MASK_F);
                 this.msg.delete(MASK_R);
@@ -52,13 +66,11 @@ class ValidateKeys {
             }
 
             if(keys[index].equals(NAME)) {
-                count++;
                 this.msg.delete(NAME);
                 this.filter = keys[index+1];
             }
 
             if(keys[index].equals(LOG)) {
-                count++;
                 this.msg.delete(LOG);
             }
         }
@@ -87,14 +99,4 @@ class ValidateKeys {
          return method.getAction(this.typeKey);
     }
 
-    public ValidateKeys(String[] keys) {
-        this.keys = keys;
-        //all error add
-        this.msg.add(DIR);
-        this.msg.add(NAME);
-        this.msg.add(MASK_M);
-        this.msg.add(MASK_F);
-        this.msg.add(MASK_R);
-        this.msg.add(LOG);
-    }
 }
