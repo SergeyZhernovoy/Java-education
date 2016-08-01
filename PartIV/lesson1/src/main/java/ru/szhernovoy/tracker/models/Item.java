@@ -8,13 +8,17 @@ package ru.szhernovoy.tracker.models;
 
 class Item {
 
+	/** The value storage uniquie identifier item. */
 	private String id;
+	/** This is name item.*/
 	private String name;
+	/** The value identify full purpose item.*/
 	private String description;
+	/** This value save date time create item.*/
 	private long create;
 
 	/**
-	 * Setting initial parameters while create
+	 * Setting initial parameters while create.
 	 * @param name
 	 * @param descr
 	 * @param create
@@ -26,7 +30,7 @@ class Item {
 	}
 
 	/**
-	 * Setting field name
+	 * Setting field name.
 	 * @param name
      */
 	public void setName(String name){

@@ -5,7 +5,6 @@
 */
 
 package ru.szhernovoy.tracker.start;
-import ru.szhernovoy.tracker.models.*;
 import ru.szhernovoy.tracker.templates.*;
 
 public class StartUI{
