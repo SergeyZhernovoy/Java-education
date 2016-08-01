@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>PartIV</groupId>
-    <artifactId>OOD</artifactId>
+    <artifactId>SOLID</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>

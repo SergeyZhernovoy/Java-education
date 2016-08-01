@@ -3,7 +3,7 @@
 *@since 09/07/2016
 */
 
-package ru.szhernovoy.start;
+package ru.szhernovoy.tracker.start;
 
 public interface UserAction{
 

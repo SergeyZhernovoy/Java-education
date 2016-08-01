@@ -4,7 +4,7 @@
 *
 */
 
-package ru.szhernovoy.start;
+package ru.szhernovoy.tracker.start;
 
 public interface Input {
 	

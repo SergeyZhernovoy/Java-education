@@ -4,8 +4,8 @@
 *This abstract class determined any action by class 
 */
 
-package ru.szhernovoy.templates;
-import ru.szhernovoy.start.*;
+package ru.szhernovoy.tracker.templates;
+import ru.szhernovoy.tracker.start.*;
 
 
 public abstract class BaseAction implements UserAction{

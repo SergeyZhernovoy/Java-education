@@ -1,4 +1,4 @@
-package ru.szhernovoy.start;
+package ru.szhernovoy.tracker.start;
 
 public class MenuOfException extends RuntimeException {
 	

@@ -4,9 +4,9 @@
 *это класс выполнения трекера 
 */
 
-package ru.szhernovoy.start;
-import ru.szhernovoy.models.*;
-import ru.szhernovoy.templates.*;
+package ru.szhernovoy.tracker.start;
+import ru.szhernovoy.tracker.models.*;
+import ru.szhernovoy.tracker.templates.*;
 
 public class StartUI{
 	

@@ -3,9 +3,9 @@
 *@since 09/07/2016
 */
 
-package ru.szhernovoy.start;
-import ru.szhernovoy.models.*;
-import ru.szhernovoy.templates.*;
+package ru.szhernovoy.tracker.start;
+import ru.szhernovoy.tracker.models.*;
+import ru.szhernovoy.tracker.templates.*;
 
 
 class MenuTracker {
