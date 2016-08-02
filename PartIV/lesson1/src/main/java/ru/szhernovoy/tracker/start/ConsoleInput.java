@@ -14,7 +14,7 @@ public class ConsoleInput implements Input {
 
 	/** The value setting user input.*/
 	private Scanner scanner = new Scanner(System.in);
-	/** Refactor. This value contains last ask*/
+	/** Refactor. This value contains last question*/
 	private String asked;
 
 	/**
@@ -52,7 +52,7 @@ public class ConsoleInput implements Input {
      * @return result
 	 * checked range true / false
      */
-	public boolean checkKeyInArray(int key, int[] range){
+	private boolean checkKeyInArray(int key, int[] range){
 		boolean result = false;
 		for(int value : range){
 			if(value == key){

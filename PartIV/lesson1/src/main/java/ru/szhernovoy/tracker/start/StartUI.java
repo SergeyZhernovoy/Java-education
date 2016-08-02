@@ -7,30 +7,54 @@
 package ru.szhernovoy.tracker.start;
 import ru.szhernovoy.tracker.templates.*;
 
+/**
+ * main program
+ */
 public class StartUI{
-	
-	private Input input;
-		  
-	public StartUI(Input input){
+
+	/**input method */
+	private final Input input;
+	/**value ref on menu */
+	private final MenuTracker menu;
+
+    /**Refactor.
+	 * Main constructor.
+	 * @param input
+	 * @param menu
+     */
+	public StartUI(final Input input, final MenuTracker menu){
 		this.input = input;
+		this.menu = menu;
 	}
-	
+
+	/**Refactor.
+	 * Main loop programs. Show menu , set and print question, do any action from menu
+     */
 	public void init(){
-		Tracker myTrack = new Tracker();
-		MenuTracker menu = new MenuTracker(input,myTrack);
-		menu.fillActions();
-		int[] range = menu.getRangeKeys();
+
+		int[] range = this.menu.getRangeKeys();
 		do{
-		   menu.show();	
-		   menu.select(input.ask("select: ",range));
-			
+		    this.menu.show();
+			this.input.setQuestion("select: ");
+			this.input.printQuestion();
+			this.menu.select(this.input.ask(range));
+			this.input.setQuestion("Exit? (y)");
+			this.input.printQuestion();
 		}
-		while(!"y".equals(this.input.ask("Exit? (y)")));
+		while(!"y".equals(this.input.ask()));
 	
-	}	
-		
+	}
+
+	/**
+	 * Execute program
+	 * @param args
+     */
 	public static void main(String[] args){
-	
-		new StartUI(new ValidateInput()).init();
+
+		Input input = new ValidateInput();
+		Tracker track = new Tracker();
+		MenuTracker menu = new MenuTracker(input,track);
+		menu.fillActions();
+		new StartUI(input,menu).init();
 	}
 }

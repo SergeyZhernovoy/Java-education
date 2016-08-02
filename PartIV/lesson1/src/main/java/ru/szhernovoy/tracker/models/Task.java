@@ -8,9 +8,9 @@ package ru.szhernovoy.tracker.models;
 
 public class Task extends Item {
 
-	/** This value identifier array commentary*/
+	/** This value identifier array commentaries*/
 	private String[] comment = new String[5];
-	/** It's position current commentary for loop write*/
+	/** It's position current commentary for loop  write*/
 	private int current = 0;
 
 	/**

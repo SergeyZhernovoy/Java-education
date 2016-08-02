@@ -3,7 +3,7 @@
 *@since 13.06.2016
 */
 
-package chapter1.typedata;
+package ru.szhernovoy.calculator;
 
 public class Calculator {
 
