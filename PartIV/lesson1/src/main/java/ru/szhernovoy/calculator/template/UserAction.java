@@ -7,6 +7,8 @@ public interface UserAction {
 
     void execute();
 
-    String action();
+    int key();
+
+    String info();
 
 }

@@ -1,11 +1,12 @@
 /**
+ * Base calculate operation
 *@author Sergey Zhernovoy
 *@since 13.06.2016
 */
 
 package ru.szhernovoy.calculator.model;
 
-public abstract class OperationCalc {
+public class Operation {
 
 	/**
 	 * Этот метод возвращает результат сложения двух чисел
