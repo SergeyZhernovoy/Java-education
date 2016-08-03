@@ -7,12 +7,17 @@
 package ru.szhernovoy.calculator.template;
 
 
+import ru.szhernovoy.calculator.model.Calculator;
+
 public abstract class BaseAction implements UserAction{
 
 	private String name;
+
+	protected Calculator calc;
 	
-	public BaseAction(String name){
+	public BaseAction(String name, Calculator calc){
 		this.name = name;
+		this.calc = calc;
 	}
 
 	public String info(){

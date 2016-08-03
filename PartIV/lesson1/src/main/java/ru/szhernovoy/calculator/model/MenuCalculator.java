@@ -17,13 +17,15 @@ public class MenuCalculator {
     /** menu actions*/
     private UserAction[] actions = new UserAction[COUNT_ACTION];
 
+    private Calculator calc;
+
 
     public void select(int key){
-        this.actions[key].execute();
+        ;
     }
 
     public void fillAction(){
-        actions[0] = this.new EnterValue("Enter operand");
+        actions[0] = this.new EnterOperand("Enter operand",calc);
     }
 
     public int[] getRangeKeys(){
@@ -44,10 +46,10 @@ public class MenuCalculator {
         }
     }
 
-    private class EnterValue extends BaseAction{
+    private class EnterOperand extends BaseAction{
 
-        public EnterValue(String name){
-            super(name);
+        public EnterOperand(String name,Calculator calc){
+            super(name,calc);
         }
 
         @Override
@@ -55,9 +57,16 @@ public class MenuCalculator {
 
         }
 
+
+
         @Override
         public int key() {
             return 0;
+        }
+
+        @Override
+        public void inputAction(Input input) {
+
         }
     }
 
