@@ -1,13 +1,14 @@
 package ru.szhernovoy.calculator.model;
 
-import ru.szhernovoy.calculator.template.MenuOfException;
+import ru.szhernovoy.calculator.view.IO;
+import ru.szhernovoy.calculator.view.Input;
 
 import java.util.Scanner;
 
 /**
  * Created by szhernovoy on 03.08.2016.
  */
-public class ConsoleInput implements Input {
+public class ConsoleInput implements IO {
 
     private Scanner sc = new Scanner(System.in);
 
@@ -45,5 +46,15 @@ public class ConsoleInput implements Input {
     @Override
     public String ask(String question, String[] range) {
         return null;
+    }
+
+    @Override
+    public void println(Object value) {
+        System.out.println(value);
+    }
+
+    @Override
+    public void print(Object value) {
+        System.out.print(value);
     }
 }

@@ -1,6 +1,4 @@
-package ru.szhernovoy.calculator.template;
-
-import ru.szhernovoy.calculator.model.Input;
+package ru.szhernovoy.calculator.view;
 
 /**
  * Created by admin on 02.08.2016.
@@ -13,6 +11,6 @@ public interface UserAction {
 
     String info();
 
-    void inputAction(Input input);
+    void inputAction(IO input);
 
 }

@@ -1,4 +1,4 @@
-package ru.szhernovoy.calculator.model;
+package ru.szhernovoy.calculator.view;
 
 /**
  * Created by admin on 02.08.2016.
