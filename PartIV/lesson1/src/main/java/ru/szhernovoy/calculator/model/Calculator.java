@@ -4,7 +4,7 @@ package ru.szhernovoy.calculator.model;
  * Class extend operation . It have memory about operand
  * Created by szhernovoy on 03.08.2016.
  */
-public class Calculator extends Operation{
+public class Calculator {
     /** save result calculation*/
     private double resultCalculation = 0;
     /**value of memory */
@@ -24,6 +24,20 @@ public class Calculator extends Operation{
     }
     public void setResult(double result){
         this.resultCalculation = result;
+    }
+
+
+    public double getMemory(){
+        return this.memory;
+    }
+
+    public void addMemory(){
+        this.memory = this.resultCalculation;
+    }
+
+    public void clean(){
+        this.memory = 0;
+        this.resultCalculation = 0;
     }
 
     /**

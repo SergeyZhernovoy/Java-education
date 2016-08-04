@@ -1,4 +1,4 @@
-package ru.szhernovoy.calculator.model;
+package ru.szhernovoy.calculator.view;
 
 import ru.szhernovoy.calculator.view.UserAction;
 

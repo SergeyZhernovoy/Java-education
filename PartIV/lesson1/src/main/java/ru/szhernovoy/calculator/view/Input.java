@@ -11,4 +11,7 @@ public interface Input {
 
     String ask(String question, String[] range);
 
+    String ask(String question, boolean numeric);
+
+
 }

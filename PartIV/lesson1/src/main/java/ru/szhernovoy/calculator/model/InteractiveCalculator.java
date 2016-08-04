@@ -1,7 +1,5 @@
 package ru.szhernovoy.calculator.model;
 
-import ru.szhernovoy.calculator.model.Calculator;
-import ru.szhernovoy.calculator.model.MenuCalculator;
 import ru.szhernovoy.calculator.view.IO;
 
 /**
@@ -9,18 +7,54 @@ import ru.szhernovoy.calculator.view.IO;
  */
 public class InteractiveCalculator {
 
-    private IO input;
     private Calculator calc = new Calculator();
-    private ValidateOperand valid = new ValidateOperand();
-
-
+    private String[] action = new String[]{"+","/","*","-","="};
     /**determines the calculation sequence true - operand false - action +-*'//'= */
-    private boolean typeOperation = true;
 
-    public void calculate(){
+    public void calculate(IO input){
+        String numeric;// = "";
+        String operation = "";
+        boolean typeOperation = true;
+        do{
+            if(typeOperation && !operation.equals("=")){
+                numeric = input.ask("Enter operand numeric: ",typeOperation);
 
+                if(numeric.equals("M") || numeric.equals("m")){
+                    numeric = Double.valueOf(calc.getMemory()).toString();
+                }
+
+                if(!operation.equals("") && this.calc.getResult() !=0){
+                    switch(operation){
+                        case "+": calc.setResult(calc.add(Double.valueOf(numeric),calc.getResult()));
+                            break;
+                        case "-": calc.setResult(calc.sub(calc.getResult(),Double.valueOf(numeric)));
+                            break;
+                        case "/": calc.setResult(calc.div(calc.getResult(),Double.valueOf(numeric)));
+                            break;
+                        case "*": calc.setResult(calc.mult(calc.getResult(),Double.valueOf(numeric)));
+                            break;
+                     }
+                }
+                else {
+                    calc.setResult(Double.valueOf(numeric));
+                }
+                operation = "";
+                typeOperation = false;
+            }
+            else{
+                typeOperation = true;
+                operation = input.ask("Enter operand action:  ",this.action);
+            }
+        }while(!operation.equals("="));
+        input.println(String.format("result calculate = %f",calc.getResult()));
     }
 
+    public void addMemory(){
+        calc.addMemory();
+    }
 
+    public void clean(){
+        calc.clean();
+    }
 
 }
