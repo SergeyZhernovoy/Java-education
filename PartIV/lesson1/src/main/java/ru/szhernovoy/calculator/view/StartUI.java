@@ -1,7 +1,6 @@
 package ru.szhernovoy.calculator.view;
 
 import ru.szhernovoy.calculator.controller.MenuCalculator;
-import ru.szhernovoy.calculator.model.Calculator;
 import ru.szhernovoy.calculator.model.InteractiveCalculator;
 
 /**

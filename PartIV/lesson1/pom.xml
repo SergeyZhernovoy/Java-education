@@ -30,7 +30,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ru.szhernovoy..tracker.start.StartUI</mainClass>
+                                    <mainClass>ru.szhernovoy.calculator.view.StartUI</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

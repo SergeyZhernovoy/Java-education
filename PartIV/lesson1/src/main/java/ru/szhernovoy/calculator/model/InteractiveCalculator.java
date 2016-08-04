@@ -18,7 +18,6 @@ public class InteractiveCalculator {
         do{
             if(typeOperation && !operation.equals("=")){
                 numeric = input.ask("Enter operand numeric: ",typeOperation);
-
                 if(numeric.equals("M") || numeric.equals("m")){
                     numeric = Double.valueOf(calc.getMemory()).toString();
                 }
@@ -57,4 +56,7 @@ public class InteractiveCalculator {
         calc.clean();
     }
 
+    public double getResultCalculation(){
+        return calc.getResult();
+    }
 }
