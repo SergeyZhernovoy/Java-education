@@ -1,6 +1,7 @@
 package ru.szhernovoy.calculator.view;
 
 import ru.szhernovoy.calculator.controller.MenuCalculator;
+import ru.szhernovoy.calculator.model.Calculator;
 import ru.szhernovoy.calculator.model.InteractiveCalculator;
 
 /**
@@ -49,7 +50,8 @@ public class StartUI {
     public static void main(String[] args){
 
         ValidateInput input = new ValidateInput();
-        InteractiveCalculator calc = new InteractiveCalculator();
+        Calculator tinyCalc = new Calculator();
+        InteractiveCalculator calc = new InteractiveCalculator(tinyCalc);
         MenuCalculator menu = new MenuCalculator(calc,input,3);
         menu.fillActions();
         new StartUI(input,calc,menu).init();

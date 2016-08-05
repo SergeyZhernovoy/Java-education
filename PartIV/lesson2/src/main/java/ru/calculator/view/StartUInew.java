@@ -2,7 +2,9 @@ package ru.calculator.view;
 
 import ru.calculator.model.InteractiveEngeneerCalculator;
 import ru.szhernovoy.calculator.controller.MenuCalculator;
+import ru.szhernovoy.calculator.model.Calculator;
 import ru.szhernovoy.calculator.view.StartUI;
+import ru.szhernovoy.calculator.view.UserAction;
 import ru.szhernovoy.calculator.view.ValidateInput;
 
 /**
@@ -17,12 +19,13 @@ public class StartUInew {
     public static void main(String[] args){
 
         ValidateInput input = new ValidateInput();
-        InteractiveEngeneerCalculator calc = new InteractiveEngeneerCalculator();
+        Calculator tinyCalc = new Calculator();
+        InteractiveEngeneerCalculator calc = new InteractiveEngeneerCalculator(tinyCalc);
         MenuCalculator menu = new MenuCalculator(calc,input,5);
         menu.fillActions();
-        UserActionExtended cos = new CosAction();
+        UserAction cos = new CosAction(calc);
         menu.addAction(cos);
-        UserActionExtended sin = new SinAction();
+        UserAction sin = new SinAction(calc);
         menu.addAction(sin);
         new StartUI(input,calc,menu).init();
     }

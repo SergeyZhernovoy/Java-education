@@ -8,16 +8,17 @@ import ru.szhernovoy.calculator.view.UserAction;
 /**
  * Created by Sergey on 05.08.2016.
  */
-public class CosAction implements UserActionExtended {
+public class CosAction implements UserAction {
 
-    @Override
-    public void execute(InteractiveEngeneerCalculator calc, IO input) {
-        calc.calcCosinus();
+    private InteractiveEngeneerCalculator engeneerCalc;
+
+    public CosAction(InteractiveEngeneerCalculator calc){
+        this.engeneerCalc = calc;
     }
 
     @Override
     public void execute(InteractiveCalculator calc, IO input) {
-
+        this.engeneerCalc.calcCosinus();
     }
 
     @Override

@@ -6,11 +6,13 @@ import ru.szhernovoy.calculator.view.IO;
  * Created by szhernovoy on 03.08.2016.
  */
 public class InteractiveCalculator {
-
-    /**main ref on calc object */
-    private Calculator calc = new Calculator();
+    private final Calculator calc;
     /**determines the calculation sequence true - operand false - action +-*'//'= */
     private String[] action = new String[]{"+","/","*","-","="};
+
+    public InteractiveCalculator(final Calculator calc){
+        this.calc = calc;
+    }
 
 
     /**
@@ -25,14 +27,14 @@ public class InteractiveCalculator {
             if(typeOperation && !operation.equals("=")){
                 numeric = input.ask("Enter operand numeric: ",typeOperation);
                 if(numeric.equals("M") || numeric.equals("m")){
-                    numeric = Double.valueOf(calc.getMemory()).toString();
+                    numeric = Double.valueOf(this.calc.getMemory()).toString();
                 }
 
                 if(!operation.equals("") && this.calc.getResult() !=0){
                     this.doCalculate(operation,numeric);
                 }
                 else {
-                    calc.setResult(Double.valueOf(numeric));
+                    this.calc.setResult(Double.valueOf(numeric));
                 }
                 operation = "";
                 typeOperation = false;
@@ -42,7 +44,7 @@ public class InteractiveCalculator {
                 operation = input.ask("Enter operand action:  ",this.action);
             }
         }while(!operation.equals("="));
-        input.println(String.format("result calculate = %f",calc.getResult()));
+        input.println(String.format("result calculate = %f",this.calc.getResult()));
     }
 
     /**
@@ -53,13 +55,13 @@ public class InteractiveCalculator {
     private void doCalculate(String operation,String operand){
 
         switch(operation){
-            case "+": calc.setResult(calc.add(Double.valueOf(operand),calc.getResult()));
+            case "+": this.calc.setResult(calc.add(Double.valueOf(operand),calc.getResult()));
                 break;
-            case "-": calc.setResult(calc.sub(calc.getResult(),Double.valueOf(operand)));
+            case "-": this.calc.setResult(calc.sub(calc.getResult(),Double.valueOf(operand)));
                 break;
-            case "/": calc.setResult(calc.div(calc.getResult(),Double.valueOf(operand)));
+            case "/": this.calc.setResult(calc.div(calc.getResult(),Double.valueOf(operand)));
                 break;
-            case "*": calc.setResult(calc.mult(calc.getResult(),Double.valueOf(operand)));
+            case "*": this.calc.setResult(calc.mult(calc.getResult(),Double.valueOf(operand)));
                 break;
         }
     }
@@ -68,14 +70,14 @@ public class InteractiveCalculator {
      * Method add in memory value
      */
     public void addMemory(){
-        calc.addMemory();
+        this.calc.addMemory();
     }
 
     /**
      * Method clean calculator
      */
     public void clean(){
-        calc.clean();
+        this.calc.clean();
     }
 
     /**
@@ -83,6 +85,6 @@ public class InteractiveCalculator {
      * @return
      */
     public double getResultCalculation(){
-        return calc.getResult();
+        return this.calc.getResult();
     }
 }

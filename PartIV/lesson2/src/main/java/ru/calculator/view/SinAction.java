@@ -3,20 +3,22 @@ package ru.calculator.view;
 import ru.calculator.model.InteractiveEngeneerCalculator;
 import ru.szhernovoy.calculator.model.InteractiveCalculator;
 import ru.szhernovoy.calculator.view.IO;
+import ru.szhernovoy.calculator.view.UserAction;
 
 /**
  * Created by Sergey on 05.08.2016.
  */
-public class SinAction implements UserActionExtended {
+public class SinAction implements UserAction {
 
-    @Override
-    public void execute(InteractiveEngeneerCalculator calc, IO input) {
-        calc.calcSinus();
+    private InteractiveEngeneerCalculator engeneerCalc;
+
+    public SinAction(InteractiveEngeneerCalculator calc){
+        this.engeneerCalc = calc;
     }
 
     @Override
     public void execute(InteractiveCalculator calc, IO input) {
-
+        this.engeneerCalc.calcSinus();
     }
 
     @Override

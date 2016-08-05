@@ -1,5 +1,6 @@
 package ru.calculator.model;
 
+import ru.szhernovoy.calculator.model.Calculator;
 import ru.szhernovoy.calculator.model.InteractiveCalculator;
 
 /**
@@ -7,17 +8,20 @@ import ru.szhernovoy.calculator.model.InteractiveCalculator;
  */
 public class InteractiveEngeneerCalculator extends InteractiveCalculator{
 
-    /**main ref on calc object */
-    private CalculatorEngeneer calc = new CalculatorEngeneer();
-    /**determines the calculation sequence true - operand false - action +-*'//'= */
+    private final Calculator calc;
+
+    public InteractiveEngeneerCalculator(final Calculator calc){
+        super(calc);
+        this.calc = calc;
+    }
 
     public void calcSinus(){
-        calc.setResult(calc.cos(calc.getResult()));
+        calc.setResult(Math.cos(calc.getMemory()));
         System.out.println(String.format("Result calculation sinus = %f",calc.getResult()));
     }
 
     public void calcCosinus(){
-        calc.setResult(calc.sin(calc.getResult()));
+        calc.setResult(Math.sin(calc.getMemory()));
         System.out.println(String.format("Result calculation cosinus = %f",calc.getResult()));
     }
 
