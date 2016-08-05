@@ -31,7 +31,7 @@ public class StartUI {
      */
     public void init(){
 
-        menu.fillActions();
+
         int[] range = menu.getRangeKeys();
         do{
             menu.show();
@@ -50,7 +50,8 @@ public class StartUI {
 
         ValidateInput input = new ValidateInput();
         InteractiveCalculator calc = new InteractiveCalculator();
-        MenuCalculator menu = new MenuCalculator(calc,input);
+        MenuCalculator menu = new MenuCalculator(calc,input,3);
+        menu.fillActions();
         new StartUI(input,calc,menu).init();
     }
 }

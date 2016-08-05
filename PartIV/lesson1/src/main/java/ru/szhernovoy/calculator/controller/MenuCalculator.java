@@ -11,23 +11,25 @@ import ru.szhernovoy.calculator.view.UserAction;
 public class MenuCalculator {
 
     /** constant count action*/
-    private final int COUNT_ACTION = 3;
+    //private final int COUNT_ACTION = 3;
     /**user interact input  */
     private final IO input;
 
     /**ref to calculator */
     private final InteractiveCalculator calc;
     /** menu actions*/
-    private UserAction[] actions = new UserAction[COUNT_ACTION];
+    private UserAction[] actions;// = new UserAction[COUNT_ACTION];
+    private int position = 0;
 
     /**
      * Constructor. Set object input and calculator.
      * @param calc ref
      * @param input ref
      */
-    public MenuCalculator(final InteractiveCalculator calc,final IO input){
+    public MenuCalculator(final InteractiveCalculator calc,final IO input, int size){
         this.input = input;
         this.calc = calc;
+        this.actions = new UserAction[size];
     }
 
     /**
@@ -38,13 +40,18 @@ public class MenuCalculator {
             actions[key].execute(calc,input);
     }
 
+
+    public void addAction(UserAction action){
+        this.actions[this.position++] = action;
+    }
+
     /**
      * fill menu calculator.
      */
     public void fillActions(){
-        actions[0] = this.new doCalculate("Do calculate. You can enter number (0...9), letter M/m (memory value), action (+ / * -)");
-        actions[1] = this.new addInMemory("Save previously calculate in memory");
-        actions[2] = this.new cleanCalculate("Clean all result calculate and memory");
+        actions[this.position++] = this.new doCalculate("Do calculate. You can enter number (0...9), letter M/m (memory value), action (+ / * -)");
+        actions[this.position++] = this.new addInMemory("Save previously calculate in memory");
+        actions[this.position++] = this.new cleanCalculate("Clean all result calculate and memory");
     }
 
     /**

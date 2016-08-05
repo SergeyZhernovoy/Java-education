@@ -15,7 +15,7 @@ public class InteractTest {
     public void whenAddTwoNumberWeShouldGetResultAdditional(){
         MockIO mockAdd = new MockIO(new String[]{"0","1","+","1","=","y"});
         InteractiveCalculator calc = new InteractiveCalculator();
-        MenuCalculator menu = new MenuCalculator(calc,mockAdd);
+        MenuCalculator menu = new MenuCalculator(calc,mockAdd,3);
         new StartUI(mockAdd,calc,menu).init();
         double result = calc.getResultCalculation();
         double message = 2.0;
