@@ -7,16 +7,28 @@ import ru.szhernovoy.calculator.model.InteractiveCalculator;
  * Created by szhernovoy on 04.08.2016.
  */
 public class StartUI {
+    /** ref on object input in application*/
     private IO input;
+    /** ref on object calculator*/
     InteractiveCalculator calc;
+    /** ref on object manu program*/
     MenuCalculator menu ;
 
+    /**
+     * Constructor.
+     * @param input object input , user action
+     * @param calc obj interact calculator
+     * @param menu obj menu user action with programm
+     */
     public StartUI(IO input,InteractiveCalculator calc, MenuCalculator menu){
         this.input = input;
         this.calc = calc;
         this.menu = menu;
     }
 
+    /**
+     * main loop application.
+     */
     public void init(){
 
         menu.fillActions();
@@ -30,6 +42,10 @@ public class StartUI {
 
     }
 
+    /**
+     * static method execute.
+     * @param args
+     */
     public static void main(String[] args){
 
         ValidateInput input = new ValidateInput();
