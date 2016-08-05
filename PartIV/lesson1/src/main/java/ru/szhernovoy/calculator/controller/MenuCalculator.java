@@ -13,27 +13,44 @@ public class MenuCalculator {
     /** constant count action*/
     private final int COUNT_ACTION = 3;
     /**user interact input  */
-    private IO input;
+    private final IO input;
 
-    private InteractiveCalculator calc;
+    /**ref to calculator */
+    private final InteractiveCalculator calc;
     /** menu actions*/
     private UserAction[] actions = new UserAction[COUNT_ACTION];
 
-    public MenuCalculator(InteractiveCalculator calc,IO input){
+    /**
+     * Constructor. Set object input and calculator.
+     * @param calc ref
+     * @param input ref
+     */
+    public MenuCalculator(final InteractiveCalculator calc,final IO input){
         this.input = input;
         this.calc = calc;
     }
 
+    /**
+     * Get by key method execute from menu of calculator.
+     * @param key
+     */
     public void select(int key){
             actions[key].execute(calc,input);
     }
 
+    /**
+     * fill menu calculator.
+     */
     public void fillActions(){
         actions[0] = this.new doCalculate("Do calculate. You can enter number (0...9), letter M/m (memory value), action (+ / * -)");
         actions[1] = this.new addInMemory("Save previously calculate in memory");
         actions[2] = this.new cleanCalculate("Clean all result calculate and memory");
     }
 
+    /**
+     * Get array all keys action for checking.
+     * @return
+     */
     public int[] getRangeKeys(){
         int[] range = new int[actions.length];
         int position = 0;
@@ -43,6 +60,9 @@ public class MenuCalculator {
         return range;
     }
 
+    /**
+     * Show menu.
+     */
     public void show(){
         for(UserAction action : this.actions){
             if(action != null){
@@ -51,17 +71,33 @@ public class MenuCalculator {
         }
     }
 
+    /**
+     * class for menu. It does call method calculate
+     */
     private class doCalculate extends BaseAction {
 
+        /**
+         * Set name for show in menu.
+         * @param name
+         */
         public doCalculate(String name){
             super(name);
         }
 
+        /**
+         * main method for calculate.
+         * @param interCalc
+         * @param input type input
+         */
         @Override
         public void execute(InteractiveCalculator interCalc,IO input) {
             interCalc.calculate(input);
         }
 
+        /**
+         * Get number point in menu
+         * @return
+         */
         @Override
         public int key() {
             return 0;
@@ -69,19 +105,34 @@ public class MenuCalculator {
 
     }
 
+    /**
+     * Class add value in memory
+     */
     private class addInMemory extends BaseAction {
 
 
+        /**
+         * Set name for show in memory
+         * @param name
+         */
         public addInMemory(String name){
             super(name);
 
         }
 
+        /**
+         * method add value in memory
+         * @param interCalc
+         * @param input type input
+         */
         @Override
         public void execute(InteractiveCalculator interCalc,IO input) {
             calc.addMemory();
         }
-
+        /**
+         * Get number point in menu
+         * @return
+         */
         @Override
         public int key() {
             return 1;
@@ -89,19 +140,34 @@ public class MenuCalculator {
 
     }
 
+    /**
+     * Clean all value in calculator
+     */
     private class cleanCalculate extends BaseAction {
 
-
+        /**
+         * Set name for show in memory
+         * @param name
+         */
         public cleanCalculate(String name){
             super(name);
 
         }
 
+        /**
+         * Method clean memory and result in calculator
+         * @param interCalc
+         * @param input type input
+         */
+
         @Override
         public void execute(InteractiveCalculator interCalc,IO input) {
             calc.clean();
         }
-
+        /**
+         * Get number point in menu
+         * @return
+         */
         @Override
         public int key() {
             return 2;

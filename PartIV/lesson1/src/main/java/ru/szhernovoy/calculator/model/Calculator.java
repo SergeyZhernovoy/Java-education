@@ -10,31 +10,40 @@ public class Calculator {
     /**value of memory */
     private double memory = 0;
 
-
-    private double operandOne = 0;
-    private double operandNext = 0;
-
-
     /**
-     * return result calculation
+     * return result calculation.
      * @return
      */
     public double getResult(){
         return this.resultCalculation;
     }
+
+    /**
+     * Set result calculation.
+     * @param result
+     */
     public void setResult(double result){
         this.resultCalculation = result;
     }
 
-
+    /**
+     * Get value from memory.
+     * @return
+     */
     public double getMemory(){
         return this.memory;
     }
 
+    /**
+     * Set value in memory calculator.
+     */
     public void addMemory(){
         this.memory = this.resultCalculation;
     }
 
+    /**
+     * Clean all value calculator.
+     */
     public void clean(){
         this.memory = 0;
         this.resultCalculation = 0;

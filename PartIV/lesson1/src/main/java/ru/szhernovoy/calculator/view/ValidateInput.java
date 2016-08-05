@@ -6,7 +6,14 @@ package ru.szhernovoy.calculator.view;
 import ru.szhernovoy.calculator.model.MenuOfException;
 
 public class ValidateInput extends ConsoleInput {
-	
+
+	/**
+	 * method check input value in any range and get it if all right.
+	 * @param question
+	 * @param range range key's menu
+	 * @return
+	 */
+	@Override
 	public int ask(String question, int[] range){
 		
 		boolean invalid = true;
@@ -27,6 +34,13 @@ public class ValidateInput extends ConsoleInput {
 		return value;	
 	}
 
+	/**
+	 * Method get parametr and check it in range
+	 * @param question question about choice method calculate
+	 * @param range    array methods for calculate
+	 * @return
+	 */
+	@Override
 	public String ask(String question, String[] range){
 
 		boolean invalid = true;
@@ -47,6 +61,13 @@ public class ValidateInput extends ConsoleInput {
 		return value;
 	}
 
+	/**
+	 * method check input value in convert to double and get it if all right.
+	 * @param question
+	 * @param numeric
+	 * @return
+	 */
+	@Override
 	public String ask(String question, boolean numeric){
 
 		boolean invalid = true;
