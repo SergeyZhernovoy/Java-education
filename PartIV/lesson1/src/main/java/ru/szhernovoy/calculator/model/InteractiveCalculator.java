@@ -10,6 +10,10 @@ public class InteractiveCalculator {
     /**determines the calculation sequence true - operand false - action +-*'//'= */
     private String[] action = new String[]{"+","/","*","-","="};
 
+    /**
+     * Constructor get ref on calc
+     * @param calc
+     */
     public InteractiveCalculator(final Calculator calc){
         this.calc = calc;
     }

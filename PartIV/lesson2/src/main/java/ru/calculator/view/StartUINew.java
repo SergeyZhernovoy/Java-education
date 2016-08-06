@@ -10,7 +10,7 @@ import ru.szhernovoy.calculator.view.ValidateInput;
 /**
  * Created by szhernovoy on 04.08.2016.
  */
-public class StartUInew {
+public class StartUINew {
 
     /**
      * static method execute.

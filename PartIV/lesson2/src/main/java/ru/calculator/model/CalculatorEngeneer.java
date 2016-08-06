@@ -9,10 +9,20 @@ import ru.szhernovoy.calculator.model.Calculator;
 public class CalculatorEngeneer extends Calculator{
 
 
+    /**
+     * Method calculate cosinus.
+     * @param operand
+     * @return
+     */
     public double cos(double operand){
         return Math.cos(operand);
     }
 
+    /**
+     * Method calculate sinus
+     * @param operand
+     * @return
+     */
     public double sin(double operand){
         return  Math.sin(operand);
     }

@@ -18,6 +18,7 @@ public class InteractTest {
         Calculator tinyCalc = new Calculator();
         InteractiveCalculator calc = new InteractiveCalculator(tinyCalc);
         MenuCalculator menu = new MenuCalculator(calc,mockAdd,3);
+        menu.fillActions();
         new StartUI(mockAdd,calc,menu).init();
         double result = calc.getResultCalculation();
         double message = 2.0;

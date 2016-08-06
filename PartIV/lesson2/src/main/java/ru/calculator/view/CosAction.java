@@ -10,24 +10,40 @@ import ru.szhernovoy.calculator.view.UserAction;
  */
 public class CosAction implements UserAction {
 
-    private InteractiveEngeneerCalculator engeneerCalc;
+    /**value save ref on calculator */
+    private final InteractiveEngeneerCalculator engeneerCalc;
 
-    public CosAction(InteractiveEngeneerCalculator calc){
+    /**
+     * Constructor. Set ref calculator.
+     * @param calc
+     */
+    public CosAction(final InteractiveEngeneerCalculator calc){
         this.engeneerCalc = calc;
     }
 
+    /**
+     * Method call new calculate from extended calculator.
+     * @param calc object what execute any action by menu.
+     * @param input type input
+     */
     @Override
     public void execute(InteractiveCalculator calc, IO input) {
         this.engeneerCalc.calcCosinus();
     }
-
+    /**
+     * Get number point in menu.
+     * @return
+     */
     @Override
     public int key() {
         return 3;
     }
-
+    /**
+     * Method print key menu and name action menu.
+     * @return
+     */
     @Override
     public String info() {
-        return String.format("%s.) %s", this.key(),"Calculate cosinus");
+        return String.format("%s.) %s", this.key(),"Calculate cosinus from value memory");
     }
 }

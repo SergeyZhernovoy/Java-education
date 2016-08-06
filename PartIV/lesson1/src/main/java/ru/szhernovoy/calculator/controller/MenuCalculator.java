@@ -40,7 +40,10 @@ public class MenuCalculator {
             actions[key].execute(calc,input);
     }
 
-
+    /**
+     * Add action in array actions
+     * @param action
+     */
     public void addAction(UserAction action){
         this.actions[this.position++] = action;
     }

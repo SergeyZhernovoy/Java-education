@@ -11,6 +11,8 @@
 
     <groupId>Lesson2</groupId>
     <artifactId>OCP</artifactId>
+    <name>OCP</name>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
