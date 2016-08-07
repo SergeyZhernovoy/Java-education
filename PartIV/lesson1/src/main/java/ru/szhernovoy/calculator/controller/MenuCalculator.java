@@ -10,15 +10,13 @@ import ru.szhernovoy.calculator.view.UserAction;
  */
 public class MenuCalculator {
 
-    /** constant count action*/
-    //private final int COUNT_ACTION = 3;
     /**user interact input  */
     private final IO input;
 
     /**ref to calculator */
     private final InteractiveCalculator calc;
     /** menu actions*/
-    private UserAction[] actions;// = new UserAction[COUNT_ACTION];
+    private UserAction[] actions;
     private int position = 0;
 
     /**
@@ -52,7 +50,7 @@ public class MenuCalculator {
      * fill menu calculator.
      */
     public void fillActions(){
-        actions[this.position++] = this.new doCalculate("Do calculate. You can enter number (0...9), letter M/m (memory value), action (+ / * -)");
+        actions[this.position++] = this.new DoCalculate("Do calculate. You can enter number (0...9), letter M/m (memory value), action (+ / * -)");
         actions[this.position++] = this.new addInMemory("Save previously calculate in memory");
         actions[this.position++] = this.new cleanCalculate("Clean all result calculate and memory");
     }
@@ -84,13 +82,13 @@ public class MenuCalculator {
     /**
      * class for menu. It does call method calculate
      */
-    private class doCalculate extends BaseAction {
+    private class DoCalculate extends BaseAction {
 
         /**
          * Set name for show in menu.
          * @param name
          */
-        public doCalculate(String name){
+        public DoCalculate(String name){
             super(name);
         }
 
@@ -119,7 +117,6 @@ public class MenuCalculator {
      * Class add value in memory
      */
     private class addInMemory extends BaseAction {
-
 
         /**
          * Set name for show in memory
