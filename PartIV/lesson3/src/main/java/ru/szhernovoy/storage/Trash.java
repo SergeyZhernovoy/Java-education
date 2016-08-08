@@ -7,7 +7,18 @@ import ru.szhernovoy.products.Food;
  */
 public class Trash extends Storage {
 
-    public Trash(String name) {
-        super(name);
+    public Trash(String name, int size) {
+        super(name,size);
     }
+
+    @Override
+    public boolean matchRange(Food food) {
+        boolean result = false;
+        if(food.calculatePercent() > 100){
+            result = true;
+        }
+        return result;
+
+    }
+
 }

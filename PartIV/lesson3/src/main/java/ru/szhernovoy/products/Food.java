@@ -1,7 +1,8 @@
 package ru.szhernovoy.products;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Random;
+
 
 /**
  * Created by Sergey on 06.08.2016.
@@ -13,9 +14,8 @@ public abstract class Food {
     protected final GregorianCalendar createDate;
     protected int price = 0;
     protected int disscount = 0;
-    private Random rn = new Random();
 
-    public Food(String name, final GregorianCalendar expireDate,final GregorianCalendar createDate, int price, int disscount) {
+    public Food(String name, final GregorianCalendar createDate,final GregorianCalendar expireDate, int price, int disscount) {
         this.name = name;
         this.expireDate = expireDate;
         this.price = price;
@@ -23,21 +23,22 @@ public abstract class Food {
         this.createDate = createDate;
     }
 
-    public int getPrice() {
-        return price;
+    public String getName() {
+        return name;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public int calculatePercent(){
+
+        int percent = 0;
+        Calendar todayDate = new GregorianCalendar();
+        double differentFull = (this.expireDate.getTimeInMillis() - this.createDate.getTimeInMillis())/1000;
+        double differentCurrent = ( todayDate.getTimeInMillis() - this.createDate.getTimeInMillis())/1000;
+        percent = (int)Math.abs((differentCurrent / differentFull) * 100);
+        return percent;
     }
 
-    public int getDisscount() {
-        return disscount;
+    public void changePrice(){
+        this.price = this.price - this.price * this.disscount/100;
     }
-
-    public void setDisscount(int disscount) {
-        this.disscount = disscount;
-    }
-
 
 }
