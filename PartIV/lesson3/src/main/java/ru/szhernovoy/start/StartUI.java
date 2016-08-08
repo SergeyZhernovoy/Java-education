@@ -10,20 +10,35 @@ import java.util.GregorianCalendar;
  * Created by szhernovoy on 08.08.2016.
  */
 public class StartUI {
+    /**value save object control quality */
     private final ControlQuality control;
+    /**array storage  */
     private final Storage[] storage;
+    /**array products */
     private final Food[] food;
 
+    /**
+     * Constructor.
+     * @param control
+     * @param storage
+     * @param food
+     */
     public StartUI(final ControlQuality control, final Storage[] storage, final Food[] food){
         this.control = control;
         this.storage = storage;
         this.food = food;
     }
 
+    /**
+     * Main method , which do sorting food
+     */
     public void work() {
         control.sortProduct(storage,food);
     }
 
+    /**
+     * print products in storage
+     */
     public void printInfo(){
         for (Storage place :storage) {
             System.out.println(place);

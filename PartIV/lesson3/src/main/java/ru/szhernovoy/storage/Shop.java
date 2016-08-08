@@ -11,6 +11,11 @@ public class Shop extends Storage {
         super(name,size);
     }
 
+    /**
+     * check food on range
+     * @param food
+     * @return
+     */
     @Override
     public boolean matchRange(Food food) {
         boolean result = false;

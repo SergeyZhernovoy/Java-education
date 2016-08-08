@@ -3,23 +3,42 @@ package ru.szhernovoy.storage;
 import ru.szhernovoy.products.Food;
 
 /**
+ *
  * Created by admin on 08.08.2016.
  */
 public abstract class Storage {
 
+    /**value save name storage */
     private String name;
+    /**value is array food in storage */
     protected Food[] food;
+    /**currant position in array food */
     protected int position =0;
 
+    /**
+     * Constructor.
+     * @param name
+     * @param size
+     */
     public Storage(String name, int size) {
         this.name = name;
         this.food = new Food[size];
     }
 
+    /**
+     * Add food in storage
+     * @param food
+     * @throws ArrayIndexOutOfBoundsException
+     */
     public void addFood(Food food) throws  ArrayIndexOutOfBoundsException{
         this.food[position++] = food;
     }
 
+    /**
+     * Abstract method identify check range
+     * @param food
+     * @return
+     */
     public abstract boolean matchRange(Food food);
 
     /**

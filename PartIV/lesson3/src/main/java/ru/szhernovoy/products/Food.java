@@ -5,16 +5,30 @@ import java.util.GregorianCalendar;
 
 
 /**
+ * main  class food
  * Created by Sergey on 06.08.2016.
  */
 public abstract class Food {
 
+    /** name product*/
     protected String name;
+    /**this value identify date expire product */
     protected final GregorianCalendar expireDate;
+    /**value storage date create product */
     protected final GregorianCalendar createDate;
+    /**price in product */
     protected int price = 0;
+    /** discount on product*/
     protected int disscount = 0;
 
+    /**
+     * Contructor.
+     * @param name
+     * @param createDate
+     * @param expireDate
+     * @param price
+     * @param disscount
+     */
     public Food(String name, final GregorianCalendar createDate,final GregorianCalendar expireDate, int price, int disscount) {
         this.name = name;
         this.expireDate = expireDate;
@@ -23,10 +37,18 @@ public abstract class Food {
         this.createDate = createDate;
     }
 
+    /**
+     * Get name product.
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * calculate difference between expire and create date product.
+     * @return
+     */
     public int calculatePercent(){
 
         int percent = 0;
@@ -37,6 +59,9 @@ public abstract class Food {
         return percent;
     }
 
+    /**
+     * Change price on product if expire date is begun.
+     */
     public void changePrice(){
         this.price = this.price - this.price * this.disscount/100;
     }
