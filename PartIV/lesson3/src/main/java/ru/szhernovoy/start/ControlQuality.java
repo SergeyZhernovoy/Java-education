@@ -15,8 +15,8 @@ public class ControlQuality {
      * @param storage
      * @param food
      */
-    public void sortProduct(Storage[] storage, Products[] food) {
-        for (Products product: food) {
+    public void sortProduct(Storage[] storage, Food[] food) {
+        for (Food product: food) {
             for (Storage place: storage){
                 if(place.matchRange(product)){
                         place.addFood(product);

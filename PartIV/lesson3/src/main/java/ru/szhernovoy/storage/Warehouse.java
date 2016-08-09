@@ -21,7 +21,7 @@ public class Warehouse extends Storage {
     @Override
     public boolean matchRange(Food food) {
     boolean result = false;
-    if(food.calculatePercent() < 25){
+    if(food.calculatePercent() < 25 ){
         result = true;
     }
     return result;

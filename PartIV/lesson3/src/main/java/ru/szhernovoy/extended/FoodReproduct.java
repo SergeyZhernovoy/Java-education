@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 public abstract class FoodReproduct extends Food {
 
     private boolean canReproduct = false;
+    private Food food;
 
     /**
      * Contructor.
@@ -20,14 +21,28 @@ public abstract class FoodReproduct extends Food {
      * @param price
      * @param disscount
      */
-    public FoodReproduct(String name, GregorianCalendar createDate, GregorianCalendar expireDate, int price, int disscount, boolean canReproduct) {
+    public FoodReproduct(String name, GregorianCalendar createDate, GregorianCalendar expireDate, int price, int disscount, boolean canReproduct, Food food) {
         super(name, createDate, expireDate, price, disscount);
         this.canReproduct = canReproduct;
+        this.food = food;
     }
+
 
     public boolean isCanReproduct(){
         return this.canReproduct;
     }
 
+    /**
+     * calculate difference between expire and create date product.
+     *
+     * @return
+     */
+    @Override
+    public int calculatePercent() {
+        return this.food.calculatePercent();
+    }
 
+    public Food getFood(){
+        return this.food;
+    }
 }
