@@ -6,7 +6,7 @@ import ru.szhernovoy.products.Food;
  *
  * Created by admin on 08.08.2016.
  */
-public abstract class Storage {
+public abstract class Storage implements  StorageInterface{
 
     /**value save name storage */
     private String name;
@@ -74,4 +74,5 @@ public abstract class Storage {
         }
         return info.toString();
     }
+
 }
