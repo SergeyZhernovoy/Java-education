@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  * main  class food
  * Created by Sergey on 06.08.2016.
  */
-public abstract class Food implements Products{
+public abstract class Food {
 
     /** name product*/
     protected String name;

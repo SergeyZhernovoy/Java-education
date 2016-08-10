@@ -3,8 +3,6 @@ package ru.szhernovoy.extended;
 import ru.szhernovoy.products.Bananas;
 import ru.szhernovoy.products.Beard;
 import ru.szhernovoy.products.Food;
-import ru.szhernovoy.products.Potatos;
-import ru.szhernovoy.start.ControlQuality;
 import ru.szhernovoy.storage.Shop;
 import ru.szhernovoy.storage.Storage;
 import ru.szhernovoy.storage.Trash;
@@ -19,7 +17,7 @@ public class StartUINext {
     /**value save object control quality */
     private final ControlQualityExtend control;
     /**array storage  */
-    private final WarehouseTemp[] storage;
+    private final StorageExtended[] storage;
     /**array products */
     private final FoodReproduct[] food;
 
@@ -29,7 +27,7 @@ public class StartUINext {
      * @param storage
      * @param food
      */
-    public StartUINext(final ControlQualityExtend control, final WarehouseTemp[] storage, final FoodReproduct[] food){
+    public StartUINext(final ControlQualityExtend control, final StorageExtended[] storage, final FoodReproduct[] food){
         this.control = control;
         this.storage = storage;
         this.food = food;
@@ -56,14 +54,19 @@ public class StartUINext {
         ControlQualityExtend control = new ControlQualityExtend();
         FoodReproduct[] food = new FoodReproduct[2];
 
-        food[0] = new FoodReproduct(,new Bananas("Banana",new GregorianCalendar(2016, GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,9),45,5));
-        ;
-        food[1] = new Beard("Darnickiy",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,3),25,7);
+        Food beard =   new Beard("Darnickiy",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,3),25,7);
+        Food bulka = new Beard("Bulka",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,28),22,8);
+        food[0] = new WhiteBeard(true,beard);
+        food[1] = new DarkBeard(true,bulka);
 
-        WarehouseTemp[] storage = new WarehouseTemp[3];
-        storage[0] = new Shop("METRO",10);
-        storage[1] = new Warehouse("1st",10);
-        storage[2] = new Trash("Empty",50);
+        Warehouse whs = new Warehouse("1st",10);
+        Trash trash = new Trash("Empty",50);
+
+
+        StorageExtended[] storage = new WarehouseExt[2];
+        storage[0] = new WarehouseExt("new Warehouse",20,-10,whs);
+        storage[1] = new WarehouseCold("new WarehouseCold",20,-10,trash);
+
 
         StartUINext start = new StartUINext(control,storage,food);
         start.work();

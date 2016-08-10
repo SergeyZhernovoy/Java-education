@@ -1,7 +1,6 @@
 package ru.szhernovoy.start;
 
 import ru.szhernovoy.products.Food;
-import ru.szhernovoy.products.Products;
 import ru.szhernovoy.storage.Storage;
 
 /**

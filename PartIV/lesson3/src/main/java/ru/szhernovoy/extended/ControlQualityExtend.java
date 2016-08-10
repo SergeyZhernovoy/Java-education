@@ -7,9 +7,9 @@ package ru.szhernovoy.extended;
 public class ControlQualityExtend{
 
 
-    public void sortProduct(WarehouseTemp[] storages, FoodReproduct[] foods){
+    public void sortProduct(StorageExtended[] storages, FoodReproduct[] foods){
         for (FoodReproduct product: foods) {
-            for (WarehouseTemp place: storages){
+            for (StorageExtended place: storages){
                 if(place.matchRange(product)){
                     place.addFood(product);
                     break;

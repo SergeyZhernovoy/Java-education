@@ -9,7 +9,7 @@ import ru.szhernovoy.products.Food;
 public abstract class Storage {
 
     /**value save name storage */
-    private String name;
+    protected String name;
     /**value is array food in storage */
     protected Food[] food;
     /**currant position in array food */
@@ -30,7 +30,7 @@ public abstract class Storage {
      * @param food
      * @throws ArrayIndexOutOfBoundsException
      */
-    public void addFood(Food food) throws  ArrayIndexOutOfBoundsException{
+    public void addFood(Food food) {
         this.food[position++] = food;
     }
 
@@ -73,6 +73,14 @@ public abstract class Storage {
             }
         }
         return info.toString();
+    }
+
+    public boolean checkFullingStorage(){
+        boolean result = false;
+        if(this.position >= this.food.length){
+            result = true;
+        }
+        return result;
     }
 
 }

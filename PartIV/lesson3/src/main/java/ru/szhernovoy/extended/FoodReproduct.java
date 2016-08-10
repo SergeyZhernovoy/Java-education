@@ -7,22 +7,16 @@ import java.util.GregorianCalendar;
 /**
  * Created by szhernovoy on 09.08.2016.
  */
-public abstract class FoodReproduct extends Food {
+public abstract class FoodReproduct {
 
     private boolean canReproduct = false;
     private Food food;
 
     /**
      * Contructor.
-     *
-     * @param name
-     * @param createDate
-     * @param expireDate
-     * @param price
-     * @param disscount
+
      */
-    public FoodReproduct(String name, GregorianCalendar createDate, GregorianCalendar expireDate, int price, int disscount, boolean canReproduct, Food food) {
-        super(name, createDate, expireDate, price, disscount);
+    public FoodReproduct(boolean canReproduct, Food food) {
         this.canReproduct = canReproduct;
         this.food = food;
     }
@@ -37,12 +31,17 @@ public abstract class FoodReproduct extends Food {
      *
      * @return
      */
-    @Override
+
     public int calculatePercent() {
         return this.food.calculatePercent();
     }
 
     public Food getFood(){
         return this.food;
+    }
+
+
+    public String getName(){
+        return this.food.getName();
     }
 }
