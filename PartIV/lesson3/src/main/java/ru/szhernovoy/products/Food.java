@@ -49,10 +49,10 @@ public abstract class Food {
      * calculate difference between expire and create date product.
      * @return
      */
-    public int calculatePercent(){
+    public int calculatePercent(GregorianCalendar day){
 
         int percent = 0;
-        Calendar todayDate = new GregorianCalendar();
+        Calendar todayDate = day;
         double differentFull = (this.expireDate.getTimeInMillis() - this.createDate.getTimeInMillis())/1000;
         double differentCurrent = ( todayDate.getTimeInMillis() - this.createDate.getTimeInMillis())/1000;
         percent = (int)Math.abs((differentCurrent / differentFull) * 100);

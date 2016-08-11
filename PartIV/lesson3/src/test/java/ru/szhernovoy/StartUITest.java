@@ -18,11 +18,11 @@ public class StartUITest {
     public void whenAddFoodInStorageCountFoodInStorageUp(){
         ControlQuality control = new ControlQuality();
         Food[] food = new Food[1];
-
-        food[0] = new Bananas("Banana",new GregorianCalendar(2016, GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,9),45,5);
+        GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,8);
+        food[0] = new Bananas("Banana",new GregorianCalendar(2016, GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,15),45,5);
 
         Storage[] storage = new Storage[1];
-        storage[0] = new Shop("METRO",10);
+        storage[0] = new Shop("METRO",10,today);
 
 
         StartUI start = new StartUI(control,storage,food);

@@ -15,8 +15,10 @@ import static org.hamcrest.core.Is.is;
 public class ProductTest {
     @Test
     public void CalculatePercentDateWhenExpireDateNotEnd(){
-        Food food = new Bananas("Banana",new GregorianCalendar(2016, GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,9),45,5);
-        boolean result = food.calculatePercent() < 99;
+        Food food = new Bananas("Banana",new GregorianCalendar(2016, GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,16),45,5);
+        GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,15);
+
+        boolean result = food.calculatePercent(today) < 99;
         boolean control = true;
         Assert.assertThat(result, is(control));
     }

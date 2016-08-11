@@ -2,6 +2,8 @@ package ru.szhernovoy.storage;
 
 import ru.szhernovoy.products.Food;
 
+import java.util.GregorianCalendar;
+
 /**
  *
  * Created by admin on 08.08.2016.
@@ -15,14 +17,17 @@ public abstract class Storage {
     /**currant position in array food */
     protected int position =0;
 
+    protected GregorianCalendar today;
+
     /**
      * Constructor.
      * @param name
      * @param size
      */
-    public Storage(String name, int size) {
+    public Storage(String name, int size,GregorianCalendar today) {
         this.name = name;
         this.food = new Food[size];
+        this.today = today;
     }
 
     /**

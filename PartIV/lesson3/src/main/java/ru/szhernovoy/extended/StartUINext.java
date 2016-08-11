@@ -63,7 +63,7 @@ public class StartUINext {
         Trash trash = new Trash("Empty",50);
 
 
-        StorageExtended[] storage = new WarehouseExt[2];
+        StorageExtended[] storage = new StorageExtended[2];
         storage[0] = new WarehouseExt("new Warehouse",20,-10,whs);
         storage[1] = new WarehouseCold("new WarehouseCold",20,-10,trash);
 

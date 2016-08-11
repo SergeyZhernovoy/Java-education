@@ -49,6 +49,7 @@ public class StartUI {
 
         ControlQuality control = new ControlQuality();
         Food[] food = new Food[8];
+        GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,8);
 
         food[0] = new Bananas("Banana",new GregorianCalendar(2016, GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,9),45,5);
         food[1] = new Beard("Darnickiy",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,3),25,7);
@@ -61,9 +62,9 @@ public class StartUI {
 
 
         Storage[] storage = new Storage[3];
-        storage[0] = new Shop("METRO",10);
-        storage[1] = new Warehouse("1st",10);
-        storage[2] = new Trash("Empty",50);
+        storage[0] = new Shop("METRO",10, today);
+        storage[1] = new Warehouse("1st",10, today);
+        storage[2] = new Trash("Empty",50, today);
 
         StartUI start = new StartUI(control,storage,food);
         start.work();
