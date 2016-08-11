@@ -4,6 +4,8 @@ package ru.szhernovoy.extended;
 import ru.szhernovoy.products.Food;
 import ru.szhernovoy.storage.Warehouse;
 
+import java.util.GregorianCalendar;
+
 /**
  * Created by admin on 09.08.2016.
  */
@@ -17,8 +19,8 @@ public class WarehouseExt extends StorageExtended{
      * @param size
      * @param temperature
      */
-    public WarehouseExt(String name, int size, int temperature,final Warehouse whs ) {
-        super(name, size, temperature);
+    public WarehouseExt(String name, int size, int temperature, GregorianCalendar today, final Warehouse whs ) {
+        super(name, size, temperature, today);
         this.whs = whs;
     }
 
@@ -39,6 +41,11 @@ public class WarehouseExt extends StorageExtended{
         return result;
     }
 
+    /**
+     * method identify check range
+     * @param food
+     * @return
+     */
     @Override
     public boolean matchRange(FoodReproduct food) {
         return this.matchRange(food.getFood());

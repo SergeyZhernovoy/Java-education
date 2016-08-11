@@ -9,19 +9,27 @@ import java.util.GregorianCalendar;
  */
 public abstract class FoodReproduct {
 
+    /**value storage flag -product can be reproduct */
     private boolean canReproduct = false;
+    /**ref on food */
     private Food food;
+    /**value for test  */
+    private GregorianCalendar today;
 
     /**
      * Contructor.
 
      */
-    public FoodReproduct(boolean canReproduct, Food food) {
+    public FoodReproduct(boolean canReproduct, Food food, GregorianCalendar today) {
         this.canReproduct = canReproduct;
         this.food = food;
+        this.today = today;
     }
 
-
+    /**
+     * Check product on reproduct.
+     * @return
+     */
     public boolean isCanReproduct(){
         return this.canReproduct;
     }
@@ -33,14 +41,22 @@ public abstract class FoodReproduct {
      */
 
     public int calculatePercent() {
-        return this.food.calculatePercent();
+        return this.food.calculatePercent(today);
     }
 
+    /**
+     * Getter for recieve food field.
+     * @return
+     */
     public Food getFood(){
         return this.food;
     }
 
 
+    /**
+     * Get name food.
+     * @return
+     */
     public String getName(){
         return this.food.getName();
     }

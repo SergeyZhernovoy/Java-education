@@ -7,6 +7,11 @@ package ru.szhernovoy.extended;
 public class ControlQualityExtend{
 
 
+    /**
+     * sort product in storage place.
+     * @param storages
+     * @param foods
+     */
     public void sortProduct(StorageExtended[] storages, FoodReproduct[] foods){
         for (FoodReproduct product: foods) {
             for (StorageExtended place: storages){

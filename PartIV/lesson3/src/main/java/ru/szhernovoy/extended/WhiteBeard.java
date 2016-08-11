@@ -15,7 +15,7 @@ public class WhiteBeard extends FoodReproduct {
      * @param canReproduct
      * @param food
      */
-    public WhiteBeard(boolean canReproduct, Food food) {
-        super(canReproduct, food);
+    public WhiteBeard(boolean canReproduct, Food food, GregorianCalendar today) {
+        super(canReproduct, food, today);
     }
 }

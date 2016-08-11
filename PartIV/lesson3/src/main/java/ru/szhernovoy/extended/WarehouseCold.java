@@ -3,6 +3,8 @@ package ru.szhernovoy.extended;
 import ru.szhernovoy.products.Food;
 import ru.szhernovoy.storage.Trash;
 
+import java.util.GregorianCalendar;
+
 /**
  * Created by admin on 10.08.2016.
  */
@@ -17,10 +19,17 @@ public class WarehouseCold extends StorageExtended {
      * @param size
      * @param temperature
      */
-    public WarehouseCold(String name, int size, int temperature, Trash trash) {
-        super(name, size, temperature);
+    public WarehouseCold(String name, int size, int temperature, GregorianCalendar today, Trash trash) {
+        super(name, size, temperature, today);
         this.trash = trash;
     }
+
+
+    /**
+     * method identify check range.
+     * @param food
+     * @return
+     */
 
     @Override
     public boolean matchRange(FoodReproduct food) {

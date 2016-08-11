@@ -15,7 +15,7 @@ public class DarkBeard extends FoodReproduct {
      * @param canReproduct
      * @param food
      */
-    public DarkBeard(boolean canReproduct, Food food) {
-        super(canReproduct, food);
+    public DarkBeard(boolean canReproduct, Food food, GregorianCalendar today) {
+        super(canReproduct, food, today);
     }
 }

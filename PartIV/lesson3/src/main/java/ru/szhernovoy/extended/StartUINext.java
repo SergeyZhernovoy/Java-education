@@ -53,19 +53,19 @@ public class StartUINext {
 
         ControlQualityExtend control = new ControlQualityExtend();
         FoodReproduct[] food = new FoodReproduct[2];
-
+        GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,8);
         Food beard =   new Beard("Darnickiy",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,3),25,7);
         Food bulka = new Beard("Bulka",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,28),22,8);
-        food[0] = new WhiteBeard(true,beard);
-        food[1] = new DarkBeard(true,bulka);
+        food[0] = new WhiteBeard(true,beard,today);
+        food[1] = new DarkBeard(true,bulka,today);
 
-        Warehouse whs = new Warehouse("1st",10);
-        Trash trash = new Trash("Empty",50);
+        Warehouse whs = new Warehouse("1st",10, today);
+        Trash trash = new Trash("Empty",50, today);
 
 
         StorageExtended[] storage = new StorageExtended[2];
-        storage[0] = new WarehouseExt("new Warehouse",20,-10,whs);
-        storage[1] = new WarehouseCold("new WarehouseCold",20,-10,trash);
+        storage[0] = new WarehouseExt("new Warehouse",20,-10,today,whs);
+        storage[1] = new WarehouseCold("new WarehouseCold",20,-10,today,trash);
 
 
         StartUINext start = new StartUINext(control,storage,food);
