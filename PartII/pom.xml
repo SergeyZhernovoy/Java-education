@@ -1,7 +1,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>PartII</groupId>
-	<artifactId>Lessons</artifactId>
+	<artifactId>OOP</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	

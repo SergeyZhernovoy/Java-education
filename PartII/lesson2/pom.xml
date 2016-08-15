@@ -8,7 +8,7 @@
 	
 	<parent>
 		<groupId>PartII</groupId>
-		<artifactId>Lessons</artifactId>
+		<artifactId>OOP</artifactId>
 		<version>1.0.0</version>
 	</parent>	
 	
