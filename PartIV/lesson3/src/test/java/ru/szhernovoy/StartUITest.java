@@ -16,6 +16,7 @@ import static org.hamcrest.core.Is.is;
 public class StartUITest {
     @Test
     public void whenAddFoodInStorageCountFoodInStorageUp(){
+
         ControlQuality control = new ControlQuality();
         Food[] food = new Food[1];
         GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,8);
@@ -24,9 +25,14 @@ public class StartUITest {
         Storage[] storage = new Storage[1];
         storage[0] = new Shop("METRO",10,today);
 
+        for (int index = 0; index < food.length;index++){
+            control.addFood(food[index]);
+        }
 
-        StartUI start = new StartUI(control,storage,food);
-        start.work();
+        for (int index = 0; index < storage.length;index++){
+            control.addStorages(storage[index]);
+        }
+        control.sortProduct();
         String getResult = storage[0].toString();
         boolean  contain = getResult.contains("Banana") ;
         boolean  check = true;
