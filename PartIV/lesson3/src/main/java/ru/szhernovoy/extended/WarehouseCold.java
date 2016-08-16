@@ -10,19 +10,19 @@ import java.util.GregorianCalendar;
  */
 public class WarehouseCold extends StorageExtended {
 
-    private Trash trash;
-
-    /**
+    /**need for method matches */
+     private Trash trash ;
+     /**
      * Constructor.
      *
      * @param name
      * @param size
      * @param temperature
      */
-    public WarehouseCold(String name, int size, int temperature, GregorianCalendar today, Trash trash) {
+    public WarehouseCold(String name, int size, int temperature, GregorianCalendar today) {
         super(name, size, temperature, today);
-        this.trash = trash;
-    }
+        this.trash = new Trash(name,size,today);
+     }
 
 
     /**
@@ -34,12 +34,10 @@ public class WarehouseCold extends StorageExtended {
     @Override
     public boolean matchRange(FoodReproduct food) {
         boolean result = false;
-        if(food.isCanReproduct() && this.trash.matchRange(food.getFood())&& this.temperature < 0){
+        if(food.isCanReproduct() && this.trash.matchRange(food.getFood()) && this.temperature < 0){
             result = true;
-        }
-        else{
-            this.addFood(food.getFood());
-        }
+            }
+
         return result;
     }
 
@@ -51,18 +49,6 @@ public class WarehouseCold extends StorageExtended {
      */
     @Override
     public boolean matchRange(Food food) {
-        return this.trash.matchRange(food);
+        return false;
     }
-
-    /**
-     * Add food in storage
-     *
-     * @param food
-
-     */
-    @Override
-    public void addFood(Food food) {
-           this.trash.addFood(food);
-     }
-
 }

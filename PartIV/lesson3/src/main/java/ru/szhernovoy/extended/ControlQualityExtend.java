@@ -16,28 +16,43 @@ import java.util.GregorianCalendar;
  */
 public class ControlQualityExtend extends ControlQuality{
 
-    private ArrayList<StorageExtended> storages = new ArrayList<StorageExtended>();
-    private ArrayList <FoodReproduct> foods = new ArrayList<FoodReproduct>();
+    /**array with place of storage*/
+    private ArrayList<StorageExtended> storages = new ArrayList<>();
+
     /**
-     * Move product in storage if conditions coincide
+     * default constructor
      */
-    public void sortProduct() {
-        for (FoodReproduct product: this.foods) {
-            for (StorageExtended place: this.storages){
-                if(place.matchRange(product)){
-                    place.addFood(product);
-                    break;
-                }
-            }
-        }
+    public ControlQualityExtend(){
+     }
+
+    /**
+     * Constructor.
+     * @param strg
+     */
+    public ControlQualityExtend(ArrayList<StorageExtended> strg){
+        super();
+        this.storages = strg;
     }
 
     /**
-     * Add food in array list
+     * Add food in storage by sorting.
      * @param food
      */
     public void addFood(FoodReproduct food){
-        this.foods.add(food);
+
+        boolean sort =  false;
+        for (StorageExtended place: this.storages){
+            if(place.matchRange(food)){
+                place.addFood(food);
+                sort = true;
+                break;
+            }
+       }
+
+       if(!sort){
+          super.addFood(food.getFood());
+       }
+
     }
 
     /**
@@ -52,13 +67,15 @@ public class ControlQualityExtend extends ControlQuality{
      * print products in storage
      */
     public void printInfo(){
+        super.printInfo();
         for (Storage place :this.storages) {
             System.out.println(place);
         }
+
     }
 
     public static void main(String[] args) {
-        ControlQualityExtend control = new ControlQualityExtend();
+
         FoodReproduct[] food = new FoodReproduct[2];
         GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,8);
         Food beard =   new Beard("Darnickiy",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,3),25,7);
@@ -66,21 +83,17 @@ public class ControlQualityExtend extends ControlQuality{
         food[0] = new WhiteBeard(true,beard,today);
         food[1] = new DarkBeard(true,bulka,today);
 
+        ArrayList<StorageExtended> strg = new ArrayList<>();
         Warehouse whs = new Warehouse("1st",10, today);
         Trash trash = new Trash("Empty",50, today);
+        strg.add(new WarehouseExt("new Warehouse",20,-10,today,whs));
+        strg.add(new WarehouseCold("new WarehouseCold",20,-10,today));
 
-        StorageExtended[] storage = new StorageExtended[2];
-        storage[0] = new WarehouseExt("new Warehouse",20,-10,today,whs);
-        storage[1] = new WarehouseCold("new WarehouseCold",20,-10,today,trash);
-
+        ControlQualityExtend control = new ControlQualityExtend(strg);
+        control.addStorages(trash);
         for (int index = 0; index < food.length;index++){
             control.addFood(food[index]);
         }
-
-        for (int index = 0; index < storage.length;index++){
-            control.addStorages(storage[index]);
-        }
-        control.sortProduct();
         control.printInfo();
     }
 

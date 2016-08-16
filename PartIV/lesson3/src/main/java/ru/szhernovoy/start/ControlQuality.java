@@ -11,26 +11,41 @@ import java.util.GregorianCalendar;
  */
 public class ControlQuality {
 
-    private ArrayList <Storage> storages = new ArrayList<Storage>();
-    private ArrayList <Food> foods = new ArrayList<Food>();
+    /**array storage place  */
+    private ArrayList <Storage> storages = new ArrayList<>();
+
     /**
-     * Move product in storage if conditions coincide
+     * default constructor
      */
-    public void sortProduct() {
-        for (Food product: foods) {
-            for (Storage place: storages){
-                if(place.matchRange(product)){
-                        place.addFood(product);
-                        break;
-                }
+    public ControlQuality() {
+
+    }
+
+    /**
+     * Constructor.
+     * @param strg
+     */
+    public ControlQuality(ArrayList<Storage> strg){
+        this.storages = strg;
+    }
+
+    /**
+     * Sort food on storage place
+     * @param food
+     */
+    public void addFood(Food food){
+        for (Storage place: storages){
+            if(place.matchRange(food)){
+                place.addFood(food);
+                break;
             }
         }
     }
 
-    public void addFood(Food food){
-        this.foods.add(food);
-    }
-
+    /**
+     * Add stoage for sorting
+     * @param storage
+     */
     public void addStorages(Storage storage){
         this.storages.add(storage);
     }
@@ -45,7 +60,7 @@ public class ControlQuality {
     }
 
     public static void main(String[] args) {
-        ControlQuality control = new ControlQuality();
+
         Food[] food = new Food[8];
         GregorianCalendar today = new GregorianCalendar(2016, GregorianCalendar.AUGUST,8);
 
@@ -58,19 +73,17 @@ public class ControlQuality {
         food[6] = new Potatos("Fantazy",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,14),45,4);
         food[7] = new Potatos("White horse",new GregorianCalendar(2016,GregorianCalendar.AUGUST,1),new GregorianCalendar(2016,GregorianCalendar.AUGUST,9),50,6);
 
+        ArrayList <Storage> storages = new ArrayList<>();
+
+        storages.add(new Shop("METRO",10, today));
+        storages.add(new Warehouse("1st",10, today));
+        storages.add(new Trash("Empty",50, today));
+        ControlQuality control = new ControlQuality(storages);
+
         for (int index = 0; index < food.length;index++){
             control.addFood(food[index]);
         }
 
-        Storage[] storage = new Storage[3];
-        storage[0] = new Shop("METRO",10, today);
-        storage[1] = new Warehouse("1st",10, today);
-        storage[2] = new Trash("Empty",50, today);
-
-        for (int index = 0; index < storage.length;index++){
-            control.addStorages(storage[index]);
-        }
-        control.sortProduct();
         control.printInfo();
 
     }
