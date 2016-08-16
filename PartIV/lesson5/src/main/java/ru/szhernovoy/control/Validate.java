@@ -1,10 +1,12 @@
 package ru.szhernovoy.control;
 
-import ru.szhernovoy.model.UserStorage;
+import ru.szhernovoy.model.User;
+
 
 /**
  * Created by szhernovoy on 15.08.2016.
  */
 public interface Validate {
-    boolean checkParamtres(UserStorage[] users, String name, String id, int age);
+    boolean checkParamter(User[] users, User user);
+
 }
