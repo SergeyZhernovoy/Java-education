@@ -69,12 +69,9 @@ public class UserStorageTest {
         UserStorage storage = new UserStorage(2);
         storage.addUser(valid,vasja);
         storage.addUser(valid,kolja);
-
         Validate[] validId = new Validate[1];
         validId[0] = new ValidateId();
-
         boolean result = storage.deleteUser(validId,vasja);
-        System.out.println("res" +   "" + result);
         boolean control = true;
 
         Assert.assertThat(control,is(result));
@@ -82,15 +79,13 @@ public class UserStorageTest {
 
     @Test
     public void whenDeleteUserFromStorageFromUncorrectIDThatTheyDontDelete(){
-        User vasja = new User("Vasja",25);
-        User kolja = new User("Kolja",26);
-        Validate[] valid = new Validate[2];
-        valid[0] = new ValidateAge();
-        valid[1] = new ValidateName();
-        UserStorage storage = new UserStorage(2);
-        storage.addUser(valid,vasja);
-        storage.addUser(valid,kolja);
+        User[] users = new User[2];
+        users[0] = new User("Vasja",25);
+        users[1] = new User("Kolja",26);
 
+        User vasja = new User("Vasja",25);
+
+        UserStorage storage = new UserStorage(users);
         Validate[] validId = new Validate[1];
         validId[0] = new ValidateId();
         vasja.setId("1212121212");
@@ -141,6 +136,5 @@ public class UserStorageTest {
         boolean control = false;
         Assert.assertThat(control,is(result));
     }
-
 
 }
