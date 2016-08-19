@@ -22,7 +22,6 @@ public class TemplateTest {
         map.put("subject","my friend");
         String result = templ.generate(template, map);
         String check = "Hello, Sergey, How are you my friend";
-        System.out.println(result);
         Assert.assertThat(check,is(result));
     }
 
@@ -34,18 +33,18 @@ public class TemplateTest {
         map.put("subject","my friend");
         String result = templ.generate(template, map);
         String check = "Hello, ${name}, How are you my friend";
-       // Assert.assertThat(check,is(result));
+        Assert.assertThat(check,is(result));
     }
 
     @Test
     public void replaceInTemplatePartWhenKeysAreMore(){
-        String template = "Hello, ${name}, How are you ${subject}";
+        String template = "Hello, ${name}, How are you ${subject} ! I get a ${object}";
         Template templ = new SimpleGenerator();
         Map<String,String> map = new HashMap<>();
         map.put("name","Sergey");
         map.put("subject","my friend");
         String result = templ.generate(template, map);
-        String check = "Hello, Sergey, How are you my friend";
-      //  Assert.assertThat(check,is(result));
+        String check = "Hello, Sergey, How are you my friend ! I get a ${object}";
+        Assert.assertThat(check,is(result));
     }
 }
