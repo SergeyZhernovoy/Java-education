@@ -23,23 +23,27 @@ public class SimpleGenerator implements Template {
     @Override
     public String generate(String template, Map<String, String> map) throws KeyException {
 
-        StringBuffer builder = new StringBuffer(template);
+        StringBuffer builder = new StringBuffer();
         Matcher matcher = SimpleGenerator.pattern.matcher(template);
-        int countKey = 0;
+        int countKey =0;
+        int mapSize = map.size();
+
 
         while (matcher.find()) {
             String key = getCleanKey(matcher.group());
+            countKey++;
             if(map.containsKey(key)){
                 matcher.appendReplacement(builder,map.get(key));
-                countKey++;
-            }
-            else{
-                throw  new KeyException(String.format("Don't find key  - %s",key));
+                countKey--;
+                mapSize--;
             }
         }
 
-        if(countKey != map.size()){
-            throw new KeyException(String.format("Keywords %d in template are more  - %d",countKey,map.size()));
+        if(countKey > mapSize){
+            throw new KeyException("Keywords in template are more ");
+        }
+        if(countKey < mapSize){
+            throw  new KeyException("Don't find key");
         }
 
         return builder.toString();

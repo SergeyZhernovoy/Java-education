@@ -3,7 +3,7 @@ package ru.szhernovoy.model;
 /**
  * Created by admin on 11.08.2016.
  */
-public class MenuItem implements MenuAction {
+public class MenuItem implements Action, Information {
     /** key point menu*/
     private String keyStr;
     /** name point menu*/
@@ -14,15 +14,16 @@ public class MenuItem implements MenuAction {
     private boolean root;
     /**
      * value storage point action menu 1st level.*/
-    private MenuAction[] actions;
+    private MenuItem[] actions;
 
     /**
      * Constructor
      * @param name
      */
-    public MenuItem(final String name){
+    public MenuItem(final String name, String key){
         this.name = name;
         this.root = false;
+        this.keyStr = key;
     }
 
     /**
@@ -30,10 +31,12 @@ public class MenuItem implements MenuAction {
      * @param size
      * @param name
      */
-    public MenuItem(final String name, int size){
-        this.actions = new MenuAction[size];
+    public MenuItem(final String name, int size, String key){
+        this.actions = new MenuItem[size];
         this.name = name;
         this.root = true;
+        this.keyStr = key;
+
     }
 
     /**
@@ -41,66 +44,49 @@ public class MenuItem implements MenuAction {
      * @param name
      * @param actions
      */
-    public MenuItem(final String name, MenuAction[] actions){
+    public MenuItem(final String name, MenuItem[] actions, String key){
         this.actions = actions;
         this.name = name;
         this.root = true;
-    }
+        this.keyStr = key;
+     }
 
     /**
      *
      * @param item
      */
-    public void addItem(MenuAction item){
+    public void addItem(MenuItem item){
         if(this.root){
            this.actions[position++] = item;
         }
      }
 
     /**
-     * Set parametrs in point's menu
-     * @param keyStr
-     * @param delimetr
+     * Print information about point menu on screen
      */
-    @Override
-    public void fillAction(String keyStr,String delimetr) {
-        setParametrs(keyStr, delimetr);
+
+    private void info(String delimetr) {
+        System.out.println(getLineMenu(delimetr));
         if(this.root){
             delimetr = String.format("%s%s","-",delimetr);
             for (int index = 0; index < this.actions.length; index++){
-                String keyInSide = String.format("%s.%s",keyStr,String.valueOf(1+index));
-                this.actions[index].fillAction(keyInSide,delimetr);
+                 this.actions[index].info(delimetr);
             }
         }
     }
 
+
     /**
-     * Set parametrs in point's menu
-     * @param keyStr
+     * Get line menu
      * @param delimetr
      */
-    private void setParametrs(String keyStr, String delimetr) {
+    private String getLineMenu(String delimetr) {
         StringBuilder builder = new StringBuilder();
         builder.append(delimetr);
-        builder.append(keyStr);
-        builder.append(".");
+        builder.append(this.keyStr);
         builder.append("\t");
         builder.append(this.name);
-        this.name = builder.toString();
-        this.keyStr = keyStr;
-    }
-
-    /**
-     * Print information about point menu on screen
-     */
-    @Override
-    public void info() {
-        System.out.println(this.name);
-        if(root){
-            for (MenuAction action : this.actions){
-                action.info();
-            }
-        }
+        return builder.toString();
     }
 
     /**
@@ -113,7 +99,7 @@ public class MenuItem implements MenuAction {
             System.out.println(String.format("You choice is %s and this item is %s",this.keyStr,this.name));
         }
         if(root){
-            for (MenuAction action : this.actions){
+            for (Action action : this.actions){
                 action.execute(key);
             }
         }
@@ -121,5 +107,17 @@ public class MenuItem implements MenuAction {
 
     public String getKeyStr() {
         return keyStr;
+    }
+
+    @Override
+    public void info() {
+        System.out.println(getLineMenu(""));
+        String delimetr = "-";
+        if(root){
+            for (MenuItem action : this.actions){
+                action.info(delimetr);
+            }
+        }
+
     }
 }
