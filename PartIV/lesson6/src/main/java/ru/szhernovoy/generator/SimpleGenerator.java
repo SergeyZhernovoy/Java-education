@@ -1,5 +1,7 @@
 package ru.szhernovoy.generator;
 
+import java.rmi.UnexpectedException;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,32 +10,32 @@ import java.util.regex.Pattern;
  */
 public class SimpleGenerator implements Template {
 
-    private String[] regex;
-    private Matcher matcher;
+    private final String REGEX = "\\$\\{\\w+\\}";
 
-    public SimpleGenerator(String[] regex){
-        this.regex = regex;
-    }
 
     @Override
-    public String generate(String template, Object[] value) {
+    public String generate(String template, Map<String, String> map) {
+        StringBuffer builder = new StringBuffer(template);
+        Matcher matcher = Pattern.compile(this.REGEX).matcher(template);
+        while (matcher.find()) {
+            String key = getCleanKey(matcher.group());
+            if(map.containsKey(key)){
+               builder.replace(matcher.start(),matcher.end(),map.get(key));
 
-        String result = template;
-        int position = 0;
-        for(int index = 0 ; index < this.regex.length; index++){
-            if(template.contains(this.regex[index])){
-                for(;position < value.length;position++){
-                    result = result.replaceAll(this.regex[index],value[position].toString());
-                }
             }
-
-           /* this.matcher = Pattern.compile(this.regex[index]).matcher(template);
-            if(this.matcher.find()){
-               for(;position < value.length;position++){
-                   result = result.replaceAll(this.regex[index],value[position].toString());
-               }
-            }*/
-        }
-       return result;
+         }
+        return builder.toString();
     }
+
+    public String getCleanKey(String key) {
+        String result = key;
+        try {
+            result = result.substring(2, key.length() - 1);
+        } catch (StringIndexOutOfBoundsException exc) {
+            System.out.println("String index out");
+        }
+
+        return result;
+    }
+
 }
