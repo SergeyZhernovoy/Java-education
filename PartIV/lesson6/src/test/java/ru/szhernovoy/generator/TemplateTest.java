@@ -14,7 +14,7 @@ import static org.hamcrest.core.Is.is;
  */
 public class TemplateTest {
     @Test
-    public void replaceInTemplatePartWeShouldGetRightString(){
+    public void replaceInTemplatePartWeShouldGetRightString() throws KeyException{
         String template = "Hello, ${name}, How are you ${subject}";
         Template templ = new SimpleGenerator();
         Map<String,String> map = new HashMap<>();
@@ -26,7 +26,7 @@ public class TemplateTest {
     }
 
     @Test
-    public void replaceInTemplatePartWhenNoKeys(){
+    public void replaceInTemplatePartWhenNoKeys() throws KeyException{
         String template = "Hello, ${name}, How are you ${subject}";
         Template templ = new SimpleGenerator();
         Map<String,String> map = new HashMap<>();
@@ -37,7 +37,7 @@ public class TemplateTest {
     }
 
     @Test
-    public void replaceInTemplatePartWhenKeysAreMore(){
+    public void replaceInTemplatePartWhenKeysAreMore() throws KeyException {
         String template = "Hello, ${name}, How are you ${subject} ! I get a ${object}";
         Template templ = new SimpleGenerator();
         Map<String,String> map = new HashMap<>();

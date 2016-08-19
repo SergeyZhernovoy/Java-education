@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 public class SimpleGenerator implements Template {
 
     /**value regex string for search */
-    private final String REGEX = "\\$\\{\\w+\\}";
+    private static final String REGEX = "(\\$\\{)(\\w+)(\\})";
+    private static Pattern pattern = Pattern.compile(REGEX);
 
 
     /**
@@ -20,24 +21,28 @@ public class SimpleGenerator implements Template {
      * @return
      */
     @Override
-    public String generate(String template, Map<String, String> map) {
+    public String generate(String template, Map<String, String> map) throws KeyException {
 
-        StringBuilder resultBuilder = new StringBuilder();
-        Matcher matcher = Pattern.compile(this.REGEX).matcher(template);
-        int start = 0;
+        StringBuffer builder = new StringBuffer(template);
+        Matcher matcher = SimpleGenerator.pattern.matcher(template);
+        int countKey = 0;
+
         while (matcher.find()) {
-            resultBuilder.append(template.substring(start,matcher.start()));
-            start = matcher.end();
             String key = getCleanKey(matcher.group());
             if(map.containsKey(key)){
-                resultBuilder.append(map.get(key));
+                matcher.appendReplacement(builder,map.get(key));
+                countKey++;
             }
             else{
-                resultBuilder.append(matcher.group());
+                throw  new KeyException(String.format("Don't find key  - %s",key));
             }
-
         }
-        return resultBuilder.toString();
+
+        if(countKey != map.size()){
+            throw new KeyException(String.format("Keywords %d in template are more  - %d",countKey,map.size()));
+        }
+
+        return builder.toString();
     }
 
     /**
@@ -47,12 +52,7 @@ public class SimpleGenerator implements Template {
      */
     public String getCleanKey(String key) {
         String result = key;
-        try {
-            result = result.substring(2, key.length() - 1);
-        } catch (StringIndexOutOfBoundsException exc) {
-            System.out.println("String index out");
-        }
-
+        result = result.substring(2, key.length() - 1);
         return result;
     }
 
