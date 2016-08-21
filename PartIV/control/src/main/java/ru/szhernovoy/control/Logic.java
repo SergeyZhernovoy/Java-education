@@ -5,13 +5,13 @@ import ru.szhernovoy.view.Cell;
 /**
  * Created by szhernovoy on 16.08.2016.
  */
-public class GameRules {
+public class Logic {
     private Cell[][] cells;
 
-    /*@Override
+
     public void loadBoard(Cell[][] cells) {
         this.cells = cells;
-    }*/
+    }
 
 /*
     @Override
@@ -29,6 +29,10 @@ public class GameRules {
             }
         }*/
         return finish;
+    }
+
+    public boolean control(String[] answer, int orderPlayer){
+        return true;
     }
 
    /* @Override

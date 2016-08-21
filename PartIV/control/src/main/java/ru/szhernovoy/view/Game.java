@@ -1,7 +1,7 @@
 package ru.szhernovoy.view;
 
 import ru.szhernovoy.control.ConsoleIO;
-import ru.szhernovoy.control.GameRules;
+import ru.szhernovoy.control.Logic;
 import ru.szhernovoy.model.*;
 
 /**
@@ -11,13 +11,12 @@ public class Game {
 
     private final GeneratorBoard generator;
     private final Board board;
-    private final GameRules logic;
-    private UserAction[] actors;
+    private final Logic logic;
+    private Player[] actors = new Player[2];
     private IO io;
-    private boolean choice;
 
 
-    public Game(final GameRules logic, final Board board, final GeneratorBoard generator, IO io) {
+    public Game(final Logic logic, final Board board, final GeneratorBoard generator, IO io) {
         this.generator = generator;
         this.board = board;
         this.logic = logic;
@@ -26,42 +25,49 @@ public class Game {
     }
 
 
-    public void initGame() {
+    public void initGame(Player human, Player computer) {
         final Cell[][] cells = generator.generate();
         this.board.drawScreenOnInit();
-        this.choice = io.ask("Do you want do step first ? (y/n) ?",new String[]{"y","n"});
+        boolean choice = io.ask("Do you want do step first ? (y/n) ?",new String[]{"y","n"});
+        if(choice){
+            this.actors[0] = human;
+            this.actors[1] = computer;
+        }
+        else{
+            this.actors[0] = computer;
+            this.actors[1] = human;
+        }
         this.board.drawBoard(cells);
+        this.logic.loadBoard(cells);
     }
 
     public void work(){
-
-        //choice right for 1st step
+        int[] rangeBoard = this.board.rangeBoard();
 
         do{
+            this.board.drawCell();
+            for(int index = 0; index < this.actors.length; index++){
+                boolean resultAnswer = false;
+                while(!resultAnswer){
+                       resultAnswer = this.logic.control(this.actors[index].select(io.ask("Enter position X",rangeBoard) ,io.ask("Enter position Y",rangeBoard)),index);
+                }
+                if(this.logic.finish()){
+                    break;
+                }
+            }
 
         }while(!this.logic.finish());
 
     }
 
-    public void select(int x, int y, boolean bomb) {
-     /*   this.logic.suggest(x, y, bomb);
-        board.drawCell(x, y);
-        if (this.logic.shouldBang(x, y)) {
-            //this.board.drawBang();
-        }
-        if (this.logic.finish()) {
-            board.congratulate();
-        }*/
-    }
-
     public static void main(String[] args) {
 
-        GameRules logic = new GameRules();
+        Logic logic = new Logic();
         Board board = new Board();
         GeneratorBoard generator = new GeneratorBoard();
 
 
         Game base = new Game(logic,board,generator,new ConsoleIO());
-        base.initGame();
+        //base.initGame();
 }
 }

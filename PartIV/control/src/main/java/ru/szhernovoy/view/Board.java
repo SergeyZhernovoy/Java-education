@@ -1,6 +1,8 @@
 package ru.szhernovoy.view;
 
 
+import ru.szhernovoy.model.IO;
+
 /**
  * Created by szhernovoy on 20.08.2016.
  */
@@ -13,13 +15,22 @@ public class Board {
         this.redraw();
     }
 
-    public void drawCell(int x, int y) {
+    public void drawCell() {
         System.out.println("***** SELECT ******");
         this.redraw();
     }
 
     public void drawScreenOnInit() {
         System.out.println("***** NEW GAME TIC-TAC-TOE ******");
+    }
+
+
+    public int[] rangeBoard(){
+        int[] range = new int[this.cells.length];
+        for (int index = 0; index < this.cells.length;index++){
+            range[index] = index+1;
+        }
+        return range;
     }
 
 
