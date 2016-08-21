@@ -1,5 +1,6 @@
 package ru.szhernovoy.view;
 
+import ru.szhernovoy.control.ConsoleIO;
 import ru.szhernovoy.control.GameRules;
 import ru.szhernovoy.model.*;
 
@@ -10,23 +11,37 @@ public class Game {
 
     private final GeneratorBoard generator;
     private final Board board;
-    private final Logic logic;
+    private final GameRules logic;
     private UserAction[] actors;
+    private IO io;
+    private boolean choice;
 
-    public Game(final Logic logic, final Board board, final GeneratorBoard generator, UserAction[] actors) {
+
+    public Game(final GameRules logic, final Board board, final GeneratorBoard generator, IO io) {
         this.generator = generator;
         this.board = board;
         this.logic = logic;
-        this.actors = actors;
+      //  this.actors = actors;
+        this.io = io;
     }
 
 
     public void initGame() {
         final Cell[][] cells = generator.generate();
+        this.board.drawScreenOnInit();
+        this.choice = io.ask("Do you want do step first ? (y/n) ?",new String[]{"y","n"});
         this.board.drawBoard(cells);
-       // this.logic.loadBoard(cells);
     }
 
+    public void work(){
+
+        //choice right for 1st step
+
+        do{
+
+        }while(!this.logic.finish());
+
+    }
 
     public void select(int x, int y, boolean bomb) {
      /*   this.logic.suggest(x, y, bomb);
@@ -41,11 +56,12 @@ public class Game {
 
     public static void main(String[] args) {
 
-        Logic logic = new GameRules();
+        GameRules logic = new GameRules();
         Board board = new Board();
         GeneratorBoard generator = new GeneratorBoard();
 
-        Game base = new Game(logic,board,generator);
+
+        Game base = new Game(logic,board,generator,new ConsoleIO());
         base.initGame();
-    }
+}
 }

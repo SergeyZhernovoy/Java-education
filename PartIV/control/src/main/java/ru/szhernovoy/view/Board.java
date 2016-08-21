@@ -18,6 +18,10 @@ public class Board {
         this.redraw();
     }
 
+    public void drawScreenOnInit() {
+        System.out.println("***** NEW GAME TIC-TAC-TOE ******");
+    }
+
 
     public void congratulate() {
         System.out.println("***** CONGRATULATE ******");
@@ -26,14 +30,15 @@ public class Board {
     private void redraw() {
         int  y = 1;
         System.out.print("[\\]");
-        for(int index = 0; index < 3; index++){
+
+        for(int index = 0; index < this.cells.length; index++){
             System.out.print(String.format("[%s]",index+1));
         }
         System.out.println("");
-        for (Cell[] row : cells) {
+        for (Cell[] row : this.cells) {
             System.out.print("["+ y++ +"]");
             for (Cell cell : row) {
-                cell.draw();
+                System.out.print(cell.image());
             }
             System.out.println();
         }

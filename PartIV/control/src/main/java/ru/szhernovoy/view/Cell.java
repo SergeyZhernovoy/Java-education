@@ -34,18 +34,14 @@ public class Cell {
         this.empty = empty;
     }
 
-    public void draw() {
-
-        if(this.empty){
-            System.out.print("[ ]");
+    public String image() {
+        String image = "[ ]";
+        if(this.iconX){
+            image = "[X]";
         }
-        else{
-            if(this.iconX){
-                System.out.print("[X]");
-            }
-            if(this.iconO){
-                System.out.print("[O]");
-            }
+        if(this.iconO){
+            image = "[O]";
         }
+        return image;
      }
 }
