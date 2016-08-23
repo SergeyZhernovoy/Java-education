@@ -2,6 +2,7 @@ package ru.szhernovoy.view;
 
 
 import ru.szhernovoy.model.IO;
+import ru.szhernovoy.model.Player;
 
 /**
  * Created by szhernovoy on 20.08.2016.
@@ -10,18 +11,22 @@ public class Board {
     private Cell[][] cells;
 
 
-    public void drawBoard(Cell[][] cells) {
+    public void loadBoard(Cell[][] cells) {
         this.cells = cells;
-        this.redraw();
     }
 
-    public void drawCell(int x, int y) {
-        System.out.println("***** SELECT ******");
+    public void drawCell() {
+        System.out.println("*********** SELECT **************");
         this.redraw();
     }
 
     public void drawScreenOnInit() {
+        System.out.println("*********************************");
         System.out.println("***** NEW GAME TIC-TAC-TOE ******");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*********************************");
+        System.out.println("*                               *");
     }
 
 
@@ -34,22 +39,32 @@ public class Board {
     }
 
 
-    public void congratulate() {
-        System.out.println("***** CONGRATULATE ******");
+    public void endGame(Player[] player, int resultGame) {
+
+        if(resultGame == -1){
+            System.out.println("**********************************");
+            System.out.println("********** NO WINS **********");
+        }
+        else{
+            System.out.println("**********************************");
+            System.out.println("********** CONGRATULATE **********");
+            System.out.println(String.format("********** WIN - %s************",player[resultGame].whoAreYou()));
+        }
+        this.redraw();
     }
 
     private void redraw() {
         int  y = 1;
-        System.out.print("[\\]");
+        System.out.print("\t[\\]");
 
         for(int index = 0; index < this.cells.length; index++){
-            System.out.print(String.format("[%s]",index+1));
+            System.out.print(String.format("\t[%s]",index+1));
         }
         System.out.println("");
         for (Cell[] row : this.cells) {
-            System.out.print("["+ y++ +"]");
+            System.out.print("\t["+ y++ +"]");
             for (Cell cell : row) {
-                System.out.print(cell.image());
+                System.out.print("\t"+cell.image());
             }
             System.out.println();
         }

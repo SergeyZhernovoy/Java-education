@@ -16,6 +16,7 @@ public class Cell {
 
     public void setIconX(boolean iconX) {
         this.iconX = iconX;
+        setEmpty(false);
     }
 
     public boolean isIconO() {
@@ -24,6 +25,7 @@ public class Cell {
 
     public void setIconO(boolean iconO) {
         this.iconO = iconO;
+        setEmpty(false);
     }
 
     public boolean isEmpty() {

@@ -5,7 +5,7 @@ package ru.szhernovoy.model;
  */
 public interface IO {
 
-    String ask(String question) throws ErrorInput;
+    boolean ask(String question) throws ErrorInput;
 
     int ask(String question, int[] range) throws ErrorInput;
 

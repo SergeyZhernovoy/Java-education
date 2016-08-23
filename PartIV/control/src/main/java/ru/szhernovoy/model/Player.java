@@ -4,8 +4,8 @@ package ru.szhernovoy.model;
  * Created by szhernovoy on 20.08.2016.
  */
 public interface Player {
-    String firstStep(String question);
-    int[] select(String question);
+    boolean firstStep(String question) throws ErrorInput;
+    int[] select(String question) throws ErrorInput;
     void setBoardSize(int[] range);
-    boolean isHuman();
+    String whoAreYou();
 }

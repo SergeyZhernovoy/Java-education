@@ -1,5 +1,6 @@
 package ru.szhernovoy.control;
 
+import ru.szhernovoy.model.ErrorInput;
 import ru.szhernovoy.model.IO;
 import ru.szhernovoy.model.Player;
 
@@ -16,13 +17,16 @@ public class Human implements Player {
     }
 
     @Override
-    public int[] select(String question) {
-        return new int[0];
+    public int[] select(String question) throws ErrorInput {
+        int[] answer = new int[2];
+        answer[0] = this.io.ask(String.format("%s - x ",question),this.boardSize);
+        answer[1] = this.io.ask(String.format("%s - y ",question),this.boardSize);
+        return answer;
     }
 
     @Override
-    public String firstStep(String question) {
-        return null;
+    public boolean firstStep(String question) throws ErrorInput {
+           return this.io.ask(question);
     }
 
     @Override
@@ -31,7 +35,7 @@ public class Human implements Player {
     }
 
     @Override
-    public boolean isHuman() {
-        return true;
+    public String whoAreYou() {
+        return "Human";
     }
 }

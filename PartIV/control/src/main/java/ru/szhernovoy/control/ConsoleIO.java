@@ -12,11 +12,11 @@ public class ConsoleIO implements IO{
     private Scanner sc = new Scanner(System.in);
 
     @Override
-    public String ask(String question) throws ErrorInput {
+    public boolean ask(String question) throws ErrorInput {
         System.out.print(String.format("%s : ",question));
-        String answer = sc.nextLine();
-        if(answer.equals("y") || answer.equals("n")){
-           return answer;
+        String result = sc.nextLine();
+        if(result.equals("y") || result.equals("n")){
+           return result.equals("y") ? true : false;
         }
         else{
             throw  new ErrorInput("Uncorrect input");
@@ -34,7 +34,6 @@ public class ConsoleIO implements IO{
                 break;
             }
         }
-
         if(result){
             return answer;
         }

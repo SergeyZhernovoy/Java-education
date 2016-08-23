@@ -13,34 +13,98 @@ public class Logic {
         this.cells = cells;
     }
 
-/*
-    @Override
-    public boolean shouldBang(int x, int y) {
-        final Cell selected = this.cells[x][y];
-        return selected.isBomb() && !selected.isSuggestBomb();
-    }*/
-
       public boolean finish() {
-        boolean finish = false;
-       /* for (Cell[] row : cells) {
+        boolean finish = true;
+        for (Cell[] row : cells) {
             for (Cell cell : row) {
-                finish = ((cell.isSuggestBomb() && cell.isBomb()) ||
-                        (cell.isEmpty() && !cell.isBomb()));
+                finish =  !cell.isEmpty();
+                if(!finish){
+                   break;
+                }
+             }
+            if(!finish){
+                break;
             }
-        }*/
+        }
         return finish;
     }
 
-    public boolean control(int[] answer, int orderPlayer){
-        return true;
+    public int isWinner(){
+        // X - 0 || O - 1
+        int rowField = 0;
+        int columnField =0;
+        int winner = -1;
+
+        int rowFieldX = 0;
+        int columnFieldX = 0;
+
+        for (int valueX = 0; valueX < this.cells.length;valueX++) {
+            rowField = 0;
+            columnField = 0;
+            for (int valueY = 0; valueY < this.cells.length; valueY++) {
+                rowField +=  currentValueField(this.cells[valueX][valueY]);
+                columnField += currentValueField(this.cells[valueY][valueX]);
+            }
+            if(rowField%this.cells.length == 0 && rowField !=0){
+               winner =  rowField/this.cells.length - 1;
+               break;
+            }
+
+            if(columnField%this.cells.length == 0 && columnField !=0 ){
+                winner = columnField/this.cells.length - 1;
+                break;
+            }
+
+        }
+
+        /*if(winner == -1){
+            int valueY = 0;
+            int valueX = 0;
+            int valueXM = this.cells.length -1;
+            int valueYM = this.cells.length -1;
+            rowField = columnField =0;
+            for (; valueY < this.cells.length; valueY++,valueX++,valueXM--,valueYM--) {
+                rowField +=  currentValueField(this.cells[valueX][valueY]);
+                columnField += currentValueField(this.cells[valueXM][valueYM]);
+            }
+
+            if(rowField%this.cells.length == 0 && rowField !=0){
+                winner =  rowField/this.cells.length - 1;
+            }
+
+            if(columnField%this.cells.length == 0 && columnField !=0 ){
+                winner = columnField/this.cells.length - 1;
+            }
+
+        }*/
+
+        return winner;
+
     }
 
-   /* @Override
-    public void suggest(int x, int y, boolean bomb) {
-        if (bomb) {
-            this.cells[x][y].suggectBomb();
-        } else {
-            this.cells[x][y].suggectEmpty();
+    private int currentValueField(Cell cell){
+
+        return cell.isEmpty() ? 0 : cell.isIconX() ? 1 : 2;
+
+    }
+
+    public boolean control(int[] answer){
+
+        boolean result = false;
+        if(this.cells[answer[0]][answer[1]].isEmpty()){
+            result = true;
         }
-    }*/
+        return result;
+    }
+
+    public void setValue(int[] answer, int index){
+        if(index == 0){
+            this.cells[answer[0]][answer[1]].setIconX(true);
+        }
+        else{
+            this.cells[answer[0]][answer[1]].setIconO(true);
+        }
+    }
+
 }
+

@@ -20,16 +20,18 @@ public class Game {
         this.logic = logic;
     }
 
-    public void initGame() {
+    public void initGame(Player human) throws ErrorInput {
         final Cell[][] cells = generator.generate();
-        this.board.drawBoard(cells);
+        this.board.loadBoard(cells);
         this.logic.loadBoard(cells);
+        initPlayer(human);
     }
 
-    public void initPlayer(Player human){
-        Player computer = new Computer(this.logic);
+    private void initPlayer(Player human) throws ErrorInput {
+        Player computer = new Computer();
         human.setBoardSize(this.board.rangeBoard());
-        boolean choice = "y".equals(human.firstStep("Do you want do step first ? (y/n) ?"));
+        computer.setBoardSize(this.board.rangeBoard());
+        boolean choice = human.firstStep("Do you want do step first ? (y/n) ?");
         if (choice) {
             this.actors[0] = human;
             this.actors[1] = computer;
@@ -37,36 +39,42 @@ public class Game {
             this.actors[0] = computer;
             this.actors[1] = human;
         }
-
     }
 
-     public void work(){
+     public void work() throws ErrorInput {
         this.board.drawScreenOnInit();
+        boolean gameOver = false;
+        int winner = -1;
         do{
-            //this.board.drawCell();
+            this.board.drawCell();
             for(int index = 0; index < this.actors.length; index++){
                 boolean resultAnswer = false;
+                System.out.println(String.format("%s - step",this.actors[index].whoAreYou()));
                 while(!resultAnswer){
-                       resultAnswer = this.logic.control(this.actors[index].select("Enter position"),index);
+                       int[] position = this.actors[index].select("Enter position");
+                       resultAnswer = this.logic.control(position);
+                       if(resultAnswer){
+                          this.logic.setValue(position,index);
+                       }
+                       else{
+                           System.out.println("Uncorrect step - try again...");
+                       }
                 }
-                if(this.logic.finish()){
+
+                winner = this.logic.isWinner();
+                gameOver = this.logic.finish() || (winner != -1);
+                if(gameOver){
                     break;
                 }
             }
+        }while(!gameOver);
+        this.board.endGame(this.actors,winner);
 
-        }while(!this.logic.finish());
-    }
+     }
 
-    public static void main(String[] args) {
-
-        Logic logic = new Logic();
-        Board board = new Board();
-        GeneratorBoard generator = new GeneratorBoard();
-        ValidateIO valid = new ValidateIO();
-        Player human = new Human(valid);
-        Game base = new Game(logic,board,generator);
-        base.initGame();
-        base.initPlayer(human);
+    public static void main(String[] args) throws ErrorInput {
+        Game base = new Game(new Logic(),new Board(),new GeneratorBoard());
+        base.initGame(new Human(new ValidateIO()));
         base.work();
-}
+    }
 }
