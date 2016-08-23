@@ -8,18 +8,33 @@ import ru.szhernovoy.model.*;
  */
 public class Game {
 
+    /**generator board - fabrica */
     private final GeneratorBoard generator;
+    /**Board game */
     private final Board board;
+    /**Game rules */
     private final Logic logic;
+    /**array players */
     private Player[] actors = new Player[2];
 
 
+    /**
+     * Constructor.
+     * @param logic
+     * @param board
+     * @param generator
+     */
     public Game(final Logic logic, final Board board, final GeneratorBoard generator) {
         this.generator = generator;
         this.board = board;
         this.logic = logic;
     }
 
+    /**
+     * Initilize game
+     * @param human
+     * @throws ErrorInput
+     */
     public void initGame(Player human) throws ErrorInput {
         final Cell[][] cells = generator.generate();
         this.board.loadBoard(cells);
@@ -27,6 +42,11 @@ public class Game {
         initPlayer(human);
     }
 
+    /**
+     * set initiale parametr player for game and do decision who step first
+     * @param human
+     * @throws ErrorInput
+     */
     private void initPlayer(Player human) throws ErrorInput {
         Player computer = new Computer();
         human.setBoardSize(this.board.rangeBoard());
@@ -41,6 +61,10 @@ public class Game {
         }
     }
 
+    /**
+     * Main game loop.
+     * @throws ErrorInput
+     */
      public void work() throws ErrorInput {
         this.board.drawScreenOnInit();
         boolean gameOver = false;

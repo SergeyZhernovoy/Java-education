@@ -15,7 +15,12 @@ public class Human implements Player {
     public Human(final IO io){
         this.io = io;
     }
-
+    /**
+     * Enter position for set "X" or "O"
+     * @param question
+     * @return
+     * @throws ErrorInput
+     */
     @Override
     public int[] select(String question) throws ErrorInput {
         int[] answer = new int[2];
@@ -23,17 +28,27 @@ public class Human implements Player {
         answer[1] = this.io.ask(String.format("%s - y ",question),this.boardSize);
         return answer;
     }
-
+    /**
+     * Ask for first step.
+     * @param question
+     * @return
+     * @throws ErrorInput
+     */
     @Override
     public boolean firstStep(String question) throws ErrorInput {
            return this.io.ask(question);
     }
-
+    /**
+     * Set board size for input method
+     */
     @Override
     public void setBoardSize(int[] boardSize) {
         this.boardSize = boardSize;
     }
-
+    /**
+     * Return type player
+     * @return
+     */
     @Override
     public String whoAreYou() {
         return "Human";

@@ -7,7 +7,12 @@ import ru.szhernovoy.model.ErrorInput;
  */
 public class ValidateIO extends ConsoleIO {
 
-
+    /**
+     * simple ask
+     * @param question
+     * @return
+     * @throws ErrorInput
+     */
     public boolean ask(String question)  {
 
         boolean correctInput = false;
@@ -23,7 +28,13 @@ public class ValidateIO extends ConsoleIO {
         return result;
     }
 
-
+    /**
+     * Ask on range value
+     * @param question
+     * @param range
+     * @return
+     * @throws ErrorInput
+     */
     public int ask(String question, int[] range) {
 
         boolean correctInput = false;
