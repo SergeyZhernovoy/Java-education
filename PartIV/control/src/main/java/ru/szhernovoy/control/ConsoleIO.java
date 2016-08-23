@@ -1,5 +1,6 @@
 package ru.szhernovoy.control;
 
+import ru.szhernovoy.model.ErrorInput;
 import ru.szhernovoy.model.IO;
 
 import java.util.Scanner;
@@ -9,34 +10,43 @@ import java.util.Scanner;
  */
 public class ConsoleIO implements IO{
     private Scanner sc = new Scanner(System.in);
-    @Override
-    public String ask(String question) {
-        return null;
-    }
 
     @Override
-    public int ask(String question, int[] range) {
-        System.out.println(question);
-
-        return 0;
-    }
-
-
-    @Override
-    public boolean ask(String question, String[] range) {
+    public String ask(String question) throws ErrorInput {
         System.out.print(String.format("%s : ",question));
         String answer = sc.nextLine();
-        boolean result;
-        if(answer.equals("y"))
-            result = true;
-        else {
-            result = false;
+        if(answer.equals("y") || answer.equals("n")){
+           return answer;
         }
-        return result;
+        else{
+            throw  new ErrorInput("Uncorrect input");
+        }
     }
+
+    @Override
+    public int ask(String question, int[] range) throws ErrorInput {
+        System.out.print(String.format("%s : ",question));
+        int answer = sc.nextInt();
+        boolean result = false;
+        for(int index = 0; index < range.length; index++){
+            if(range[index] == answer){
+                result = true;
+                break;
+            }
+        }
+
+        if(result){
+            return answer;
+        }
+        else{
+            throw  new ErrorInput("Uncorrect input");
+        }
+
+    }
+
 
     @Override
     public void print(Object value) {
-
+        System.out.print(value);
     }
 }

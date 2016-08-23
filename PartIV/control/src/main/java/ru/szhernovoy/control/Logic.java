@@ -31,7 +31,7 @@ public class Logic {
         return finish;
     }
 
-    public boolean control(String[] answer, int orderPlayer){
+    public boolean control(int[] answer, int orderPlayer){
         return true;
     }
 

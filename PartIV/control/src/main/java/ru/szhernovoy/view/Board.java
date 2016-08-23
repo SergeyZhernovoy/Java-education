@@ -15,7 +15,7 @@ public class Board {
         this.redraw();
     }
 
-    public void drawCell() {
+    public void drawCell(int x, int y) {
         System.out.println("***** SELECT ******");
         this.redraw();
     }

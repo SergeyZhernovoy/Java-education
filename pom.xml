@@ -1,7 +1,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>JavaEducation</groupId>
-	<artifactId>Parts</artifactId>
+	<artifactId>Java-education</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	
