@@ -2,6 +2,8 @@ package ru.szhernovoy.control;
 
 import ru.szhernovoy.model.ErrorInput;
 
+import java.util.InputMismatchException;
+
 /**
  * Created by admin on 20.08.2016.
  */
@@ -43,9 +45,12 @@ public class ValidateIO extends ConsoleIO {
             try {
                 result =  super.ask(question,range)-1;
                 correctInput = true;
-            } catch (ErrorInput | NumberFormatException exc) {
+            } catch (ErrorInput  | NumberFormatException exc) {
+                System.out.println("Uncorrect input - try again...");
+            }catch (InputMismatchException  exc){
                 System.out.println("Uncorrect input - try again...");
             }
+
         }while(!correctInput);
         return result;
 
