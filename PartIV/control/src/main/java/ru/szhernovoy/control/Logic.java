@@ -44,76 +44,83 @@ public class Logic {
      */
     public int isWinner(){
         // X - 0 || O - 1
-        int rowFieldO,columnFieldO,rowFieldX,columnFieldX;
+        int[] square = {0,0,0,0};
+        int[] diagonal = {0,0,0,0};
         int winner = -1;
-        for (int valueX = 0; valueX < this.cells.length;valueX++) {
+        int valueMinus = this.cells.length -1;
+        for (int valueX = 0; valueX < this.cells.length;valueX++, valueMinus--) {
+            square[0] = square[1] = square[2] = square[3] = 0;
 
-            rowFieldO = columnFieldO = rowFieldX = columnFieldX = 0;
+            accumalateValue(this.cells[valueX][valueX], diagonal,1);
+            accumalateValue(this.cells[valueMinus][valueMinus], diagonal,2);
 
             for (int valueY = 0; valueY < this.cells.length; valueY++) {
-
-                if(currentValueField(this.cells[valueX][valueY]) == 1){
-                    rowFieldX++;
-                }
-
-                if(currentValueField(this.cells[valueX][valueY]) == 2){
-                    rowFieldO +=2;
-                }
-
-                if(currentValueField(this.cells[valueY][valueX]) == 1){
-                    columnFieldX++;
-                }
-
-                if(currentValueField(this.cells[valueY][valueX]) == 2){
-                    columnFieldO +=2;
-                }
+                accumalateValue(this.cells[valueX][valueY], square,1);
+                accumalateValue(this.cells[valueY][valueX], square,2);
             }
-            if(rowFieldX%this.cells.length == 0 && rowFieldX !=0 || columnFieldX%this.cells.length == 0 && columnFieldX !=0){
-               winner =  0;
-               break;
+            winner = checkOnWin(square[0],square[2],square[1],square[3]);
+            if(winner  == -1){
+               winner = checkOnWin(diagonal[0],diagonal[2],diagonal[1],diagonal[3]);
             }
 
-            if(rowFieldO%this.cells.length == 0 && rowFieldO !=0 || columnFieldO%this.cells.length == 0 && columnFieldO !=0){
-                winner = 1;
+            if(winner == 0 || winner == 1){
                 break;
             }
-
         }
-
-        if(winner == -1){
-            rowFieldO = columnFieldO = rowFieldX = columnFieldX = 0;
-            int valuePlus  = 0;
-            int valueMinus = this.cells.length -1;
-            for (; valuePlus < this.cells.length;valuePlus++,valueMinus--) {
-
-                if(currentValueField(this.cells[valuePlus][valuePlus]) == 1){
-                    rowFieldX ++;
-                }
-
-                if(currentValueField(this.cells[valuePlus][valuePlus]) == 2){
-                    rowFieldO +=  2;
-                }
-
-                if(currentValueField(this.cells[valueMinus][valueMinus]) == 1){
-                    columnFieldX ++;
-                }
-
-                if(currentValueField(this.cells[valueMinus][valueMinus]) == 2){
-                    columnFieldO += 2;
-                }
-            }
-
-            if(rowFieldX%this.cells.length == 0 && rowFieldX !=0 || columnFieldX%this.cells.length == 0 && columnFieldX !=0){
-                winner =  0;
-            }
-
-            if(rowFieldO%this.cells.length == 0 && rowFieldO !=0 || columnFieldO%this.cells.length == 0 && columnFieldO !=0){
-                winner = 1;
-            }
-        }
-
         return winner;
     }
+
+    /**
+     * Accumalate value.
+     * @param cell
+     * @param value
+     * @param type type = 1 row/diagonal left -right  type = 2 column/diagonal right-left
+     */
+    public void accumalateValue(Cell cell, int[] value, int type){
+
+         if(type == 1){
+            if(currentValueField(cell) == 1){
+                value[0] = value[0] + 1 ;
+            }
+
+            if(currentValueField(cell) == 2){
+                value[1] = value[1] + 2 ;
+            }
+        }
+        else{
+
+            if(currentValueField(cell) == 1){
+                value[2] = value[2] + 1 ;
+            }
+
+            if(currentValueField(cell) == 2){
+                value[3] = value[3] + 2 ;
+            }
+        }
+    }
+
+
+    /**
+     * Check  accumalate  value on win. acummalate X = 3, O = 6 in matrix 3 x 3
+     * @param param1 string X
+     * @param param2 string O
+     * @param param3 column X
+     * @param param4 column O
+     * @return
+     */
+    public int checkOnWin(int param1, int param2,int param3, int param4 ){
+        int winner = -1;
+
+        if(param1%this.cells.length == 0 && param1 !=0 || param2%this.cells.length == 0 && param2 !=0){
+            winner =  0;
+        }
+
+        if(param3%this.cells.length == 0 && param3 !=0 || param4%this.cells.length == 0 && param4 !=0){
+            winner = 1;
+        }
+        return winner;
+    }
+
 
     /**
      * Return value cell  1 = X; 2 = O; empty = 0.
