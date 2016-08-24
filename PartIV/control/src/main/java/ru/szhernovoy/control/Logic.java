@@ -45,16 +45,11 @@ public class Logic {
     public int isWinner(){
         // X - 0 || O - 1
         int rowFieldO,columnFieldO,rowFieldX,columnFieldX;
-        rowFieldO = columnFieldO = rowFieldX = columnFieldX = 0;
-
         int winner = -1;
-
-
         for (int valueX = 0; valueX < this.cells.length;valueX++) {
-            rowFieldO = 0;
-            columnFieldO = 0;
-            rowFieldX = 0;
-            columnFieldX = 0;
+
+            rowFieldO = columnFieldO = rowFieldX = columnFieldX = 0;
+
             for (int valueY = 0; valueY < this.cells.length; valueY++) {
 
                 if(currentValueField(this.cells[valueX][valueY]) == 1){
