@@ -10,6 +10,7 @@
 		<module>PartII</module>
 		<module>PartIII</module>
         <module>PartIV</module>
+        <module>PartV</module>
     </modules>
 	
 	<properties>
