@@ -27,7 +27,7 @@ public class IteratorSimpleNumber implements Iterator {
         int currentPosition = this.position;
         boolean result = false;
         do {
-            int valueArray = this.value[currentPosition];
+            int valueArray = this.value[currentPosition++];
             if (checkNumber(valueArray)) {
                 result = true;
                 break;
