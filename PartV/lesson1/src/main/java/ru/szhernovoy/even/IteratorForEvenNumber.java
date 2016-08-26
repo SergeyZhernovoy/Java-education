@@ -31,6 +31,7 @@ public class IteratorForEvenNumber implements Iterator {
         do {
             if (this.value[currentPosition++] % 2 == 0) {
                 result = true;
+                break;
             }
         }
         while(currentPosition < this.value.length);
