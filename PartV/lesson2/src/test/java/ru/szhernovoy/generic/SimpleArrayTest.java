@@ -17,7 +17,7 @@ public class SimpleArrayTest {
         simple.add(1);
         simple.add(2);
         simple.add(3);
-        int result = simple.get(2);
+        int result = simple.get(1);
         Assert.assertThat(result, is(2));
 
     }
@@ -26,8 +26,8 @@ public class SimpleArrayTest {
     public void whenUpdateValueShouldUpdateIt() throws Exception {
         Integer[] myNum = new Integer[]{1,2,3,4,5};
         SimpleArray<Integer> simple = new SimpleArray<Integer>(myNum);
-        simple.update(5,1);
-        int result = simple.get(1);
+        simple.update(5,0);
+        int result = simple.get(0);
         Assert.assertThat(result, is(5));
     }
 
@@ -35,8 +35,8 @@ public class SimpleArrayTest {
     public void delete() throws Exception {
         Integer[] myNum = new Integer[]{1,2,3,4,5};
         SimpleArray<Integer> simple = new SimpleArray<Integer>(myNum);
-        simple.delete(2);
-        Assert.assertThat(null, is(simple.get(2)));
+        simple.delete(0);
+        Assert.assertThat(2, is(simple.get(0)));
     }
 
 }

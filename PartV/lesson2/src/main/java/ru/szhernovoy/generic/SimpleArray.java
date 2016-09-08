@@ -5,8 +5,8 @@ package ru.szhernovoy.generic;
  */
 public class SimpleArray <T> {
 
-    Object[] obj;
-    int position = 0;
+    private Object[] obj;
+    private int position = 0;
 
     public SimpleArray(int size) {
         this.obj = new Object[size];
@@ -18,24 +18,30 @@ public class SimpleArray <T> {
     }
 
     public void add(T value){
-        System.out.println(value);
         this.obj[position++] = value;
      }
 
     public T get(int index){
-        return (T) this.obj[--index];
+        return (T) this.obj[index];
     }
 
     public void update(T value, int index){
 
         if(index <= position){
-            this.obj[--index] = value;
+            this.obj[index] = value;
         }
     }
 
     public void delete(int index){
-        if(index <= position){
-            this.obj[--index] = null;
+        this.position--;
+        for(int current = index; current < this.obj.length;current++){
+            if((current +1)  < this.obj.length){
+                this.obj[current] = this.obj[current+1];
+            }
+            else{
+                this.obj[current] = null;
+            }
+
         }
     }
 
