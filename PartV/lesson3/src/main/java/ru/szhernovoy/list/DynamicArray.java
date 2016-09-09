@@ -1,6 +1,8 @@
 package ru.szhernovoy.list;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by admin on 08.09.2016.
@@ -11,11 +13,11 @@ public class DynamicArray<E> implements Container<E>{
     private Object[] obj;
     private int position = 0;
 
-    private DynamicArray(int size){
+    public DynamicArray(int size){
         this.obj = new Object[size];
     }
 
-    private DynamicArray(){
+    public DynamicArray(){
         this(DEFAULT_CAPACITY);
     }
 
@@ -26,10 +28,20 @@ public class DynamicArray<E> implements Container<E>{
     }
 
     private void checkCapacity() {
-        grow();
+        if(this.obj.length == (position+1)){
+            grow();
+        }
+
     }
 
+    public int getSize(){
+        return this.obj.length;
+    }
+
+
     private void grow() {
+        int newCapacity = this.obj.length + (this.obj.length >> 1);
+        this.obj = Arrays.copyOf(this.obj,newCapacity);
     }
 
     @Override
@@ -53,6 +65,9 @@ public class DynamicArray<E> implements Container<E>{
 
     private class DynamicIterator<E> implements Iterator<E>{
 
+        private int iterPosition = 0;
+
+
         /**
          * Returns {@code true} if the iteration has more elements.
          * (In other words, returns {@code true} if {@link #next} would
@@ -62,7 +77,7 @@ public class DynamicArray<E> implements Container<E>{
          */
         @Override
         public boolean hasNext() {
-            return false;
+            return this.iterPosition != position;
         }
 
         /**
@@ -73,7 +88,12 @@ public class DynamicArray<E> implements Container<E>{
          */
         @Override
         public E next() {
-            return null;
+            if(this.hasNext()){
+               return (E) get(iterPosition++);
+            }
+            else{
+                throw new NoSuchElementException();
+            }
         }
 
         /**
