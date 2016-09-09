@@ -45,4 +45,8 @@ public class SimpleArray <T> {
         }
     }
 
+    public int getSize(){
+        return this.obj.length;
+    }
+
 }

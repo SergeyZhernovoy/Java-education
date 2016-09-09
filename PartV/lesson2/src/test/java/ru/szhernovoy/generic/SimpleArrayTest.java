@@ -32,7 +32,7 @@ public class SimpleArrayTest {
     }
 
     @Test
-    public void delete() throws Exception {
+    public void whenDeleteElThenMoveBackOnOnePos() throws Exception {
         Integer[] myNum = new Integer[]{1,2,3,4,5};
         SimpleArray<Integer> simple = new SimpleArray<Integer>(myNum);
         simple.delete(0);

@@ -2,38 +2,77 @@ package ru.szhernovoy.store;
 
 import ru.szhernovoy.generic.SimpleArray;
 
+import java.util.NoSuchElementException;
+
 /**
  * Created by Sergey on 08.09.2016.
  */
-public class AbstractStore<T> implements Store {
+public class AbstractStore<T extends Base> implements Store<T> {
 
-    SimpleArray<T> sa;
+    private SimpleArray<T> sa;
+
 
     public AbstractStore(int size) {
         this.sa = new SimpleArray<T>(size);
-    }
+     }
 
     public AbstractStore(SimpleArray<T> value) {
         this.sa = value;
     }
 
+    private int findById(String id){
+        int result = -1;
+        for(int index =0 ;index < this.sa.getSize(); index++ ){
+            if(this.sa.get(index).getId().equals(id)){
+                result = index;
+                break;
+            }
+        }
 
-    public void add(T t) {
+        if(result!= -1){
+            return result;
+        }
+        else{
+            throw new NoSuchElementException("Not element in array");
+        }
+    }
+
+    @Override
+    public boolean update(T t) {
+        boolean result = false;
+
+        int index = this.findById(t.getId());
+        if(index > -1){
+            this.sa.update(t, index);
+            result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean add(T t) {
         this.sa.add(t);
+        return true;
     }
 
-    public void update(T t,int index) {
-        this.sa.update(t, index);
+    @Override
+    public boolean delete(String id) {
+
+        boolean result = false;
+
+        int index = this.findById(id);
+        if(index > -1){
+            this.sa.delete(index);
+            result = true;
+        }
+        return result;
     }
 
-    public void delete(int index) {
-        this.sa.delete(index);
-    }
-
-    public T get(int index) {
+    @Override
+    public T get(String id) {
+        int index = this.findById(id);
         return this.sa.get(index);
     }
-
 
 
 }

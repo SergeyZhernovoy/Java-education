@@ -1,7 +1,10 @@
 package ru.szhernovoy.store;
 
+import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -18,8 +21,7 @@ public class UserStoreTest {
         UserStore userStore = new UserStore(5);
         userStore.add(andrew);
         userStore.add(sergey);
-        String result = andrew.getId();
-        Assert.assertThat(result,is(userStore.get(0).getId()));
+        Assert.assertThat(andrew,is(userStore.get(andrew.getId())));
     }
 
     @Test
@@ -28,21 +30,19 @@ public class UserStoreTest {
         User sergey = new User();
         UserStore userStore = new UserStore(1);
         userStore.add(andrew);
-        userStore.update(sergey,0);
-        String result = sergey.getId();
-        Assert.assertThat(result,is(userStore.get(0).getId()));
+        sergey.setId(andrew.getId());
+        userStore.update(sergey);
+        Assert.assertThat(sergey,is(userStore.get(andrew.getId())));
     }
 
     @Test
-    public void whenDeleteUserInUserStorageThatUserShouldDelete(){
+    public void whenDeleteUserInUserStorageThatUserShouldDelete() {
         User andrew = new User();
         User sergey = new User();
         UserStore userStore = new UserStore(2);
         userStore.add(andrew);
         userStore.add(sergey);
-        userStore.delete(0);
-        String result = sergey.getId();
-        Assert.assertThat(result,is(userStore.get(0).getId()));
+        Assert.assertThat(userStore.delete(sergey.getId()),is(true));
     }
 
 
