@@ -21,7 +21,7 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
           first = newNode;
         }
         else{
-          next.next = next;
+          next.next = newNode;
         }
         this.size++;
         return true;
@@ -29,17 +29,17 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
 
     @Override
     public T get(int index) {
-        Node<T> element = first;
-        if(this.size != 0 && index <= this.size){
+        Node<T> node = first;
+        if(this.size != 0 && index < this.size){
            for(int i = 0; i < index; i++){
-               element = element.next;
+               node = node.next;
            }
         }
         else{
-            throw new NoSuchElementException("Not elements in linked list");
+            throw new NoSuchElementException("No elements in linked list");
         }
 
-        return (T) element.item;
+        return (T) node.item;
     }
 
     /**
@@ -57,7 +57,7 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
         T item;
         Node<T> next;
         Node<T> prev;
-        public Node(T item, Node<T> next, Node<T> prev){
+        public Node(T item, Node<T> prev, Node<T> next){
             this.item = item;
             this.next = next;
             this.prev = prev;
@@ -65,6 +65,8 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
     }
 
     private class LinkedIterator<T> implements Iterator<T>{
+
+        private int position = 0;
 
         /**
          * Returns {@code true} if the iteration has more elements.
@@ -75,7 +77,7 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
          */
         @Override
         public boolean hasNext() {
-            return false;
+            return this.position < size;
         }
 
         /**
@@ -86,7 +88,12 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
          */
         @Override
         public T next() {
-            return null;
+            if(hasNext()){
+               return (T) get(position++);
+            }
+            else{
+                throw new NoSuchElementException();
+            }
         }
 
         /**
