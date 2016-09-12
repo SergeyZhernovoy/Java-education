@@ -6,4 +6,5 @@ package ru.szhernovoy.linkedlist;
 public interface ContainerLinked<E> extends Iterable<E> {
     boolean add(E e);
     E get(int index);
+    E remove(int index);
 }

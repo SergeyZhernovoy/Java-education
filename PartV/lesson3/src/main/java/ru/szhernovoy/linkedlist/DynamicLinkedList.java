@@ -29,16 +29,42 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
 
     @Override
     public T get(int index) {
+          return (T) node(index).item;
+    }
+
+    public Node<T> node(int index){
+
         Node<T> node = first;
         if(this.size != 0 && index < this.size){
-           for(int i = 0; i < index; i++){
-               node = node.next;
-           }
+            for(int i = 0; i < index; i++){
+                node = node.next;
+            }
         }
         else{
             throw new NoSuchElementException("No elements in linked list");
         }
+        return node;
 
+    }
+
+    public int getCapacility(){
+        return this.size;
+    }
+
+    @Override
+    public T remove(int index) {
+        Node<T> node = node(index);
+        Node<T> prev = node.prev;
+        Node<T> next = node.next;
+
+        if(prev != null){
+           prev.next = next;
+        }
+
+        if(next != null){
+           next.prev = prev;
+        }
+        this.size--;
         return (T) node.item;
     }
 
