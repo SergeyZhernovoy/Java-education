@@ -1,20 +1,33 @@
 package ru.szhernovoy.set;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Created by admin on 13.09.2016.
  */
 public class SimpleSet<E> {
 
-    private static final Object PRESENT = new Object();
-    private Map<E,Object> map = new HashMap<>();
+    private ArrayList<E> map ;
+
+    public SimpleSet(int size){
+        this.map = new ArrayList<>(size);
+    }
+
 
     public boolean add(E e) {
-       return this.map.put(e,PRESENT) == null;
+        Iterator<E> iter = this.map.iterator();
+        boolean result = true;
+        while(iter.hasNext()){
+            E value = iter.next();
+            if(value.equals(e)){
+               result = false;
+               break;
+            }
+        }
+        if(result){
+            this.map.add(e);
+        }
+        return result;
     }
 
     public Iterator<E> iterator() {
@@ -26,7 +39,7 @@ public class SimpleSet<E> {
         private Iterator<E> iter;
 
         public IteratorSet(){
-            this.iter = (Iterator<E>) map.keySet().iterator();
+            this.iter = (Iterator<E>) map.iterator();
         }
         /**
          * Returns {@code true} if the iteration has more elements.

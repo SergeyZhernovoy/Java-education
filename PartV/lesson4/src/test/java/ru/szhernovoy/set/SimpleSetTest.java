@@ -14,14 +14,16 @@ import static org.junit.Assert.*;
 public class SimpleSetTest {
     @Test
     public void whenAddDuplicateInSetThatOnlyUniqueValueSetCanHave() throws Exception {
-        SimpleSet<String> container = new SimpleSet<>();
+        SimpleSet<String> container = new SimpleSet<>(10);
         container.add("first");
         container.add("second");
         container.add("first");
         Iterator<String> iter =  container.iterator();
         String control = "";
         while(iter.hasNext()){
+
             control = iter.next();
+
         }
         Assert.assertThat(control,is("second"));
 
