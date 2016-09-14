@@ -145,4 +145,22 @@ public class DynamicLinkedList<T> implements ContainerLinked<T> {
         }
     }
 
+    public boolean checkDuplicate(T t){
+        boolean result = false;
+        Node<T> node = first;
+        if(this.size != 0){
+            for(int i = 0; i < this.size; i++){
+                T value = (T) node.item;
+                if(value.equals(t)){
+                   result = true;
+                   break;
+                }
+                node = node.next;
+            }
+        }
+
+
+        return result;
+    }
+
 }
