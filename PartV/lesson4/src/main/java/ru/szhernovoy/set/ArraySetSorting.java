@@ -11,7 +11,7 @@ public class ArraySetSorting<E> implements Iterator<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] obj;
-    private int position = 0;
+    private int position = -1;
     private int iterPosition = 0;
 
     public ArraySetSorting(int size){
@@ -23,23 +23,45 @@ public class ArraySetSorting<E> implements Iterator<E> {
     }
 
     public void add(E e) {
-        if(checkValue(e)) {
+        int posArray = binarySearch(e);
+        if(posArray != -1) {
             checkCapacity();
-            this.obj[position++] = e;
+            System.arraycopy(this.obj,posArray,this.obj,posArray+1,this.position-posArray+1);
+            this.obj[posArray] = e;
+            this.position++;
         }
     }
 
-    public boolean checkValue(E e){
-        boolean result = true;
+    private int  binarySearch(E e){
 
-        for(int index = 0 ; index < this.obj.length; index++){
-            if(this.obj[index]!= null && this.obj[index].equals(e)){
-                result = false;
+        int lowerBound = 0;
+        int upperBound = this.position ;
+        int curIn;
+        int result = 0;
+
+        if(this.position != -1) {
+
+        while(true){
+            curIn = (lowerBound + upperBound ) / 2;
+            if(this.obj[curIn].hashCode()== e.hashCode()) {
+                result = -1;
                 break;
             }
-        }
+            else if(lowerBound > upperBound){
+                result = lowerBound;
+                break;}
+            else{
+                if(this.obj[curIn].hashCode() < e.hashCode()) {
+                    lowerBound = curIn + 1; // В верхней половине
+                }
+                else {
+                    upperBound = curIn - 1; // В нижней половине
+                }
+            }
+          }
 
-        return result;
+        }
+        return  result;
     }
 
     private void checkCapacity() {
@@ -60,33 +82,6 @@ public class ArraySetSorting<E> implements Iterator<E> {
     }
 
 
-    private class UnitSearch<E> {
-
-        private Object value;
-
-        private int key = 0;
-
-        public E getValue() {
-            return (E) value;
-        }
-
-        public void setValue(Object value) {
-            this.value = value;
-        }
-
-        public int getKey() {
-            return key;
-        }
-
-        public void setK(int k) {
-            this.key = k;
-        }
-    }
-
-
-
-
-
     /**
      * Returns {@code true} if the iteration has more elements.
      * (In other words, returns {@code true} if {@link #next} would
@@ -96,7 +91,7 @@ public class ArraySetSorting<E> implements Iterator<E> {
      */
     @Override
     public boolean hasNext() {
-        boolean result = this.iterPosition != position;
+        boolean result = this.iterPosition != (position+1);
         if(!result){
             this.iterPosition = 0;
         }
