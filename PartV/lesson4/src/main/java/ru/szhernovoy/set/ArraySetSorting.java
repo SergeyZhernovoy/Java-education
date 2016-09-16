@@ -26,7 +26,9 @@ public class ArraySetSorting<E> implements Iterator<E> {
         int posArray = binarySearch(e);
         if(posArray != -1) {
             checkCapacity();
-            System.arraycopy(this.obj,posArray,this.obj,posArray+1,this.position-posArray+1);
+            if(this.obj[posArray] != null){
+               System.arraycopy(this.obj,posArray,this.obj,posArray+1,this.position-posArray+1);
+            }
             this.obj[posArray] = e;
             this.position++;
         }
