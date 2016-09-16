@@ -6,9 +6,9 @@ import java.util.Calendar;
  * Created by admin on 17.09.2016.
  */
 public class User {
-    private String name;
-    private int children;
-    private Calendar birthday;
+    protected String name;
+    protected int children;
+    protected Calendar birthday;
 
     public User(String name, int children, Calendar birthday) {
         this.name = name;
