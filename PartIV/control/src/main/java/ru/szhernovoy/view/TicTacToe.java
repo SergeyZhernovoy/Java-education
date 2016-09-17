@@ -26,13 +26,16 @@ public class TicTacToe {
         int accumaleteDiagonal = 0;
         int accumaleteDiagonalL = 0;
 
+/*
 
         //up - down ; left - rigth
         for(int i = 0, k =0, v = this.Board.length -1 ; i < this.Board.length;i++, k++,v--){
 
-            /**
+            */
+/**
              * Calculate diagonal left to right
-             */
+             *//*
+
 
             if(this.Board[i][k] == symbol){
                 accumaleteDiagonal++;
@@ -42,9 +45,11 @@ public class TicTacToe {
                 xyDiagonal[1] = k;
             }
 
-            /**
+            */
+/**
              * Calculate diagonal right to left
-             */
+             *//*
+
             if(this.Board[i][v] == symbol){
                 accumaleteDiagonalL++;
             }
@@ -55,9 +60,11 @@ public class TicTacToe {
 
 
             for(int j = 0; j < this.Board.length;j++){
-                /**
+                */
+/**
                  * Calculate line
-                 */
+                 *//*
+
                 if(this.Board[i][j] == symbol){
                     accumaleteLine++;
                 }
@@ -66,9 +73,11 @@ public class TicTacToe {
                     xyLine[1] = j;
                 }
 
-                /**
+                */
+/**
                  * Calculate column
-                 */
+                 *//*
+
                 if(this.Board[j][i] == symbol){
                     accumaleteColumne++;
                 }
@@ -108,6 +117,7 @@ public class TicTacToe {
                 xy = xyDiagonalL;
             }
         }
+*/
 
         throw new UnsupportedOperationException();
     }
