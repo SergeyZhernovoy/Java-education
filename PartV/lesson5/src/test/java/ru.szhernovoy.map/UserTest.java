@@ -43,5 +43,16 @@ public class UserTest {
         System.out.println(map);
     }
 
+    @Test
+    public void analyzeWhatDoAllCover(){
+        UserAllCover first = new UserAllCover("Sergey", 2, new GregorianCalendar(1978,2,28));
+        UserAllCover second = new UserAllCover("Sergey", 2, new GregorianCalendar(1978,2,28));
+        Set<UserAllCover> map = new HashSet<>();
+        map.add(first);
+        map.add(second);
+        System.out.println(map);
+    }
+
+
 
 }
