@@ -3,6 +3,7 @@ package ru.szhernovoy.map;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Created by admin on 20.09.2016.
@@ -139,8 +140,8 @@ public class PhoneBook<T,V>  {
         return null;
     }
 
-    public Iterator<T> iterator(){
-        return new IterPhoneBook<T>();
+    public IterPhoneBook<T, V> iterator(){
+        return new IterPhoneBook<T,V>();
     }
 
     private final int hash(Object key) {
@@ -216,7 +217,11 @@ public class PhoneBook<T,V>  {
         }
     }
 
-    private class IterPhoneBook<T> implements Iterator<T>{
+    private class IterPhoneBook<T,V> implements Iterator <V>{
+
+        int position = 0;
+        boolean innerLoop = false;
+        Node<T,V> e;
 
         /**
          * Returns {@code true} if the iteration has more elements.
@@ -227,7 +232,23 @@ public class PhoneBook<T,V>  {
          */
         @Override
         public boolean hasNext() {
-            return false;
+            boolean result = false;
+            initNode();
+            if(e!=null && e.next !=null || position != table.length) {
+               result = true;
+            }
+            return  result;
+        }
+
+        private void initNode(){
+
+            while(position < table.length && !innerLoop ){
+                if(table[position] != null){
+                    e = (Node<T, V>) table[position];
+                    break;
+                }
+                position++;
+            }
         }
 
         /**
@@ -237,8 +258,25 @@ public class PhoneBook<T,V>  {
          * @throws  if the iteration has no more elements
          */
         @Override
-        public T next() {
-            return null;
+        public V next() {
+            Node<T,V> node;
+
+            if(hasNext()){
+                if(e.next != null) {
+                    innerLoop = true;
+                    node = e;
+                    e = e.next;
+                }
+                else {
+                    node = e;
+                    position++;
+                    innerLoop = false;
+                }
+            }
+            else{
+                throw new NoSuchElementException();
+            }
+            return node.value;
         }
 
         /**
