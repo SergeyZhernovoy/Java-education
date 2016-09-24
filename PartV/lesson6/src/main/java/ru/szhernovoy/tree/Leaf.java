@@ -14,7 +14,7 @@ public class Leaf<E> {
         private Leaf<E> prev;
         private final int COUNT_LEAF_ON_LEVEL = 4;
         private int countLeaf = 0;
-        private final List<E> child = new ArrayList<E>(COUNT_LEAF_ON_LEVEL);
+        private final List<Leaf<E>> child = new ArrayList<Leaf<E>>(COUNT_LEAF_ON_LEVEL);
 
 
     public boolean setValue(E value) {
@@ -26,7 +26,7 @@ public class Leaf<E> {
         return value;
     }
 
-    public List<E> getChildrenLeaf(){
+    public List<Leaf<E>> getChildrenLeaf(){
         return this.child;
     }
 
@@ -44,14 +44,14 @@ public class Leaf<E> {
         if(possibleSetLeafOnLevel()){
            this.next = next;
            next.prev = this;
-           this.child.add((E) next);
+           this.child.add( next);
            this.countLeaf++;
            result = true;
         }
         else{
-            Iterator<E> iterChild = this.child.iterator();
+            Iterator<Leaf<E>> iterChild = this.child.iterator();
             while(iterChild.hasNext()){
-                Leaf<E> child = (Leaf<E>) iterChild.next();
+                 Leaf<E> child = iterChild.next();
                  result = child.addNext(next);
                  if(result){
                     break;

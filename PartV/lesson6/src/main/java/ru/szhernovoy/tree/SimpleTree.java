@@ -69,10 +69,10 @@ public class SimpleTree<E> {
 
         private void arrayFilling(Leaf<E> leaf){
 
-            List<E> current = leaf.getChildrenLeaf();
-            this.listLeaf.addAll(current);
+            List<Leaf<E>> current = leaf.getChildrenLeaf();
             for(int index = 0; index < leaf.getCountLeaf();index++){
-                arrayFilling((Leaf<E>) current.get(index));
+                this.listLeaf.add(current.get(index).getValue());
+                arrayFilling(current.get(index));
             }
 
         }
@@ -100,10 +100,8 @@ public class SimpleTree<E> {
          */
         @Override
         public E next() {
-            Leaf<E> current;
             if(this.hasNext()){
-                current = (Leaf<E>) this.inner.next();
-                return (E) current.getValue();
+                return this.inner.next();
 
             }
             else{

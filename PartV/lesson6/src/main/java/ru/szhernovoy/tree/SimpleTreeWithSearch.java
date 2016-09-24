@@ -36,31 +36,43 @@ public class SimpleTreeWithSearch<E> {
      * Get list all children
      * @return
      */
-    public List<E> getChildren(){
-        List<E> resultArray = new ArrayList<>();
-        Iterator<E> iter = new IteratorSimpleTree();
+    public List<Leaf<E>> getChildren(){
+        List<Leaf<E>> resultArray = new ArrayList<>();
+        Iterator<Leaf<E>> iter = new IteratorSimpleTree();
         while(iter.hasNext()){
             resultArray.add(iter.next());
         }
         return resultArray;
     }
 
+
+    public Leaf<E> searchByValue(E e ){
+
+        Iterator<Leaf<E>> iter = new IteratorSimpleTree();
+        Leaf<E> findLeaf = null;
+        while(iter.hasNext()){
+            findLeaf = iter.next();
+            if(e.equals(findLeaf.getValue())){
+                break;
+            }
+        }
+        return findLeaf;
+    }
+
     /**
      * class Iterator
      */
-    private class IteratorSimpleTree implements Iterator<E>{
+    private class IteratorSimpleTree implements Iterator<Leaf<E>>{
 
-
-        private int position = 0;
         private Leaf<E> currentLeaf;
-        private List<E> listLeaf = new ArrayList<>();
-        private Iterator<E> inner;
+        private List<Leaf<E>> listLeaf = new ArrayList<>();
+        private Iterator<Leaf<E>> inner;
 
 
         public IteratorSimpleTree(){
             this.currentLeaf = root;
             if(root != null){
-                this.listLeaf.add((E) root);
+                this.listLeaf.add(root);
                 arrayFilling(root);
                 this.inner = this.listLeaf.iterator();
             }
@@ -68,10 +80,10 @@ public class SimpleTreeWithSearch<E> {
 
         private void arrayFilling(Leaf<E> leaf){
 
-            List<E> current = leaf.getChildrenLeaf();
+            List<Leaf<E>> current = leaf.getChildrenLeaf();
             this.listLeaf.addAll(current);
             for(int index = 0; index < leaf.getCountLeaf();index++){
-                arrayFilling((Leaf<E>) current.get(index));
+                arrayFilling(current.get(index));
             }
 
         }
@@ -98,12 +110,10 @@ public class SimpleTreeWithSearch<E> {
          * @throws  if the iteration has no more elements
          */
         @Override
-        public E next() {
-            Leaf<E> current;
-            if(this.hasNext()){
-                current = (Leaf<E>) this.inner.next();
-                return (E) current.getValue();
+        public Leaf<E> next() {
 
+            if(this.hasNext()){
+               return this.inner.next();
             }
             else{
                 throw new NoSuchElementException();
