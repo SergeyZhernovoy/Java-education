@@ -1,59 +1,139 @@
 package ru.szhernovoy.tree;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 /**
  * Created by szhernovoy on 22.09.2016.
  */
-public class SimpleTree<T extends Comparable<T>,V> {
-    private Node<T,V> root;
+public class SimpleTree<E> {
+
+    private Leaf<E> root;
 
     /**
-     * Created by admin on 22.09.2016.
+     * Method auto add leafs in tree.
+     * @param simpleLeaF
+     * @param value
+     * @return
      */
-    private class Node<T,V> {
+    public boolean addChild(Leaf<E> simpleLeaF, E value){
+        boolean result = false;
+        simpleLeaF.setValue(value);
+        if(this.root == null){
+            this.root = simpleLeaF;
+            result = true;
+        }
+        else{
+            this.root.addNext(simpleLeaF);
+            result = true;
+        }
+        return result;
+    }
 
-         private T key;
-         private V value;
+    /**
+     * Get list all children
+     * @return
+     */
+    public List<E> getChildren(){
+        List<E> resultArray = new ArrayList<>();
+        Iterator<E> iter = new IteratorSimpleTree();
+        while(iter.hasNext()){
+            resultArray.add(iter.next());
+        }
+        return resultArray;
+    }
 
-         private Node<T,V> lefr;
-         private Node<T,V> rigth;
-         private Node<T,V> parent;
+    /**
+     * class Iterator
+     */
+    private class IteratorSimpleTree implements Iterator<E>{
 
 
-        public Node(T key, V value){
-            this.key = key;
-            this.value = value;
+        private int position = 0;
+        private Leaf<E> currentLeaf;
+        private List<E> listLeaf = new ArrayList<>();
+        private Iterator<E> inner;
+
+
+        public IteratorSimpleTree(){
+            this.currentLeaf = root;
+            if(root != null){
+                this.listLeaf.add((E) root);
+                arrayFilling(root);
+                this.inner = this.listLeaf.iterator();
+            }
         }
 
-        public V getValue() {
-            return value;
+        private void arrayFilling(Leaf<E> leaf){
+
+            List<E> current = leaf.getChildrenLeaf();
+            this.listLeaf.addAll(current);
+            for(int index = 0; index < leaf.getCountLeaf();index++){
+                arrayFilling((Leaf<E>) current.get(index));
+            }
+
         }
 
-        public void setValue(V value) {
-            this.value = value;
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+
+            return this.listLeaf.isEmpty()? false: this.inner.hasNext();
+
         }
 
-        public Node<T, V> getLefr() {
-            return lefr;
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws  if the iteration has no more elements
+         */
+        @Override
+        public E next() {
+            Leaf<E> current;
+            if(this.hasNext()){
+                current = (Leaf<E>) this.inner.next();
+                return (E) current.getValue();
+
+            }
+            else{
+                throw new NoSuchElementException();
+            }
+
         }
 
-        public void setLefr(Node<T, V> lefr) {
-            this.lefr = lefr;
-        }
+        /**
+         * Removes from the underlying collection the last element returned
+         * by this iterator (optional operation).  This method can be called
+         * only once per call to {@link #next}.  The behavior of an iterator
+         * is unspecified if the underlying collection is modified while the
+         * iteration is in progress in any way other than by calling this
+         * method.
+         *
+         * @throws UnsupportedOperationException if the {@code remove}
+         *                                       operation is not supported by this iterator
+         * @throws IllegalStateException         if the {@code next} method has not
+         *                                       yet been called, or the {@code remove} method has already
+         *                                       been called after the last call to the {@code next}
+         *                                       method
+         * @implSpec The default implementation throws an instance of
+         * {@link UnsupportedOperationException} and performs no other action.
+         */
+        @Override
+        public void remove() {
 
-        public Node<T, V> getRigth() {
-            return rigth;
-        }
-
-        public void setRigth(Node<T, V> rigth) {
-            this.rigth = rigth;
-        }
-
-        public Node<T, V> getParent() {
-            return parent;
-        }
-
-        public void setParent(Node<T, V> parent) {
-            this.parent = parent;
         }
     }
+
+
 }
