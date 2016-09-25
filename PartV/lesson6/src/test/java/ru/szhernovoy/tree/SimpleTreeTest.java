@@ -32,14 +32,14 @@ public class SimpleTreeTest {
 
     }
 
-    @Test
+    @Test(timeout = 10000)
     public void whenAddAutoInTreeWeShouldGetArraySizeByCountItemInTree() throws Exception {
 
         SimpleTree<Integer> simple = new SimpleTree<>();
-        for(int index = 0;index < 10000; index++){
+        for(int index = 0;index < 35000; index++){
             simple.addChild(new Leaf<Integer>(),index);
         }
-        int control = 10000;
+        int control = 35000;
         int result = simple.getChildren().size();
         assertThat(result,is(control));
     }
