@@ -24,4 +24,28 @@ public class SimpleTreeWithSearchTest {
 
     }
 
+    @Test
+    public void whenWeAddMuchLeafIntoSimpleTreeThatItShouldBeUnbalance(){
+        SimpleTreeWithSearch<Integer> simple = new SimpleTreeWithSearch<>();
+        simple.addChild(new Leaf<Integer>(),1);
+        simple.addChild(new Leaf<Integer>(),2);
+        simple.addChild(new Leaf<Integer>(),3);
+        simple.addChild(new Leaf<Integer>(),4);
+        simple.addChild(new Leaf<Integer>(),5);
+        simple.addChild(new Leaf<Integer>(),6);
+        simple.addChild(new Leaf<Integer>(),7);
+        simple.addChild(new Leaf<Integer>(),8);
+        simple.addChild(new Leaf<Integer>(),9);
+        simple.addChild(new Leaf<Integer>(),10);
+        simple.addChild(new Leaf<Integer>(),11);
+        simple.addChild(new Leaf<Integer>(),12);
+        simple.addChild(new Leaf<Integer>(),13);
+
+        boolean result = simple.isBalance();
+
+        assertThat(result,is(false));
+    }
+
+
+
 }

@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 public class SimpleTreeWithSearch<E> {
 
     private Leaf<E> root;
+    private boolean balance = true;
 
     /**
      * Method auto add leafs in tree.
@@ -58,6 +59,31 @@ public class SimpleTreeWithSearch<E> {
         }
         return findLeaf;
     }
+
+    public boolean isBalance(){
+        this.treeIsBalance(this.root);
+        return this.balance;
+    }
+
+
+    private void treeIsBalance(Leaf<E> branch){
+            if(this.balance){
+                List<Leaf<E>> child = branch.getChildrenLeaf();
+                int count = 0;
+                for(Leaf<E> one : child){
+                    if(!this.balance){
+                        break;
+                    }
+                    if(count >= 2 ){
+                        this.balance = false;
+                        break;
+                    }
+                    count++;
+                    this.treeIsBalance(one);
+                  }
+            }
+    }
+
 
     /**
      * class Iterator
