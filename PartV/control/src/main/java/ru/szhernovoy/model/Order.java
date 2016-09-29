@@ -39,4 +39,8 @@ public class Order {
     public int hashCode() {
         return (int)this.id;
     }
+
+    public OperType getType() {
+        return type;
+    }
 }
