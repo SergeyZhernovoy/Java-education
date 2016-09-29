@@ -5,14 +5,38 @@ package ru.szhernovoy.model;
  */
 public class Order {
 
-    private int id;
-    private int volume;
+    private long id;
+    private long volume;
     private float price;
+    private OperType type;
 
-    public Order(int id, int volume, float price) {
+    public Order(long id, long volume, float price, OperType type) {
         this.id = id;
         this.volume = volume;
-
         this.price = price;
+        this.type = type;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+
+        if (id != order.id) return false;
+        if (volume != order.volume) return false;
+        if (Float.compare(order.price, price) != 0) return false;
+        return type == order.type;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)this.id;
     }
 }

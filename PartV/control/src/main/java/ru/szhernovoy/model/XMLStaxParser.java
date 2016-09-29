@@ -1,7 +1,5 @@
 package ru.szhernovoy.model;
 
-
-
 import ru.szhernovoy.controler.Action;
 import ru.szhernovoy.controler.AddOrder;
 import ru.szhernovoy.controler.DeleteOrder;
@@ -12,6 +10,10 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 
 
 /**
@@ -21,23 +23,24 @@ public class XMLStaxParser {
 
     private Action[] action;
     private final String XML_FILE;
-   // private final Map<String,Order> orders;
-
+    private Map<String,Set<Order>> unsort = new HashMap<>(3);
 
     public XMLStaxParser(String fileName){
         this.XML_FILE = fileName;
-       // this.orders = orders;
         this.action = new Action[2];
         this.action[0] = new AddOrder();
         this.action[1] = new DeleteOrder();
     }
 
+    public Map<String, Set<Order>> getListOfBook() {
+        return this.unsort;
+    }
+
     public boolean parsingFile(){
 
-        long start = System.currentTimeMillis();
-        String nameBook ="", typeOrder = null;
-        float price =0;
-        int volume =0,orderId = 0;
+        Order  orderForDelete = new Order(0,0,0,OperType.BUY);
+        Order  order = null;
+        String nameBook = null;
         try {
             InputStream in = new FileInputStream(this.XML_FILE);
             XMLInputFactory factory = XMLInputFactory.newFactory();
@@ -45,20 +48,20 @@ public class XMLStaxParser {
             while(parser.hasNext()){
                 int event = parser.next();
                 if(event == XMLStreamReader.START_ELEMENT){
-                    int indexAction = 0;
-                    if(parser.getLocalName().equalsIgnoreCase("AddOrder")){
-                          typeOrder = parser.getAttributeValue(null,"operation");
-                          price = Float.valueOf(parser.getAttributeValue(null,"price"));
-                          volume = Integer.valueOf(parser.getAttributeValue(null,"volume"));
-                          orderId = Integer.valueOf(parser.getAttributeValue(null,"orderId"));
-                          nameBook  = parser.getAttributeValue(null,"book");
+                     if(parser.getLocalName().equalsIgnoreCase("AddOrder")){
+                          nameBook = parser.getAttributeValue(null,"book");
+                          order = new Order(Long.valueOf(parser.getAttributeValue(null,"orderId")),
+                                                     Long.valueOf(parser.getAttributeValue(null,"volume")),
+                                                     Float.valueOf(parser.getAttributeValue(null,"price")),
+                                                     parser.getAttributeValue(null,"operation").equals("BUY")? OperType.BUY:OperType.SELL);
+                          action[0].firstRound(order,this.unsort,nameBook);
                     }
                     if(parser.getLocalName().equalsIgnoreCase("DeleteOrder")){
-                          indexAction = 1;
-                          orderId = Integer.valueOf(parser.getAttributeValue(null,"orderId"));
-                          nameBook  = parser.getAttributeValue(null,"book");
+                          orderForDelete.setId(Long.valueOf(parser.getAttributeValue(null,"orderId")));
+                          nameBook = parser.getAttributeValue(null,"book");
+                          action[1].firstRound(orderForDelete,this.unsort,nameBook);
                     }
-                    action[indexAction].execute(nameBook,typeOrder,price,volume,orderId);
+
                 }
             }
         } catch (IOException e) {
@@ -67,14 +70,8 @@ public class XMLStaxParser {
             e.printStackTrace();
         }
 
-        System.out.printf("Elapsed time is %s ms",System.currentTimeMillis() - start);
         return true;
     }
 
-    public static void main(String[] args) {
-        if(args.length > 0){
-            XMLStaxParser easyParser = new XMLStaxParser(args[0]);
-            easyParser.parsingFile();
-        }
-    }
+
 }
