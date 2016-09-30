@@ -1,8 +1,5 @@
 package ru.szhernovoy.model;
 
-import ru.szhernovoy.controler.Action;
-import ru.szhernovoy.controler.AddOrder;
-import ru.szhernovoy.controler.DeleteOrder;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -10,10 +7,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 
 /**
@@ -21,15 +15,12 @@ import java.util.Set;
  */
 public class XMLStaxParser {
 
-    private Action[] action;
     private final String XML_FILE;
     private Map<String,Set<Order>> unsort = new HashMap<>(3);
 
     public XMLStaxParser(String fileName){
         this.XML_FILE = fileName;
-        this.action = new Action[2];
-        this.action[0] = new AddOrder();
-        this.action[1] = new DeleteOrder();
+
     }
 
     public Map<String, Set<Order>> getListOfBook() {
@@ -54,12 +45,12 @@ public class XMLStaxParser {
                                                      Long.valueOf(parser.getAttributeValue(null,"volume")),
                                                      Float.valueOf(parser.getAttributeValue(null,"price")),
                                                      parser.getAttributeValue(null,"operation").equals("BUY")? OperType.BUY:OperType.SELL);
-                          action[0].firstRound(order,this.unsort,nameBook);
+                          this.add(order,this.unsort,nameBook);
                     }
                     if(parser.getLocalName().equalsIgnoreCase("DeleteOrder")){
                           orderForDelete.setId(Long.valueOf(parser.getAttributeValue(null,"orderId")));
                           nameBook = parser.getAttributeValue(null,"book");
-                          action[1].firstRound(orderForDelete,this.unsort,nameBook);
+                          this.delete(orderForDelete,this.unsort,nameBook);
                     }
 
                 }
@@ -73,5 +64,28 @@ public class XMLStaxParser {
         return true;
     }
 
+    private boolean add(Order order,Map<String,Set<Order>> collection,String name){
+        if(!unsort.containsKey(name)){
+            Set<Order> setBook = new HashSet<>();
+            setBook.add(order);
+            unsort.put(name,setBook);
+        }
+        else{
+            Set<Order> setBook = unsort.get(name);
+            setBook.add(order);
+        }
+        return true;
+    }
+
+    private boolean delete(Order order, Map<String, Set<Order>> collection,String nameBook) {
+        if(unsort.containsKey(nameBook)){
+            Set<Order> setBook = unsort.get(nameBook);
+            setBook.remove(order);
+        }
+        else{
+            throw new NoSuchElementException("This BookOrder is not");
+        }
+        return true;
+    }
 
 }

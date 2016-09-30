@@ -8,6 +8,19 @@ public class Order {
     private long id;
     private long volume;
     private float price;
+
+    public float getPrice() {
+        return this.price;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public long getVolume() {
+        return volume;
+    }
+
     private OperType type;
 
     public Order(long id, long volume, float price, OperType type) {
