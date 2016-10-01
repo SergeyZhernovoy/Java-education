@@ -16,13 +16,13 @@ public class OrderBook {
     }
 
 
-    public List prepare(){
-       List<Map<String,List<Map<Float,Order>>>> calculate = new LinkedList<>();
+    public Map<String,List<Map<Float,Order>>> prepare(){
+       Map<String,List<Map<Float,Order>>> calculate = new HashMap<>();
        this.aggregationAndCheckSide(calculate);
        return calculate;
     }
 
-    private boolean aggregationAndCheckSide(List<Map<String,List<Map<Float,Order>>>> calculate){
+    private boolean aggregationAndCheckSide(Map<String,List<Map<Float,Order>>> calculate){
 
         Set<String> keys = this.unsorting.keySet();
         for(String key: keys){
@@ -45,9 +45,7 @@ public class OrderBook {
             List<Map<Float,Order>> next = new LinkedList<>();
             next.add(priceTreeBuy);
             next.add(priceTreeSell);
-            Map<String,List<Map<Float,Order>>> list = new HashMap<>();
-            list.put(key,next);
-            calculate.add(list);
+            calculate.put(key,next);
         }
         return true;
     }
