@@ -30,6 +30,10 @@ public class OrderBook {
             Set<Order> orders = this.unsorting.get(key);
             Map<Float,Order> priceTreeBuy  = getTree(key,this.buy,OperType.BUY);
             Map<Float,Order> priceTreeSell = getTree(key,this.sell,OperType.SELL);
+
+            Map<Float,Order> priceTreeBuySort  = getTree("",null,OperType.BUY);
+            Map<Float,Order> priceTreeSellSort = getTree("",null,OperType.SELL);
+
             Iterator<Order> orderIterator = orders.iterator();
             while(orderIterator.hasNext()){
                 Order order = orderIterator.next();
@@ -40,37 +44,45 @@ public class OrderBook {
                     add(order,priceTreeSell);
                 }
             }
-            checkOppositeSideBook(priceTreeBuy,priceTreeSell,true);
-            checkOppositeSideBook(priceTreeSell,priceTreeBuy,false);
+            checkOppositeSideBook(priceTreeBuy,priceTreeSell,priceTreeBuySort,priceTreeSellSort,true);
+            checkOppositeSideBook(priceTreeSell,priceTreeBuy,priceTreeSellSort,priceTreeBuySort,false);
             List<Map<Float,Order>> next = new LinkedList<>();
-            next.add(priceTreeBuy);
-            next.add(priceTreeSell);
+            next.add(priceTreeBuySort);
+            next.add(priceTreeSellSort);
             calculate.put(key,next);
         }
         return true;
     }
 
-    private boolean checkOppositeSideBook(Map<Float,Order> side1,Map<Float,Order> side2, boolean checkType){
+    private boolean checkOppositeSideBook(Map<Float,Order> side1,Map<Float,Order> side2,Map<Float,Order> sideSort1,Map<Float,Order> sideSort2
+            , boolean checkType){
 
         Iterator<Float> iterBuy = side1.keySet().iterator();
         while(iterBuy.hasNext()){
             Iterator<Float> iterSell = side2.keySet().iterator();
             float currentPriceSide1 = iterBuy.next();
-            boolean remove = false;
+            boolean removeSide1 = false;
             while(iterSell.hasNext()){
+                  boolean removeSide2 = false;
                   float currentPriceSide2 = iterSell.next();
                   if(checkType && currentPriceSide1 >= currentPriceSide2){
-                      side2.remove(currentPriceSide2);
-                      remove = true;
+                      removeSide2 = true;
+                      removeSide1 = true;
                   }
 
-                if(!checkType && currentPriceSide1 <= currentPriceSide2){
-                    side2.remove(currentPriceSide2);
-                    remove = true;
-                }
+                  if(!checkType && currentPriceSide1 <= currentPriceSide2){
+                    removeSide2 = true;
+                    removeSide1 = true;
+                  }
+
+                  if(!removeSide2){
+                     sideSort2.put(currentPriceSide2,side2.get(currentPriceSide2));
+                  }
+
+
             }
-            if(remove){
-                side1.remove(currentPriceSide1);
+            if(!removeSide1){
+                sideSort1.put(currentPriceSide1,side1.get(currentPriceSide1));
             }
         }
         return true;
@@ -89,7 +101,7 @@ public class OrderBook {
 
     private Map<Float,Order> getTree(String key,Map<String,Map<Float,Order>> collection,final OperType type){
         Map<Float,Order> needBook;
-        if(collection.containsKey(key)){
+        if(collection != null && collection.containsKey(key)){
             needBook = collection.get(key);
         }
         else{
@@ -106,7 +118,10 @@ public class OrderBook {
                     return result;
                 }
             });
-            collection.put(key,needBook);
+            if(collection != null){
+               collection.put(key,needBook);
+            }
+
         }
         return needBook;
     }

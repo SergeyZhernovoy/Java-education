@@ -29,16 +29,22 @@ public class StartUI {
     public void printBooks(Map<String,List<Map<Float,Order>>>  sortList){
         StringBuilder builder = new StringBuilder();
         for(Map.Entry<String,List<Map<Float,Order>>> currentBook : sortList.entrySet()) {
-            builder.append(String.format("Order book: ${%s}\n", currentBook.getKey()));
-            builder.append("Volume@Price - Volume@Price\n");
+            builder.append("\n\n\n");
+            builder.append(String.format("Order book: ${%s}\n\n", currentBook.getKey()));
+            builder.append(String.format("|%-10s|%-10s|%-10s%n", "BID|", "PRICE|","ASK|"));
             Map<Float,Order> buy  = currentBook.getValue().get(0);
             Map<Float,Order> sell = currentBook.getValue().get(1);
 
             Iterator<Map.Entry<Float, Order>> iterSell = sell.entrySet().iterator();
             Iterator<Map.Entry<Float, Order>> iterBuy = buy.entrySet().iterator();
             while (iterSell.hasNext() || iterBuy.hasNext()) {
+
+
                 Map.Entry<Float,Order> pairB = iterBuy.hasNext()  ? iterBuy.next() : null;
                 Map.Entry<Float,Order> pairS = iterSell.hasNext() ? iterSell.next() : null;
+
+
+
                 if(pairB != null && pairS != null){
                     builder.append(String.format("%d@%.2f - %d@%.2f \n", pairB.getValue().getVolume(), pairB.getValue().getPrice(), pairS.getValue().getVolume(),pairS.getValue().getPrice()));
                 }
