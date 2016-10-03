@@ -11,6 +11,7 @@
 		<module>PartIII</module>
         <module>PartIV</module>
         <module>PartV</module>
+        <module>PartVI</module>
     </modules>
 	
 	<properties>
