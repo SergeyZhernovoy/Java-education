@@ -7,11 +7,13 @@ package ru.szhernovoy;
 public class User {
    private String name;
    private Integer age;
+    private int pol;
 
 
-    public User(String name, int age) {
+    public User(String name, int age, int pol) {
         this.name = name;
         this.age = age;
+        this.pol = pol;
     }
 
 
@@ -40,7 +42,7 @@ public class User {
 
     public static void main(String[] args) {
         for (int index = 0; index < 10000; index++){
-            System.out.println(new User(String.valueOf(index),index));
+            System.out.println(new User(String.valueOf(index),index,index));
         }
     }
 
