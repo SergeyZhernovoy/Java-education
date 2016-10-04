@@ -30,7 +30,7 @@ public class User {
                 ", age=" + age;
     }
 
-    public void info(){
+    public static void info(){
         int mb = 1024 * 1024;
         Runtime runtime = Runtime.getRuntime();
         System.out.println("##### Heap utilization statistics [MB] #####");
@@ -44,6 +44,7 @@ public class User {
         for (int index = 0; index < 10000; index++){
             System.out.println(new User(String.valueOf(index),index,index));
         }
+
     }
 
 }
