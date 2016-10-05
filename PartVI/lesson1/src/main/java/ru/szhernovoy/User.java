@@ -41,9 +41,11 @@ public class User {
     }
 
     public static void main(String[] args) {
-        for (int index = 0; index < 10000; index++){
-            System.out.println(new User(String.valueOf(index),index,index));
-        }
+        //for (int index = 0; index < 10000; index++){
+           // System.out.println(new User(String.valueOf(index),index,index));
+        //}
+        new User("test",20,1);
+        User.info();
 
     }
 
