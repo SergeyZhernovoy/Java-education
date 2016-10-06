@@ -40,12 +40,18 @@ public class CacheReader {
         }
         else{
             addValueInCache(key);
+            text = this.cache.get(key).get();
         }
 
         return text;
 
     }
 
+    /**
+     * Add text from file into cache
+     * @param fileName
+     * @return
+     */
     public boolean addValueInCache(String fileName){
         String fullName  = String.format("%s%s%s",this.PATH, File.separator,fileName);
         File file = new File(fullName);
