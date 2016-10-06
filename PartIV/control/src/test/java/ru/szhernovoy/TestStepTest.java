@@ -1,7 +1,8 @@
-package ru.szhernovoy.view;
+package ru.szhernovoy;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.szhernovoy.view.TestStep;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
