@@ -46,11 +46,16 @@ public class CounterValuesText {
 
 
     public static void main(String[] args) {
-        CounterValuesText obj = new CounterValuesText("d:\\Test");
-        String text = obj.readTxtFile("primer.txt");
 
-        new Thread(new TokenCounter(true,text)).start();
-        new Thread(new TokenCounter(false,text)).start();
+
+        if(args.length > 0){
+            CounterValuesText obj = new CounterValuesText(args[0]);
+            String text = obj.readTxtFile(args[1]);
+
+            new Thread(new TokenCounter(true,text)).start();
+            new Thread(new TokenCounter(false,text)).start();
+        }
+
 
     }
 
