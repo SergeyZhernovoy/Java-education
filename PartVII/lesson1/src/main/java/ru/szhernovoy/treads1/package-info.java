@@ -1,7 +1,7 @@
 /**
  * Created by szhernovoy on 08.10.2016.
  */
-package ru.szhernovoy.text;
+package ru.szhernovoy.treads1;
 
 //*********************************************************************
 //**** Задание на разработку
