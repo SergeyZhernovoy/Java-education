@@ -10,7 +10,7 @@ public class TokenCounter implements Runnable{
     /**define type reading StrongTokenizer with delimetr or not delimetr*/
     private final boolean typeToken;
     /**counter word or space */
-    private int count =0;
+    private int count = 0;
     /**Enter string for parsing */
     private final String in;
     /**delimetr for parsing string */
@@ -48,17 +48,26 @@ public class TokenCounter implements Runnable{
      */
     @Override
     public void run() {
-        StringTokenizer stringTokenizer = new StringTokenizer(in, this.DELIMETR, typeToken);
+        StringTokenizer stringTokenizer ;
+        if(typeToken){
+            stringTokenizer = new StringTokenizer(in, this.DELIMETR, typeToken);
+        }
+        else{
+            stringTokenizer = new StringTokenizer(in);
+        }
+
         while (stringTokenizer.hasMoreTokens()) {
             if (this.typeToken && stringTokenizer.nextElement().equals(this.DELIMETR)) {
                 this.count++;
-                System.out.println(String.format("%s = %d", "Space", this.count));
+                System.out.println(String.format("%s = %d", "Space", this.count ));
+
             } else {
-                if (!this.typeToken && stringTokenizer.nextElement() != null) {
+                if (!this.typeToken &&  stringTokenizer.nextElement() != null) {
                     this.count++;
-                    System.out.println(String.format("%s = %d", "Word", this.count));
+                    System.out.println(String.format("%s = %d", "Word", this.count ));
                 }
             }
         }
     }
+
 }
