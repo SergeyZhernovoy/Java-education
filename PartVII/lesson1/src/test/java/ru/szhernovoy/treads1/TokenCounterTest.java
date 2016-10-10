@@ -13,18 +13,20 @@ public class TokenCounterTest {
     @Test
     public void whenTokenCountOnlyDelimetrThanValueSpaceWeCanGet() throws Exception {
         String simpleText = "Это текст для проверки";
-        TokenCounter tokenCounter = new TokenCounter(true,simpleText);
+        TokenCounter tcounter = new TokenCounter(true,simpleText);
+        TokenCounter.TokenThread tokenCounter = tcounter.new TokenThread();
         tokenCounter.run();
-        int result = tokenCounter.getCount();
+        int result = tcounter.getCount();
         Assert.assertThat(result,is(3));
     }
 
     @Test
     public void whenTokenCountWordThanValueWordWeCanGet() throws Exception {
         String simpleText = "Это текст для проверки";
-        TokenCounter tokenCounter = new TokenCounter(false,simpleText);
+        TokenCounter tcounter = new TokenCounter(false,simpleText);
+        TokenCounter.TokenThread tokenCounter = tcounter.new TokenThread();
         tokenCounter.run();
-        int result = tokenCounter.getCount();
+        int result = tcounter.getCount();
         Assert.assertThat(result,is(4));
     }
 

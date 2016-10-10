@@ -24,8 +24,8 @@ public class CounterWithWait {
 
     public boolean start() throws InterruptedException {
 
-        Thread threadWord = new Thread(word);
-        Thread threadSpace = new Thread(space);
+        Thread threadWord = new Thread(word.new TokenThread());
+        Thread threadSpace = new Thread(space.new TokenThread());
 
         this.info(Thread.currentThread().getName() + " start",System.currentTimeMillis());
 

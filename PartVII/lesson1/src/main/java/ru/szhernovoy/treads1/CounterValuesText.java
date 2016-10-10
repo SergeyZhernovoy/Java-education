@@ -51,9 +51,10 @@ public class CounterValuesText {
         if(args.length > 0){
             CounterValuesText obj = new CounterValuesText(args[0]);
             String text = obj.readTxtFile(args[1]);
-
-            new Thread(new TokenCounter(true,text)).start();
-            new Thread(new TokenCounter(false,text)).start();
+            TokenCounter.TokenThread threadSpace = new TokenCounter(true,text).new TokenThread();
+            TokenCounter.TokenThread threadWord = new TokenCounter(false,text).new TokenThread();
+            new Thread(threadWord).start();
+            new Thread(threadSpace).start();
         }
 
 
