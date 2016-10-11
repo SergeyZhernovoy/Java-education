@@ -10,19 +10,10 @@ public class TokenCounter{
     /**define type reading StrongTokenizer with delimetr or not delimetr*/
     private final boolean typeToken;
     /**counter word or space */
-    private int count = 0;
-    /**Enter string for parsing */
     private final String in;
     /**delimetr for parsing string */
     private final String DELIMETR = " ";
 
-    /**
-     * Getter count words / spaces
-     * @return
-     */
-    public int getCount() {
-        return this.count;
-    }
 
     /**
      * Constructor
@@ -49,6 +40,7 @@ public class TokenCounter{
          */
         @Override
         public void run() {
+            int count = 0;
             StringTokenizer stringTokenizer ;
             if(typeToken){
                 stringTokenizer = new StringTokenizer(in, DELIMETR, typeToken);
