@@ -27,14 +27,16 @@ public class CounterWithWait {
         Thread threadWord = new Thread(word.new TokenThread());
         Thread threadSpace = new Thread(space.new TokenThread());
 
-        this.info(Thread.currentThread().getName() + " start",System.currentTimeMillis());
+        this.info(String.format("%s %s",Thread.currentThread().getName()," start"),System.currentTimeMillis());
 
         threadSpace.start();
+        threadSpace.join();
         threadWord.start();
+        threadWord.join();
 
         while(threadSpace.isAlive() || threadWord.isAlive()){
              if(((System.currentTimeMillis() - this.startTime) > 1000) && (threadSpace.isAlive() || threadWord.isAlive())){
-                 this.info(Thread.currentThread().getName() + " tired of waiting",System.currentTimeMillis());
+                 this.info(String.format("",Thread.currentThread().getName()," tired of waiting"),System.currentTimeMillis());
                  if(threadSpace.isAlive()){
                      threadSpace.interrupt();
                      if(threadSpace.isInterrupted()){
@@ -49,7 +51,7 @@ public class CounterWithWait {
                  }
              }
         }
-        this.info(Thread.currentThread().getName() + " finally job",System.currentTimeMillis());
+        this.info(String.format("%s %s ",Thread.currentThread().getName()," finally job"),System.currentTimeMillis());
         return true;
     }
 
