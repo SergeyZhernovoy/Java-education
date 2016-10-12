@@ -49,7 +49,7 @@ public class TokenCounter{
                 stringTokenizer = new StringTokenizer(in);
             }
 
-            while (stringTokenizer.hasMoreTokens()) {
+            while (!Thread.currentThread().isInterrupted() && stringTokenizer.hasMoreTokens()) {
                 if (typeToken && stringTokenizer.nextElement().equals(DELIMETR)) {
                     count++;
                     System.out.println(String.format("%s = %d", "Space", count ));

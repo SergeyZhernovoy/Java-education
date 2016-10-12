@@ -22,13 +22,16 @@ public class CounterWithProgrammInterrupt {
     public boolean start() throws InterruptedException {
 
         Thread threadWord = new Thread(word.new TokenThread());
+        threadWord.setName("Thread's word");
         Thread threadSpace = new Thread(space.new TokenThread());
-
+        threadSpace.setName("Thread's space");
         threadSpace.start();
-        //threadSpace.join(100);
-        interruptThread(threadSpace);
+        threadSpace.join(20);
+        //;
         threadWord.start();
-
+        threadWord.join(20);
+        interruptThread(threadSpace);
+        interruptThread(threadWord);
         return true;
     }
 
