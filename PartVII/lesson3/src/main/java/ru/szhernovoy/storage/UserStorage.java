@@ -3,6 +3,7 @@ package ru.szhernovoy.storage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Created by szhernovoy on 14.10.2016.
@@ -10,6 +11,7 @@ import java.util.NoSuchElementException;
 public class UserStorage {
 
     private Map<String,User> storage;
+    Object lock = new Object();
 
     public UserStorage(){
         this.storage = new HashMap<>();
@@ -55,17 +57,14 @@ public class UserStorage {
 
     public boolean transfer(int value,User userFrom,User userTo){
         boolean result = false;
-        if(userFrom != null && userTo != null){
-             synchronized (userFrom){
-                synchronized (userTo){
-                    if(userFrom.getAmount() >= value){
+        if(userFrom != null && userTo != null&& this.storage.containsKey(userFrom.getId())&& this.storage.containsKey(userTo.getId())){
+           synchronized (lock){
+                    if(userFrom.getAmount() >= value) {
                         userTo.setAmount(userTo.getAmount() + value);
                         userFrom.setAmount(userFrom.getAmount() - value);
                         result = true;
                     }
-                }
             }
-
         }
         return result;
     }
