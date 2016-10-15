@@ -15,6 +15,7 @@ public class UseCounter{
     public synchronized int  incremant(int value){
         this.count += value;
         return this.count;
+
     }
 
 

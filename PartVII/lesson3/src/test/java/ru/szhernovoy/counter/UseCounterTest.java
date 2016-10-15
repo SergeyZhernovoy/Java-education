@@ -17,17 +17,12 @@ public class UseCounterTest {
             Thread th1 = new Thread(new UseCounter.Count(useCounter));
             Thread th2 = new Thread(new UseCounter.Count(useCounter));
             Thread th3 = new Thread(new UseCounter.Count(useCounter));
-
             th1.start();
             th2.start();
             th3.start();
-
             Thread.sleep(100);
-
-           int result =  useCounter.getCount();
-
-           Assert.assertThat(result,is(3));
-
+            int result =  useCounter.getCount();
+            Assert.assertThat(result,is(3));
     }
 
 }
