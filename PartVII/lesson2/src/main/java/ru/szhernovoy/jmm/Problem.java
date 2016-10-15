@@ -1,5 +1,8 @@
 package ru.szhernovoy.jmm;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Created by szhernovoy on 11.10.2016.
  */
@@ -27,7 +30,7 @@ public class Problem implements Runnable {
     @Override
     public void run() {
 
-        while(!Thread.currentThread().isInterrupted() || this.value <= 500)
+      while(!Thread.currentThread().isInterrupted() || this.value <= 500)
         if(this.decision){
             multiple();
         }
