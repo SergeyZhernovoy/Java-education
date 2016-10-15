@@ -12,6 +12,13 @@
     <groupId>lesson3</groupId>
     <artifactId>Monitore</artifactId>
     <version>1.0.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>lesson3</groupId>
+            <artifactId>List</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
