@@ -7,6 +7,23 @@ import ru.szhernovoy.list.DynamicArray;
  */
 public class SynchronizedDynamicArray<E> {
 
-    DynamicArray<E> array;
+    private DynamicArray<E> array;
+
+    public SynchronizedDynamicArray(final DynamicArray<E> array){
+        this.array = array;
+    }
+
+    public  SynchronizedDynamicArray(int capacity){
+        this.array = new DynamicArray<>(capacity);
+    }
+
+
+    public synchronized void add(E e ){
+        this.array.add(e);
+    }
+
+    public synchronized E get(int index){
+        return (E) this.array.get(index);
+    }
 
 }
