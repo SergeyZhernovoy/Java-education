@@ -12,8 +12,9 @@ public class UseCounter{
         return this.count;
     }
 
-    public void  add(int value){
-        count += value;
+    public synchronized int  incremant(int value){
+        this.count += value;
+        return this.count;
     }
 
 
@@ -25,12 +26,6 @@ public class UseCounter{
             this.storage = storage;
         }
 
-        public int incremant(int value){
-            synchronized (this.storage) {
-                this.storage.add(1);
-            }
-            return this.storage.getCount();
-        }
 
         /**
          * When an object implementing interface <code>Runnable</code> is used
@@ -45,7 +40,7 @@ public class UseCounter{
          */
         @Override
         public void run() {
-            this.incremant(1);
+            this.storage.incremant(1);
         }
     }
 

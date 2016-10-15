@@ -22,11 +22,11 @@ public class UseCounterTest {
             th2.start();
             th3.start();
 
-            th1.join();
-            th2.join();
-            th3.join();
+            Thread.sleep(100);
 
-           Assert.assertThat(useCounter.getCount(),is(3));
+           int result =  useCounter.getCount();
+
+           Assert.assertThat(result,is(3));
 
     }
 
