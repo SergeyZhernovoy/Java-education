@@ -17,16 +17,24 @@ public class UserStorage {
         this.storage = new HashMap<>();
     }
 
-    public boolean add(User user){
-        boolean result = false;
-        if(user !=null){
-            this.storage.put(user.getId(),user);
-            result = true;
-        }
-        return result;
+    public UserStorage(final Map<String, User> storage){
+        this.storage = storage;
     }
 
-    public boolean update(User user){
+
+
+    public boolean add(User user){
+        synchronized (lock) {
+            boolean result = false;
+            if (user != null) {
+                this.storage.put(user.getId(), user);
+                result = true;
+            }
+            return result;
+        }
+    }
+
+    public synchronized boolean update(User user){
         boolean result = false;
         if(user !=null){
             if(this.storage.containsKey(user.getId())){
@@ -37,7 +45,7 @@ public class UserStorage {
         return result;
     }
 
-    public boolean delete(String key){
+    public synchronized boolean delete(String key){
         boolean result = false;
         if(this.storage.containsKey(key)){
             this.storage.remove(key);
@@ -46,7 +54,7 @@ public class UserStorage {
         return result;
     }
 
-    public User read(String key){
+    public synchronized User read(String key){
         if(this.storage.containsKey(key)){
             return this.storage.get(key);
         }
