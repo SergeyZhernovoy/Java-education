@@ -1,9 +1,8 @@
 package ru.szhernovoy.storage;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by szhernovoy on 14.10.2016.
@@ -14,7 +13,7 @@ public class UserStorage {
     Object lock = new Object();
 
     public UserStorage(){
-        this.storage = new HashMap<>();
+        this.storage = new ConcurrentHashMap<>();
     }
 
     public UserStorage(final Map<String, User> storage){
@@ -24,17 +23,17 @@ public class UserStorage {
 
 
     public boolean add(User user){
-        synchronized (lock) {
+
             boolean result = false;
             if (user != null) {
                 this.storage.put(user.getId(), user);
                 result = true;
             }
             return result;
-        }
+
     }
 
-    public synchronized boolean update(User user){
+    public boolean update(User user){
         boolean result = false;
         if(user !=null){
             if(this.storage.containsKey(user.getId())){
@@ -45,7 +44,7 @@ public class UserStorage {
         return result;
     }
 
-    public synchronized boolean delete(String key){
+    public  boolean delete(String key){
         boolean result = false;
         if(this.storage.containsKey(key)){
             this.storage.remove(key);
@@ -54,7 +53,7 @@ public class UserStorage {
         return result;
     }
 
-    public synchronized User read(String key){
+    public User read(String key){
         if(this.storage.containsKey(key)){
             return this.storage.get(key);
         }

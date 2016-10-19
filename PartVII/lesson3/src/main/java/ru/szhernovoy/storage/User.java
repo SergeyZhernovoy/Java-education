@@ -40,7 +40,7 @@ public class User {
         this.name = name;
     }
 
-    public int getAmount() {
+    public synchronized int getAmount() {
         return amount;
     }
 
@@ -51,7 +51,7 @@ public class User {
 
         User user = (User) o;
 
-        if (amount != user.amount) return false;
+
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         return id != null ? id.equals(user.id) : user.id == null;
 
@@ -61,11 +61,10 @@ public class User {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + amount;
         return result;
     }
 
-    public void setAmount(int amount) {
+    public synchronized void setAmount(int amount) {
         this.amount = amount;
     }
 
