@@ -1,8 +1,11 @@
 package ru.szhernovoy.findtext;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -11,26 +14,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class FindText {
 
     private AtomicBoolean success = new AtomicBoolean(false);
-    private boolean nextIfSuccess = true;
-    private List<String> filesIncludeText = new ArrayList<>();
-    private List<String> filesFromFileSystem = new ArrayList<>(10000);
-    private final String TEXT;
-    private Thread[] threads;
-    private final String MASK = ".txt";
+    private boolean continueSearch = true;
+    private Set<File> listFiles = new ConcurrentSkipListSet<>();
 
+    private final String REGEX;
 
-    public  FindText(final boolean nextIfSuccess,final String text){
-        this.nextIfSuccess = nextIfSuccess;
-        this.TEXT = text;
-    }
-
-    private synchronized void addFiles(String files){
-        this.filesIncludeText.add(files);
+    public  FindText(final boolean continueSearch,final String text){
+        this.continueSearch = continueSearch;
+        this.REGEX = text;
     }
 
 
-    public void setNextIfSuccess(boolean nextIfSucces) {
-        this.nextIfSuccess = nextIfSucces;
+
+    public void setParametrSearch(boolean continueSearch) {
+        this.continueSearch = continueSearch;
     }
 
     public synchronized void setSuccess(boolean success) {
@@ -41,12 +38,7 @@ public class FindText {
         return this.success;
     }
 
-    public void printTextFiles(){
-        Iterator<String> iter = filesIncludeText.iterator();
-        while(iter.hasNext()){
-            System.out.println(iter.next());
-        }
-    }
+
 
     public void startThread(){
         this.threads = new Thread[50];

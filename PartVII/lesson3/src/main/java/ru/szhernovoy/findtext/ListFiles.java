@@ -18,39 +18,52 @@ public class ListFiles {
         return File.listRoots();
     }
 
-    public void getFiles(File file){
+    public void startThread() throws InterruptedException {
 
-        if(!file.canRead()){
-            return;
-        }
-
-        if(file.isDirectory()) {
-            for(File nextFiles : file.listFiles()) {
-               getFiles(nextFiles);
+        File[] root = getRoot();
+        ListFilesThread[] threads = new ListFilesThread[root.length];
+        int position = 0;
+        for (File files : getRoot()){ //hard disks
+            for(File next : files.listFiles()) { //content hard disks
+                threads[position] = new ListFilesThread(this.listFiles, files);
+                threads[position++].start();
             }
         }
-        else {
-            this.listFiles.add(file);
-        }
     }
 
-    public Set<File> getListFiles(){
-        for (File files : getRoot()){
-            getFiles(files);
-        }
-        return this.listFiles;
+    public Set<File> getListFiles() {
+        return listFiles;
     }
 
-
-    public static void main(String[] args) {
-
-        HashSet<File> listy = new HashSet<File>();
-        new ListFiles(listy).getListFiles();
-        Iterator<File> iter = listy.iterator();
-        while(iter.hasNext()){
-            System.out.println(iter.next().getAbsolutePath());
+    private class ListFilesThread extends Thread{
+        private Set<File> listFiles;
+        private final File path;
+        public ListFilesThread(final Set<File> externalSet,final File path){
+            this.listFiles = externalSet;
+            this.path = path;
         }
 
-    }
+        public void getFiles(File file){
 
+            if(!file.canRead()){
+                return;
+            }
+
+            if(file.isDirectory()) {
+                if(file.list() != null) {
+                    for (File nextFiles : file.listFiles()) {
+                        getFiles(nextFiles);
+                    }
+                }
+            }
+            else {
+                this.listFiles.add(file);
+            }
+        }
+
+        @Override
+        public void run() {
+            getFiles(this.path);
+        }
+    }
 }
