@@ -1,28 +1,55 @@
 package ru.szhernovoy.findtext;
 
 import java.io.File;
-import java.nio.file.Path;
+import java.util.*;
 
 /**
  * Created by admin on 19.10.2016.
  */
 public class ListFiles {
 
-    Map<String,Object> listFiles = new Bloc;
+    Set<File> listFiles ;
 
+    public ListFiles(final Set<File> myList){
+        this.listFiles = myList;
+    }
 
-    public void getRoot(){
+    public File[] getRoot(){
+        return File.listRoots();
+    }
 
-        File[] rootIO = File.listRoots();
-        Path[] rootNio = new Path[rootIO.length];
+    public void getFiles(File file){
 
-        for (int index = 0; index < rootIO.length; index++){
-            rootNio[index] = rootIO[index].toPath();
+        if(!file.canRead()){
+            return;
+        }
+
+        if(file.isDirectory()) {
+            for(File nextFiles : file.listFiles()) {
+               getFiles(nextFiles);
+            }
+        }
+        else {
+            this.listFiles.add(file);
         }
     }
 
+    public Set<File> getListFiles(){
+        for (File files : getRoot()){
+            getFiles(files);
+        }
+        return this.listFiles;
+    }
+
+
     public static void main(String[] args) {
-        new ListFiles().getRoot();
+
+        HashSet<File> listy = new HashSet<File>();
+        new ListFiles(listy).getListFiles();
+        Iterator<File> iter = listy.iterator();
+        while(iter.hasNext()){
+            System.out.println(iter.next().getAbsolutePath());
+        }
 
     }
 
