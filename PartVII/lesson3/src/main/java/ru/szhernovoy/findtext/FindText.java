@@ -4,9 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by admin on 15.10.2016.
@@ -14,82 +18,81 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class FindText {
 
     private AtomicBoolean success = new AtomicBoolean(false);
+
     private boolean continueSearch = true;
-    private Set<File> listFiles = new ConcurrentSkipListSet<>();
+    private Set<File> listFiles;
+    private Set<Thread> listThreads;
 
     private final String REGEX;
 
     public  FindText(final boolean continueSearch,final String text){
         this.continueSearch = continueSearch;
         this.REGEX = text;
+        this.listThreads = new ConcurrentSkipListSet<>();
     }
 
 
-
-    public void setParametrSearch(boolean continueSearch) {
-        this.continueSearch = continueSearch;
-    }
-
-    public synchronized void setSuccess(boolean success) {
-        this.success.set(success);
-    }
 
     public AtomicBoolean getSuccess(){
+
         return this.success;
     }
 
 
-
-    public void startThread(){
-        this.threads = new Thread[50];
-        int chunck = filesFromFileSystem.size()/50;
-        for (int index = 0; index < 50; index++){
-            ArrayList<String> tiny = new ArrayList<>();
-
-            tiny.addAll(index + chunck,filesFromFileSystem);
-            this.threads[index] = new Thread(new FindThread(tiny));
-            this.threads[index].start();
-        }
+    public synchronized void setSuccess(boolean success){
+        this.success.set(success);
     }
 
-    private class FindThread implements Runnable{
+    public void startThread() throws InterruptedException {
 
-        private ArrayList<String> myFiles;
 
-        public FindThread(final ArrayList<String> files){
-            this.myFiles = files;
+
+
+       // while()
+        Thread.sleep(10000);
+    }
+
+    private class SnifferName extends Thread{
+
+        private final List<File> chunk;
+
+        public boolean find(String name){
+            Matcher m = Pattern.compile(REGEX).matcher(name);
+            return m.find();
         }
 
-
-        public void interruptAll(){
-            for (Thread th: threads){
-                th.interrupt();
+        public void stopThread(){
+            Iterator<Thread> iter = listThreads.iterator();
+            while(iter.hasNext()){
+                iter.next().interrupt();
             }
         }
 
-        /**
-         * When an object implementing interface <code>Runnable</code> is used
-         * to create a thread, starting the thread causes the object's
-         * <code>run</code> method to be called in that separately executing
-         * thread.
-         * <p>
-         * The general contract of the method <code>run</code> is that it may
-         * take any action whatsoever.
-         *
-         * @see Thread#run()
-         */
+
+        public SnifferName(final List<File> part){
+            this.chunk = part;
+        }
+
         @Override
         public void run() {
 
-            while(!Thread.currentThread().isInterrupted()){
-                if(nextIfSuccess && getSuccess().get()){
+            Iterator<File> iter = this.chunk.iterator();
+            while(!Thread.currentThread().isInterrupted() && iter.hasNext()){
+                  if(!getSuccess().get()){
+                      File next = iter.next();
 
-                }
-                else{
-                    break;
-                }
+                      if(this.find(next.getName())){
+                          setSuccess(true);
+                          if(!continueSearch){
+                              this.stopThread();
+                          }
+                          System.out.println(String.format("Success the search. File is  in %s",next.getAbsolutePath()));
+                      }
+                  }
+
+
             }
-
+            listThreads.remove(Thread.currentThread());
         }
     }
 
