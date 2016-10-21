@@ -8,7 +8,8 @@ import java.util.*;
  */
 public class ListFiles {
 
-    Set<File> listFiles ;
+    private final Set<File> listFiles ;
+    List<ListFilesThread> threads;
 
     public ListFiles(final Set<File> myList){
         this.listFiles = myList;
@@ -20,23 +21,24 @@ public class ListFiles {
 
     public void startThread() throws InterruptedException {
 
-        File[] root = getRoot();
-        ListFilesThread[] threads = new ListFilesThread[root.length];
-        int position = 0;
+        this.threads = new LinkedList<>();
         for (File files : getRoot()){ //hard disks
             for(File next : files.listFiles()) { //content hard disks
-                threads[position] = new ListFilesThread(this.listFiles, files);
-                threads[position++].start();
+                ListFilesThread thread = new ListFilesThread(this.listFiles, next);
+                thread.start();
+                threads.add(thread);
             }
         }
     }
 
-    public Set<File> getListFiles() {
-        return listFiles;
+    public void interruptAll(){
+        for(ListFilesThread thread : this.threads){
+            thread.interrupt();
+        }
     }
 
     private class ListFilesThread extends Thread{
-        private Set<File> listFiles;
+        private final Set<File> listFiles;
         private final File path;
         public ListFilesThread(final Set<File> externalSet,final File path){
             this.listFiles = externalSet;
@@ -63,7 +65,10 @@ public class ListFiles {
 
         @Override
         public void run() {
-            getFiles(this.path);
+            if(!isInterrupted()){
+                getFiles(this.path);
+            }
+
         }
     }
 }

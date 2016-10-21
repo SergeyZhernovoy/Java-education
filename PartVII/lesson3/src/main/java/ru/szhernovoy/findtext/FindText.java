@@ -18,19 +18,16 @@ import java.util.regex.Pattern;
 public class FindText {
 
     private AtomicBoolean success = new AtomicBoolean(false);
-
     private boolean continueSearch = true;
-    private Set<File> listFiles;
-    private Set<Thread> listThreads;
+    private Set<File> listFiles = new ConcurrentSkipListSet<>();
+    private Set<Thread> threads = new ConcurrentSkipListSet<>();
 
     private final String REGEX;
 
     public  FindText(final boolean continueSearch,final String text){
         this.continueSearch = continueSearch;
         this.REGEX = text;
-        this.listThreads = new ConcurrentSkipListSet<>();
     }
-
 
 
     public AtomicBoolean getSuccess(){
@@ -43,7 +40,14 @@ public class FindText {
         this.success.set(success);
     }
 
-    public void startThread() throws InterruptedException {
+    public void init(ListFiles find) throws InterruptedException {
+           find = new ListFiles(this.listFiles);
+           find.startThread();
+    }
+
+
+
+    public void startThread(ListFiles find) throws InterruptedException {
 
 
 
@@ -62,7 +66,12 @@ public class FindText {
         }
 
         public void stopThread(){
-            Iterator<Thread> iter = listThreads.iterator();
+
+            //for (Thread thread : this.threads)
+
+
+
+            Iterator<Thread> iter = threads.iterator();
             while(iter.hasNext()){
                 iter.next().interrupt();
             }
@@ -92,7 +101,7 @@ public class FindText {
 
 
             }
-            listThreads.remove(Thread.currentThread());
+            threads.remove(Thread.currentThread());
         }
     }
 
