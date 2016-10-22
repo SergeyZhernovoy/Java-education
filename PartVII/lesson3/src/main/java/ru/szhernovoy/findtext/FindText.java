@@ -1,11 +1,8 @@
 package ru.szhernovoy.findtext;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,46 +16,58 @@ public class FindText {
 
     private AtomicBoolean success = new AtomicBoolean(false);
     private boolean continueSearch = true;
-    private Set<File> listFiles = new ConcurrentSkipListSet<>();
+    private Set<File> listFiles ;
     private Set<Thread> threads = new ConcurrentSkipListSet<>();
 
     private final String REGEX;
 
-    public  FindText(final boolean continueSearch,final String text){
+    public  FindText(final boolean continueSearch,final String text, final Set<File> files){
         this.continueSearch = continueSearch;
         this.REGEX = text;
+        this.listFiles = files;
     }
-
 
     public AtomicBoolean getSuccess(){
-
         return this.success;
     }
-
 
     public synchronized void setSuccess(boolean success){
         this.success.set(success);
     }
 
-    public void init(ListFiles find) throws InterruptedException {
-           find = new ListFiles(this.listFiles);
-           find.startThread();
-    }
+    public void startThread() throws InterruptedException {
 
+       ListFiles searcher = new ListFiles(listFiles);
+       searcher.startThread();
+       Thread.sleep(1000);
+       Iterator<File> iter = this.listFiles.iterator();
 
-
-    public void startThread(ListFiles find) throws InterruptedException {
-
-
-
-
-       // while()
-        Thread.sleep(10000);
+       int counter = 0;
+       List<File> next = new LinkedList<>();
+       while(iter.hasNext() ){
+            if(this.success.get()){
+                if(!this.continueSearch){
+                    break;
+                }
+            }
+            next.add(iter.next());
+            if(counter == 2000){
+                counter=0;
+                Thread nextThread = new SnifferName(next,searcher);
+                nextThread.start();
+                this.threads.add(nextThread);
+                next = new LinkedList<>();
+            }
+            else{
+                counter++;
+            }
+       }
     }
 
     private class SnifferName extends Thread{
 
         private final List<File> chunk;
+        private final ListFiles files;
 
         public boolean find(String name){
             Matcher m = Pattern.compile(REGEX).matcher(name);
@@ -66,44 +75,39 @@ public class FindText {
         }
 
         public void stopThread(){
-
-            //for (Thread thread : this.threads)
-
-
-
+            this.files.interruptAll();
             Iterator<Thread> iter = threads.iterator();
             while(iter.hasNext()){
                 iter.next().interrupt();
             }
         }
 
-
-        public SnifferName(final List<File> part){
+        public SnifferName(final List<File> part, final ListFiles file){
             this.chunk = part;
+            this.files = file;
         }
 
         @Override
         public void run() {
-
             Iterator<File> iter = this.chunk.iterator();
             while(!Thread.currentThread().isInterrupted() && iter.hasNext()){
                   if(!getSuccess().get()){
                       File next = iter.next();
-
                       if(this.find(next.getName())){
                           setSuccess(true);
                           if(!continueSearch){
                               this.stopThread();
                           }
-                          System.out.println(String.format("Success the search. File is  in %s",next.getAbsolutePath()));
+                          System.out.println(String.format("Success in the search. File is  in %s",next.getAbsolutePath()));
                       }
                   }
-
-
             }
             threads.remove(Thread.currentThread());
         }
     }
 
+    public static void main(String[] args) {
+
+    }
 
 }
