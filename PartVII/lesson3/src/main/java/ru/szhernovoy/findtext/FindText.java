@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,42 +14,70 @@ import java.util.regex.Pattern;
  */
 public class FindText {
 
+    /**flag success search */
     private AtomicBoolean success = new AtomicBoolean(false);
+    /**flag contionue search after success */
     private boolean continueSearch = true;
+    /**list of all files in systems */
     private Set<File> listFiles ;
-    private Set<SnifferName> threads = new ConcurrentSkipListSet<>();
+    /**list current threads */
+    private List<SnifferName> threads = new CopyOnWriteArrayList<>();
+    /**list result search */
+    private List<String> result = new CopyOnWriteArrayList<>();
 
+    /**
+     * Return result work searcher
+     * @return
+     */
+    public List<String> getResult() {
+        return this.result;
+    }
+
+    /**regulary sentence */
     private final String REGEX;
 
     public  FindText(final boolean continueSearch,final String text, final Set<File> files){
         this.continueSearch = continueSearch;
-        this.REGEX = text;
+        this.REGEX = String.format("(?i)%s",text);
         this.listFiles = files;
     }
 
+    /**
+     * Getter flag success
+     * @return
+     */
     public AtomicBoolean getSuccess(){
         return this.success;
     }
 
+    /**
+     * Setter flag success
+     * @param success
+     */
     public synchronized void setSuccess(boolean success){
         this.success.set(success);
     }
 
+    /**
+     * Main thread constructor
+     * @throws InterruptedException
+     */
     public void startThread() throws InterruptedException {
 
        ListFiles searcher = new ListFiles(listFiles);
        searcher.startThread();
-       Thread.sleep(1000);
+       Thread.sleep(5000);
        Iterator<File> iter = this.listFiles.iterator();
 
        int counter = 0;
        List<File> next = new LinkedList<>();
-       while(iter.hasNext() ){
+       while(iter.hasNext()){
             if(this.success.get()){
                 if(!this.continueSearch){
                     break;
                 }
             }
+
             next.add(iter.next());
             if(counter == 2000){
                 counter=0;
@@ -56,6 +85,8 @@ public class FindText {
                 nextThread.start();
                 this.threads.add(nextThread);
                 next = new LinkedList<>();
+                nextThread.join(200);
+
             }
             else{
                 counter++;
@@ -63,6 +94,9 @@ public class FindText {
        }
     }
 
+    /**
+     * inner class
+     */
     private class SnifferName extends Thread{
 
         private final List<File> chunk;
@@ -97,12 +131,13 @@ public class FindText {
                           if(!continueSearch){
                               this.stopThread();
                           }
-                          System.out.println(String.format("Success in the search. File is  in %s",next.getAbsolutePath()));
+                          result.add(String.format("Success in the search. File is  in %s",next.getAbsolutePath()));
                       }
                   }
             }
             threads.remove(Thread.currentThread());
         }
     }
+
 
 }

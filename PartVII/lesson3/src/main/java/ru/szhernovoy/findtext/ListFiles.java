@@ -8,24 +8,34 @@ import java.util.*;
  */
 public class ListFiles {
 
+    /**set all files in system    */
     private final Set<File> listFiles ;
+    /**list all threads for search files */
     List<ListFilesThread> threads;
 
     public ListFiles(final Set<File> myList){
         this.listFiles = myList;
     }
 
+    /**
+     * return list root disk
+     * @return
+     */
     public File[] getRoot(){
         return File.listRoots();
     }
 
+    /**
+     * Main function search files across threads
+     * @throws InterruptedException
+     */
     public void startThread() throws InterruptedException {
 
         this.threads = new LinkedList<>();
         for (File files : getRoot()){ //hard disks
             if(files.list() != null){
                     for(File next : files.listFiles()) { //content hard disks
-                        ListFilesThread thread = new ListFilesThread(this.listFiles, next);
+                        ListFilesThread thread = new ListFilesThread(next);
                         thread.start();
                         threads.add(thread);
                     }
@@ -36,20 +46,30 @@ public class ListFiles {
         }
     }
 
+    /**
+     * This method to end all threads
+     */
     public void interruptAll(){
         for(ListFilesThread thread : this.threads){
             thread.interrupt();
         }
     }
 
+    /**
+     * inner class for multi threading
+     */
     private class ListFilesThread extends Thread{
-        private final Set<File> listFiles;
+
+        /**part files from filesystems */
         private final File path;
-        public ListFilesThread(final Set<File> externalSet,final File path){
-            this.listFiles = externalSet;
-            this.path = path;
+        public ListFilesThread(final File path){
+           this.path = path;
         }
 
+        /**
+         * Reccurce finder files
+         * @param file
+         */
         public void getFiles(File file){
 
             if(!file.canRead()){
@@ -64,7 +84,7 @@ public class ListFiles {
                 }
             }
             else {
-                this.listFiles.add(file);
+                listFiles.add(file);
             }
         }
 
