@@ -23,10 +23,15 @@ public class ListFiles {
 
         this.threads = new LinkedList<>();
         for (File files : getRoot()){ //hard disks
-            for(File next : files.listFiles()) { //content hard disks
-                ListFilesThread thread = new ListFilesThread(this.listFiles, next);
-                thread.start();
-                threads.add(thread);
+            if(files.list() != null){
+                    for(File next : files.listFiles()) { //content hard disks
+                        ListFilesThread thread = new ListFilesThread(this.listFiles, next);
+                        thread.start();
+                        threads.add(thread);
+                    }
+            }
+            else{
+                this.listFiles.add(files);
             }
         }
     }

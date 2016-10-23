@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.*;
 
 import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +16,7 @@ public class FindText {
     private AtomicBoolean success = new AtomicBoolean(false);
     private boolean continueSearch = true;
     private Set<File> listFiles ;
-    private Set<Thread> threads = new ConcurrentSkipListSet<>();
+    private Set<SnifferName> threads = new ConcurrentSkipListSet<>();
 
     private final String REGEX;
 
@@ -53,7 +52,7 @@ public class FindText {
             next.add(iter.next());
             if(counter == 2000){
                 counter=0;
-                Thread nextThread = new SnifferName(next,searcher);
+                SnifferName nextThread = new SnifferName(next,searcher);
                 nextThread.start();
                 this.threads.add(nextThread);
                 next = new LinkedList<>();
@@ -76,7 +75,7 @@ public class FindText {
 
         public void stopThread(){
             this.files.interruptAll();
-            Iterator<Thread> iter = threads.iterator();
+            Iterator<SnifferName> iter = threads.iterator();
             while(iter.hasNext()){
                 iter.next().interrupt();
             }
@@ -104,10 +103,6 @@ public class FindText {
             }
             threads.remove(Thread.currentThread());
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }
