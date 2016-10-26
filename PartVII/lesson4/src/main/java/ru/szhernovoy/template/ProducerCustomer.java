@@ -9,18 +9,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ProducerCustomer {
 
-    private AtomicInteger num = new AtomicInteger(0);
-    private final BlockingQueue<AtomicInteger> queue = new ArrayBlockingQueue<>(5);
 
-    public int getNum() {
-        return num.get();
-    }
+    private final BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
+    private AtomicInteger num = new AtomicInteger(1);
+
 
     public void add(){
         synchronized (this.queue){
             System.out.println(String.format("work Producer %s - add num %d",Thread.currentThread().getId(),this.num.get()));
             try {
-                this.queue.put(this.num);
+                this.queue.put(this.num.get());
                 this.num.getAndIncrement();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -42,7 +40,7 @@ public class ProducerCustomer {
             }
 
              try {
-                 System.out.println(String.format("wait Customer %s - get num %d",Thread.currentThread().getId(),this.queue.take().get()));
+                 System.out.println(String.format("wait Customer %s - get num %d",Thread.currentThread().getId(),this.queue.take()));
              } catch (InterruptedException e) {
                  e.printStackTrace();
              }
