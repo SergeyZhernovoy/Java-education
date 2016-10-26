@@ -18,8 +18,6 @@ public class FindText {
     private AtomicBoolean success = new AtomicBoolean(false);
     /**flag contionue search after success */
     private boolean continueSearch = true;
-    /**list of all files in systems */
-    private Set<File> listFiles ;
     /**list current threads */
     private List<SnifferName> threads = new CopyOnWriteArrayList<>();
     /**list result search */
@@ -36,10 +34,9 @@ public class FindText {
     /**regulary sentence */
     private final String REGEX;
 
-    public  FindText(final boolean continueSearch,final String text, final Set<File> files){
+    public  FindText(final boolean continueSearch,final String text){
         this.continueSearch = continueSearch;
         this.REGEX = String.format("(?i)%s",text);
-        this.listFiles = files;
     }
 
     /**
@@ -64,10 +61,11 @@ public class FindText {
      */
     public void startThread() throws InterruptedException {
 
-       ListFiles searcher = new ListFiles(listFiles);
+       ListFiles searcher = new ListFiles();
        searcher.startThread();
-       Thread.sleep(5000);
-       Iterator<File> iter = this.listFiles.iterator();
+
+        Set<File>  listFiles = searcher.getListFiles();
+       Iterator<File> iter = listFiles.iterator();
 
        int counter = 0;
        List<File> next = new LinkedList<>();
@@ -100,7 +98,7 @@ public class FindText {
     private class SnifferName extends Thread{
 
         private final List<File> chunk;
-        private final ListFiles files;
+        private final ListFiles  files;
 
         public boolean find(String name){
             Matcher m = Pattern.compile(REGEX).matcher(name);

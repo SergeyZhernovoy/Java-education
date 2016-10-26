@@ -17,12 +17,12 @@ public class ListFilesTest {
     @Test
     public void whenStartThreadThatGetAnySizeListFile() throws Exception {
 
-        Set<File> myList = new ConcurrentSkipListSet<>();
-        ListFiles anyFiles = new ListFiles(myList);
+
+        ListFiles anyFiles = new ListFiles();
         anyFiles.startThread();
         Thread.sleep(1000);
         anyFiles.interruptAll();
-        int sizeList = myList.size();
+        int sizeList = anyFiles.getListFiles().size();
         Assert.assertThat(sizeList > 100, is(true));
     }
 

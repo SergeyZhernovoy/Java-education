@@ -17,8 +17,8 @@ import static org.junit.Assert.*;
 public class FindTextTest {
     @Test
     public void whenRunThreadFromFindFileThatGetItToScreen() throws Exception {
-        Set<File> myList = new ConcurrentSkipListSet<>();
-        FindText findText = new FindText(false,"explorer",myList);
+
+        FindText findText = new FindText(true,"explorer");
         try {
             findText.startThread();
         } catch (InterruptedException e) {

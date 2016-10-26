@@ -2,6 +2,7 @@ package ru.szhernovoy.findtext;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Created by admin on 19.10.2016.
@@ -9,13 +10,14 @@ import java.util.*;
 public class ListFiles {
 
     /**set all files in system    */
-    private final Set<File> listFiles ;
+    private final Set<File> listFiles  = new ConcurrentSkipListSet<>();
+
+    public Set<File> getListFiles() {
+        return listFiles;
+    }
+
     /**list all threads for search files */
     List<ListFilesThread> threads;
-
-    public ListFiles(final Set<File> myList){
-        this.listFiles = myList;
-    }
 
     /**
      * return list root disk
@@ -38,6 +40,7 @@ public class ListFiles {
                         ListFilesThread thread = new ListFilesThread(next);
                         thread.start();
                         threads.add(thread);
+                        thread.join(50);
                     }
             }
             else{
