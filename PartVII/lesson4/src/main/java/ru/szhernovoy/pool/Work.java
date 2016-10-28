@@ -1,7 +1,5 @@
 package ru.szhernovoy.pool;
 
-import org.omg.PortableServer.THREAD_POLICY_ID;
-
 /**
  * Created by admin on 26.10.2016.
  */
@@ -21,4 +19,5 @@ public class Work implements Runnable {
     public void run() {
         System.out.println(String.format("Thread -%s is execute",Thread.currentThread().getId()));
     }
+
 }

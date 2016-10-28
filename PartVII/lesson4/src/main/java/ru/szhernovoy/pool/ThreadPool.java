@@ -1,5 +1,6 @@
 package ru.szhernovoy.pool;
 
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -9,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
 public class ThreadPool {
 
     private final int KERNEL = Runtime.getRuntime().availableProcessors();
-    private final BlockingQueue<Runnable> pool = new ArrayBlockingQueue<>(this.KERNEL);
+    private final Deque<Runnable> pool = new ArrayDeque<>(this.KERNEL);
 
     public ThreadPool(){
         for (int index = 0; index < this.pool.size(); index++){

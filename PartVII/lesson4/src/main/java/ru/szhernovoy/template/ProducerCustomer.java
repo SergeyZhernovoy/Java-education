@@ -1,7 +1,8 @@
 package ru.szhernovoy.template;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -10,19 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProducerCustomer {
 
 
-    private final BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
+    private final Queue<Integer> queue = new LinkedList<>();
     private AtomicInteger num = new AtomicInteger(1);
 
 
     public void add(){
         synchronized (this.queue){
             System.out.println(String.format("work Producer %s - add num %d",Thread.currentThread().getId(),this.num.get()));
-            try {
-                this.queue.put(this.num.get());
-                this.num.getAndIncrement();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            this.queue.add(this.num.get());
+            this.num.getAndIncrement();
             this.queue.notify();
         }
 
@@ -39,11 +36,7 @@ public class ProducerCustomer {
                 }
             }
 
-             try {
-                 System.out.println(String.format("wait Customer %s - get num %d",Thread.currentThread().getId(),this.queue.take()));
-             } catch (InterruptedException e) {
-                 e.printStackTrace();
-             }
+             System.out.println(String.format("work Customer %s - get num %d",Thread.currentThread().getId(),this.queue.poll()));
 
          }
 
