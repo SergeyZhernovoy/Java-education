@@ -24,11 +24,9 @@ public class Cash<E extends Model> {
     }
 
     public void update(E e) {
-
-        synchronized (this.cash) {
-            E oldObject = this.cash.get(e.getId());
-
-            if (oldObject.getVersion() == e.getVersion()) {
+        E oldObject = this.cash.get(e.getId());
+        synchronized (oldObject) {
+             if (oldObject.getVersion() == e.getVersion()) {
                 e.increment();
                 this.add(e);
             } else {
