@@ -5,8 +5,12 @@ package ru.szhernovoy.bomberman.model;
  */
 public class Human extends AbstractCharacter {
 
+    public Human(String name, int id, boolean isLife) {
+        super(name, id, isLife);
+    }
+
     @Override
-    public boolean move() {
-        return false;
+    public Cell move(Direction step,Cell cell) {
+        return cell;
     }
 }
