@@ -9,12 +9,16 @@ public abstract class AbstractCharacter implements ActionCharacter {
     protected final int id;
     protected boolean isLife;
     protected final Cell[][] cells;
+    protected int xPosition;
+    protected int yPosition;
 
-    public AbstractCharacter(String name, int id, boolean isLife,final Cell[][] cells) {
+    public AbstractCharacter(String name, int id, boolean isLife,final Cell[][] cells,int x, int y) {
         this.name = name;
         this.id = id;
         this.isLife = isLife;
         this.cells = cells;
+        this.xPosition = x;
+        this.yPosition = y;
     }
 
     @Override

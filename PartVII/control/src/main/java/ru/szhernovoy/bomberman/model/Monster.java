@@ -5,14 +5,38 @@ package ru.szhernovoy.bomberman.model;
  */
 public class Monster extends AbstractCharacter implements Runnable{
 
-    public Monster(String name, int id, boolean isLife) {
-        super(name, id, isLife);
+    public Monster(String name, int id, boolean isLife,Cell[][] cells,int x, int y) {
+        super(name, id, isLife,cells,x ,y);
     }
 
     @Override
-    public Cell move(Direction step,Cell cell) {
-        return cell;
+    public void move(Direction step) {
+        int sizeBoard = this.cells.length - 1;
+        if(step == Direction.DOWN){
+
+            while(){
+
+            }
+            int nextPositionY = yPosition-1
+            if(nextPositionY >=0 && nextPositionY <= sizeBoard){
+
+            }
+            else{
+
+            }
+
+        }
+
+
     }
+
+    private Direction checkMove(){
+
+
+
+        return true;
+    }
+
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -27,6 +51,6 @@ public class Monster extends AbstractCharacter implements Runnable{
      */
     @Override
     public void run() {
-
+       move(Direction.getRandomDirection());
     }
 }

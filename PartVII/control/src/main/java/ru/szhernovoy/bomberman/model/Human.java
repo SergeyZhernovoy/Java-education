@@ -5,12 +5,12 @@ package ru.szhernovoy.bomberman.model;
  */
 public class Human extends AbstractCharacter {
 
-    public Human(String name, int id, boolean isLife) {
-        super(name, id, isLife);
+    public Human(String name, int id, boolean isLife,Cell[][] cells, int x, int y) {
+        super(name, id, isLife,cells,x ,y);
     }
 
     @Override
-    public Cell move(Direction step,Cell cell) {
-        return cell;
+    public void move(Direction step) {
+
     }
 }

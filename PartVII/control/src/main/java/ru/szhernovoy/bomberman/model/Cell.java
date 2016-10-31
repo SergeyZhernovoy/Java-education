@@ -7,12 +7,11 @@ public class Cell {
 
     private AbstractCharacter character;
 
-
-    public AbstractCharacter getCharacter() {
+    public synchronized AbstractCharacter getCharacter() {
         return character;
     }
 
-    public void setCharacter(AbstractCharacter character) {
+    public synchronized void setCharacter(AbstractCharacter character) {
         this.character = character;
     }
 
