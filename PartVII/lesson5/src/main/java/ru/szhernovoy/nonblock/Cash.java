@@ -38,15 +38,4 @@ public class Cash<E extends Model> {
         });
     }
 
-    public E check(E newModel, E oldModel) {
-        if (oldModel.getVersion() == newModel.getVersion()) {
-            newModel.increment();
-            this.add(newModel);
-            return newModel;
-        } else {
-            throw new OptimisticException("version is uncorrect");
-        }
-    }
-
-
 }
