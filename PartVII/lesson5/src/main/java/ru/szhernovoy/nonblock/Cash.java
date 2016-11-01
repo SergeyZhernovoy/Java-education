@@ -4,6 +4,7 @@ import com.sun.javafx.sg.prism.NGShape;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
 
 /**
  * Created by szhernovoy on 27.10.2016.
@@ -23,15 +24,27 @@ public class Cash<E extends Model> {
 
     }
 
-    public void update(E e) {
-        E oldObject = this.cash.get(e.getId());
-        synchronized (oldObject) {
-             if (oldObject.getVersion() == e.getVersion()) {
-                e.increment();
-                this.add(e);
-            } else {
-                throw new OptimisticException("version is uncorrect");
+    public void update(E newModel) throws OptimisticException {
+        this.cash.computeIfPresent(newModel.getId(), new BiFunction<Integer, E, E>() {
+            @Override
+            public E apply(Integer integer, E oldModel) {
+                if (oldModel.getVersion() == newModel.getVersion()) {
+                    newModel.increment();
+                    return newModel;
+                } else {
+                    throw new OptimisticException("version is uncorrect");
+                }
             }
+        });
+    }
+
+    public E check(E newModel, E oldModel) {
+        if (oldModel.getVersion() == newModel.getVersion()) {
+            newModel.increment();
+            this.add(newModel);
+            return newModel;
+        } else {
+            throw new OptimisticException("version is uncorrect");
         }
     }
 

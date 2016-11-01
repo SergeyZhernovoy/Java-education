@@ -5,36 +5,43 @@ package ru.szhernovoy.bomberman.model;
  */
 public class Monster extends AbstractCharacter implements Runnable{
 
+
     public Monster(String name, int id, boolean isLife,Cell[][] cells,int x, int y) {
-        super(name, id, isLife,cells,x ,y);
+        super(name, id, isLife,cells,x ,y,Type.MONSTER);
     }
 
     @Override
     public void move(Direction step) {
-        int sizeBoard = this.cells.length - 1;
-        if(step == Direction.DOWN){
 
-            while(){
+        boolean makeStep = false;
 
-            }
-            int nextPositionY = yPosition-1
-            if(nextPositionY >=0 && nextPositionY <= sizeBoard){
-
+        while(!makeStep){
+            if(checkMove(step)){
+               if(this.next.getCharacter() != null) {
+                    try {
+                        this.wait(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (this.next.getCharacter() == null) {
+                        synchronized (this.next){
+                            synchronized (this.cells[xPosition][yPosition]){
+                                this.next.setCharacter(this);
+                                this.cells[xPosition][yPosition].erase();
+                                this.xPosition = nextX;
+                                this.yPosition = nextY;
+                            }
+                        }
+                    }
+                    else{
+                        step = Direction.getRandomDirection();
+                    }
+                }
             }
             else{
-
+                step = Direction.getRandomDirection();
             }
-
         }
-
-
-    }
-
-    private Direction checkMove(){
-
-
-
-        return true;
     }
 
 
@@ -51,6 +58,13 @@ public class Monster extends AbstractCharacter implements Runnable{
      */
     @Override
     public void run() {
-       move(Direction.getRandomDirection());
+        while(!Thread.currentThread().isInterrupted()) {
+            try {
+                this.wait(1000);
+            } catch (InterruptedException e) {
+                break;
+            }
+            move(Direction.getRandomDirection());
+        }
     }
 }

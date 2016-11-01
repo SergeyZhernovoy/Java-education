@@ -6,7 +6,7 @@ package ru.szhernovoy.bomberman.model;
 public class Human extends AbstractCharacter {
 
     public Human(String name, int id, boolean isLife,Cell[][] cells, int x, int y) {
-        super(name, id, isLife,cells,x ,y);
+        super(name, id, isLife,cells,x ,y,Type.HUMAN);
     }
 
     @Override

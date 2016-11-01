@@ -11,10 +11,12 @@ public class Cell {
         return character;
     }
 
-    public synchronized void setCharacter(AbstractCharacter character) {
+    public void setCharacter(AbstractCharacter character) {
         this.character = character;
     }
 
-
+    public void erase() {
+        this.character = null;
+    }
 
 }
