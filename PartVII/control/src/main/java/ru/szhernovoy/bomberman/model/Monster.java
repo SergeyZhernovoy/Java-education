@@ -6,8 +6,8 @@ package ru.szhernovoy.bomberman.model;
 public class Monster extends AbstractCharacter implements Runnable{
 
 
-    public Monster(String name, int id, boolean isLife,Cell[][] cells,int x, int y) {
-        super(name, id, isLife,cells,x ,y,Type.MONSTER);
+    public Monster(String name, int id,Cell[][] cells,int x, int y) {
+        super(name, id, cells,x ,y);
     }
 
     @Override
@@ -19,26 +19,33 @@ public class Monster extends AbstractCharacter implements Runnable{
             if(checkMove(step)){
                if(this.next.getCharacter() != null) {
                     try {
-                        this.wait(5000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (this.next.getCharacter() == null) {
-                        synchronized (this.next){
-                            synchronized (this.cells[xPosition][yPosition]){
-                                this.next.setCharacter(this);
-                                this.cells[xPosition][yPosition].erase();
-                                this.xPosition = nextX;
-                                this.yPosition = nextY;
-                            }
-                        }
-                    }
-                    else{
-                        step = Direction.getRandomDirection();
-                    }
-                }
+               }
+
+               if (this.next.getCharacter() == null) {
+                   synchronized (this.next) {
+                       synchronized (this.cells[xPosition][yPosition]) {
+                           this.next.setCharacter(this);
+                           this.cells[xPosition][yPosition].erase();
+                           System.out.println(String.format("%s do move from %d%d to %d%d %s",this.name,this.xPosition,this.yPosition,this.nextX,this.nextY,step));
+                           this.xPosition = nextX;
+                           this.yPosition = nextY;
+                           makeStep = true;
+
+                       }
+                   }
+               }
+               else{
+                   System.out.println(String.format("%s. Many wait.  do not move to %d%d",this.name,this.nextX,this.nextY));
+                   step = Direction.getRandomDirection();
+               }
+
             }
             else{
+                System.out.println(String.format("%s wrong way . do not move to %d%d",this.name,this.nextX,this.nextY));
                 step = Direction.getRandomDirection();
             }
         }
@@ -60,7 +67,7 @@ public class Monster extends AbstractCharacter implements Runnable{
     public void run() {
         while(!Thread.currentThread().isInterrupted()) {
             try {
-                this.wait(1000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 break;
             }

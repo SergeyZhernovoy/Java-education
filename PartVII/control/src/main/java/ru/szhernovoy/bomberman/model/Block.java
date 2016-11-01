@@ -5,12 +5,14 @@ package ru.szhernovoy.bomberman.model;
  */
 public class Block extends AbstractCharacter {
 
-    public Block(String name, int id, boolean isLife,Cell[][] cells, int x, int y) {
-        super(name, id, isLife,cells,x,y,Type.BLOCK);
+    public Block(String name, int id,Cell[][] cells, int x, int y) {
+        super(name, id, cells,x,y);
     }
 
     @Override
     public void  move(Direction step) {
-
+        /**
+         * do nothing
+         */
     }
 }

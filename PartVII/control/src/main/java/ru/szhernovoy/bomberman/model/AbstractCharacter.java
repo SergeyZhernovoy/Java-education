@@ -5,39 +5,38 @@ package ru.szhernovoy.bomberman.model;
  */
 public abstract class AbstractCharacter implements ActionCharacter {
 
+    /**variable contains name Character */
     protected final String name;
+    /**variable contains unique ID Character */
     protected final int id;
-    protected boolean isLife;
+    /**game board - array */
     protected final Cell[][] cells;
+    /**current position Character X */
     protected int xPosition;
+    /**current position Character Y */
     protected int yPosition;
 
+    /**Next position Character */
     protected Cell next;
+    /**current position Character X */
     protected int nextX;
+    /**current position Character Y */
     protected int nextY;
 
-    public Type getType() {
-        return type;
-    }
 
-    protected Type type;
 
-    public AbstractCharacter(String name, int id, boolean isLife,final Cell[][] cells,int x, int y, Type type) {
+
+    public AbstractCharacter(String name, int id,final Cell[][] cells,int x, int y) {
         this.name = name;
         this.id = id;
-        this.isLife = isLife;
         this.cells = cells;
         this.xPosition = x;
         this.yPosition = y;
-        this.type = type;
     }
 
     @Override
     public String toString() {
-        return getClass().getName()  +
-                "{ name='" + name + '\'' +
-                ", id=" + id +
-                '}';
+        return name;
     }
 
     public String getName() {
@@ -48,11 +47,11 @@ public abstract class AbstractCharacter implements ActionCharacter {
         return id;
     }
 
-    public boolean isLife() {
-        return isLife;
-    }
-
-
+    /**
+     * Check possible of move Character
+     * @param step
+     * @return
+     */
     protected boolean checkMove(Direction step){
 
         int sizeBoard = this.cells.length;
