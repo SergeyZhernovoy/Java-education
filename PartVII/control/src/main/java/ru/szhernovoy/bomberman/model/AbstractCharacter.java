@@ -23,9 +23,6 @@ public abstract class AbstractCharacter implements ActionCharacter {
     /**current position Character Y */
     protected int nextY;
 
-
-
-
     public AbstractCharacter(String name, int id,final Cell[][] cells,int x, int y) {
         this.name = name;
         this.id = id;
@@ -52,7 +49,7 @@ public abstract class AbstractCharacter implements ActionCharacter {
      * @param step
      * @return
      */
-    protected boolean checkMove(Direction step){
+    public boolean checkMove(Direction step){
 
         int sizeBoard = this.cells.length;
         boolean result = false;

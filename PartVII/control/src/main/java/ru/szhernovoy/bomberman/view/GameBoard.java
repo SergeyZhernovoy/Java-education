@@ -30,6 +30,15 @@ public class GameBoard {
         }
     }
 
+    public GameBoard(final Cell[][] board, int countMonster, int countBlock) {
+        this.SIZE = board.length;
+        this.threads = new Thread[countMonster];
+        this.COUNT_BLOCK = countBlock;
+        this.gameBoard = board;
+
+    }
+
+
     /**init all method game board */
     public void init(){
         this.initBlock();
@@ -52,7 +61,7 @@ public class GameBoard {
 
 
     /**setter block in game board */
-    private void initBlock(){
+    public void initBlock(){
 
         int countBlock = this.COUNT_BLOCK-1;
         while(countBlock >= 0){
@@ -67,7 +76,7 @@ public class GameBoard {
     }
 
     /**setter monster in game board */
-    private void initMosters(){
+    public void initMosters(){
 
         for(int count = 0; count < this.threads.length; count++){
             Monster monster;
@@ -86,7 +95,7 @@ public class GameBoard {
     }
 
     /**setter player in game board */
-    private void initPlayer(){
+    public void initPlayer(){
 
         while(true){
             int x = this.getRandom();
@@ -108,18 +117,18 @@ public class GameBoard {
 
     public void print(){
 
-        int  y = 1;
+        int  y = 0;
         System.out.print("\t[\\]");
 
         for(int index = 0; index < this.gameBoard.length; index++){
-            System.out.print(String.format("\t[%s]",index+1));
+            System.out.print(String.format("\t[%s]",index));
         }
         System.out.println("");
         for (Cell[] row : this.gameBoard) {
             System.out.print("\t["+ y++ +"]");
             for (Cell cell : row) {
                 AbstractCharacter charT = cell.getCharacter();
-                System.out.print("\t"+(charT == null ? " ":"["+ charT+"]"));
+                System.out.print(""+(charT == null ? "  ":"["+ charT+"]"));
             }
             System.out.println();
         }
