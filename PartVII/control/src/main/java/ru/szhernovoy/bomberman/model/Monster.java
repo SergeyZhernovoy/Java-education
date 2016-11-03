@@ -5,7 +5,6 @@ package ru.szhernovoy.bomberman.model;
  */
 public class Monster extends AbstractCharacter implements Runnable{
 
-    private Object lock = new Object();
 
     public Monster(String name, int id,Cell[][] cells,int x, int y) {
         super(name, id, cells,x ,y);
@@ -27,7 +26,7 @@ public class Monster extends AbstractCharacter implements Runnable{
                }
 
                if (this.next.getCharacter() == null) {
-                   synchronized (this.lock) {
+                   synchronized (this.next) {
                            this.next.setCharacter(this);
                            this.cells[xPosition][yPosition].erase();
                            System.out.println(String.format("%s do move from %d%d to %d%d %s",this.name,this.xPosition,this.yPosition,this.nextX,this.nextY,step));
