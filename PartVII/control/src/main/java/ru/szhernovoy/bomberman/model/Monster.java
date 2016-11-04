@@ -14,9 +14,9 @@ public class Monster extends AbstractCharacter implements Runnable{
     public void move(Direction step) {
 
         boolean makeStep = false;
-
+        synchronized (this.cells[xPosition][yPosition]) {
         while(!makeStep){
-            synchronized (this.cells[xPosition][yPosition]) {
+
                if(checkMove(step)){
                if(this.next.getCharacter() != null) {
                     try {
