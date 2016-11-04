@@ -31,7 +31,7 @@ public class Cell {
     /**
      * Erase in cell any reference  to character
      */
-    public void erase() {
+    public synchronized void erase() {
         this.character = null;
     }
 

@@ -25,20 +25,25 @@ public class Monster extends AbstractCharacter implements Runnable{
                     }
                }
 
-               if (this.next.getCharacter() == null) {
-                   synchronized (this.next) {
-                           this.next.setCharacter(this);
-                           this.cells[xPosition][yPosition].erase();
-                           System.out.println(String.format("%s do move from %d%d to %d%d %s",this.name,this.xPosition,this.yPosition,this.nextX,this.nextY,step));
-                           this.xPosition = nextX;
-                           this.yPosition = nextY;
-                           makeStep = true;
-                   }
-               }
-               else{
-                   System.out.println(String.format("%s. Many wait.  do not move to %d%d",this.name,this.nextX,this.nextY));
-                   step = Direction.getRandomDirection();
-               }
+
+                synchronized (this.cells[xPosition][yPosition]) {
+                    if (this.next.getCharacter() == null) {
+                        synchronized (this.next) {
+
+                            this.next.setCharacter(this);
+                            this.cells[xPosition][yPosition].erase();
+                            System.out.println(String.format("%s do move from %d%d to %d%d %s", this.name, this.xPosition, this.yPosition, this.nextX, this.nextY, step));
+                            this.xPosition = nextX;
+                            this.yPosition = nextY;
+                            makeStep = true;
+                        }
+                    } else {
+                        System.out.println(String.format("%s. Many wait.  do not move to %d%d", this.name, this.nextX, this.nextY));
+                        step = Direction.getRandomDirection();
+                    }
+
+                }
+
 
             }
             else{
