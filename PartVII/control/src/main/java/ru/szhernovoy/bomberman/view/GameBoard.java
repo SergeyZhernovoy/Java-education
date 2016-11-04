@@ -139,16 +139,16 @@ public class GameBoard {
 
 
     public static void main(String[] args) throws InterruptedException {
-        GameBoard newGame = new GameBoard(9,2,4);
+        GameBoard newGame = new GameBoard(9,3,3);
         newGame.init();
         newGame.print();
         newGame.start();
         Thread.sleep(2000);
         long timeOut = 0;
-        while(timeOut < 90000){
+        while(timeOut < 1800000){
             newGame.print();
             Thread.sleep(2000);
-            timeOut += timeOut+2000;
+            timeOut += 2000;
         }
 
         newGame.stop();

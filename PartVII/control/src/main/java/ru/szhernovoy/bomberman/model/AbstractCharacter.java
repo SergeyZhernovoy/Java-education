@@ -53,30 +53,30 @@ public abstract class AbstractCharacter implements ActionCharacter {
 
         int sizeBoard = this.cells.length;
         boolean result = false;
-        this.nextX = yPosition;
-        this.nextY = xPosition;
+        this.nextX = xPosition;
+        this.nextY = yPosition;
 
         if(step == Direction.DOWN){
             if(++this.nextX < sizeBoard){
-                this.next = this.cells[this.nextX][yPosition];
+                this.next = this.cells[this.nextX][this.nextY];
                 result = true;
             }
         }
         if(step == Direction.UP){
             if(--this.nextX >= 0){
-                this.next = this.cells[this.nextX][yPosition];
+                this.next = this.cells[this.nextX][this.nextY];
                 result = true;
             }
         }
         if(step == Direction.LEFT){
             if(--this.nextY >= 0){
-                this.next = this.cells[xPosition][this.nextY];
+                this.next = this.cells[this.nextX][this.nextY];
                 result = true;
             }
         }
         if(step == Direction.RIGHT){
             if(++this.nextY < sizeBoard){
-                this.next = this.cells[xPosition][this.nextY];
+                this.next = this.cells[this.nextX][this.nextY];
                 result = true;
             }
         }

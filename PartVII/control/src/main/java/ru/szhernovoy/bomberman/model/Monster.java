@@ -17,6 +17,9 @@ public class Monster extends AbstractCharacter implements Runnable{
         synchronized (this.cells[xPosition][yPosition]) {
         while(!makeStep){
 
+                int X = nextX;
+                int Y = nextY;
+
                if(checkMove(step)){
                if(this.next.getCharacter() != null) {
                     try {
@@ -25,8 +28,6 @@ public class Monster extends AbstractCharacter implements Runnable{
                         e.printStackTrace();
                     }
                }
-
-
 
                     if (this.next.getCharacter() == null) {
                         synchronized (this.next) {
@@ -41,12 +42,16 @@ public class Monster extends AbstractCharacter implements Runnable{
                     } else {
                         System.out.println(String.format("%s. Many wait.  do not move to %d%d", this.name, this.nextX, this.nextY));
                         step = Direction.getRandomDirection();
+                        nextX = X;
+                        nextY = Y;
                     }
 
                 }
                else{
                    System.out.println(String.format("%s wrong way . do not move to %d%d",this.name,this.nextX,this.nextY));
                    step = Direction.getRandomDirection();
+                   nextX = X;
+                   nextY = Y;
                }
 
             }
