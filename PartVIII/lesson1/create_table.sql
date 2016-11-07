@@ -1,4 +1,4 @@
-﻿\connect mybase
+\connect mybase
 --table status
 create table status_order(
 	status_id smallserial primary key,

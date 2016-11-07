@@ -1,2 +1,1 @@
-﻿--create new database
-CREATE DATABASE mybase
+create database mybase
