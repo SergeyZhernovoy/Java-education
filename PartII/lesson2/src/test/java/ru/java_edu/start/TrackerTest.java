@@ -1,9 +1,9 @@
-/**
+package ru.java_edu.start; /**
 *@author Sergey Zhernovoy
 *@since 09.06.2016
 */
 
-import ru.java_edu.start.*;
+
 import ru.java_edu.models.*;
 
 import static org.junit.Assert.*;

@@ -13,6 +13,7 @@
         <module>PartV</module>
         <module>PartVI</module>
         <module>PartVII</module>
+		<module>PartVIII</module>
     </modules>
 	
 	<properties>
