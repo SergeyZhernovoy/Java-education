@@ -5,8 +5,7 @@
 
 package ru.szhernovoy.models;
 
-import ru.szhernovoy.start.Input;
-import ru.szhernovoy.start.Tracker;
+import ru.szhernovoy.io.Input;
 
 public interface UserAction{
 

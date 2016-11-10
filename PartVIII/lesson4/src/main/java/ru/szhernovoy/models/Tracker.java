@@ -4,15 +4,12 @@
 *это класс хранения заявок 
 */
 
-package ru.szhernovoy.start;
-import java.util.Random;
-import ru.szhernovoy.models.*;
+package ru.szhernovoy.models;
 
 public class Tracker {
 	
-	private Task[] items = new Task[6];
-	private int position = 0;
-	private static final Random RN = new Random();
+
+
 	
 	public Task addItem(Task item){
 		item.setId(this.generateId());
@@ -132,17 +129,11 @@ public class Tracker {
 			
 		return result;
 	}
-	
-	public String getCommentary(Task item, int pos){
-		
-		String result = null;
-		Task inner_item = findById(item.getId());
-			
-		if(inner_item != null){
-			result = inner_item.getComm(pos);
-		}
-			
-		return result;
+
+
+	public boolean close(){
+		return true;
 	}
+
 	
 }

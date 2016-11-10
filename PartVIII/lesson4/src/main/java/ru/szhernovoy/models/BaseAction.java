@@ -6,9 +6,6 @@
 
 package ru.szhernovoy.models;
 
-
-import ru.szhernovoy.models.UserAction;
-
 public abstract class BaseAction implements UserAction {
 
 	private String name;

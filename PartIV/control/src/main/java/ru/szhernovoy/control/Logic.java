@@ -1,6 +1,6 @@
 package ru.szhernovoy.control;
 
-import ru.szhernovoy.view.Cell;
+import ru.szhernovoy.io.Cell;
 
 /**
  * Created by szhernovoy on 16.08.2016.

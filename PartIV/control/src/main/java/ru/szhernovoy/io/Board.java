@@ -1,7 +1,6 @@
-package ru.szhernovoy.view;
+package ru.szhernovoy.io;
 
 
-import ru.szhernovoy.model.IO;
 import ru.szhernovoy.model.Player;
 
 /**

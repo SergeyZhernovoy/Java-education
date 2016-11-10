@@ -6,6 +6,10 @@
 
 package ru.szhernovoy.start;
 
+import ru.szhernovoy.models.Tracker;
+import ru.szhernovoy.io.Input;
+import ru.szhernovoy.io.ValidateInput;
+
 public class StartUI{
 	
 	private Input input;

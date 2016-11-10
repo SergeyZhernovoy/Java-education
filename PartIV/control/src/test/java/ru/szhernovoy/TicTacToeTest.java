@@ -3,7 +3,7 @@ package ru.szhernovoy;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.szhernovoy.control.Logic;
-import ru.szhernovoy.view.*;
+import ru.szhernovoy.io.*;
 
 import static org.hamcrest.core.Is.is;
 

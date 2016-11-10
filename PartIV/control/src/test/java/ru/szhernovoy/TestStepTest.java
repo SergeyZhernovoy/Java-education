@@ -2,10 +2,9 @@ package ru.szhernovoy;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.szhernovoy.view.TestStep;
+import ru.szhernovoy.io.TestStep;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 /**
  * Created by Sergey on 09.09.2016.

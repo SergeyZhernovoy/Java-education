@@ -2,11 +2,10 @@ package ru.szhernovoy;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.szhernovoy.view.TicTacToeReccurcy;
+import ru.szhernovoy.io.TicTacToeReccurcy;
 
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 /**
  * Created by szhernovoy on 06.10.2016.

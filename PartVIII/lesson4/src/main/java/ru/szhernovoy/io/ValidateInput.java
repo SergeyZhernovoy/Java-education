@@ -2,7 +2,9 @@
 *@author Sergey Zhernovoy
 *@since 09/07/2016
 */
-package ru.szhernovoy.start;
+package ru.szhernovoy.io;
+
+import ru.szhernovoy.models.MenuOfException;
 
 public class ValidateInput extends ConsoleInput {
 	

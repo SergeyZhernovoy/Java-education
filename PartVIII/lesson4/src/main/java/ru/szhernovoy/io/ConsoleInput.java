@@ -4,7 +4,9 @@
 *
 */
 
-package ru.szhernovoy.start;
+package ru.szhernovoy.io;
+import ru.szhernovoy.models.MenuOfException;
+
 import java.util.Scanner;
 
 public class ConsoleInput implements Input {

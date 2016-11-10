@@ -1,4 +1,4 @@
-package ru.szhernovoy.view;
+package ru.szhernovoy.io;
 
 /**
  * Created by Sergey on 07.09.2016.

@@ -5,12 +5,13 @@
 
 package ru.szhernovoy.start;
 import ru.szhernovoy.models.*;
+import ru.szhernovoy.io.Input;
 
 
 class MenuTracker {
 	
 	private Tracker tracker;
-	private Input input;	
+	private Input input;
 	UserAction[] actions = new UserAction[7]; 
 	
 	public MenuTracker(Input input, Tracker tracker){
@@ -30,8 +31,8 @@ class MenuTracker {
 	
 	public void fillActions(){
 		this.actions[0] = this.new AddTask("Add the new task.");
-		this.actions[1] = new MenuTracker.ShowTask("Show all task.");
-		this.actions[2] = new EditTask("Edit the task.");
+		this.actions[1] = this.new ShowTask("Show all task.");
+		this.actions[2] = this.new EditTask("Edit the task.");
 		this.actions[3] = this.new DeleteTask("Delete the task.");
 		this.actions[4] = this.new PrintByFilter("Print a task by filter.");
 		this.actions[5] = this.new AddComment("Add the new commentary.");
@@ -69,7 +70,7 @@ class MenuTracker {
 		}
 	}
 	
-	private static class ShowTask extends BaseAction {
+	private class ShowTask extends BaseAction {
 		
 		public ShowTask(String action){
 			super(action);
@@ -124,7 +125,32 @@ class MenuTracker {
 			}
 		}
 	}
-	
+
+	private class EditTask extends BaseAction {
+
+		public EditTask(String action){
+			super(action);
+		}
+
+
+		public int key(){
+			return 2;
+		}
+
+		public void execute(Input input, Tracker tracker){
+			String name = input.ask("Please enter the task name: ");
+			String descr = input.ask("Please enter decription task: ");
+			String id = input.ask("Please enter  a task's id: ");
+
+			if(name != null && !name.equals("")){
+				Task task = new Task(name,descr);
+				task.setId(id);
+				tracker.updateItem(task);
+			}
+		}
+	}
+
+
 	private class AddComment extends BaseAction {
 		
 		public AddComment(String action){

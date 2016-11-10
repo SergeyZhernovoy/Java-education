@@ -1,4 +1,4 @@
-package ru.szhernovoy.view;
+package ru.szhernovoy.io;
 
 import org.junit.Assert;
 import org.junit.Test;
