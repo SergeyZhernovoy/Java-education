@@ -6,7 +6,7 @@
 package ru.szhernovoy.start;
 import ru.szhernovoy.models.*;
 import ru.szhernovoy.io.Input;
-
+import java.util.Iterator;
 
 class MenuTracker {
 	
@@ -120,8 +120,8 @@ class MenuTracker {
 		public void execute(Input input, Tracker tracker){
 				
 			String filter = input.ask("Please enter name a task for print: ");
-			for(Task task : tracker.findByFilter(filter)){
-				System.out.println(String.format("id %s. %s", task.getId(), task.getName()));
+			for(Item item : tracker.findByFilter(filter)){
+				System.out.println(String.format("id %s. %s", item.getId(), item.getName()));
 			}
 		}
 	}
@@ -138,14 +138,15 @@ class MenuTracker {
 		}
 
 		public void execute(Input input, Tracker tracker){
+
 			String name = input.ask("Please enter the task name: ");
 			String descr = input.ask("Please enter decription task: ");
 			String id = input.ask("Please enter  a task's id: ");
 
 			if(name != null && !name.equals("")){
-				Task task = new Task(name,descr);
-				task.setId(id);
-				tracker.updateItem(task);
+				Item item = new Item(name,descr,System.currentTimeMillis());
+				item.setId(id);
+				tracker.updateItem(item);
 			}
 		}
 	}
@@ -182,8 +183,9 @@ class MenuTracker {
 		
 		public void execute(Input input, Tracker tracker){
 			String id = input.ask("Please enter id task for print comment: ");
-			if(id != null && !id.equals("")){
-			   System.out.println(String.format("task %s. comment %s",tracker.findById(id).getId(), tracker.getCommentary(tracker.findById(id))));
+			Iterator<String> iter = tracker.getCommentary(id).iterator();
+			while(iter.hasNext()){
+			   System.out.println(iter.next());
 			}
 		}
 	}

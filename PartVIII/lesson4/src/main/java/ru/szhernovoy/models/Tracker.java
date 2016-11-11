@@ -9,43 +9,24 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.security.*;
+import java.io.*;
 import java.sql.*;
-import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
 
 public class Tracker {
 
-	private String url;
-	private String userName;
-	private String password;
-	private String port;
 	private Connection conn = null;
-	private final String fileProperties;
-	private static Logger Log = LoggerFactory.getLogger(Tracker.class);
-
-	public Tracker(final String properties) {
-		this.fileProperties = properties;
-		this.connect();
-	}
+	private final String fileProperties = String.format("%s%sTracker.properties",System.getProperty("user.home"), File.separator);
+	private final static Logger Log = LoggerFactory.getLogger(Tracker.class);
 
 	public boolean connect()  {
 		boolean result = false;
-
-		if(!getProperties()){
-			return result;
-		}
-
-		Properties props = new Properties();
-		props.setProperty("user",this.userName);
-		props.setProperty("password",this.password);
-		props.setProperty("ssl","true");
+		Properties props = getProperties();
 		try {
-			conn = DriverManager.getConnection(this.url, props);
+			conn = DriverManager.getConnection(props.getProperty("url"), props);
 			this.createStructure();
 			result = true;
 		} catch (SQLException e) {
@@ -55,22 +36,29 @@ public class Tracker {
 	}
 
 	public void createStructure(){
+        PreparedStatement st = null;
+        try {
+           st = conn.prepareStatement("create table if not exists task (task_id serial primary key,name varchar(25) NOT NULL,description varchar (150),create_date timestamp NOT NULL)");
+           st.executeQuery();
+           st = conn.prepareStatement("create table  if not exists commentary(comm_id serial primary key,comment text,task_id integer references task(task_id))");
+           st.executeQuery();
+        } catch (SQLException e) {
+            Log.error(e.getMessage(),e);
+        }
+    }
 
-	}
+	public Properties getProperties() {
 
-
-	public boolean getProperties(){
-		boolean result = false;
-/*
-		try {
-			FileReader fileReader = new FileReader(this.fileProperties);
-			while(fileReader.read()  > 0 )
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}*/
-		return result;
-
-	}
+        Properties properties = new Properties();
+        try (FileInputStream fileInputStream = new FileInputStream(this.fileProperties)) {
+            properties.load(fileInputStream);
+        } catch (FileNotFoundException e) {
+            Log.error(e.getMessage(),e);
+        } catch (IOException e) {
+            Log.error(e.getMessage(),e);
+        }
+        return properties;
+    }
 
 	@Override
 	protected void finalize() throws Throwable {
@@ -264,7 +252,6 @@ public class Tracker {
 				st.setTimestamp(3,new Timestamp(item.getCreate()));
 				st.setInt(4,Integer.valueOf(id));
 				st.executeUpdate();
-				st = conn.prepareStatement("UPDATE task SET name = ?, description = ? , create_date = ? WHERE task_id = ?");
 			} catch (Exception e) {
 				Log.error(e.getMessage(),e);
 			}
@@ -302,11 +289,32 @@ public class Tracker {
 		}
 	}
 	
-	public String[] getCommentary(String id){
+	public List<String> getCommentary(String id){
 	
-		String[] result =null;
+		List<String> result = new LinkedList<>();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        if(id != null) {
+            try {
+                st = conn.prepareStatement("SELECT * FROM commentary WHERE task_id = ?");
+                st.setString(1, id);
+                rs = st.executeQuery();
 
-			
+                while (rs.next()) {
+                    result.add(rs.getString("text"));
+                }
+
+            } catch (Exception e) {
+                Log.error(e.getMessage(), e);
+            } finally {
+                try {
+                    rs.close();
+                    st.close();
+                } catch (Exception e) {
+                    Log.error(e.getMessage(), e);
+                }
+            }
+        }
 		return result;
 	}
 

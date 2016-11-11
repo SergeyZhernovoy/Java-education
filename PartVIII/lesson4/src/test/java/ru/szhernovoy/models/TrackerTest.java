@@ -1,13 +1,28 @@
-package ru.szhernovoy;
+package ru.szhernovoy.models;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by szhernovoy on 10.11.2016.
+ * Created by admin on 12.11.2016.
  */
 public class TrackerTest {
+    @Test
+    public void connect() throws Exception {
+
+    }
+
+    @Test
+    public void createStructure() throws Exception {
+
+    }
+
+    @Test
+    public void getProperties() throws Exception {
+
+    }
+
     @Test
     public void addItem() throws Exception {
 

@@ -20,6 +20,7 @@ public class StartUI{
 	
 	public void init(){
 		Tracker myTrack = new Tracker();
+		myTrack.connect();
 		MenuTracker menu = new MenuTracker(input,myTrack);
 		menu.fillActions();
 		int[] range = menu.getRangeKeys();
