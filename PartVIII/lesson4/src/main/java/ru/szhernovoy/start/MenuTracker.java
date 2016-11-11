@@ -65,7 +65,7 @@ class MenuTracker {
 			String name = input.ask("Please enter the task name: ");
 			String descr = input.ask("Please enter decription task: ");
 			if(name != null && !name.equals("")){
-			   tracker.addItem(new Task(name,descr));
+			   tracker.addItem(new Item(name,descr,System.currentTimeMillis()));
 			}
 		}
 	}
@@ -81,8 +81,8 @@ class MenuTracker {
 		}
 		
 		public void execute(Input input, Tracker tracker){
-			for(Task task : tracker.getAll()){
-				System.out.println(String.format("id %s. %s", task.getId(), task.getName()));
+			for(Item item : tracker.getAll()){
+				System.out.println(String.format("id %s. %s", item.getId(), item.getName()));
 			}
 		}
 		

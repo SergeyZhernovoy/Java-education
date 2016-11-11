@@ -29,11 +29,15 @@ public class StartUI{
 			
 		}
 		while(!"y".equals(this.input.ask("Exit? (y)")));
+
+		if(!myTrack.close()){
+		   throw new UnknownError("connector in SQL base not close");
+		}
 	
 	}	
 		
 	public static void main(String[] args){
-	
+
 		new StartUI(new ValidateInput()).init();
 	}
 }
