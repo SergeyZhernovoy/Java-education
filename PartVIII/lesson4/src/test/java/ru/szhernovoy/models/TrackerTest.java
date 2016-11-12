@@ -1,76 +1,42 @@
 package ru.szhernovoy.models;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
  * Created by admin on 12.11.2016.
  */
 public class TrackerTest {
-    @Test
-    public void connect() throws Exception {
-
-    }
 
     @Test
-    public void createStructure() throws Exception {
+    public void whenAddItemInBDThatWeMayGetFrom() throws Exception {
+        Tracker myTrack = new Tracker();
+        myTrack.connect();
+        Item item = new Item("first","opis",System.currentTimeMillis());
+        String beforeId = item.getId();
+        myTrack.addItem(item);
 
+        String Resultid = item.getId();
+
+        Assert.assertThat(Resultid,is("1"));
+        if(!myTrack.close()){
+            throw new UnknownError("connector in SQL base not close");
+        }
     }
+
 
     @Test
-    public void getProperties() throws Exception {
-
+    public void whenFilterItemInBDThatWeMayGetFrom() throws Exception {
+        Tracker myTrack = new Tracker();
+        myTrack.connect();
+        Item item = myTrack.findByFilter("first").get(0);
+        String Resultid = item.getId();
+        Assert.assertThat(Resultid,is("1"));
+        if(!myTrack.close()){
+            throw new UnknownError("connector in SQL base not close");
+        }
     }
-
-    @Test
-    public void addItem() throws Exception {
-
-    }
-
-    @Test
-    public void findById() throws Exception {
-
-    }
-
-    @Test
-    public void getAll() throws Exception {
-
-    }
-
-    @Test
-    public void findByFilter() throws Exception {
-
-    }
-
-    @Test
-    public void findByFilter1() throws Exception {
-
-    }
-
-    @Test
-    public void deleteItem() throws Exception {
-
-    }
-
-    @Test
-    public void updateItem() throws Exception {
-
-    }
-
-    @Test
-    public void addCommentary() throws Exception {
-
-    }
-
-    @Test
-    public void getCommentary() throws Exception {
-
-    }
-
-    @Test
-    public void close() throws Exception {
-
-    }
-
 }

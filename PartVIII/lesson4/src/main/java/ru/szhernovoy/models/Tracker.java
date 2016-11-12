@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -36,15 +37,21 @@ public class Tracker {
 	}
 
 	public void createStructure(){
-        PreparedStatement st = null;
+        Statement st = null;
         try {
-           st = conn.prepareStatement("create table if not exists task (task_id serial primary key,name varchar(25) NOT NULL,description varchar (150),create_date timestamp NOT NULL)");
-           st.executeQuery();
-           st = conn.prepareStatement("create table  if not exists commentary(comm_id serial primary key,comment text,task_id integer references task(task_id))");
-           st.executeQuery();
+           st = conn.createStatement();
+           st.execute("create table if not exists task (task_id serial primary key,name varchar(25) NOT NULL,description varchar (150),create_date timestamp NOT NULL)");
+           st.execute("create table  if not exists commentary(comm_id serial primary key,comment text,task_id integer references task(task_id))");
         } catch (SQLException e) {
             Log.error(e.getMessage(),e);
         }
+		finally {
+			try{
+				st.close();
+			} catch (SQLException e) {
+				Log.error(e.getMessage(),e);
+			}
+		}
     }
 
 	public Properties getProperties() {
@@ -57,7 +64,8 @@ public class Tracker {
         } catch (IOException e) {
             Log.error(e.getMessage(),e);
         }
-        return properties;
+
+		return properties;
     }
 
 	@Override
@@ -73,8 +81,13 @@ public class Tracker {
 			st.setString(1,item.getName());
 			st.setString(2,item.getDescr());
 			st.setTimestamp(3,new Timestamp(item.getCreate()));
-			rs = st.executeQuery();
-			item.setId(String.valueOf(st.executeUpdate()));
+			st.executeUpdate();
+			rs = st.getGeneratedKeys();
+			if(rs.next()){
+				item.setId(String.valueOf(rs.getInt("task_id")));
+			}
+
+
 		} catch (Exception e) {
 			Log.error(e.getMessage(),e);
 		}
@@ -120,19 +133,19 @@ public class Tracker {
 		return result;		
 	}
 
-	public Item[] getAll(){
+	public List<Item> getAll(){
 		
-		Item[] result = null;//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
+		List<Item> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement("SELECT * FROM task");
 			rs = st.executeQuery();
-			int position = 0;
-			result = new Item[rs.getFetchSize()];
 			while (rs.next()) {
-				result[position] = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
-				result[position++].setId(String.valueOf(rs.getInt("task_id")));
+
+				Item item = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
+				item.setId(String.valueOf(rs.getInt("task_id")));
+				result.add(item);
 			}
 
 		} catch (Exception e) {
@@ -151,20 +164,21 @@ public class Tracker {
 		return result;
 	}
 	
-	public Item[] findByFilter(String name){
+	public List<Item> findByFilter(String name){
 
-		Item[] result = null;
+		List<Item> result = new ArrayList<>();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement("SELECT * FROM task WHERE name = ?");
 			st.setString(1,name);
 			rs = st.executeQuery();
-			int position = 0;
-			result = new Item[rs.getFetchSize()];
+
 			while (rs.next()) {
-				result[position] = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
-				result[position++].setId(String.valueOf(rs.getInt("task_id")));
+
+				Item item = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
+				item.setId(String.valueOf(rs.getInt("task_id")));
+				result.add(item);
 			}
 
 		} catch (Exception e) {
@@ -182,40 +196,7 @@ public class Tracker {
 
 		return result;
 	}
-	
-	public Item[] findByFilter(String name, String decr){
 
-		Item[] result = null;
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			st = conn.prepareStatement("SELECT * FROM task WHERE name = ? AND description = ?");
-			st.setString(1,name);
-			st.setString(2,decr);
-			rs = st.executeQuery();
-			int position = 0;
-			result = new Item[rs.getFetchSize()];
-			while (rs.next()) {
-				result[position] = new Item(rs.getString("name"),rs.getString("description"), rs.getTimestamp("create_date").getTime());
-				result[position++].setId(String.valueOf(rs.getInt("task_id")));
-			}
-
-		} catch (Exception e) {
-			Log.error(e.getMessage(),e);
-		}
-		finally {
-			try{
-				rs.close();
-				st.close();
-			}
-			catch (Exception e){
-				Log.error(e.getMessage(),e);
-			}
-		}
-
-		return result;
-	}
-	
 	public void deleteItem(Item item){
 		String id = item.getId();
 		if(id != null){
@@ -271,7 +252,7 @@ public class Tracker {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("INSERT INTO commentary(text,task_id) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("INSERT INTO commentary(comment,task_id) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
 			st.setString(1,comm);
 			st.setInt(2,Integer.valueOf(item.getId()));
 			rs = st.executeQuery();
@@ -297,11 +278,11 @@ public class Tracker {
         if(id != null) {
             try {
                 st = conn.prepareStatement("SELECT * FROM commentary WHERE task_id = ?");
-                st.setString(1, id);
+                st.setInt(1, Integer.valueOf(id));
                 rs = st.executeQuery();
 
                 while (rs.next()) {
-                    result.add(rs.getString("text"));
+                    result.add(rs.getString("comment"));
                 }
 
             } catch (Exception e) {

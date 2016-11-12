@@ -81,7 +81,10 @@ class MenuTracker {
 		}
 		
 		public void execute(Input input, Tracker tracker){
-			for(Item item : tracker.getAll()){
+
+			Iterator<Item> iter = tracker.getAll().iterator();
+			while(iter.hasNext()){
+				Item item = iter.next();
 				System.out.println(String.format("id %s. %s", item.getId(), item.getName()));
 			}
 		}
@@ -120,7 +123,9 @@ class MenuTracker {
 		public void execute(Input input, Tracker tracker){
 				
 			String filter = input.ask("Please enter name a task for print: ");
-			for(Item item : tracker.findByFilter(filter)){
+			Iterator<Item> iter = tracker.findByFilter(filter).iterator();
+			while(iter.hasNext()){
+				Item item = iter.next();
 				System.out.println(String.format("id %s. %s", item.getId(), item.getName()));
 			}
 		}
