@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>lesson4</module>
+        <module>control</module>
     </modules>
 
     <dependencies>
