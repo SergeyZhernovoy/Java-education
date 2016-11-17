@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Executor {
 
-    private ConcurrentSkipListSet<Vacancy> vacancies = new ConcurrentSkipListSet<>();
+
 
     private static Logger log = LoggerFactory.getLogger(Executor.class);
 

@@ -19,22 +19,36 @@ import java.util.regex.Pattern;
 
 public class HTMLParser {
 
+    /**main provider write vacancies into data base */
     private final DBManager storage;
+    /**logger */
     private static Logger log = LoggerFactory.getLogger(HTMLParser.class);
+    /**last update in data base */
     private long startDate;
+    /**check first load into data base */
     private boolean firstLoad;
-
-    private static final String REGEX = "(\\$\\{)(\\w+)(\\})";
+    /**string regex fort find correct title */
+    private static final String REGEX = "(?i)( JAVA|JAVA[\\W\\s])";
+    /**utility class for regex*/
     private static Pattern pattern = Pattern.compile(REGEX);
-
+    /**start pointer for parsing */
     private final String url = "http://www.sql.ru/forum/job-offers/";
 
+    /**
+     * Constructor
+     * @param storage
+     */
     public HTMLParser(DBManager storage) {
         this.storage = storage;
-        this.startDate = storage.getFirstLoad();
+        this.startDate = storage.getLastLoad();
         this.firstLoad =  startDate == 0 ? true : false;
     }
 
+    /**
+     * Getter for receive html document from site
+     * @param url
+     * @return
+     */
     public Document getHtmlPage(String url) {
 
         Document doc = null;
@@ -51,23 +65,46 @@ public class HTMLParser {
         return doc;
     }
 
-
+    /**
+     * Getter for receive main table with vacancies
+     * @param document
+     * @return
+     */
     public Elements getTableHtml(Document document){
         Elements elements = document.select("table.forumTable");
         return  elements;
     }
 
+    /**
+     * Getter for receive row with references only
+     * @param elements
+     * @return
+     */
     public Elements getRowTable(Elements elements){
         Elements elementsRow = elements.select("tr:has(.postslisttopic)");
         return  elementsRow;
     }
 
-
+    /**
+     * Regex utility method
+     * @param textVacancy
+     * @return
+     */
     public boolean checkVacancy(String textVacancy){
         Matcher m = this.pattern.matcher(textVacancy);
         return m.find();
     }
 
+    /**
+     * Add vacancies in data base across manager BD
+     * @param linkVacancy
+     * @param nameVacancy
+     * @param author
+     * @param linkAuthor
+     * @param ask
+     * @param view
+     * @param timeUpdate
+     */
     public void addVacancy(String linkVacancy, String nameVacancy, String author, String linkAuthor, int ask, int view, long timeUpdate) {
         boolean needAdd = false;
         if(this.firstLoad){
@@ -79,11 +116,15 @@ public class HTMLParser {
             }
         }
         if(needAdd){
-            this.storage.add(new Vacancy());
+            this.storage.add(new Vacancy(nameVacancy,author,linkVacancy,linkAuthor,ask,view,timeUpdate));
         }
-
     }
 
+    /**
+     * Convertation text field in long (data + time)
+     * @param time
+     * @return
+     */
     public long convertation(String time) {
         long result = 0L;
         if (time.contains("сегодня")) {
@@ -100,9 +141,13 @@ public class HTMLParser {
             log.error(e.getMessage(),e);
         }
         return result;
-
     }
 
+    /**
+     * Generate object Vacancy
+     * @param column
+     * @return
+     */
     public long parseElementToVacancy(Elements column){
         long result = 0;
         if (checkVacancy(column.get(0).text())) {
@@ -118,6 +163,10 @@ public class HTMLParser {
         return  result;
     }
 
+    /**
+     * Main loop load all pages from site
+     * @return
+     */
     public long mainLoop(){
 
         long result         = this.startDate;
