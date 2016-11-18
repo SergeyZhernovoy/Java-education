@@ -16,10 +16,10 @@ import java.util.Properties;
 
 public class DBManager {
     private static Logger log = LoggerFactory.getLogger(DBManager.class);
-    private Connection conn = null;
+    private Connection conn;
 
-    public DBManager(String fileProperties) {
-           this.connect(fileProperties);
+    public DBManager(final String fileProperties) {
+         this.connect(fileProperties);
     }
 
     public boolean connect(String fileProperties)  {
@@ -82,57 +82,8 @@ public class DBManager {
         return item;
     }
 
-    public void deleteItem(Vacancy vacancy){
-        String id = item.getId();
-        if(id != null){
-            PreparedStatement st = null;
-            try {
-                st = conn.prepareStatement("DELETE FROM task WHERE task_id = ?");
-                st.setInt(1,Integer.valueOf(id));
-                st.executeUpdate();
-                st = conn.prepareStatement("DELETE FROM commentary WHERE task_id = ?");
-                st.setInt(1,Integer.valueOf(id));
-                st.executeUpdate();
-            } catch (Exception e) {
-                log.error(e.getMessage(),e);
-            }
-            finally {
-                try{
-                    st.close();
-                }
-                catch (Exception e){
-                    Log.error(e.getMessage(),e);
-                }
-            }
-        }
-    }
 
 
-    public void updateItem(Vacancy vacancy){
-        String id = item.getId();
-        if(id != null){
-            PreparedStatement st = null;
-            try {
-                st = conn.prepareStatement("UPDATE task SET name = ?, description = ? , create_date = ? WHERE task_id = ?");
-                st.setString(1,item.getName());
-                st.setString(2,item.getDescr());
-                st.setTimestamp(3,new Timestamp(item.getCreate()));
-                st.setInt(4,Integer.valueOf(id));
-                st.executeUpdate();
-            } catch (Exception e) {
-                log.error(e.getMessage(),e);
-            }
-            finally {
-                try{
-                    st.close();
-                }
-                catch (Exception e){
-                    log.error(e.getMessage(),e);
-                }
-            }
-        }
-
-    }
 
     public boolean close(){
         boolean result = false;

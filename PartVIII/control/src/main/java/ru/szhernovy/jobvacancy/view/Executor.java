@@ -15,4 +15,9 @@ public class Executor {
 
     private static Logger log = LoggerFactory.getLogger(Executor.class);
 
+    public Executor(){
+        String path = this.getClass().getClassLoader().getResource("vacancy.properties").getPath();
+    }
+
+
 }
