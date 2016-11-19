@@ -19,7 +19,7 @@ public class HTMLParserTest {
 
     @Test
     public void whenWeHaveJavaVacancyThatMatchItCorrect() throws Exception {
-            HTMLParser parser = new HTMLParser(new DBManager());
+            HTMLParser parser = new HTMLParser(new DBManager(this.getClass().getClassLoader().getResource("vacancy.properties").getPath()));
             boolean result = parser.checkVacancy("Java developer");
             boolean result2 = parser.checkVacancy("Java-developer");
             boolean result3 = parser.checkVacancy("Java\\developer");
@@ -33,7 +33,7 @@ public class HTMLParserTest {
 
     @Test
     public void whenWeParsingURLShouldGetTable() throws Exception {
-        HTMLParser parser = new HTMLParser(new DBManager());
+        HTMLParser parser = new HTMLParser(new DBManager(this.getClass().getClassLoader().getResource("vacancy.properties").getPath()));
         Document document = parser.getHtmlPage(String.format("%s/%d","http://www.sql.ru/forum/job-offers/",1));
         Elements rows = parser.getRowTable(parser.getTableHtml(document));
         boolean control = !rows.isEmpty();
@@ -42,7 +42,7 @@ public class HTMLParserTest {
 
     @Test
     public void checkDataConvertationFromStringHtml() throws Exception {
-        HTMLParser parser = new HTMLParser(new DBManager());
+        HTMLParser parser = new HTMLParser(new DBManager(this.getClass().getClassLoader().getResource("vacancy.properties").getPath()));
         long time = parser.convertation("сегодня");
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeInMillis(time);
@@ -52,7 +52,7 @@ public class HTMLParserTest {
 
     @Test
     public void checkDataYesterdayConvertationFromStringHtml() throws Exception {
-        HTMLParser parser = new HTMLParser(new DBManager());
+        HTMLParser parser = new HTMLParser(new DBManager(this.getClass().getClassLoader().getResource("vacancy.properties").getPath()));
         long time = parser.convertation("вчера");
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeInMillis(time);
@@ -62,18 +62,12 @@ public class HTMLParserTest {
 
     @Test
     public void checkDataAnyConvertationFromStringHtml() throws Exception {
-        HTMLParser parser = new HTMLParser(new DBManager());
+        HTMLParser parser = new HTMLParser(new DBManager(this.getClass().getClassLoader().getResource("vacancy.properties").getPath()));
         long time = parser.convertation("15 ноя 16, 13:47");
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeInMillis(time);
         int year = 2016;
         Assert.assertThat(year,is(cal.get(1)));
-    }
-
-
-    @Test
-    public void addVacancy() throws Exception {
-
     }
 
 

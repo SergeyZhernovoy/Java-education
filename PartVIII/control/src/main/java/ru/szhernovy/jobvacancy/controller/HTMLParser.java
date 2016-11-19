@@ -59,6 +59,7 @@ public class HTMLParser {
                     .cookie("auth", "token")
                     .timeout(3000)
                     .post();
+            log.info("load html from site in document", doc);
         } catch (IOException e) {
             log.error(e.getMessage(),e);
         }
@@ -116,7 +117,9 @@ public class HTMLParser {
             }
         }
         if(needAdd){
-            this.storage.add(new Vacancy(nameVacancy,author,linkVacancy,linkAuthor,ask,view,timeUpdate));
+            Vacancy vacancy = new Vacancy(nameVacancy,author,linkVacancy,linkAuthor,ask,view,timeUpdate);
+            log.info("add vacancy in data base", vacancy);
+            this.storage.add(vacancy);
         }
     }
 

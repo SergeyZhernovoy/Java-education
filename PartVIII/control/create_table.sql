@@ -1,4 +1,4 @@
-﻿\connect vacancy
+\connect vacancy
 --table author
 create table if not exists author(
     author_id serial primary key NOT NULL,
@@ -18,6 +18,6 @@ create table if not exists vacancy(
 
 -- table work
 create table if not exists work(
-    lastDate timestamp primary key NOT NULL
+     time_id serial primary key NOT NULL,
+     lastDate timestamp NOT NULL
 );
-

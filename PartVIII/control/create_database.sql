@@ -1,1 +1,1 @@
-﻿CREATE DATABASE vacancy
+create database vacancy
