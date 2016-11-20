@@ -56,16 +56,25 @@ public class DBManager {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("INSERT INTO author(linkAuthor,nameAuthor) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
-            st.setString(1,vacancy.getUrlAuthor());
-            st.setString(2,vacancy.getAuthor());
-            st.executeUpdate();
-            rs = st.getGeneratedKeys();
             int author_id = 0;
-            if(rs.next()){
+
+            st = conn.prepareStatement("SELECT a.author_id FROM author as a WHERE a.linkAuthor = ?");
+            st.setString(1,vacancy.getUrlAuthor());
+            rs = st.executeQuery();
+            if(rs.next()) {
                 author_id = rs.getInt("author_id");
             }
-            log.info("update date in table author", st);
+            else{
+                st = conn.prepareStatement("INSERT INTO author(linkAuthor,nameAuthor) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
+                st.setString(1,vacancy.getUrlAuthor());
+                st.setString(2,vacancy.getAuthor());
+                st.executeUpdate();
+                rs = st.getGeneratedKeys();
+                if(rs.next()){
+                    author_id = rs.getInt("author_id");
+                }
+                log.info("update date in table author", st);
+            }
             st = conn.prepareStatement("INSERT INTO vacancy(vacancy_name,vacancy_link,ask,answer,last_update,author_id) VALUES (?,?,?,?,?,?)");
             st.setString(1,vacancy.getTitle());
             st.setString(2,vacancy.getUrlVacancy());
@@ -91,13 +100,14 @@ public class DBManager {
         return true;
     }
 
-    public boolean printVacancy(int count){
+    public boolean printVacancy(){
         boolean result = true;
 
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT v.vacancy_name, v.ask, v.answer, v.last_update, a.nameAuthor FROM vacancy as v LEFT OUTER JOIN author as a ON v.author_id = a.author_id");
+            st = conn.prepareStatement("SELECT v.vacancy_name, v.ask, v.answer, v.last_update, a.nameAuthor FROM vacancy as v LEFT OUTER JOIN author as a ON v.author_id = a.author_id ORDER BY v.vacancy_id ");
+
             rs = st.executeQuery();
             while (rs.next()) {
                 log.info(String.format("vacancy - %s, view - %d, answer - %d, last update - %s, author - %s ",rs.getString("vacancy_name"),rs.getInt("ask"),rs.getInt("answer"),String.valueOf(rs.getTimestamp("last_update").getTime()),rs.getString("nameAuthor")));
@@ -140,10 +150,10 @@ public class DBManager {
         ResultSet rs = null;
         long result = 0;
         try {
-            st = conn.prepareStatement("SELECT d.lastDate FROM work as d WHERE time_id =1");
+            st = conn.prepareStatement("SELECT d.lastDate FROM work as d");
             rs = st.executeQuery();
             if(rs.next()) {
-                result = rs.getTimestamp("lastDate").getTime();
+                result = rs.getTimestamp("lastdate").getTime();
                 log.info("get time last load");
             }
         } catch (Exception e) {

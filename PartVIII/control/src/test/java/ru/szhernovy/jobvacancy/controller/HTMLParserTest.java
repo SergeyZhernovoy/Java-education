@@ -26,7 +26,8 @@ public class HTMLParserTest {
             boolean result4 = parser.checkVacancy("Developer Java");
             boolean result5 = parser.checkVacancy("Разработчик Java");
             boolean result6 = parser.checkVacancy("Senior Java");
-            boolean result7 = parser.checkVacancy("\"Java-developer\"");
+            boolean result7 = !parser.checkVacancy("\"Java Script\"");
+
             boolean control = result && result2 && result3 && result4 & result5 && result6 && result7;
             Assert.assertThat(control, is(true));
     }

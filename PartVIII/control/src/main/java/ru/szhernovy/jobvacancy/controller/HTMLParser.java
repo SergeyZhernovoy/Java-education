@@ -28,9 +28,9 @@ public class HTMLParser {
     /**check first load into data base */
     private boolean firstLoad;
     /**string regex fort find correct title */
-    private static final String REGEX = "(?i)( JAVA|JAVA[\\W\\s])";
-    /**utility class for regex*/
-    private static Pattern pattern = Pattern.compile(REGEX);
+    private final String REGEX = "(?i)java(?!script|\\W+script)";
+       /**utility class for regex*/
+    private Pattern pattern = Pattern.compile(REGEX);
     /**start pointer for parsing */
     private final String url = "http://www.sql.ru/forum/job-offers/";
 
@@ -92,6 +92,7 @@ public class HTMLParser {
      * @return
      */
     public boolean checkVacancy(String textVacancy){
+        this.pattern = Pattern.compile(this.REGEX);
         Matcher m = this.pattern.matcher(textVacancy);
         return m.find();
     }

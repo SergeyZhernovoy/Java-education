@@ -14,38 +14,15 @@ import static org.junit.Assert.*;
  */
 public class DBManagerTest {
 
-
     @Test
     public void whenAddVacancyWeShouldGetThem() throws Exception {
         String file = getClass().getClassLoader().getResource("vacancy.properties").getPath();
         DBManager dbManager = new DBManager(file);
         dbManager.connect(file);
-        dbManager.add(new Vacancy("java developer","Petja","www.lll.ru","www.fg.ru",1,2,0));
-
-
-
+        boolean result = dbManager.add(new Vacancy("java developer","Petja","www.lll.ru","www.f8.ru",3,2,0));
+        boolean result1 = dbManager.add(new Vacancy("java developer","Petja","www.l23l.ru","www.fg.ru",2,1,0));
         dbManager.close();
-
-
-
-      //  Properties properties = dbManager.getProperties(file);
-      //  String control = properties.getProperty("url");
-     //   Assert.assertThat(control,is("jdbc:postgresql://localhost:5432/vacancy"));
-    }
-
-    @Test
-    public void printVacancy() throws Exception {
-
-    }
-
-    @Test
-    public void getLastLoad() throws Exception {
-
-    }
-
-    @Test
-    public void setTimeLoad() throws Exception {
-
+        Assert.assertThat(result&&result1,is(true));
     }
 
     @Test
@@ -57,6 +34,18 @@ public class DBManagerTest {
         Assert.assertThat(control,is("jdbc:postgresql://localhost:5432/vacancy"));
     }
 
+    @Test
+    public void weAddTimeShouldGetLast() throws Exception {
+        String file = getClass().getClassLoader().getResource("vacancy.properties").getPath();
+        DBManager dbManager = new DBManager(file);
+        dbManager.connect(file);
+        dbManager.setTimeLoad(System.currentTimeMillis());
+        dbManager.setTimeLoad(System.currentTimeMillis());
+        long result = System.currentTimeMillis();
+        dbManager.setTimeLoad(result);
+        Assert.assertThat(result,is(dbManager.getLastLoad()));
+        dbManager.close();
+    }
 
 
 }
