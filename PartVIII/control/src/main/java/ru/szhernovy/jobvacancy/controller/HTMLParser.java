@@ -147,6 +147,10 @@ public class HTMLParser {
         return result;
     }
 
+    public String cleanNameVacancy(String name) {
+        return name.replace("[new]","").trim();
+    }
+
     /**
      * Generate object Vacancy
      * @param column
@@ -156,7 +160,7 @@ public class HTMLParser {
         long result = 0;
         if (checkVacancy(column.get(0).text())) {
             String linkVacancy = column.get(0).select("a").attr("href");
-            String nameVacancy = column.get(0).text();
+            String nameVacancy = cleanNameVacancy(column.get(0).text());
             String author = column.get(1).text();
             String linkAuthor = column.get(1).select("a").attr("href");
             int ask  = Integer.valueOf(column.get(2).text());
@@ -193,7 +197,7 @@ public class HTMLParser {
                     }
                 }
             }
-            if(!this.firstLoad && result > this.startDate ||rows != null && rows.equals(oldRows)) {
+            if(!this.firstLoad && result > this.startDate ||rows != null && ((rows.size() == 3) && (oldRows.size() ==3))) {
                 next = false;
             }else {
                 oldRows = rows;

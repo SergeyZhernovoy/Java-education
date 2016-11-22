@@ -15,7 +15,6 @@
     <modules>
         <module>lesson4</module>
         <module>control</module>
-        <module>control</module>
     </modules>
 
     <dependencies>
@@ -30,7 +29,6 @@
             <artifactId>jsoup</artifactId>
             <version>1.9.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
@@ -42,6 +40,5 @@
             <version>2.2.1</version>
         </dependency>
     </dependencies>
-
 
 </project>

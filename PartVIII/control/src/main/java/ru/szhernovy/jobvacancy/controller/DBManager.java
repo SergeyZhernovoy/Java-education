@@ -13,18 +13,25 @@ import java.sql.*;
 import java.util.Properties;
 
 public class DBManager {
+    /**logger */
     private static Logger log = LoggerFactory.getLogger(DBManager.class);
+    /**main connector to base */
     private Connection conn;
 
-    public DBManager(final String fileProperties) {
+    public DBManager(final Properties fileProperties) {
          this.connect(fileProperties);
     }
 
-    public boolean connect(String fileProperties)  {
+    /**
+     * Try connect to base date
+     * @param
+     * @return
+     */
+    public boolean connect(Properties properties)  {
         boolean result = false;
-        Properties props = getProperties(fileProperties);
+
         try {
-            this.conn = DriverManager.getConnection(props.getProperty("url"), props);
+            this.conn = DriverManager.getConnection(properties.getProperty("url"), properties);
             result = true;
             log.info("connect to a date base", conn);
         } catch (SQLException e) {
@@ -33,25 +40,17 @@ public class DBManager {
         return result;
     }
 
-    public Properties getProperties(String fileProperties) {
-
-        Properties properties = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream(fileProperties)) {
-            properties.load(fileInputStream);
-            log.info("get parametres connection", properties);
-        } catch (FileNotFoundException e) {
-            log.error(e.getMessage(),e);
-        } catch (IOException e) {
-            log.error(e.getMessage(),e);
-        }
-        return properties;
-    }
 
     @Override
     protected void finalize() throws Throwable {
         this.close();
     }
 
+    /**
+     * add vacancy into date base
+     * @param vacancy
+     * @return
+     */
     public boolean add(Vacancy vacancy){
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -100,6 +99,10 @@ public class DBManager {
         return true;
     }
 
+    /**
+     * print all vacancies
+     * @return
+     */
     public boolean printVacancy(){
         boolean result = true;
 
@@ -131,6 +134,10 @@ public class DBManager {
 
     }
 
+    /**
+     * close connect to base
+     * @return
+     */
     public boolean close(){
         boolean result = false;
         if(conn !=null ){
@@ -145,6 +152,10 @@ public class DBManager {
         return result;
     }
 
+    /**
+     * get last download vacancies
+     * @return
+     */
     public long getLastLoad(){
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -171,6 +182,11 @@ public class DBManager {
         return result;
     }
 
+    /**
+     * set last tome download vacancies
+     * @param time
+     * @return
+     */
     public long setTimeLoad(long time){
         PreparedStatement st = null;
         try {
