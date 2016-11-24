@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * Created by szhernovoy on 16.09.2016.
  */
 public class ArraySetSortingTest {
-    @Test(timeout = 1000)
+    @Test(timeout = 10000)
     public void whenAddThatDoQuickSortAndInsertOnlyUniqueValueInArray() throws Exception {
         ArraySetSorting<Integer> sortArray = new ArraySetSorting<>(20);
 
