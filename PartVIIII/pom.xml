@@ -15,6 +15,7 @@
     <version>1.0.0</version>
     <modules>
         <module>lesson1</module>
+        <module>lesson2</module>
     </modules>
 
     <dependencies>
