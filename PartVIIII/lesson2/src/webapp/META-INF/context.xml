@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<Resource auth="Container"
+          description="DB Connection"
+          driverClass="org.postgresql.Driver"
+          maxPoolSize="10"
+          minPoolSize="0"
+          acquireIncrement="1"
+          name="jdbc/crud"
+          user="postgres"
+          password="1"
+          type="javax.sql.DataSource"
+          jdbcUrl="jdbc:postgresql://localhost:5432/users" />
+</Context>

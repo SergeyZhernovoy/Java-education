@@ -8,11 +8,10 @@ package ru.szhernovoy.dbase;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+
 
 public class DBManager {
 
@@ -50,7 +49,7 @@ public class DBManager {
 		this.close();
 	}
 */
-	public boolean addUser(User user,final  Connection conn){
+	public static boolean addUser(User user,final  Connection conn){
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
@@ -74,7 +73,7 @@ public class DBManager {
 		return true;
 	}
 
-	public List<User> getUsers(final  Connection conn){
+	public static List<User> getUsers(final  Connection conn){
 
 		List<User> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		PreparedStatement st = null;
@@ -102,7 +101,7 @@ public class DBManager {
 		return result;
 	}
 
-	public void deleteUser(User user,final  Connection conn){
+	public static void deleteUser(User user,final  Connection conn){
 		String email = user.getEmail();
 		if(email != null){
 			PreparedStatement st = null;
@@ -124,7 +123,7 @@ public class DBManager {
 		}
 	}
 	
-	public void updateItem(User user,final  Connection conn){
+	public static void updateItem(User user,final  Connection conn){
 		String email = user.getEmail();
 		if(email != null){
 			PreparedStatement st = null;

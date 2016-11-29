@@ -1,11 +1,15 @@
 package ru.szhernovoy.http;
 
 
+import com.mchange.v2.c3p0.*;
 import ru.szhernovoy.dbase.DBManager;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -14,13 +18,26 @@ import java.io.PrintWriter;
  */
 public class UserServlet extends javax.servlet.http.HttpServlet {
 
-    private DBManager dbManager = new DBManager();
-    private ComboPooledDataSource pool;
+    private PooledDataSource pool;
 
 
     @Override
     public void init() throws ServletException {
-        this.pool = new ComboPooledDataSource();
+
+        InitialContext ic = null;
+        try {
+            ic = new InitialContext();
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+        try {
+            DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/crud");
+            if ( ds instanceof PooledDataSource) {
+                this.pool = (PooledDataSource) ds;
+            }
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -29,8 +46,6 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
         PrintWriter printWriter = new PrintWriter(resp.getOutputStream());
         printWriter.append("hello world.");
         printWriter.flush();
-
-
 
     }
 
