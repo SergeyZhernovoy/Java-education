@@ -8,4 +8,22 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
+
+    <resource auth="Container"
+              description="DB Connection"
+              driverClass="com.mysql.jdbc.Driver"
+              user="user"
+              password="password"
+              jdbcUrl="jdbc:postgresql://localhost:5432/users"
+              factory="org.apache.naming.factory.BeanFactory"
+              type="com.mchange.v2.c3p0.ComboPooledDataSource"
+              name="jdbc/db"
+              maxPoolSize="10"
+              minPoolSize="0"
+              maxConnectionAge="100"
+              acquireRetryAttempts="60"
+              acquireIncrement="1"
+              preferredTestQuery="SELECT 1"
+              testConnectionOnCheckout="true">
+    </resource>
 </web-app>

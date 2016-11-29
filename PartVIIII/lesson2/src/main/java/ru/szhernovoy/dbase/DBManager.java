@@ -16,9 +16,9 @@ import java.util.Properties;
 
 public class DBManager {
 
-	private Connection conn = null;
+	//private Connection conn = null;
 	private final static Logger Log = LoggerFactory.getLogger(DBManager.class);
-
+/*
 	public boolean connect()  {
 		boolean result = false;
 		Properties props = getProperties();
@@ -49,8 +49,8 @@ public class DBManager {
 	protected void finalize() throws Throwable {
 		this.close();
 	}
-
-	public boolean addUser(User user){
+*/
+	public boolean addUser(User user,final  Connection conn){
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
@@ -74,7 +74,7 @@ public class DBManager {
 		return true;
 	}
 
-	public List<User> getUsers(){
+	public List<User> getUsers(final  Connection conn){
 
 		List<User> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		PreparedStatement st = null;
@@ -102,7 +102,7 @@ public class DBManager {
 		return result;
 	}
 
-	public void deleteUser(User user){
+	public void deleteUser(User user,final  Connection conn){
 		String email = user.getEmail();
 		if(email != null){
 			PreparedStatement st = null;
@@ -124,7 +124,7 @@ public class DBManager {
 		}
 	}
 	
-	public void updateItem(User user){
+	public void updateItem(User user,final  Connection conn){
 		String email = user.getEmail();
 		if(email != null){
 			PreparedStatement st = null;
@@ -150,7 +150,7 @@ public class DBManager {
 		}
 
 	}
-
+/*
 	public boolean close(){
 		boolean result = false;
 		if(conn !=null ){
@@ -164,5 +164,5 @@ public class DBManager {
 		}
 		return result;
 	}
-
+*/
 }
