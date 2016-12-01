@@ -10,12 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>PartVIIII</groupId>
-    <artifactId>ServletJSP</artifactId>
+    <artifactId>Servlet</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
         <module>lesson1</module>
         <module>lesson2</module>
+        <module>lesson3</module>
     </modules>
 
     <dependencies>
