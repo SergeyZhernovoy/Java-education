@@ -1,6 +1,9 @@
 package ru.szhernovoy.dbase;
 
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Created by admin on 27.11.2016.
  */
@@ -31,5 +34,11 @@ public class User {
         this.name = name;
         this.login = login;
         this.createDate = createDate;
+    }
+
+    @Override
+    public String toString() {
+        return  String.format("User - name:%s; login:%s; email:%s; create:%s",name,login,email,new Date(createDate).toString());
+
     }
 }

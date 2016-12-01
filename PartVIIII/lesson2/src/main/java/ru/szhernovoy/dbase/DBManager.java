@@ -5,16 +5,13 @@
 */
 
 package ru.szhernovoy.dbase;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 
 public class DBManager {
@@ -47,6 +44,7 @@ public class DBManager {
 			finally {
 				try{
 					st.close();
+					conn.close();
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);
@@ -78,6 +76,7 @@ public class DBManager {
 				try{
 					rs.close();
 					st.close();
+					conn.close();
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);
@@ -102,6 +101,7 @@ public class DBManager {
 			finally {
 				try{
 					st.close();
+					conn.close();
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);
@@ -128,6 +128,7 @@ public class DBManager {
 			finally {
 				try{
 					st.close();
+					conn.close();
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);

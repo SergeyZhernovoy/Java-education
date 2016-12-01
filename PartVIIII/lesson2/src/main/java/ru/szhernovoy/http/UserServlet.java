@@ -6,19 +6,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.szhernovoy.dbase.*;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Properties;
 
 /**
@@ -56,9 +54,11 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
         resp.setContentType("text/html");
         try {
             Connection conn = this.pool.getConnection();
-            DBManager.instance().addUser(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis()),conn);
             PrintWriter printWriter = new PrintWriter(resp.getOutputStream());
-            printWriter.append("hello world.");
+            Iterator<User>  iter = DBManager.instance().getUsers(conn).iterator();
+            while(iter.hasNext()){
+                printWriter.append(iter.next().toString());
+            }
             printWriter.flush();
         } catch (SQLException e) {
             Log.error(e.getMessage(),e);
@@ -78,11 +78,23 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        resp.setContentType("text/html");
+        try {
+            Connection conn = this.pool.getConnection();
+            DBManager.instance().deleteUser(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis()),conn);
+        } catch (SQLException e) {
+            Log.error(e.getMessage(),e);
+        }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        resp.setContentType("text/html");
+        try {
+            Connection conn = this.pool.getConnection();
+            DBManager.instance().updateItem(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis()),conn);
+        } catch (SQLException e) {
+            Log.error(e.getMessage(),e);
+        }
     }
 }
