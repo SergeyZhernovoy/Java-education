@@ -18,7 +18,6 @@ public class EchoServlet extends HttpServlet {
      * Created by admin on 26.11.2016.
        This a logger for information details
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(EchoServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

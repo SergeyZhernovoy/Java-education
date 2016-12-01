@@ -1,0 +1,10 @@
+<web-app>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>ru.szhernovoy.http.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/crud</url-pattern>
+    </servlet-mapping>
+</web-app>

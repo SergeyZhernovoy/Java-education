@@ -1,7 +1,7 @@
 /**
  * Created by admin on 26.11.2016.
  */
-package ru.szhernovoy.http;
+package ru.szhernovoy;
 
 /*
 1. Создать модель User c полями name, login, email, createDate.

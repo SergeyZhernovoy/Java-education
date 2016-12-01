@@ -2,65 +2,87 @@ package ru.szhernovoy.http;
 
 
 import com.mchange.v2.c3p0.*;
-import ru.szhernovoy.dbase.DBManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.szhernovoy.dbase.*;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Created by admin on 26.11.2016.
  */
 public class UserServlet extends javax.servlet.http.HttpServlet {
 
-    private PooledDataSource pool;
-
+    private ComboPooledDataSource pool;
+    private final static Logger Log = LoggerFactory.getLogger(UserServlet.class);
 
     @Override
     public void init() throws ServletException {
 
-        InitialContext ic = null;
+        Properties prop = new Properties();
+        this.pool = new ComboPooledDataSource();
         try {
-            ic = new InitialContext();
-        } catch (NamingException e) {
-            e.printStackTrace();
+            prop.load(new FileInputStream(this.getClass().getClassLoader().getResource("db.properties").getPath()));
+        } catch (IOException e) {
+            Log.error(e.getMessage(),e);
         }
         try {
-            DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/crud");
-            if ( ds instanceof PooledDataSource) {
-                this.pool = (PooledDataSource) ds;
-            }
-        } catch (NamingException e) {
-            e.printStackTrace();
+            pool.setDriverClass(prop.getProperty("driverClass"));
+        } catch (PropertyVetoException e) {
+            Log.error(e.getMessage(),e);
         }
+        pool.setJdbcUrl(prop.getProperty("jdbcUrl"));
+        pool.setUser(prop.getProperty("user"));
+        pool.setPassword(prop.getProperty("password"));
+        pool.setMaxPoolSize(5);
+
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter printWriter = new PrintWriter(resp.getOutputStream());
-        printWriter.append("hello world.");
-        printWriter.flush();
-
+        try {
+            Connection conn = this.pool.getConnection();
+            DBManager.instance().addUser(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis()),conn);
+            PrintWriter printWriter = new PrintWriter(resp.getOutputStream());
+            printWriter.append("hello world.");
+            printWriter.flush();
+        } catch (SQLException e) {
+            Log.error(e.getMessage(),e);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setContentType("text/html");
+        try {
+            Connection conn = this.pool.getConnection();
+            DBManager.instance().addUser(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis()),conn);
+        } catch (SQLException e) {
+            Log.error(e.getMessage(),e);
+        }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        super.doDelete(req, resp);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        super.doPut(req, resp);
     }
 }
