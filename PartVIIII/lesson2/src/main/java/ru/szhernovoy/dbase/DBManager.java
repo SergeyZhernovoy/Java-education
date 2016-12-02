@@ -5,21 +5,43 @@
 */
 
 package ru.szhernovoy.dbase;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 
+import java.beans.PropertyVetoException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 
 public class DBManager {
 
 	private final static Logger Log = LoggerFactory.getLogger(DBManager.class);
 	private static  final DBManager dbManager = new DBManager();
+	private ComboPooledDataSource pool;
 
 	private DBManager(){
+		Properties prop = new Properties();
+		this.pool = new ComboPooledDataSource();
+		try {
+			prop.load(new FileInputStream(this.getClass().getClassLoader().getResource("db.properties").getPath()));
+		} catch (IOException e) {
+			Log.error(e.getMessage(),e);
+		}
+		try {
+			pool.setDriverClass(prop.getProperty("driverClass"));
+		} catch (PropertyVetoException e) {
+			Log.error(e.getMessage(),e);
+		}
+		pool.setJdbcUrl(prop.getProperty("jdbcUrl"));
+		pool.setUser(prop.getProperty("user"));
+		pool.setPassword(prop.getProperty("password"));
+		pool.setMaxPoolSize(5);
 	}
 
 	public static DBManager instance(){
@@ -27,10 +49,11 @@ public class DBManager {
 	}
 
 
-	public boolean addUser(User user,final  Connection conn){
+	public boolean addUser(User user){
 		PreparedStatement st = null;
-		if(conn != null){
+		Connection conn = null;
 			try {
+				conn = this.pool.getConnection();
 				st = conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)");
 				st.setString(1,user.getName());
 				st.setString(2,user.getEmail());
@@ -43,55 +66,58 @@ public class DBManager {
 			}
 			finally {
 				try{
-					st.close();
-					conn.close();
+					if(conn!=null){
+						st.close();
+						conn.close();
+					}
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);
 				}
 			}
-		}
+
 
 		return true;
 	}
 
-	public List<User> getUsers(final  Connection conn){
+	public List<User> getUsers(){
 
-		List<User> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
+		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		if(conn!=null){
-			try {
-				st = conn.prepareStatement("SELECT * FROM users");
-				rs = st.executeQuery();
-				while (rs.next()) {
-					User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create_date").getTime());
-					result.add(user);
-				}
-
-			} catch (Exception e) {
-				Log.error(e.getMessage(),e);
+		Connection conn = null;
+		try {
+            conn = this.pool.getConnection();
+			st = conn.prepareStatement("SELECT * FROM users");
+			rs = st.executeQuery();
+			while (rs.next()) {
+				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create_date").getTime());
+				result.add(user);
 			}
-			finally {
+        } catch (Exception e) {
+				Log.error(e.getMessage(),e);
+        }
+        finally {
 				try{
-					rs.close();
-					st.close();
-					conn.close();
-				}
-				catch (Exception e){
+					if(conn!=null){
+						rs.close();
+						st.close();
+						conn.close();
+					}
+				}catch (Exception e){
 					Log.error(e.getMessage(),e);
 				}
 			}
-		}
-
 		return result;
 	}
 
-	public void deleteUser(User user,final  Connection conn){
+	public void deleteUser(User user){
 		String email = user.getEmail();
-		if(email != null && conn != null){
+		if(email != null){
+            Connection conn = null;
 			PreparedStatement st = null;
 			try {
+                conn = this.pool.getConnection();
 				st = conn.prepareStatement("DELETE FROM users WHERE email = ?");
 				st.setString(1, email);
 				st.executeUpdate();
@@ -110,11 +136,13 @@ public class DBManager {
 		}
 	}
 	
-	public void updateItem(User user,final  Connection conn){
+	public void updateItem(User user){
 		String email = user.getEmail();
-		if(email != null && conn != null){
+		if(email != null ){
 			PreparedStatement st = null;
+            Connection conn = null;
 			try {
+                conn = this.pool.getConnection();
 				st = conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ? WHERE email = ?");
 				st.setString(1,user.getName());
 				st.setString(2,user.getEmail());
