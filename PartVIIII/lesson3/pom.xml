@@ -13,5 +13,12 @@
     <artifactId>CrudInterface</artifactId>
     <version>1.0.0</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>lesson2</groupId>
+            <artifactId>HTTP</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+     </dependencies>
 
 </project>
