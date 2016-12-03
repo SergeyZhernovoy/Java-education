@@ -12,13 +12,20 @@
     <groupId>lesson3</groupId>
     <artifactId>CrudInterface</artifactId>
     <version>1.0.0</version>
+    <packaging>war</packaging>
+
 
     <dependencies>
         <dependency>
-            <groupId>lesson2</groupId>
-            <artifactId>HTTP</artifactId>
-            <version>1.0.0</version>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
         </dependency>
-     </dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc41</version>
+        </dependency>
+    </dependencies>
 
 </project>
