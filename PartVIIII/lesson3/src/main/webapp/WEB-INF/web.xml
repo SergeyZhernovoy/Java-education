@@ -31,16 +31,6 @@
         </servlet-mapping>
 
         <servlet>
-            <servlet-name>print</servlet-name>
-            <servlet-class>ru.szhernovoy.crudface.UserPrint</servlet-class>
-        </servlet>
-
-        <servlet-mapping>
-            <servlet-name>print</servlet-name>
-            <url-pattern>/print</url-pattern>
-        </servlet-mapping>
-
-        <servlet>
             <servlet-name>update</servlet-name>
             <servlet-class>ru.szhernovoy.crudface.UserUpdate</servlet-class>
         </servlet>

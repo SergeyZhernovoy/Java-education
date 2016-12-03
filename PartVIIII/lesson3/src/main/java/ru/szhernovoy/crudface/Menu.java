@@ -33,10 +33,9 @@ public class Menu extends HttpServlet {
                             "</head>\n" +
                             "<h2 >*** MENU ***</h2>\n" +
                             "<ol>\n"+
-                                "<li><a href=/inter/create>Add user </a></li>\n"+
-                                "<li><a href=/inter/update>Update user</a></li>\n"+
-                                "<li><a href=/inter/delete>Delete user</a></li>\n"+
-                                "<li><a href=/inter/print>Print users</a>\n"+
+                                "<li><a href='"+req.getContextPath()+"'/create>Add user </a></li>\n"+
+                                "<li><a href='"+req.getContextPath()+"'/update>Update user</a></li>\n"+
+                                "<li><a href='"+req.getContextPath()+"'/delete>Delete user</a></li>\n"+
                             "</ol>\n"+
                             "<body>\n" +
                             "</body>\n" +
