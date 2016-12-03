@@ -26,10 +26,12 @@ public class HtmlTable {
 
     public String getUsers(){
         StringBuilder builder = new StringBuilder();
+        builder.append("<table>");
         Iterator<User> iter = DBManager.instance().getUsers().iterator();
         while(iter.hasNext()){
-
+              builder.append("<tr><td>"+iter.next()+"</td></tr>");
         }
+        builder.append("</table>");
         return builder.toString();
     }
 

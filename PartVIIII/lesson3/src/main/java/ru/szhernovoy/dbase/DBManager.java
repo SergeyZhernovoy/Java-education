@@ -54,32 +54,26 @@ public class DBManager {
 
 	public boolean addUser(User user){
 		PreparedStatement st = null;
-		Connection conn = null;
-			try {
-				conn = this.pool.getConnection();
-				st = conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)");
-				st.setString(1,user.getName());
-				st.setString(2,user.getEmail());
-				st.setString(3,user.getLogin());
-				st.setTimestamp(4,new Timestamp(user.getCreateDate()));
-				st.executeUpdate();
 
-			} catch (Exception e) {
+		try(Connection conn = this.pool.getConnection()) {
+			st = conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)");
+			st.setString(1,user.getName());
+			st.setString(2,user.getEmail());
+			st.setString(3,user.getLogin());
+			st.setTimestamp(4,new Timestamp(user.getCreateDate()));
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			Log.error(e.getMessage(),e);
+		}
+		finally {
+			try{
+				st.close();
+			}
+			catch (Exception e){
 				Log.error(e.getMessage(),e);
 			}
-			finally {
-				try{
-					if(conn!=null){
-						st.close();
-						conn.close();
-					}
-				}
-				catch (Exception e){
-					Log.error(e.getMessage(),e);
-				}
-			}
-
-
+		}
 		return true;
 	}
 
@@ -88,39 +82,33 @@ public class DBManager {
 		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Connection conn = null;
-		try {
-            conn = this.pool.getConnection();
+		try(Connection conn = this.pool.getConnection()) {
 			st = conn.prepareStatement("SELECT * FROM users");
 			rs = st.executeQuery();
 			while (rs.next()) {
 				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create_date").getTime());
 				result.add(user);
 			}
-        } catch (Exception e) {
+		} catch (Exception e) {
+			Log.error(e.getMessage(),e);
+		}
+		finally {
+			try{
+				rs.close();
+				st.close();
+			}catch (Exception e){
 				Log.error(e.getMessage(),e);
-        }
-        finally {
-				try{
-					if(conn!=null){
-						rs.close();
-						st.close();
-						conn.close();
-					}
-				}catch (Exception e){
-					Log.error(e.getMessage(),e);
-				}
 			}
+		}
 		return result;
 	}
 
 	public void deleteUser(User user){
 		String email = user.getEmail();
 		if(email != null){
-            Connection conn = null;
+
 			PreparedStatement st = null;
-			try {
-                conn = this.pool.getConnection();
+			try(Connection conn = this.pool.getConnection()) {
 				st = conn.prepareStatement("DELETE FROM users WHERE email = ?");
 				st.setString(1, email);
 				st.executeUpdate();
@@ -130,7 +118,6 @@ public class DBManager {
 			finally {
 				try{
 					st.close();
-					conn.close();
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);
@@ -138,14 +125,13 @@ public class DBManager {
 			}
 		}
 	}
-	
+
 	public void updateItem(User user){
 		String email = user.getEmail();
 		if(email != null ){
 			PreparedStatement st = null;
-            Connection conn = null;
-			try {
-                conn = this.pool.getConnection();
+
+			try(Connection conn = this.pool.getConnection()) {
 				st = conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ? WHERE email = ?");
 				st.setString(1,user.getName());
 				st.setString(2,user.getEmail());
@@ -159,7 +145,6 @@ public class DBManager {
 			finally {
 				try{
 					st.close();
-					conn.close();
 				}
 				catch (Exception e){
 					Log.error(e.getMessage(),e);

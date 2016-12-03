@@ -2,6 +2,7 @@ package ru.szhernovoy.crudface;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.dbase.HtmlTable;
 
 
 import javax.servlet.ServletException;
@@ -29,19 +30,20 @@ public class Menu extends HttpServlet {
                             "<html lang=\"en\">\n" +
                             "<head>\n" +
                             "<meta charset=\"UTF-8\">\n" +
-                            "<title>Title</title>\n" +
+                            "<title>CRUD</title>\n" +
                             "</head>\n" +
+                            "<body>\n" +
                             "<h2 >*** MENU ***</h2>\n" +
                             "<ol>\n"+
-                                "<li><a href='"+req.getContextPath()+"'/create>Add user </a></li>\n"+
-                                "<li><a href='"+req.getContextPath()+"'/update>Update user</a></li>\n"+
-                                "<li><a href='"+req.getContextPath()+"'/delete>Delete user</a></li>\n"+
+                                "<li><a href='"+req.getContextPath()+"/create' >Add user </a></li>\n"+
+                                "<li><a href='"+req.getContextPath()+"/update'>Update user</a></li>\n"+
+                                "<li><a href='"+req.getContextPath()+"/delete'>Delete user</a></li>\n"+
                             "</ol>\n"+
-                            "<body>\n" +
+                            "<h3 >*** list users from dbase ***</h2>\n" +
+                            HtmlTable.getInstance().getUsers()+
                             "</body>\n" +
                             "</html>");
-
-        printWriter.flush();
+                            printWriter.flush();
     }
 
 

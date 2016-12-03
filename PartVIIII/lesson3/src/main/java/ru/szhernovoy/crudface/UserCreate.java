@@ -24,7 +24,7 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         DBManager.instance().addUser(new User(req.getParameter("email"), req.getParameter("name"), req.getParameter("login"), System.currentTimeMillis()));
-
+        doGet(req,resp);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,16 +34,26 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
                 "<meta charset=\"UTF-8\">\n" +
-                "<title>Title</title>\n" +
+                "<title>CRUD</title>\n" +
                 "</head>\n" +
-                "<h2 >*** CREATE USER ***</h2>\n" +
-
-                "<p><a href='"+req.getContextPath()+"'/menu>menu</a></li>\n"+
-
                 "<body>\n" +
+                "<h2 >*** CREATE USER ***</h2>\n" +
+                "<form action='"+req.getContextPath()+"/create' method = 'post'>\n" +
+                "name:<br>\n" +
+                "<input type='text' name='name' ><br>\n" +
+                "login:<br>\n" +
+                "<input type='text' name='login'><br>\n" +
+                "email:<br>\n" +
+                "<input type='text' name='email'>\n" +
+                "<br><br>\n" +
+                "<input style='left: auto' type='submit'>\n" +
+                "</form>\n" +
+                "<p><a href='"+req.getContextPath()+"/menu'>back to menu...</a>\n"+
+                "<h3 >*** list users from dbase ***</h2>\n" +
+                HtmlTable.getInstance().getUsers()+
                 "</body>\n" +
                 "</html>");
-
         printWriter.flush();
     }
 }
+//
