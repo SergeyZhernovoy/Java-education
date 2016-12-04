@@ -51,28 +51,15 @@ public class DBManager {
 		return dbManager;
 	}
 
-
 	public boolean addUser(User user){
-		PreparedStatement st = null;
-
-		try(Connection conn = this.pool.getConnection()) {
-			st = conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)");
+		try(Connection conn = this.pool.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)")) {
 			st.setString(1,user.getName());
 			st.setString(2,user.getEmail());
 			st.setString(3,user.getLogin());
 			st.setTimestamp(4,new Timestamp(user.getCreateDate()));
 			st.executeUpdate();
-
 		} catch (Exception e) {
 			Log.error(e.getMessage(),e);
-		}
-		finally {
-			try{
-				st.close();
-			}
-			catch (Exception e){
-				Log.error(e.getMessage(),e);
-			}
 		}
 		return true;
 	}
@@ -80,10 +67,8 @@ public class DBManager {
 	public List<User> getUsers(){
 
 		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
-		PreparedStatement st = null;
 		ResultSet rs = null;
-		try(Connection conn = this.pool.getConnection()) {
-			st = conn.prepareStatement("SELECT * FROM users");
+		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users") ) {
 			rs = st.executeQuery();
 			while (rs.next()) {
 				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create_date").getTime());
@@ -95,7 +80,6 @@ public class DBManager {
 		finally {
 			try{
 				rs.close();
-				st.close();
 			}catch (Exception e){
 				Log.error(e.getMessage(),e);
 			}
@@ -105,23 +89,12 @@ public class DBManager {
 
 	public void deleteUser(User user){
 		String email = user.getEmail();
-		if(email != null){
-
-			PreparedStatement st = null;
-			try(Connection conn = this.pool.getConnection()) {
-				st = conn.prepareStatement("DELETE FROM users WHERE email = ?");
+		if(email != null) {
+			try (Connection conn = this.pool.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE email = ?")) {
 				st.setString(1, email);
 				st.executeUpdate();
 			} catch (Exception e) {
-				Log.error(e.getMessage(),e);
-			}
-			finally {
-				try{
-					st.close();
-				}
-				catch (Exception e){
-					Log.error(e.getMessage(),e);
-				}
+				Log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -129,10 +102,7 @@ public class DBManager {
 	public void updateItem(User user){
 		String email = user.getEmail();
 		if(email != null ){
-			PreparedStatement st = null;
-
-			try(Connection conn = this.pool.getConnection()) {
-				st = conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ? WHERE email = ?");
+			try(Connection conn = this.pool.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ? WHERE email = ?") ) {
 				st.setString(1,user.getName());
 				st.setString(2,user.getEmail());
 				st.setString(3,user.getLogin());
@@ -141,14 +111,6 @@ public class DBManager {
 				st.executeUpdate();
 			} catch (Exception e) {
 				Log.error(e.getMessage(),e);
-			}
-			finally {
-				try{
-					st.close();
-				}
-				catch (Exception e){
-					Log.error(e.getMessage(),e);
-				}
 			}
 		}
 

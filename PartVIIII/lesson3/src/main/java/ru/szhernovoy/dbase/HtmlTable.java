@@ -5,12 +5,7 @@ package ru.szhernovoy.dbase;/**
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Iterator;
+import java.util.List;
 
 
 public class HtmlTable {
@@ -27,9 +22,9 @@ public class HtmlTable {
     public String getUsers(){
         StringBuilder builder = new StringBuilder();
         builder.append("<table>");
-        Iterator<User> iter = DBManager.instance().getUsers().iterator();
-        while(iter.hasNext()){
-              builder.append("<tr><td>"+iter.next()+"</td></tr>");
+        List<User> users = DBManager.instance().getUsers();
+        for (User user:users){
+            builder.append(String.format("<tr><td>%s</td></tr>\n",user.toString()));
         }
         builder.append("</table>");
         return builder.toString();
