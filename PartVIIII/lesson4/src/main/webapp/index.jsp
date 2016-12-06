@@ -10,7 +10,14 @@
 <head>
     <title>CRUD JSP</title>
 </head>
-<body>
- hello jsp world !!!!
-</body>
+    <body>
+    <h2 >*** MENU ***</h2>
+        <ol>
+            <li><a href="<%=request.getContextPath()%>/create">Add user </a></li>
+            <li><a href="<%=request.getContextPath()%>/update">Update user</a></li>
+            <li><a href="<%=request.getContextPath()%>/delete">Delete user</a></li>
+        </ol>
+    <!--<h3>*** list users from dbase ***</h3>
+     HtmlTable.getInstance().getUsers()+<!-->
+    </body>
 </html>

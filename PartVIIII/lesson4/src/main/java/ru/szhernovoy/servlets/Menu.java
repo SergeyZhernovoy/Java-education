@@ -21,27 +21,8 @@ public class Menu extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-
-        PrintWriter printWriter = new PrintWriter(resp.getOutputStream());
-        printWriter.append("<!DOCTYPE html>\n" +
-                            "<html lang=\"en\">\n" +
-                            "<head>\n" +
-                            "<meta charset=\"UTF-8\">\n" +
-                            "<title>CRUD</title>\n" +
-                            "</head>\n" +
-                            "<body>\n" +
-                            "<h2 >*** MENU ***</h2>\n" +
-                            "<ol>\n"+
-                                "<li><a href='"+req.getContextPath()+"/create' >Add user </a></li>\n"+
-                                "<li><a href='"+req.getContextPath()+"/update'>Update user</a></li>\n"+
-                                "<li><a href='"+req.getContextPath()+"/delete'>Delete user</a></li>\n"+
-                            "</ol>\n"+
-                            "<h3 >*** list users from dbase ***</h2>\n" +
-                            HtmlTable.getInstance().getUsers()+
-                            "</body>\n" +
-                            "</html>");
-                            printWriter.flush();
+        //req.getRequestDispatcher("/webapp/index.jsp").forward(req,resp);
+        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
     }
 
 

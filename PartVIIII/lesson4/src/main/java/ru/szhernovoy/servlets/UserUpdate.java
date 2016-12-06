@@ -29,31 +29,6 @@ public class UserUpdate extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter printWriter = new PrintWriter(resp.getOutputStream());
-        printWriter.append("<!DOCTYPE html>\n" +
-                "<html lang=\"en\">\n" +
-                "<head>\n" +
-                "<meta charset=\"UTF-8\">\n" +
-                "<title>CRUD</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h2 >*** UPDATE USER ***</h2>\n" +
-                "<form action='"+req.getContextPath()+"/update' method = 'post'>\n" +
-                "name:<br>\n" +
-                "<input type='text' name='name' ><br>\n" +
-                "login:<br>\n" +
-                "<input type='text' name='login'><br>\n" +
-                "email:<br>\n" +
-                "<input type='text' name='email'>\n" +
-                "<br><br>\n" +
-                "<input style='left: auto' type='submit'>\n" +
-                "</form>\n" +
-                "<p><a href='"+req.getContextPath()+"/menu'>back to menu...</a>\n"+
-                "<h3 >*** list users from dbase ***</h2>\n" +
-                HtmlTable.getInstance().getUsers()+
-                "</body>\n" +
-                "</html>");
-                printWriter.flush();
+        req.getRequestDispatcher("/WEB-INF/layout/Update.jsp").forward(req,resp);
     }
 }

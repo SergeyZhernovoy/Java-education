@@ -10,7 +10,14 @@
 <head>
     <title>CRUD JSP</title>
 </head>
-<body>
- hello jsp world !!!! 
-</body>
+    <body>
+    <h2 >*** MENU ***</h2>
+        <ol>
+            <li><a href="Create.jsp">Add user </a></li>
+            <li><a href="Update.jsp">Update user</a></li>
+            <li><a href="Delete.jsp">Delete user</a></li>
+        </ol>
+    <!--<h3>*** list users from dbase ***</h3>
+     HtmlTable.getInstance().getUsers()+<!-->
+    </body>
 </html>
