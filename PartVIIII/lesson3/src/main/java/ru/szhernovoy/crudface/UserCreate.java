@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ru.szhernovoy.dbase.*;
+import ru.szhernovoy.model.*;
 
 
 

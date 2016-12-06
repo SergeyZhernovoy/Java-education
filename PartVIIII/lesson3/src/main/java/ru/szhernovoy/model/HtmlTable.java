@@ -1,4 +1,4 @@
-package ru.szhernovoy.dbase;/**
+package ru.szhernovoy.model;/**
  * Created by szhernovoy on 03.12.2016.
  */
 

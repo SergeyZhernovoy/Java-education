@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>CRUD JSP</title>
+    <title>CRUD</title>
 </head>
     <body>
     <h2 >*** MENU ***</h2>
@@ -17,7 +17,5 @@
             <li><a href="<%=request.getContextPath()%>/update">Update user</a></li>
             <li><a href="<%=request.getContextPath()%>/delete">Delete user</a></li>
         </ol>
-    <!--<h3>*** list users from dbase ***</h3>
-     HtmlTable.getInstance().getUsers()+<!-->
     </body>
 </html>

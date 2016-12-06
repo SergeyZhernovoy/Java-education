@@ -4,19 +4,16 @@
 *это класс хранения заявок 
 */
 
-package ru.szhernovoy.dbase;
-
+package ru.szhernovoy.model;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -51,16 +48,17 @@ public class DBManager {
 		return dbManager;
 	}
 
+
 	public boolean addUser(User user){
 		try(Connection conn = this.pool.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date) VALUES (?,?,?,?)")) {
-			st.setString(1,user.getName());
-			st.setString(2,user.getEmail());
-			st.setString(3,user.getLogin());
-			st.setTimestamp(4,new Timestamp(user.getCreateDate()));
-			st.executeUpdate();
-		} catch (Exception e) {
-			Log.error(e.getMessage(),e);
-		}
+				st.setString(1,user.getName());
+				st.setString(2,user.getEmail());
+				st.setString(3,user.getLogin());
+				st.setTimestamp(4,new Timestamp(user.getCreateDate()));
+				st.executeUpdate();
+			} catch (Exception e) {
+				Log.error(e.getMessage(),e);
+			}
 		return true;
 	}
 
@@ -74,16 +72,16 @@ public class DBManager {
 				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create_date").getTime());
 				result.add(user);
 			}
-		} catch (Exception e) {
-			Log.error(e.getMessage(),e);
-		}
-		finally {
-			try{
-				rs.close();
-			}catch (Exception e){
+        } catch (Exception e) {
 				Log.error(e.getMessage(),e);
+        }
+        finally {
+				try{
+						rs.close();
+				}catch (Exception e){
+					Log.error(e.getMessage(),e);
+				}
 			}
-		}
 		return result;
 	}
 
@@ -98,7 +96,7 @@ public class DBManager {
 			}
 		}
 	}
-
+	
 	public void updateItem(User user){
 		String email = user.getEmail();
 		if(email != null ){

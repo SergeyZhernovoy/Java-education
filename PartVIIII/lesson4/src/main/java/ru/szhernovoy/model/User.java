@@ -1,4 +1,4 @@
-package ru.szhernovoy.dbase;
+package ru.szhernovoy.model;
 
 
 import java.util.Date;

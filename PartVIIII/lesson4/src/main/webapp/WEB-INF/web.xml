@@ -1,8 +1,7 @@
 <web-app>
         <servlet>
             <servlet-name>menu</servlet-name>
-            <servlet-class>ru.szhernovoy.crudface.Menu</servlet-class>
-            <load-on-startup>1</load-on-startup>
+            <servlet-class>ru.szhernovoy.servlets.Menu</servlet-class>
         </servlet>
 
         <servlet-mapping>
@@ -12,7 +11,7 @@
 
         <servlet>
             <servlet-name>create</servlet-name>
-            <servlet-class>ru.szhernovoy.crudface.UserCreate</servlet-class>
+            <servlet-class>ru.szhernovoy.servlets.UserCreate</servlet-class>
         </servlet>
 
         <servlet-mapping>
@@ -22,7 +21,7 @@
 
         <servlet>
             <servlet-name>delete</servlet-name>
-            <servlet-class>ru.szhernovoy.crudface.UserDelete</servlet-class>
+            <servlet-class>ru.szhernovoy.servlets.UserDelete</servlet-class>
         </servlet>
 
         <servlet-mapping>
@@ -32,7 +31,7 @@
 
         <servlet>
             <servlet-name>update</servlet-name>
-            <servlet-class>ru.szhernovoy.crudface.UserUpdate</servlet-class>
+            <servlet-class>ru.szhernovoy.servlets.UserUpdate</servlet-class>
         </servlet>
 
         <servlet-mapping>

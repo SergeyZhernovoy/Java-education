@@ -4,12 +4,9 @@
 *это класс хранения заявок 
 */
 
-package ru.szhernovoy.dbase;
+package ru.szhernovoy.model;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,7 +21,6 @@ import java.util.Properties;
 
 public class DBManager {
 
-	private final static Logger Log = LoggerFactory.getLogger(DBManager.class);
 	private static  final DBManager dbManager = new DBManager();
 	private ComboPooledDataSource pool;
 
@@ -34,12 +30,12 @@ public class DBManager {
 		try {
 			prop.load(new FileInputStream(this.getClass().getClassLoader().getResource("db.properties").getPath()));
 		} catch (IOException e) {
-			Log.error(e.getMessage(),e);
+			e.printStackTrace();
 		}
 		try {
 			pool.setDriverClass(prop.getProperty("driverClass"));
 		} catch (PropertyVetoException e) {
-			Log.error(e.getMessage(),e);
+			e.printStackTrace();
 		}
 		pool.setJdbcUrl(prop.getProperty("jdbcUrl"));
 		pool.setUser(prop.getProperty("user"));
@@ -59,7 +55,7 @@ public class DBManager {
 			st.setTimestamp(4,new Timestamp(user.getCreateDate()));
 			st.executeUpdate();
 		} catch (Exception e) {
-			Log.error(e.getMessage(),e);
+			e.printStackTrace();
 		}
 		return true;
 	}
@@ -75,15 +71,16 @@ public class DBManager {
 				result.add(user);
 			}
 		} catch (Exception e) {
-			Log.error(e.getMessage(),e);
+			e.printStackTrace();
 		}
 		finally {
 			try{
 				rs.close();
 			}catch (Exception e){
-				Log.error(e.getMessage(),e);
+				e.printStackTrace();
 			}
 		}
+
 		return result;
 	}
 
@@ -94,7 +91,7 @@ public class DBManager {
 				st.setString(1, email);
 				st.executeUpdate();
 			} catch (Exception e) {
-				Log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -110,7 +107,7 @@ public class DBManager {
 				st.setString(5,user.getEmail());
 				st.executeUpdate();
 			} catch (Exception e) {
-				Log.error(e.getMessage(),e);
+				e.printStackTrace();
 			}
 		}
 

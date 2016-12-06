@@ -1,8 +1,7 @@
-package ru.szhernovoy.dbase;
+package ru.szhernovoy.model;
 
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Created by admin on 27.11.2016.
