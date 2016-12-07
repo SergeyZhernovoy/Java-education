@@ -1,0 +1,42 @@
+<web-app>
+        <servlet>
+            <servlet-name>menu</servlet-name>
+            <servlet-class>ru.szhernovoy.servlets.Menu</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>menu</servlet-name>
+            <url-pattern>/menu</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>create</servlet-name>
+            <servlet-class>ru.szhernovoy.servlets.UserCreate</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>create</servlet-name>
+            <url-pattern>/create</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>delete</servlet-name>
+            <servlet-class>ru.szhernovoy.servlets.UserDelete</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>delete</servlet-name>
+            <url-pattern>/delete</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>update</servlet-name>
+            <servlet-class>ru.szhernovoy.servlets.UserUpdate</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>update</servlet-name>
+            <url-pattern>/update</url-pattern>
+        </servlet-mapping>
+
+</web-app>
