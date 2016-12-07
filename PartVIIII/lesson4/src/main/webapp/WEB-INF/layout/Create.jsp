@@ -1,6 +1,6 @@
 <%@ page import="ru.szhernovoy.model.User" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="ru.szhernovoy.model.HtmlTable" %>
+<%@ page import="ru.szhernovoy.model.DBManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: szhernovoy
@@ -28,7 +28,7 @@
     <br><br>
     <table style="border: 1px solid" cellpadding="1" cellspacing="1" border="1">
         <tr><th>name</th><th>login</th><th>email</th><th>create date</th></tr>
-        <% for(User user: HtmlTable.getInstance().getUser()){ %>
+        <% for(User user: DBManager.instance().getUsers()){ %>
         <tr>
             <td><%=user.getName()%></td>
             <td><%=user.getLogin()%></td>

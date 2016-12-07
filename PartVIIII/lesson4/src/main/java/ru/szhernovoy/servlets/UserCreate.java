@@ -15,12 +15,11 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBManager.instance().addUser(new User(req.getParameter("email"), req.getParameter("name"), req.getParameter("login"), System.currentTimeMillis()));
-
+        doGet(req,resp);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HtmlTable.getInstance().loadUsers();
         req.getRequestDispatcher("/WEB-INF/layout/Create.jsp").forward(req,resp);
+        //resp.sendRedirect(String.format("%s/WEB-INF/layout/Create.jsp",req.getContextPath()));
     }
 }
-//

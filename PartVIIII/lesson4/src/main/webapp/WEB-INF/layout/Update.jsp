@@ -1,4 +1,6 @@
-<%--
+<%@ page import="ru.szhernovoy.model.DBManager" %>
+<%@ page import="ru.szhernovoy.model.User" %>
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: szhernovoy
   Date: 06.12.2016
@@ -8,9 +10,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>CRUD</title>
 </head>
 <body>
-update
+<h2 >*** UPDATE USER ***</h2>
+<form action="<%=request.getContextPath()%>/update" method = "post">
+    name:<br>
+    <input type="text" name="name" ><br>
+    login:<br>
+    <input type="text" name="login"><br>
+    email:<br>
+    <input type="text" name="email">
+    <br><br>
+    <input style= "left: auto" type= "submit">
+</form>
+<br><br>
+<table style="border: 1px solid" cellpadding="1" cellspacing="1" border="1">
+    <tr><th>name</th><th>login</th><th>email</th><th>create date</th></tr>
+    <% for(User user: DBManager.instance().getUsers()){ %>
+    <tr>
+        <td><%=user.getName()%></td>
+        <td><%=user.getLogin()%></td>
+        <td><%=user.getEmail()%></td>
+        <td><%=new Date(user.getCreateDate())%></td>
+    </tr>
+    <% } %>
+</table>
+<br><br>
+
+<p><a href="<%=request.getContextPath()%>/menu">back to menu...</a>
 </body>
 </html>
