@@ -1,7 +1,7 @@
 <web-app>
         <servlet>
             <servlet-name>menu</servlet-name>
-            <servlet-class>ru.szhernovoy.servlets.Menu</servlet-class>
+            <servlet-class>ru.szhernovoy.jstl.Menu</servlet-class>
         </servlet>
 
         <servlet-mapping>
@@ -11,7 +11,7 @@
 
         <servlet>
             <servlet-name>create</servlet-name>
-            <servlet-class>ru.szhernovoy.servlets.UserCreate</servlet-class>
+            <servlet-class>ru.szhernovoy.jstl.UserCreate</servlet-class>
         </servlet>
 
         <servlet-mapping>
@@ -21,7 +21,7 @@
 
         <servlet>
             <servlet-name>delete</servlet-name>
-            <servlet-class>ru.szhernovoy.servlets.UserDelete</servlet-class>
+            <servlet-class>ru.szhernovoy.jstl.UserDelete</servlet-class>
         </servlet>
 
         <servlet-mapping>
@@ -31,7 +31,7 @@
 
         <servlet>
             <servlet-name>update</servlet-name>
-            <servlet-class>ru.szhernovoy.servlets.UserUpdate</servlet-class>
+            <servlet-class>ru.szhernovoy.jstl.UserUpdate</servlet-class>
         </servlet>
 
         <servlet-mapping>
