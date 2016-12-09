@@ -4,7 +4,7 @@
 * 
 */
 package ru.szhernovoy.start;
-import ru.szhernovoy.models.*;
+import ru.szhernovoy.model.*;
 import ru.szhernovoy.templates.*;
 
 public class GameMenu{

@@ -4,7 +4,7 @@
 */
 package ru.szhernovoy.io;
 
-import ru.szhernovoy.models.MenuOfException;
+import ru.szhernovoy.model.MenuOfException;
 
 public class ValidateInput extends ConsoleInput {
 	

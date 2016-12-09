@@ -5,7 +5,7 @@
 */
 
 package ru.szhernovoy.io;
-import ru.szhernovoy.models.MenuOfException;
+import ru.szhernovoy.model.MenuOfException;
 
 import java.util.Scanner;
 

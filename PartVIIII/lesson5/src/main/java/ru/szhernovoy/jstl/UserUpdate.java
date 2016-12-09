@@ -21,6 +21,7 @@ public class UserUpdate extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/layout/Update.jsp").forward(req,resp);
+        req.setAttribute("users",DBManager.instance().getUsers());
+        req.getRequestDispatcher("/WEB-INF/views/Update.jsp").forward(req,resp);
     }
 }

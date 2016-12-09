@@ -14,26 +14,26 @@
     <packaging>war</packaging>
     <dependencies>
         <dependency>
-            <groupId>lesson4</groupId>
-            <artifactId>JSP</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.1.2</version>
+        </dependency>
+            <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.4-1206-jdbc41</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+        <!-- https://mvnrepository.com/artifact/taglibs/standard -->
         <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
         </dependency>
 
     </dependencies>

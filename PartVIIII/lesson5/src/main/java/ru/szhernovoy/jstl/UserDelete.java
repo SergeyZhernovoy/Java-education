@@ -22,6 +22,7 @@ public class UserDelete extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/layout/Delete.jsp").forward(req,resp);
+        req.setAttribute("users",DBManager.instance().getUsers());
+        req.getRequestDispatcher("/WEB-INF/views/Delete.jsp").forward(req,resp);
     }
 }

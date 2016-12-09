@@ -6,7 +6,7 @@
 
 package ru.szhernovoy.start;
 
-import ru.szhernovoy.models.Tracker;
+import ru.szhernovoy.model.Tracker;
 import ru.szhernovoy.io.Input;
 import ru.szhernovoy.io.ValidateInput;
 

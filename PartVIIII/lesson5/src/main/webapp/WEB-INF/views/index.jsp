@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -13,9 +14,9 @@
     <body>
     <h2 >*** MENU ***</h2>
         <ol>
-            <li><a href="<%=request.getContextPath()%>/create">Add user </a></li>
-            <li><a href="<%=request.getContextPath()%>/update">Update user</a></li>
-            <li><a href="<%=request.getContextPath()%>/delete">Delete user</a></li>
+            <li><a href="${pageContext.servletContext.contextPath}/create">Add user </a></li>
+            <li><a href="${pageContext.servletContext.contextPath}/update">Update user</a></li>
+            <li><a href="${pageContext.servletContext.contextPath}/delete">Delete user</a></li>
         </ol>
     </body>
 </html>

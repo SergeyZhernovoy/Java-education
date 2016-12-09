@@ -1,5 +1,8 @@
-<%@ page import="ru.szhernovoy.model.*" %>
+<%@ page import="ru.szhernovoy.model.User" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: szhernovoy
@@ -14,7 +17,7 @@
 </head>
     <body>
     <h2 >*** CREATE USER ***</h2>
-    <form action="<%=request.getContextPath()%>/create" method = "post">
+    <form action="${pageContext.servletContext.contextPath}/create" method = "post">
         name:<br>
         <input type="text" name="name" ><br>
         login:<br>
@@ -27,17 +30,17 @@
     <br><br>
     <table style="border: 1px solid" cellpadding="1" cellspacing="1" border="1">
         <tr><th>name</th><th>login</th><th>email</th><th>create date</th></tr>
-        <% for(User user: DBManager.instance().getUsers()){ %>
+        <c:forEach items="${users}" var="user">
         <tr>
-            <td><%=user.getName()%></td>
-            <td><%=user.getLogin()%></td>
-            <td><%=user.getEmail()%></td>
-            <td><%=new Date(user.getCreateDate())%></td>
+            <td><c:out value="${user.name}"></c:out></td>
+            <td><c:out value="${user.login}"></c:out></td>
+            <td><c:out value="${user.email}"></c:out></td>
+            <td><c:out value="${user.create}"></c:out></td>
         </tr>
-        <% } %>
+        </c:forEach>
     </table>
     <br><br>
 
-    <p><a href="<%=request.getContextPath()%>/menu">back to menu...</a>
+    <p><a href="${pageContext.servletContext.contextPath}/">back to menu...</a>
     </body>
 </html>

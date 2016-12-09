@@ -5,8 +5,6 @@
 */
 
 package ru.szhernovoy.start;
-import ru.szhernovoy.models.*;
-import ru.szhernovoy.templates.*;
 
 public class StartUI{
 	

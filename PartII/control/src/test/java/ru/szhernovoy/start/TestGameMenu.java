@@ -4,10 +4,8 @@
 * 
 */
 package ru.szhernovoy.start;
-import ru.szhernovoy.templates.*;
-import ru.szhernovoy.models.*;
+import ru.szhernovoy.model.*;
 
-import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;

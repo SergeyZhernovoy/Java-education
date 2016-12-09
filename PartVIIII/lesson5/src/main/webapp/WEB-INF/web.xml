@@ -6,7 +6,7 @@
 
         <servlet-mapping>
             <servlet-name>menu</servlet-name>
-            <url-pattern>/menu</url-pattern>
+            <url-pattern>/</url-pattern>
         </servlet-mapping>
 
         <servlet>
