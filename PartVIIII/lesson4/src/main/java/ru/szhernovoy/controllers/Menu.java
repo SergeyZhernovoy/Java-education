@@ -1,4 +1,4 @@
-package ru.szhernovoy.servlets;
+package ru.szhernovoy.controllers;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

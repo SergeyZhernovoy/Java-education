@@ -1,12 +1,22 @@
 <web-app>
+        <filter>
+            <filter-name>AuthFilter</filter-name>
+            <filter-class>ru.szhernovoy.controllers.AuthFilter</filter-class>
+        </filter>
+
+        <filter-mapping>
+            <filter-name>AuthFilter</filter-name>
+            <url-pattern>*</url-pattern>
+        </filter-mapping>
+
         <servlet>
-            <servlet-name>menu</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.Menu</servlet-class>
+            <servlet-name>main</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.MainController</servlet-class>
         </servlet>
 
         <servlet-mapping>
-            <servlet-name>menu</servlet-name>
-            <url-pattern>/menu</url-pattern>
+            <servlet-name>main</servlet-name>
+            <url-pattern>/main</url-pattern>
         </servlet-mapping>
 
         <servlet>
@@ -37,6 +47,16 @@
         <servlet-mapping>
             <servlet-name>update</servlet-name>
             <url-pattern>/update</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>Singin</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.SinginController</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>Singin</servlet-name>
+            <url-pattern>/signin</url-pattern>
         </servlet-mapping>
 
 </web-app>
