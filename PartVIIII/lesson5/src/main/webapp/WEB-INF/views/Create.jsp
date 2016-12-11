@@ -1,6 +1,3 @@
-<%@ page import="ru.szhernovoy.model.User" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%--

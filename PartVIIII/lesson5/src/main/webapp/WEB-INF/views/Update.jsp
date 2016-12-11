@@ -1,7 +1,5 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="ru.szhernovoy.model.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: szhernovoy
   Date: 06.12.2016
