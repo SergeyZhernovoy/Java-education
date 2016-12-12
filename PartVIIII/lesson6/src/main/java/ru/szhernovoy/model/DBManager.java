@@ -45,6 +45,7 @@ public class DBManager {
 			User rootUser = new User("root@mail.ru","root","root",System.currentTimeMillis(),"root");
 			if(!existRootRole()){
 				Role rootRole = new Role("root");
+				rootRole.setRoot(true);
 				addRole(rootRole);
 				rootUser.setRole(rootRole);
 			}
@@ -55,43 +56,26 @@ public class DBManager {
 	public boolean existRootUser(){
 		boolean exist = false;
 
-		ResultSet rs = null;
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users left join role ON users.role = role.role_id where role.role_id = TRUE")) {
-			rs = st.executeQuery();
-			if(rs.next()) {
+		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users left join role ON users.role = role.role_id where role.root = TRUE");ResultSet rs = st.executeQuery()) {
+			if(rs!= null && rs.next()) {
 				exist = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally {
-			try{
-				rs.close();
-			}catch (Exception e){
-				e.printStackTrace();
-			}
-		}
+
 		return exist;
 	}
 
 	public boolean existRootRole(){
 
 		boolean exist = false;
-		ResultSet rs = null;
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role where role.role_id = TRUE")) {
-			rs = st.executeQuery();
-			if (rs.next()) {
+		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role where role.root = TRUE");ResultSet rs = st.executeQuery()) {
+			if (rs!=null && rs.next()) {
 				exist = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
-			try{
-				rs.close();
-			}catch (Exception e){
-				e.printStackTrace();
-			}
 		}
 		return exist;
 	}
@@ -101,12 +85,13 @@ public class DBManager {
 	}
 
 	public boolean addUser(User user){
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date,role) VALUES (?,?,?,?,?)")) {
+		try(Connection conn = this.pool.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date,password,role) VALUES (?,?,?,?,?,?)")) {
 			st.setString(1,user.getName());
 			st.setString(2,user.getEmail());
 			st.setString(3,user.getLogin());
 			st.setTimestamp(4,new Timestamp(user.getCreateDate()));
-			st.setInt(5,user.getRole().getId());
+			st.setString(5,user.getPassword());
+			st.setInt(6,user.getRole().getId());
 			st.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -213,7 +198,7 @@ public class DBManager {
 	public void deleteRole(Role role){
 		String name = role.getName();
 		if(name != null) {
-			try (Connection conn = this.pool.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM role WHERE role.name = ? AND role.root = FALSE ")) {
+			try (Connection conn = this.pool.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM role WHERE role.name = ?")) {
 				st.setString(1, name);
 				st.executeUpdate();
 			} catch (Exception e) {
@@ -230,8 +215,8 @@ public class DBManager {
 				st.setString(2,user.getEmail());
 				st.setString(3,user.getLogin());
 				st.setTimestamp(4,new Timestamp(user.getCreateDate()));
-				st.setString(5,user.getEmail());
-				st.setInt(6,user.getRole().getId());
+				st.setString(6,user.getEmail());
+				st.setInt(5,user.getRole().getId());
 				st.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();

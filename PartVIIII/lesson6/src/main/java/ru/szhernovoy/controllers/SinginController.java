@@ -32,11 +32,12 @@ public class SinginController extends HttpServlet{
         if(user!=null){
             HttpSession session = req.getSession(false);
             synchronized (session){
-                req.setAttribute("login",login);
-                req.setAttribute("root",user.getRole().getRoot());
-                req.setAttribute("user",user);
+                session.setAttribute("login",login);
+                session.setAttribute("root",user.getRole().getRoot());
+                session.setAttribute("user",user);
+                resp.sendRedirect(String.format("%s/main",req.getContextPath()));
             }
-           resp.sendRedirect(String.format("%s/",req.getContextPath()));
+
         }else{
             req.setAttribute("error","Credentional invalid");
             doGet(req,resp);

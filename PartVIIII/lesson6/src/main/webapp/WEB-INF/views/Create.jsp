@@ -22,12 +22,14 @@
         email:<br>
         <input type="text" name="email"><br>
         password:<br>
-        <input type="password" name="password">
+        <input type="password" name="password"><br>
         role:<br>
         <select name="role" size="1">
             <c:forEach items="${roles}" var = "role">
-                <option value=<c:out value="${role.id}"/>> <c:out value="${role.name}"></c:out></option>
+                <option value = "${role.id}"> <c:out value="${role.name}"></c:out></option>
             </c:forEach>
+            <option value="10"> root</option>
+
         </select>
         <br><br>
         <input style= "left: auto" type= "submit">

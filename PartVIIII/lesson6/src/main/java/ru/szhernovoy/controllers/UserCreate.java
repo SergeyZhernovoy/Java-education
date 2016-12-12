@@ -27,6 +27,7 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users",DBManager.instance().getUsers());
+        req.setAttribute("roles",DBManager.instance().getRoles());
         req.getRequestDispatcher("/WEB-INF/views/Create.jsp").forward(req,resp);
         //resp.sendRedirect(String.format("%s/WEB-INF/layout/Create.jsp",req.getContextPath()));
     }

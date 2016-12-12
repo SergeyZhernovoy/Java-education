@@ -19,7 +19,7 @@
         </div>
 
     </c:if>
-    <form action="${pageContext.servletContext.contextPath}/sigin" method = "post">
+    <form action="${pageContext.servletContext.contextPath}/signin" method = "post">
         Login: <input type="text" name="login"><br>
         Password: <input type="password" name="password"><br>
         <input style= "left: auto" type= "submit">

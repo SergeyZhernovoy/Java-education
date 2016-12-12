@@ -13,9 +13,8 @@
 </head>
     <body>
     <h2 >*** MENU ***</h2>
-        <ol>
-
-            <c:if test="${root = 'true'}">
+         <ol>
+            <c:if test="${root == true}">
                 <li><a href="${pageContext.servletContext.contextPath}/create">Add user </a></li>
                 <li><a href="${pageContext.servletContext.contextPath}/update">Update user</a></li>
                 <li><a href="${pageContext.servletContext.contextPath}/delete">Delete user</a></li>
@@ -23,7 +22,7 @@
                 <li><a href="${pageContext.servletContext.contextPath}/updaterole">Update role</a></li>
                 <li><a href="${pageContext.servletContext.contextPath}/deleterole">Delete role</a></li>
             </c:if>
-            <c:if test="${root = 'false'}">
+            <c:if test="${root == false}">
                 <li><a href="${pageContext.servletContext.contextPath}/update">Update user</a></li>
             </c:if>
         </ol>

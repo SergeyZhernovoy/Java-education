@@ -13,26 +13,26 @@
 </head>
 <body>
 <h2 >*** DELETE ROLE ***</h2>
-    <form action="${pageContext.servletContext.contextPath}/updaterole" method = "post">
+    <form action="${pageContext.servletContext.contextPath}/deleterole" method = "post">
         name:<input type="text" name="name" ><br>
         <input style= "left: auto" type= "submit">
     </form>
     <br><br>
     <table style="border: 1px solid" cellpadding="1" cellspacing="1" border="1">
         <tr><th>name</th><th>root</th></tr>
-        <c:forEach items="${roles}" var="user">
+        <c:forEach items="${roles}" var="role">
             <tr>
                 <td><c:out value="${role.name}"></c:out></td>
-                <td>
+                <td align="center">
                     <c:choose>
-                        <c:when test="${role.isRoot=='false'}">
-                            " "
+                        <c:when test="${role.root=='false'}">
+
                         </c:when>
-                        <c:when test="${role.isRoot=='true'}">
-                            "*"
+                        <c:when test="${role.root=='true'}">
+                            *
                         </c:when>
                         <c:otherwise>
-                            " "
+
                         </c:otherwise>
                     </c:choose>
                 </td>
