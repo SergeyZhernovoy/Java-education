@@ -18,8 +18,29 @@
     <input type="text" name="name" ><br>
     login:<br>
     <input type="text" name="login"><br>
-    email:<br>
-    <input type="text" name="email">
+    password:<br>
+    <input type="password" name="password">
+
+    <c:if test="${root != 'true'}">
+        email:<br>
+        <input type="text" name="email" value="<c:out value="${email}"/>" disabled>
+    </c:if>
+
+    <c:if test="${root == 'true'}">
+        email:<br>
+        <input type="text" name="email">
+    </c:if>
+
+
+    <c:if test="${root == 'true'}">
+    role:<br>
+    <select name="role" size="1">
+        <c:forEach items="${roles}" var = "role">
+            <option value=<c:out value="${role.id}"/>> <c:out value="${role.name}"></c:out></option>
+        </c:forEach>
+    </select>
+    </c:if>
+
     <br><br>
     <input style= "left: auto" type= "submit">
 </form>
@@ -37,6 +58,6 @@
 </table>
 <br><br>
 
-<p><a href="${pageContext.servletContext.contextPath}/">back to menu...</a>
+<p><a href="${pageContext.servletContext.contextPath}/main">back to menu...</a>
 </body>
 </html>

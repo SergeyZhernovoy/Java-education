@@ -59,4 +59,37 @@
             <url-pattern>/signin</url-pattern>
         </servlet-mapping>
 
+        <servlet>
+            <servlet-name>createrole</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.RoleCreate</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>createrole</servlet-name>
+            <url-pattern>/createrole</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>deleterole</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.RoleDelete</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>deleterole</servlet-name>
+            <url-pattern>/deleterole</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>updaterole</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.RoleUpdate</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>updaterole</servlet-name>
+            <url-pattern>/updaterole</url-pattern>
+        </servlet-mapping>
+
+
+
+
 </web-app>

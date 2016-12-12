@@ -13,6 +13,7 @@ public class User {
     private long createDate;
     private Date create;
     private String password;
+    private Role role;
 
     public String getEmail() {
         return email;
@@ -40,6 +41,7 @@ public class User {
         this.login = login;
         this.createDate = createDate;
         this.password = password;
+
     }
 
     public String getPassword() {
@@ -50,5 +52,13 @@ public class User {
     public String toString() {
         return  String.format("User - name:%s; login:%s; email:%s; create:%s",name,login,email,new Date(createDate).toString());
 
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

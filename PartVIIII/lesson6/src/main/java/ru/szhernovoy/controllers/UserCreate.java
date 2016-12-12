@@ -4,6 +4,7 @@
 package ru.szhernovoy.controllers;
 
 import ru.szhernovoy.model.DBManager;
+import ru.szhernovoy.model.Role;
 import ru.szhernovoy.model.User;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,11 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager.instance().addUser(new User(req.getParameter("email"), req.getParameter("name"), req.getParameter("login"), System.currentTimeMillis(),null));
+        User user = new User(req.getParameter("email"), req.getParameter("name"), req.getParameter("login"), System.currentTimeMillis(),req.getParameter("password"));
+        Role role = new Role("any");
+        role.setId(Integer.valueOf(req.getParameter("role")));
+        user.setRole(role);
+        DBManager.instance().addUser(user);
         doGet(req,resp);
     }
     @Override

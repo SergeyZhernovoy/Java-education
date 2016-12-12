@@ -3,6 +3,7 @@ package ru.szhernovoy.controllers;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import ru.szhernovoy.model.DBManager;
+import ru.szhernovoy.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,10 +28,13 @@ public class SinginController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if(DBManager.instance().isCredential(login,password)){
+        User user = DBManager.instance().isCredential(login,password);
+        if(user!=null){
             HttpSession session = req.getSession(false);
             synchronized (session){
                 req.setAttribute("login",login);
+                req.setAttribute("root",user.getRole().getRoot());
+                req.setAttribute("user",user);
             }
            resp.sendRedirect(String.format("%s/",req.getContextPath()));
         }else{

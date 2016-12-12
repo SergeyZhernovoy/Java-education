@@ -14,5 +14,5 @@ create table if not exists users(
 create table if not exists role(
     role_id serial primary key NOT NULL,
     name  CHARACTER VARYING (50) NOT NULL,
-    isRoot boolean
+    root boolean
 );

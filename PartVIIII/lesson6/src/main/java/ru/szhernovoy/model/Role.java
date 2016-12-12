@@ -10,9 +10,18 @@ public class Role {
     private final static Logger log = LoggerFactory.getLogger(Role.class);
     private String name;
     private boolean isRoot = false;
+    private int id;
 
     public Role(String name) {
         this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

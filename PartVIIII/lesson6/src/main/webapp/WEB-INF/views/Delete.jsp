@@ -33,6 +33,6 @@
 </table>
 <br><br>
 
-<p><a href="${pageContext.servletContext.contextPath}/">back to menu...</a>
+<p><a href="${pageContext.servletContext.contextPath}/main">back to menu...</a>
 </body>
 </html>
