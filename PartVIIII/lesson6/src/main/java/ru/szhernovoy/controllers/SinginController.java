@@ -31,13 +31,10 @@ public class SinginController extends HttpServlet{
         User user = DBManager.instance().isCredential(login,password);
         if(user!=null){
             HttpSession session = req.getSession(false);
-            synchronized (session){
                 session.setAttribute("login",login);
                 session.setAttribute("root",user.getRole().getRoot());
                 session.setAttribute("user",user);
                 resp.sendRedirect(String.format("%s/main",req.getContextPath()));
-            }
-
         }else{
             req.setAttribute("error","Credentional invalid");
             doGet(req,resp);

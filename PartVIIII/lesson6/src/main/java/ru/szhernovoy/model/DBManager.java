@@ -21,26 +21,11 @@ import java.util.Properties;
 public class DBManager {
 
 	private static  final DBManager dbManager = new DBManager();
-	private ComboPooledDataSource pool;
+
 
 	private DBManager(){
-		Properties prop = new Properties();
-		this.pool = new ComboPooledDataSource();
-		try {
-			prop.load(new FileInputStream(this.getClass().getClassLoader().getResource("db.properties").getPath()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			pool.setDriverClass(prop.getProperty("driverClass"));
-		} catch (PropertyVetoException e) {
-			e.printStackTrace();
-		}
-		pool.setJdbcUrl(prop.getProperty("jdbcUrl"));
-		pool.setUser(prop.getProperty("user"));
-		pool.setPassword(prop.getProperty("password"));
-		pool.setMaxPoolSize(5);
 
+		this.createPoolConnectors();
 		if(!existRootUser()){
 			User rootUser = new User("root@mail.ru","root","root",System.currentTimeMillis(),"root");
 			if(!existRootRole()){
@@ -52,6 +37,9 @@ public class DBManager {
 			addUser(rootUser);
 		}
 	}
+
+
+
 
 	public boolean existRootUser(){
 		boolean exist = false;
