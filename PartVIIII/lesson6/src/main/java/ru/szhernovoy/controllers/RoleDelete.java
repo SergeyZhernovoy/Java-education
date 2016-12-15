@@ -16,13 +16,13 @@ public class RoleDelete extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager.instance().deleteRole(new Role(req.getParameter("name")));
+        DBManager.deleteRole(new Role(req.getParameter("name")));
         doGet(req,resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("roles",DBManager.instance().getRoles());
+        req.setAttribute("roles",DBManager.getRoles());
         req.getRequestDispatcher("/WEB-INF/views/DeleteRole.jsp").forward(req,resp);
     }
 }

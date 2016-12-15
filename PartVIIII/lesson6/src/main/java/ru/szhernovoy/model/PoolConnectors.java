@@ -9,18 +9,24 @@ import org.slf4j.Logger;
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 
 public class PoolConnectors {
     private static Logger log = LoggerFactory.getLogger(PoolConnectors.class);
-    private ComboPooledDataSource pool;
+    private static ComboPooledDataSource pool;
 
-    public void createPoolConnectors(){
+    private PoolConnectors(){
+
+    }
+
+    static {
         Properties prop = new Properties();
-        this.pool = new ComboPooledDataSource();
+        pool = new ComboPooledDataSource();
         try {
-            prop.load(new FileInputStream(this.getClass().getClassLoader().getResource("db.properties").getPath()));
+            prop.load(new FileInputStream(PoolConnectors.class.getClassLoader().getResource("db.properties").getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,7 +39,11 @@ public class PoolConnectors {
         pool.setUser(prop.getProperty("user"));
         pool.setPassword(prop.getProperty("password"));
         pool.setMaxPoolSize(5);
+    }
 
+
+    public static Connection getConnection() throws SQLException {
+        return pool.getConnection();
     }
 
 

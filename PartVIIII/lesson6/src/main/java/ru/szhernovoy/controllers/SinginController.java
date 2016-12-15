@@ -28,7 +28,7 @@ public class SinginController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        User user = DBManager.instance().isCredential(login,password);
+        User user = DBManager.isCredential(login,password);
         if(user!=null){
             HttpSession session = req.getSession(false);
                 session.setAttribute("login",login);

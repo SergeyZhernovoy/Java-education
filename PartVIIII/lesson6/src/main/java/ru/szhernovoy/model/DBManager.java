@@ -20,15 +20,15 @@ import java.util.Properties;
 
 public class DBManager {
 
-	private static  final DBManager dbManager = new DBManager();
-
-
 	private DBManager(){
 
-		this.createPoolConnectors();
-		if(!existRootUser()){
-			User rootUser = new User("root@mail.ru","root","root",System.currentTimeMillis(),"root");
-			if(!existRootRole()){
+	}
+
+	public  static void matcherRoot() {
+
+		if (!existRootUser()) {
+			User rootUser = new User("root@mail.ru", "root", "root", System.currentTimeMillis(), "root");
+			if (!existRootRole()) {
 				Role rootRole = new Role("root");
 				rootRole.setRoot(true);
 				addRole(rootRole);
@@ -38,13 +38,10 @@ public class DBManager {
 		}
 	}
 
-
-
-
-	public boolean existRootUser(){
+	public  static boolean existRootUser(){
 		boolean exist = false;
 
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users left join role ON users.role = role.role_id where role.root = TRUE");ResultSet rs = st.executeQuery()) {
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users left join role ON users.role = role.role_id where role.root = TRUE");ResultSet rs = st.executeQuery()) {
 			if(rs!= null && rs.next()) {
 				exist = true;
 			}
@@ -55,10 +52,10 @@ public class DBManager {
 		return exist;
 	}
 
-	public boolean existRootRole(){
+	public static  boolean existRootRole(){
 
 		boolean exist = false;
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role where role.root = TRUE");ResultSet rs = st.executeQuery()) {
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role where role.root = TRUE");ResultSet rs = st.executeQuery()) {
 			if (rs!=null && rs.next()) {
 				exist = true;
 			}
@@ -68,12 +65,8 @@ public class DBManager {
 		return exist;
 	}
 
-	public static DBManager instance(){
-		return dbManager;
-	}
-
-	public boolean addUser(User user){
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date,password,role) VALUES (?,?,?,?,?,?)")) {
+	public static boolean addUser(User user){
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date,password,role) VALUES (?,?,?,?,?,?)")) {
 			st.setString(1,user.getName());
 			st.setString(2,user.getEmail());
 			st.setString(3,user.getLogin());
@@ -87,11 +80,11 @@ public class DBManager {
 		return true;
 	}
 
-	public boolean addRole(Role role){
+	public static boolean addRole(Role role){
 		boolean result = false;
 		ResultSet rs = null;
 		PreparedStatement st = null;
-		try(Connection conn = this.pool.getConnection()) {
+		try(Connection conn = PoolConnectors.getConnection()) {
 			st = 	conn.prepareStatement("INSERT INTO role(name,root) VALUES (?,?)", java.sql.Statement.RETURN_GENERATED_KEYS );
 			st.setString(1,role.getName());
 			st.setBoolean(2,role.getRoot());
@@ -118,11 +111,11 @@ public class DBManager {
 	}
 
 
-	public List<User> getUsers(){
+	public static List<User> getUsers(){
 
 		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		ResultSet rs = null;
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email as email, u.name as name, u.login as login, u.create_date as create, u.password as pass, r.name as rname, r.role_id as roleid, r.root as root  FROM users as u left join role as r on u.role = r.role_id") ) {
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email as email, u.name as name, u.login as login, u.create_date as create, u.password as pass, r.name as rname, r.role_id as roleid, r.root as root  FROM users as u left join role as r on u.role = r.role_id") ) {
 			rs = st.executeQuery();
 			while (rs.next()) {
 				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create").getTime(),rs.getString("pass"));
@@ -146,11 +139,11 @@ public class DBManager {
 		return result;
 	}
 
-	public List<Role> getRoles(){
+	public static List<Role> getRoles(){
 
 		List<Role> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		ResultSet rs = null;
-		try(Connection conn = this.pool.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role") ) {
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role") ) {
 			rs = st.executeQuery();
 			while (rs.next()) {
 				Role role = new Role(rs.getString("name"));
@@ -171,10 +164,10 @@ public class DBManager {
 		return result;
 	}
 
-	public void deleteUser(User user){
+	public static void deleteUser(User user){
 		String email = user.getEmail();
 		if(email != null) {
-			try (Connection conn = this.pool.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE email = ?")) {
+			try (Connection conn = PoolConnectors.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE email = ?")) {
 				st.setString(1, email);
 				st.executeUpdate();
 			} catch (Exception e) {
@@ -183,10 +176,10 @@ public class DBManager {
 		}
 	}
 
-	public void deleteRole(Role role){
+	public static void deleteRole(Role role){
 		String name = role.getName();
 		if(name != null) {
-			try (Connection conn = this.pool.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM role WHERE role.name = ?")) {
+			try (Connection conn = PoolConnectors.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM role WHERE role.name = ?")) {
 				st.setString(1, name);
 				st.executeUpdate();
 			} catch (Exception e) {
@@ -195,10 +188,10 @@ public class DBManager {
 		}
 	}
 
-	public void updateItem(User user){
+	public static void updateItem(User user){
 		String email = user.getEmail();
 		if(email != null ){
-			try(Connection conn = this.pool.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ?, role = ? WHERE email = ?") ) {
+			try(Connection conn = PoolConnectors.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ?, role = ? WHERE email = ?") ) {
 				st.setString(1,user.getName());
 				st.setString(2,user.getEmail());
 				st.setString(3,user.getLogin());
@@ -212,9 +205,9 @@ public class DBManager {
 		}
 	}
 
-	public void updateRole(Role role){
+	public static void updateRole(Role role){
 
-		try(Connection conn = this.pool.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE role SET name = ?, root = ? WHERE role_id = ?") ) {
+		try(Connection conn = PoolConnectors.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE role SET name = ?, root = ? WHERE role_id = ?") ) {
 			st.setString(1,role.getName());
 			st.setBoolean(2,role.getRoot());
 			st.setInt(3,role.getId());
@@ -224,9 +217,9 @@ public class DBManager {
 		}
 	}
 
-	public User isCredential(String login, String password){
+	public static User isCredential(String login, String password){
 		User findUser = null;
-		for(User user : this.getUsers()){
+		for(User user : getUsers()){
 			if(user.getLogin().equals(login) && user.getPassword().equals(password)){
 				findUser = user;
 				break;

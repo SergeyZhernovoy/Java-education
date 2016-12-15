@@ -21,13 +21,13 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
         Role role = new Role("any");
         role.setId(Integer.valueOf(req.getParameter("role")));
         user.setRole(role);
-        DBManager.instance().addUser(user);
+        DBManager.addUser(user);
         doGet(req,resp);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users",DBManager.instance().getUsers());
-        req.setAttribute("roles",DBManager.instance().getRoles());
+        req.setAttribute("users",DBManager.getUsers());
+        req.setAttribute("roles",DBManager.getRoles());
         req.getRequestDispatcher("/WEB-INF/views/Create.jsp").forward(req,resp);
         //resp.sendRedirect(String.format("%s/WEB-INF/layout/Create.jsp",req.getContextPath()));
     }
