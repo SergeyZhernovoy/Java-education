@@ -17,10 +17,10 @@ public class UserUpdate extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+        //HttpSession session = req.getSession(false);
         String email;
         int id ;
-        if(!(Boolean) session.getAttribute("root")){
+        if(!(Boolean) req.getSession(false).getAttribute("root")){
             email = (String)req.getAttribute("email");
             id = (int)req.getAttribute("role");
         }else {
@@ -32,15 +32,15 @@ public class UserUpdate extends javax.servlet.http.HttpServlet {
         Role role = new Role("any");
         role.setId(id);
         user.setRole(role);
-        DBManager.updateItem(user);
+        DBManager.newInstance().updateItem(user);
         doGet(req,resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("users",DBManager.getUsers());
-        req.setAttribute("roles",DBManager.getRoles());
+        req.setAttribute("users",DBManager.newInstance().getUsers());
+        req.setAttribute("roles",DBManager.newInstance().getRoles());
         HttpSession session = req.getSession(false);
         if(!(Boolean) session.getAttribute("root")){
             req.setAttribute("email",((User)session.getAttribute("user")).getEmail());

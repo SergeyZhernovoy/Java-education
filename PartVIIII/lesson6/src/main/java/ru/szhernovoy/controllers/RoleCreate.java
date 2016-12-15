@@ -21,12 +21,12 @@ public class RoleCreate extends javax.servlet.http.HttpServlet {
         if(root!=null){
             role.setRoot(root.equals("1")? true : false);
         }
-        DBManager.addRole(role);
+        DBManager.newInstance().addRole(role);
         doGet(req,resp);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("roles",DBManager.getRoles());
+        req.setAttribute("roles",DBManager.newInstance().getRoles());
         req.getRequestDispatcher("/WEB-INF/views/CreateRole.jsp").forward(req,resp);
     }
 }

@@ -16,13 +16,13 @@ public class UserDelete extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DBManager.deleteUser(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis(),null));
+        DBManager.newInstance().deleteUser(new User(req.getParameter("email"),req.getParameter("name"),req.getParameter("login"),System.currentTimeMillis(),null));
         doGet(req,resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users",DBManager.getUsers());
+        req.setAttribute("users",DBManager.newInstance().getUsers());
         req.getRequestDispatcher("/WEB-INF/views/Delete.jsp").forward(req,resp);
     }
 }

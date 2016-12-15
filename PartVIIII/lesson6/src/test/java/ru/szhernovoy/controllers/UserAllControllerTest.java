@@ -1,78 +1,82 @@
 package ru.szhernovoy.controllers;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
-
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import ru.szhernovoy.model.DBManager;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.*;
-
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
- * Created by admin on 13.12.2016.
+ * Created by dort on 15.12.16.
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(DBManager.class)
-public class RoleAllControllerTest {
-
+public class UserAllControllerTest {
     @Mock HttpServletRequest request;
     @Mock HttpServletResponse response;
     @Mock RequestDispatcher dispatcher;
     @Mock DBManager manager;
+    @Mock HttpSession session;
 
     @Before
     public void init(){
         PowerMockito.mockStatic(DBManager.class);
         PowerMockito.when(DBManager.newInstance()).thenReturn(manager);
+        //PowerMockito.mockStatic(HttpSession.class);
     }
 
     @Test
-    public void whenRootCreateRoleWeShouldGetNewRole() throws ServletException, IOException {
-        RoleCreate roleController = new RoleCreate();
+    public void whenRootCreateUserWeShouldGetNewUser() throws ServletException, IOException {
+        UserCreate roleController = new UserCreate();
         when(request.getParameter("name")).thenReturn("full_rights");
         when(request.getParameter("root")).thenReturn("root");
-        when(request.getRequestDispatcher("/WEB-INF/views/CreateRole.jsp")).thenReturn(dispatcher);
-        PowerMockito.when(manager.addRole(any())).thenReturn(true);
+        when(request.getParameter("role")).thenReturn("1");
+        when(request.getRequestDispatcher("/WEB-INF/views/Create.jsp")).thenReturn(dispatcher);
+        PowerMockito.when(manager.addUser(any())).thenReturn(true);
         roleController.doPost(request,response);
         verify(request,atLeastOnce()).getParameter("name");
     }
 
     @Test
-    public void whenRootUpdateRoleWeShouldUpdateRole() throws ServletException, IOException {
-        RoleUpdate roleController = new RoleUpdate();
+    public void whenRootUpdateUserWeShouldUpdateUser() throws ServletException, IOException {
+        UserUpdate roleController = new UserUpdate();
         when(request.getParameter("name")).thenReturn("full_rights");
         when(request.getParameter("root")).thenReturn("root");
-        when(request.getRequestDispatcher("/WEB-INF/views/UpdateRole.jsp")).thenReturn(dispatcher);
+        when(request.getParameter("role")).thenReturn("1");
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("root")).thenReturn(true);
+
+        when(request.getRequestDispatcher("/WEB-INF/views/Update.jsp")).thenReturn(dispatcher);
         roleController.doPost(request,response);
         verify(request,atLeastOnce()).getParameter("name");
     }
 
     @Test
-    public void whenRootDeleteThenItDelete() throws ServletException, IOException {
-        RoleDelete roleController = new RoleDelete();
+    public void whenRootDeleteUserThenItDelete() throws ServletException, IOException {
+        UserDelete roleController = new UserDelete();
         when(request.getParameter("name")).thenReturn("full_rights");
         when(request.getParameter("root")).thenReturn("root");
-        when(request.getRequestDispatcher("/WEB-INF/views/DeleteRole.jsp")).thenReturn(dispatcher);
+        when(request.getRequestDispatcher("/WEB-INF/views/Delete.jsp")).thenReturn(dispatcher);
         roleController.doPost(request,response);
         verify(request,atLeastOnce()).getParameter("name");
     }
+
 
 }
