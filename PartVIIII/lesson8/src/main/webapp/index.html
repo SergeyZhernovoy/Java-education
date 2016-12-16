@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        p {
+            font-family: verdana;
+            font-size: 20px;
+        }
+        .center{
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <form action="\items" method="post">
+            <input type="hidden" name="user_id">
+            Name: <input type = text name="name"></br>
+            Sex: <input type = radio name="sex">Male<input type = radio name="sex">Female</br>
+            Password: <input type = password name="password"></br>
+            Description: <textarea name="description"></textarea><br>
+            Resume<input type = file name = "file"><br>
+            Agreements: <input type="checkbox" name="agreement"><br>
+            <select name = "city">
+                <option>Moscow</option>
+                <option>Spb</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <br><br>
+
+<div class="center">
+    <table style="border: 1px solid #000000" border="1" cellpadding="1" cellspacing="0">
+        <thead>
+        <th>login</th>
+        <th>email</th>
+        </thead>
+        <tr>
+            <td>Login</td>
+            <td>Email</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
