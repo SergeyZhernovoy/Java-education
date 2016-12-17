@@ -2,6 +2,7 @@ package ru.szhernovoy.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.szhernovoy.model.CrudUserInterface;
 import ru.szhernovoy.model.DBManager;
 import ru.szhernovoy.model.User;
 

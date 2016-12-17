@@ -3,8 +3,8 @@
  */
 package ru.szhernovoy.controllers;
 
-import ru.szhernovoy.model.DBManager;
-import ru.szhernovoy.model.Role;
+import ru.szhernovoy.model.*;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ public class RoleUpdate extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("roles",DBManager.newInstance().getRoles());
+        req.setAttribute("roles", DBManager.newInstance().getRoles());
         req.getRequestDispatcher("/WEB-INF/views/UpdateRole.jsp").forward(req,resp);
     }
 }

@@ -3,6 +3,8 @@
  */
 package ru.szhernovoy.controllers;
 
+import ru.szhernovoy.model.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

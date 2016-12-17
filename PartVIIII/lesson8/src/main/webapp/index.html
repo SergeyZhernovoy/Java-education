@@ -3,29 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        body {
-            background-color: lightblue;
-        }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(
+               $.ajax('./json',{
+               method: 'get',
+               complete: function (data) {
+                   console.log(JSON.parse(data.responseText))
+               }
+           })
+        );
 
-        h1 {
-            color: white;
-            text-align: center;
-        }
-
-        p {
-            font-family: verdana;
-            font-size: 20px;
-        }
-        .center{
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    </script>
 </head>
 <body>
     <div class="center">
-        <form action="\items" method="post">
+        <form action="\items" method="post" onsubmit="return validate();">
             <input type="hidden" name="user_id">
             Name: <input type = text name="name"></br>
             Sex: <input type = radio name="sex">Male<input type = radio name="sex">Female</br>

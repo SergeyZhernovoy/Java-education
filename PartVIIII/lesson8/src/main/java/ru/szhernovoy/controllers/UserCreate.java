@@ -3,9 +3,7 @@
  */
 package ru.szhernovoy.controllers;
 
-import ru.szhernovoy.model.DBManager;
-import ru.szhernovoy.model.Role;
-import ru.szhernovoy.model.User;
+import ru.szhernovoy.model.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +24,8 @@ public class UserCreate extends javax.servlet.http.HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users",DBManager.newInstance().getUsers());
-        req.setAttribute("roles",DBManager.newInstance().getRoles());
+        req.setAttribute("users", DBManager.newInstance().getUsers());
+        req.setAttribute("roles", DBManager.newInstance().getRoles());
         req.getRequestDispatcher("/WEB-INF/views/Create.jsp").forward(req,resp);
         //resp.sendRedirect(String.format("%s/WEB-INF/layout/Create.jsp",req.getContextPath()));
     }
