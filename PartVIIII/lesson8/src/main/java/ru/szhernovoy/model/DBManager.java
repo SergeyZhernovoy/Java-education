@@ -1,69 +1,231 @@
-package ru.szhernovoy.model;/**
- * Created by szhernovoy on 17.12.2016.
- */
+/**
+*@author Sergey Zhernovoy
+*@since 01-07-2016
+*это класс хранения заявок 
+*/
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+package ru.szhernovoy.model;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 
-public class DBManager implements CrudOperation {
-    private static Logger log = LoggerFactory.getLogger(DBManager.class);
-    private static DBManager dbManager = new DBManager();
-    private List<User> storage = new CopyOnWriteArrayList<>();
+public class DBManager {
 
-    private DBManager() {
+	private static DBManager dbManager = new DBManager();
 
-    }
 
-    public static DBManager newInstance(){
-        return dbManager;
-    }
+	private DBManager(){
 
-    @Override
-    public boolean addRole(Role role) {
-        return false;
-    }
+	}
 
-    @Override
-    public List<Role> getRoles() {
-        return null;
-    }
+	public static DBManager newInstance(){
+		return dbManager;
+	}
 
-    @Override
-    public void deleteRole(Role role) {
+	public  void matcherRoot() {
 
-    }
+		if (!existRootUser()) {
+			User rootUser = new User("root@mail.ru", "root", "root", System.currentTimeMillis(), "root");
+			if (!existRootRole()) {
+				Role rootRole = new Role("root");
+				rootRole.setRoot(true);
+				addRole(rootRole);
+				rootUser.setRole(rootRole);
+			}
+			addUser(rootUser);
+		}
+	}
 
-    @Override
-    public void updateRole(Role role) {
+	public  boolean existRootUser(){
+		boolean exist = false;
 
-    }
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users left join role ON users.role = role.role_id where role.root = TRUE");ResultSet rs = st.executeQuery()) {
+			if(rs!= null && rs.next()) {
+				exist = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    @Override
-    public boolean addUser(User user) {
-        return false;
-    }
+		return exist;
+	}
 
-    @Override
-    public List<User> getUsers() {
-        return null;
-    }
+	public  boolean existRootRole(){
 
-    @Override
-    public void deleteUser(User user) {
+		boolean exist = false;
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role where role.root = TRUE");ResultSet rs = st.executeQuery()) {
+			if (rs!=null && rs.next()) {
+				exist = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return exist;
+	}
 
-    }
+	public boolean addUser(User user){
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date,password,role) VALUES (?,?,?,?,?,?)")) {
+			st.setString(1,user.getName());
+			st.setString(2,user.getEmail());
+			st.setString(3,user.getLogin());
+			st.setTimestamp(4,new Timestamp(user.getCreateDate()));
+			st.setString(5,user.getPassword());
+			st.setInt(6,user.getRole().getId());
+			st.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
-    @Override
-    public void updateItem(User user) {
+	public boolean addRole(Role role){
+		boolean result = false;
+		ResultSet rs = null;
+		PreparedStatement st = null;
+		try(Connection conn = PoolConnectors.getConnection()) {
+			st = 	conn.prepareStatement("INSERT INTO role(name,root) VALUES (?,?)", java.sql.Statement.RETURN_GENERATED_KEYS );
+			st.setString(1,role.getName());
+			st.setBoolean(2,role.getRoot());
+			st.executeUpdate();
+			rs = st.getGeneratedKeys();
+			if(rs.next()){
+				role.setId(rs.getInt("role_id"));
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(st != null){
+				try {
+					rs.close();
+					st.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
 
-    }
 
-    @Override
-    public void matcherRoot() {
+	public List<User> getUsers(){
 
-    }
+		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
+		ResultSet rs = null;
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email as email, u.name as name, u.login as login, u.create_date as create, u.password as pass, r.name as rname, r.role_id as roleid, r.root as root  FROM users as u left join role as r on u.role = r.role_id") ) {
+			rs = st.executeQuery();
+			while (rs.next()) {
+				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create").getTime(),rs.getString("pass"));
+				Role role = new Role(rs.getString("rname"));
+				role.setId(rs.getInt("roleid"));
+				role.setRoot(rs.getBoolean("root"));
+				user.setRole(role);
+				result.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try{
+				rs.close();
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+
+	public List<Role> getRoles(){
+
+		List<Role> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
+		ResultSet rs = null;
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role") ) {
+			rs = st.executeQuery();
+			while (rs.next()) {
+				Role role = new Role(rs.getString("name"));
+				role.setId(rs.getInt("role_id"));
+				role.setRoot(rs.getBoolean("root"));
+				result.add(role);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try{
+				rs.close();
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public void deleteUser(User user){
+		String email = user.getEmail();
+		if(email != null) {
+			try (Connection conn = PoolConnectors.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM users WHERE email = ?")) {
+				st.setString(1, email);
+				st.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void deleteRole(Role role){
+		String name = role.getName();
+		if(name != null) {
+			try (Connection conn = PoolConnectors.getConnection(); PreparedStatement st = conn.prepareStatement("DELETE FROM role WHERE role.name = ?")) {
+				st.setString(1, name);
+				st.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void updateItem(User user){
+		String email = user.getEmail();
+		if(email != null ){
+			try(Connection conn = PoolConnectors.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE users SET name = ?, email = ? ,login = ?, create_date = ?, role = ? WHERE email = ?") ) {
+				st.setString(1,user.getName());
+				st.setString(2,user.getEmail());
+				st.setString(3,user.getLogin());
+				st.setTimestamp(4,new Timestamp(user.getCreateDate()));
+				st.setString(6,user.getEmail());
+				st.setInt(5,user.getRole().getId());
+				st.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void updateRole(Role role){
+
+		try(Connection conn = PoolConnectors.getConnection(); PreparedStatement st =conn.prepareStatement("UPDATE role SET name = ?, root = ? WHERE role_id = ?") ) {
+			st.setString(1,role.getName());
+			st.setBoolean(2,role.getRoot());
+			st.setInt(3,role.getId());
+			st.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public User isCredential(String login, String password){
+		User findUser = null;
+		for(User user : getUsers()){
+			if(user.getLogin().equals(login) && user.getPassword().equals(password)){
+				findUser = user;
+				break;
+			}
+		}
+		return  findUser;
+	}
+
 }

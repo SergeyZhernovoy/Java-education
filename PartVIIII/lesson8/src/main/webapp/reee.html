@@ -1,0 +1,168 @@
+<html>
+<head>
+    <title>User manager</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+</head>
+<body>
+<nav class="nav navbar-default">
+    <div class="container">
+        <div>
+            <div class="navbar-text">
+                <h5><b>Welcome, <span class="welcome">guest</span>!</b></h5>
+            </div>
+            <div id="user-buttons-block" class="navbar-form navbar-right" hidden>
+                <button id="edit-me-button" class="btn btn-default">Edit my info</button>
+                <button id="logout-button" class="btn btn-danger">Log out</button>
+            </div>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<div class="container">
+
+    <!--Create user block-->
+    <div id="creation-block" class="user-form" hidden>
+        <form accept-charset="UTF-8">
+            <label for="create-login-id">Login: </label>
+            <input id="create-login-id" class="form-control" type="text" name="login"
+                   placeholder="Login" autofocus>
+
+            <label for="create-password-id">Password:</label>
+            <input id="create-password-id" class="form-control" type="text" name="password"
+                   placeholder="Password">
+
+            <label for="create-name-id">Name:</label>
+            <input id="create-name-id" class="form-control" type="text" name="name"
+                   placeholder="Name">
+
+            <label for="create-email-id">Email:</label>
+            <input id="create-email-id" class="form-control" type="text" name="email"
+                   placeholder="Email">
+
+            <label for="create-role-id">Role:</label>
+            <select id="create-role-id" class="form-control" name="role">
+                <option value="user" selected>User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </form>
+        <hr>
+        <button id="send-create" class="btn btn-success">Create user</button>
+        <button id="return-from-create" class="btn btn-warning">Return back</button>
+        <div class="alert" id="message">
+        </div>
+    </div>
+
+    <!--Edit user block-->
+    <div id="edition-block" class="user-form" hidden>
+        <form action="#" method="post" accept-charset="utf-8">
+            <label for="edit-id-id">ID:</label>
+            <input id="edit-id-id" class="form-control" type="text" name="id"
+                   placeholder="ID" required readonly>
+
+            <label for="edit-login-id">Login:</label>
+            <input id="edit-login-id" class="form-control" type="text" name="login"
+                   placeholder="Login" required autofocus>
+
+            <label for="edit-password-id">Password:</label>
+            <input id="edit-password-id" class="form-control" type="text" name="password"
+                   placeholder="Password" required>
+
+            <label for="edit-name-id">Name:</label>
+            <input id="edit-name-id" class="form-control" type="text" name="name"
+                   placeholder="Name" required>
+
+            <label for="edit-email-id">Email:</label>
+            <input id="edit-email-id" class="form-control" type="email" name="email"
+                   placeholder="Email" required>
+
+            <label for="edit-role-id">Role:</label>
+            <select id="edit-role-id" class="form-control" name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </form>
+        <hr>
+        <button id="send-edit" class="btn btn-success">Edit user</button>
+        <button id="return-from-edit" class="btn btn-warning">Return back</button>
+        <div class="alert" id="edit-message">
+        </div>
+    </div>
+
+    <!--Delete user block-->
+    <div id="deletion-block" class="user-form" hidden>
+        <form action="#" method="post" accept-charset="utf-8">
+            <label for="delete-id-id">ID:</label>
+            <input id="delete-id-id" class="form-control" type="text" name="id"
+                   placeholder="ID" required readonly>
+
+            <label for="delete-login-id">Login:</label>
+            <input id="delete-login-id" class="form-control" type="text" name="login"
+                   placeholder="Login" disabled>
+
+            <label for="delete-password-id">Password:</label>
+            <input id="delete-password-id" class="form-control" type="text" name="password"
+                   placeholder="Password" disabled>
+
+            <label for="delete-name-id">Name:</label>
+            <input id="delete-name-id" class="form-control" type="text" name="name"
+                   placeholder="Name" disabled>
+
+            <label for="delete-email-id">Email:</label>
+            <input id="delete-email-id" class="form-control" type="email" name="email"
+                   placeholder="Email" disabled>
+
+            <label for="delete-role-id">Role:</label>
+            <select id="delete-role-id" class="form-control" name="role" disabled>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </form>
+        <hr>
+        <button id="send-delete" class="btn btn-success">Delete user</button>
+        <button id="return-from-delete" class="btn btn-warning">Return back</button>
+        <div id="delete-message" class="alert alert-warning">
+            Are you sure you want to delete user?
+        </div>
+    </div>
+
+    <!--table block with all users-->
+    <div id="table-block" hidden>
+        <button id="refresh-button" class="btn btn-info">Refresh data</button>
+        <hr>
+        <button id="creation-block-button" class="btn btn-default">Create user</button>
+        <button disabled id="edition-block-button" class="btn btn-default">Edit user</button>
+        <button disabled id="delete-block-button" class="btn btn-default">Delete user</button>
+        <hr>
+        <table id="users" class="table table-striped table-bordered" style="border: 1px solid black;" border="1"
+               cellpadding="1"
+               cellspacing="1">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!--authorization block-->
+    <div id="auth-block" class="user-form">
+        <form accept-charset="UTF-8">
+            <label for="auth-login-id">Login: </label>
+            <input id="auth-login-id" class="form-control" type="text" name="login"
+                   placeholder="Login" autofocus>
+
+            <label for="auth-password-id">Password:</label>
+            <input id="auth-password-id" class="form-control" type="password" name="password"
+                   placeholder="Password">
+        </form>
+        <button id="auth-button" class="btn btn-success">Sign in</button>
+        <div class="alert" id="auth-message">
+        </div>
+    </div>
+</div>
+</body>
+</html>

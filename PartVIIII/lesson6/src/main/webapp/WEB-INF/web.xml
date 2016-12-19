@@ -50,16 +50,6 @@
         </servlet-mapping>
 
         <servlet>
-            <servlet-name>Singin</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.SinginController</servlet-class>
-        </servlet>
-
-        <servlet-mapping>
-            <servlet-name>Singin</servlet-name>
-            <url-pattern>/signin</url-pattern>
-        </servlet-mapping>
-
-        <servlet>
             <servlet-name>createrole</servlet-name>
             <servlet-class>ru.szhernovoy.controllers.RoleCreate</servlet-class>
         </servlet>
