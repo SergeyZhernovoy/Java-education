@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function loadUsers() {
+            $.ajax('./json',{
+                method: 'get',
+                complete: function (data) {
+                    var result = "<tr>"+
+                        "<td>Login</td>"+
+                        "<td>Email</td>"+
+                        "</tr>";
+
+                    var users = JSON.parse(data.responseText);
+                    for(var index =0 ; index < users.length;index++){
+                        result += "<tr>"+
+                            "<td>"+users[index].login +"</td>"+
+                            "<td>"+users[index].email +"</td>"+
+                            "</tr>";
+                    }
+                    var table = document.getElementById("users");
+                    table.innerHTML = result;
+                }
+            });
+        }
+
+        function createUser() {
+            $.ajax('./json',{
+                method: 'post',
+                data: {login : document.getElementsByName("name")[0].value}
+                complete : loadUsers()
+            })
+            return false;
+        }
+
+
+    </script>
+</head>
+<body>
+    <div class="center">
+        <form action="\items" method="post" onsubmit="return validate();">
+            <input type="hidden" name="user_id">
+            Name: <input type = text name="name"></br>
+            Sex: <input type = radio name="sex">Male<input type = radio name="sex">Female</br>
+            Password: <input type = password name="password"></br>
+            Description: <textarea name="description"></textarea><br>
+            Resume<input type = file name = "file"><br>
+            Agreements: <input type="checkbox" name="agreement"><br>
+            <select name = "city">
+                <option>Moscow</option>
+                <option>Spb</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+            <input type="button" value="Ajax" onclick="return createUser()">
+        </form>
+    </div>
+    <br><br>
+
+<div class="center">
+    <table id = "users" style="border: 1px solid #000000" border="1" cellpadding="1" cellspacing="0">
+        <thead>
+        <th>login</th>
+        <th>email</th>
+        </thead>
+        <tr>
+            <td>Login</td>
+            <td>Email</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

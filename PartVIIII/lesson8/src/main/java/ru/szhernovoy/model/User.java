@@ -14,10 +14,10 @@ public class User {
     private String password;
     private Role role;
     private String id;
-    private Country country;
-    private City city;
+    private String country;
+    private String city;
 
-    public User(String email, String name, String login, long createDate, String password, Role role, String id, Country country, City city) {
+    public User(String email, String name, String login, long createDate, String password, Role role, String id, String country, String city) {
         this.email = email;
         this.name = name;
         this.login = login;
@@ -41,19 +41,19 @@ public class User {
         this.id = id;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
     }
 

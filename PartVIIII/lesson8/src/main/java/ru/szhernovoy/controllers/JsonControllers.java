@@ -82,7 +82,7 @@ public class JsonControllers extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/json");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        writer.append("[{'login':'root', 'email' : 'root@mail.ru'},{'login':'root', 'email' : 'root@mail.ru'} ]");
+        writer.append("[{\"login\":\"root\", \"email\" : \"root@mail.ru\"},{\"login\":\"root\", \"email\" : \"root@mail.ru\"} ]");
         writer.flush();
     }
 
@@ -142,7 +142,7 @@ public class JsonControllers extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
     }
 
 
