@@ -5,45 +5,108 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type = "text/javascript" src="WEB-INF/js/scripts.js"></script>
-    <link rel="stylesheet" href="WEB-INF/css/style.css">
-
-
+    <link href="WEB-INF/css/style.css" rel="stylesheet">
+    <link href="WEB-INF/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="WEB-INF/css/grayscale.min.css" rel="stylesheet">
+    <!-- Theme JavaScript -->
+    <script src="WEB-INF/js/grayscale.min.js"></script>
 </head>
-<body class="main">
+    <body>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#autorization">Авторизация</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#about">О задании</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#contact">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+        <!-- Intro Header -->
+        <section id="autorization" class="intro">
+            <div class="intro-body">
+                    <div class="container">
+                        <div class="auth-box">
+                            <h3 align="left">Авторизация</h3>
+                            <form>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input id="login" type="text" class="form-control" name="login" placeholder="Login">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                                </div>
+                                <br>
+                                <button id = "auth-btn" type="button" class="btn btn-success">Ввойти</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="container content-section text-left">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2 align="center">О задании </h2>
+                    <ul style="list-style-type:disc">
+                        <li>Попробовать изменить интерфейс. Сделать его более красивым за счет html и css.</li>
+                        <li>Добавить проверку введенных данных на стороне клиента с помощью js.</li>
+                        <li>Добавить два поля в модель пользователя Страна и город.</li>
+                        <li>В форме создания и редактирования, динамически через ajax Заполнять список городов. Если город изменили. То нужно перегрузить форму.</li>
+                        <li>Добавить проверку введенных данных на стороне сервера.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
 
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-text">
-            <h5><b>Web crud</b></h5>
-        </div>
+        <!-- Contact Section -->
+        <section id="contact" class="container content-section text-center">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Напишите мне...</h2>
+                    <p>Готов помочь всем, у кого возникли проблемы с выполнением этого задания</p>
+                    <p><a href="mailto:s_jernov@mail.ru">s_jernov@mail.ru</a>
+                    </p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://github.com/SergeyZhernovoy/Java-education" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Уроки на Github </span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-    </div>
-</nav>
-
-<div class="container">
-    <div class="auth-box">
-    <h3>Авторизация</h3>
-    <form>
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="login" type="text" class="form-control" name="login" placeholder="Login">
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-        </div>
-        <br>
-        <button id = "auth-btn" type="button" class="btn btn-success">Ввойти</button>
-    </form>
-    <br>
-    </div>
-</div>
+        <!-- Footer -->
+        <footer>
+            <div class="container text-center">
+                <p>Copyright &copy; Sergey Zhernovoy 2016</p>
+            </div>
+        </footer>
 
 
 
-</body>
+    </body>
 </html>
