@@ -62,13 +62,13 @@
         </servlet-mapping>
 
         <servlet>
-            <servlet-name>Json controller</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.JsonControllers</servlet-class>
+            <servlet-name>Signin controller</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.SigninController</servlet-class>
         </servlet>
 
         <servlet-mapping>
-            <servlet-name>Json controller</servlet-name>
-            <url-pattern>/json</url-pattern>
+            <servlet-name>Signin controller</servlet-name>
+            <url-pattern>/signin</url-pattern>
         </servlet-mapping>
 
 

@@ -24,47 +24,7 @@ public class DBManager {
 		return dbManager;
 	}
 
-	public  void matcherRoot() {
-
-		if (!existRootUser()) {
-			User rootUser = new User("root@mail.ru", "root", "root", System.currentTimeMillis(), "root");
-			if (!existRootRole()) {
-				Role rootRole = new Role("root");
-				rootRole.setRoot(true);
-				addRole(rootRole);
-				rootUser.setRole(rootRole);
-			}
-			addUser(rootUser);
-		}
-	}
-
-	public  boolean existRootUser(){
-		boolean exist = false;
-
-		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users left join role ON users.role = role.role_id where role.root = TRUE");ResultSet rs = st.executeQuery()) {
-			if(rs!= null && rs.next()) {
-				exist = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return exist;
-	}
-
-	public  boolean existRootRole(){
-
-		boolean exist = false;
-		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM role where role.root = TRUE");ResultSet rs = st.executeQuery()) {
-			if (rs!=null && rs.next()) {
-				exist = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return exist;
-	}
-
+/*
 	public boolean addUser(User user){
 		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = 	conn.prepareStatement("INSERT INTO users(name,email,login,create_date,password,role) VALUES (?,?,?,?,?,?)")) {
 			st.setString(1,user.getName());
@@ -110,15 +70,15 @@ public class DBManager {
 		return result;
 	}
 
-
+*/
 	public List<User> getUsers(){
 
 		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		ResultSet rs = null;
-		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email as email, u.name as name, u.login as login, u.create_date as create, u.password as pass, r.name as rname, r.role_id as roleid, r.root as root  FROM users as u left join role as r on u.role = r.role_id") ) {
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email as email, u.name as name, u.login as login, u.create_date as create, u.password as pass, r.name as rname, r.role_id as roleid, r.root as root, u.country as country, u.city as city  FROM users as u left join role as r on u.role = r.role_id") ) {
 			rs = st.executeQuery();
 			while (rs.next()) {
-				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create").getTime(),rs.getString("pass"));
+				User user = new User(rs.getString("email"),rs.getString("name"),rs.getString("login") ,rs.getTimestamp("create").getTime(),rs.getString("pass"),rs.getString("country"),rs.getString("city"));
 				Role role = new Role(rs.getString("rname"));
 				role.setId(rs.getInt("roleid"));
 				role.setRoot(rs.getBoolean("root"));
@@ -139,6 +99,7 @@ public class DBManager {
 		return result;
 	}
 
+	/*
 	public List<Role> getRoles(){
 
 		List<Role> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
@@ -216,7 +177,7 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	public User isCredential(String login, String password){
 		User findUser = null;
 		for(User user : getUsers()){

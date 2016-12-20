@@ -13,32 +13,21 @@ public class User {
     private long createDate;
     private String password;
     private Role role;
-    private String id;
     private String country;
     private String city;
 
-    public User(String email, String name, String login, long createDate, String password, Role role, String id, String country, String city) {
+    public User(String email, String name, String login, long createDate, String password, String country, String city) {
         this.email = email;
         this.name = name;
         this.login = login;
         this.createDate = createDate;
         this.password = password;
-        this.role = role;
-        this.id = id;
         this.country = country;
         this.city = city;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCountry() {

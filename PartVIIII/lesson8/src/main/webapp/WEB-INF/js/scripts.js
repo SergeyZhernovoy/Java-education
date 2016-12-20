@@ -148,50 +148,6 @@ $(document).ready(function () {
         });
     });
 
-    $("#auth-button").click(function () {
-        var login = $("#auth-login-id");
-        var password = $("#auth-password-id");
-        if (Boolean(isValid(login) & isValid(password))) {
-            $.ajax({
-                url: "signin",
-                method: "POST",
-                data: {
-                    "login": login.val(),
-                    "password": password.val()
-                },
-                success: function (data) {
-                    console.log(data);
-                    if (data == "error") {
-                        authMessage.text("Not valid login-password!");
-                        authMessage.removeClass();
-                        authMessage.addClass("alert alert-danger");
-                        showMessage(authMessage);
-                    } else {
-                        currentClient = JSON.parse(data);
-                        createTableHeader();
-                        $('#refresh-button').trigger('click');
-                        if (currentClient.role == "user") {
-                            hideBlock($("#creation-block-button"));
-                            hideBlock($("#edition-block-button"));
-                            hideBlock($("#delete-block-button"));
-                            $("#edit-role-id").attr('disabled', '');
-                        }
-                        $(".welcome").text(currentClient.name);
-                        hideBlock($("#auth-block"));
-                        showBlock($("#table-block"), animationTime);
-                        showBlock($("#user-buttons-block"));
-
-                    }
-                }
-            });
-        } else {
-            authMessage.text("Please, fill all inputs");
-            authMessage.removeClass();
-            authMessage.addClass("alert alert-danger");
-            showMessage(authMessage);
-        }
-    });
-
 
 
     function createRow(element) {
