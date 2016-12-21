@@ -37,12 +37,12 @@ public class UserUpdate extends javax.servlet.http.HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("users", DBManager.newInstance().getUsers());
-        req.setAttribute("roles", DBManager.newInstance().getRoles());
+      //  req.setAttribute("users", DBManager.newInstance().getUsers());
+      //  req.setAttribute("roles", DBManager.newInstance().getRoles());
         HttpSession session = req.getSession(false);
         if(!(Boolean) session.getAttribute("root")){
             req.setAttribute("email",((User)session.getAttribute("user")).getEmail());
-            req.setAttribute("role",((User)session.getAttribute("user")).getRole().getId());
+      //      req.setAttribute("role",((User)session.getAttribute("user")).getRole().getId());
         }
 
         req.getRequestDispatcher("/WEB-INF/views/Update.jsp").forward(req,resp);

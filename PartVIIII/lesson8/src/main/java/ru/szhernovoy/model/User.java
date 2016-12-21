@@ -8,50 +8,59 @@ import java.util.Date;
  */
 public class User {
     private final String email;
-    private final String name;
     private final String login;
     private long createDate;
     private String password;
-    private Role role;
-    private String country;
-    private String city;
+    private int country_id;
+    private int city_id;
+    private String nameCountry;
+    private String nameCity;
 
-    public User(String email, String name, String login, long createDate, String password, String country, String city) {
+    public User(String email, String login, long createDate, String password) {
         this.email = email;
-        this.name = name;
         this.login = login;
         this.createDate = createDate;
         this.password = password;
-        this.country = country;
-        this.city = city;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getCountry() {
-        return country;
+    public int getCountry_id() {
+        return country_id;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountry_id(int country_id) {
+        this.country_id = country_id;
     }
 
-    public String getCity() {
-        return city;
+    public int getCity_id() {
+        return city_id;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public String getNameCountry() {
+        return nameCountry;
+    }
+
+    public void setNameCountry(String nameCountry) {
+        this.nameCountry = nameCountry;
+    }
+
+    public String getNameCity() {
+        return nameCity;
+    }
+
+    public void setNameCity(String nameCity) {
+        this.nameCity = nameCity;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getLogin() {
@@ -66,17 +75,4 @@ public class User {
         return password;
     }
 
-    @Override
-    public String toString() {
-        return  String.format("User - name:%s; login:%s; email:%s; create:%s",name,login,email,new Date(createDate).toString());
-
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

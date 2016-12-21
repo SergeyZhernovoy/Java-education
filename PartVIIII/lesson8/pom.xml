@@ -11,20 +11,20 @@
 
     <groupId>lesson8</groupId>
     <artifactId>Front</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+
         <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/taglibs/standard -->
         <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc41</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->

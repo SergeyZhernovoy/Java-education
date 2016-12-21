@@ -1,6 +1,5 @@
 <web-app>
 
-
         <servlet>
             <servlet-name>create</servlet-name>
             <servlet-class>ru.szhernovoy.controllers.UserCreate</servlet-class>
@@ -32,44 +31,25 @@
         </servlet-mapping>
 
         <servlet>
-            <servlet-name>createrole</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.RoleCreate</servlet-class>
+            <servlet-name>Authentication controller</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.AuthenticationController</servlet-class>
         </servlet>
 
         <servlet-mapping>
-            <servlet-name>createrole</servlet-name>
-            <url-pattern>/createrole</url-pattern>
-        </servlet-mapping>
-
-        <servlet>
-            <servlet-name>deleterole</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.RoleDelete</servlet-class>
-        </servlet>
-
-        <servlet-mapping>
-            <servlet-name>deleterole</servlet-name>
-            <url-pattern>/deleterole</url-pattern>
-        </servlet-mapping>
-
-        <servlet>
-            <servlet-name>updaterole</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.RoleUpdate</servlet-class>
-        </servlet>
-
-        <servlet-mapping>
-            <servlet-name>updaterole</servlet-name>
-            <url-pattern>/updaterole</url-pattern>
-        </servlet-mapping>
-
-        <servlet>
-            <servlet-name>Signin controller</servlet-name>
-            <servlet-class>ru.szhernovoy.controllers.SigninController</servlet-class>
-        </servlet>
-
-        <servlet-mapping>
-            <servlet-name>Signin controller</servlet-name>
+            <servlet-name>Authentication controller</servlet-name>
             <url-pattern>/signin</url-pattern>
         </servlet-mapping>
+
+        <servlet>
+            <servlet-name>Get info controller</servlet-name>
+            <servlet-class>ru.szhernovoy.controllers.GetInformation</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>Get info controller</servlet-name>
+            <url-pattern>/info</url-pattern>
+        </servlet-mapping>
+
 
 
 </web-app>

@@ -16,26 +16,27 @@ import java.io.PrintWriter;
 /**
  * Created by admin on 11.12.2016.
  */
-public class SigninController extends HttpServlet{
+public class AuthenticationController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        DBManager.newInstance().matcherRoot();
         User user = DBManager.newInstance().isCredential(login,password);
         JsonObject json = new JsonObject();
         boolean result = false;
         if(user!=null){
-            HttpSession session = req.getSession(false);
+            HttpSession session = req.getSession();
             session.setAttribute("login",login);
-            session.setAttribute("root",user.getRole().getRoot());
             session.setAttribute("user",user);
             result = true;
         }
         json.addProperty("isValid",result);
         PrintWriter out = new PrintWriter(resp.getOutputStream());
         out.append(json.getAsString());
+        out.flush();
     }
 
 
