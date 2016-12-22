@@ -33,11 +33,38 @@
                     <div class="container">
                      <form class="form-horizontal">
                          <div class="form-group has-success has-feedback">
-                             <label class="col-sm-3 control-label" >Name</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control">
-                                </div>
+                             <label for = "login_field" class="col-sm-3 control-label" >Login <span class="glyphicon glyphicon-password"></span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id = "login_field">
+                            </div>
+                             <label for="password_field"  class="col-sm-3 control-label" >Password</label>
+                             <div class="col-sm-8">
+                                 <input type="password" class="form-control" id = "password_field">
+                             </div>
+                             <label for="email_field"  class="col-sm-3 control-label" >Email <span style="color: blue" class="glyphicon glyphicon-envelope"></span></label>
+                             <div class="col-sm-8">
+                                 <input type="text" class="form-control" id = "email_field">
+                             </div>
+
+                             <label  for="city_id" class="col-sm-3 control-label" >City</label>
+                             <div class="col-sm-8">
+                                 <select id="city_id" class="form-control">
+                                    <option value="1">Moscow</option>
+                                     <option value="1">we</option>
+                                     <option value="1">ew</option>
+                                 </select>
+                             </div>
+                             <label for="country_id"  class="col-sm-3 control-label" >Country</label>
+                             <div class="col-sm-8">
+                                 <select id="country_id" class="form-control" >
+                                     <option value="1">Moscow</option>
+                                     <option value="1">we</option>
+                                     <option value="1">ew</option>
+                                 </select>
+                             </div>
                          </div>
+                         <button id = "create-btn" type="button" class="btn btn-default">
+                             <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Create</button>
                      </form>
                     </div>
                 </div>
@@ -49,7 +76,33 @@
                     </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
-                   раз 2
+                    <div class="container">
+                        <form class="form-horizontal">
+                            <div class="form-group has-success has-feedback">
+                                <label for="ulogin_field" class="col-sm-3 control-label" >Login</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id = "ulogin_field">
+                                </div>
+                                <label for="upassword_field"  class="col-sm-3 control-label" >Password</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id = "upassword_field">
+                                </div>
+                                <label for="uemail_field"  class="col-sm-3 control-label" >Email</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id = "uemail_field">
+                                </div>
+                                <label for="ucity_field"  class="col-sm-3 control-label" >City</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id = "ucity_field">
+                                </div>
+                                <label for="ucountry_field" class="col-sm-3 control-label" >Country</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id = "ucountry_field">
+                                </div>
+                            </div>
+                            <button id = "update-btn" type="button" class="btn btn-default">Update</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -59,10 +112,19 @@
                     </h4>
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
-                   раз 3
+                    <div class="container">
+                        <form class="form-horizontal">
+                            <div class="form-group has-success has-feedback">
+                                <label for="dlogin_field" class="col-sm-3 control-label" >Login</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id = "dlogin_field">
+                                </div>
+                            </div>
+                            <button  id = "delete-btn" type="button" class="btn btn-default">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -73,9 +135,6 @@
 
                 </div>
             </div>
-
-
-
         </div>
     </div>
     </div>
