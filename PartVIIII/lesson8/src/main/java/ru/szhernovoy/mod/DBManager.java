@@ -4,7 +4,7 @@
 *это класс хранения заявок 
 */
 
-package ru.szhernovoy.model;
+package ru.szhernovoy.mod;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class DBManager {
 	public  boolean existRootUser(){
 		boolean exist = false;
 
-		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users where users.login LIKE 'root'");ResultSet rs = st.executeQuery()) {
+		try(Connection conn = PoolConnectors.getConnection(); PreparedStatement st = conn.prepareStatement("SELECT * FROM users where users.login LIKE 'root'"); ResultSet rs = st.executeQuery()) {
 			if(rs!= null && rs.next()) {
 				exist = true;
 			}

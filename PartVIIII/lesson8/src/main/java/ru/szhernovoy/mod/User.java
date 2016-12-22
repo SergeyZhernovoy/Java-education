@@ -1,4 +1,4 @@
-package ru.szhernovoy.model;
+package ru.szhernovoy.mod;
 
 
 import java.util.Date;

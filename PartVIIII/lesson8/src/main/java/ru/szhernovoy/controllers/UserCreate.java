@@ -3,7 +3,8 @@
  */
 package ru.szhernovoy.controllers;
 
-import ru.szhernovoy.model.*;
+import ru.szhernovoy.mod.DBManager;
+import ru.szhernovoy.mod.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -5,6 +5,7 @@
 $(document).ready(function () {
 
     $("#auth-btn").click(function () {
+
         var login = $("#login");
         var password = $("#password");
         if (login != '') {
@@ -14,9 +15,8 @@ $(document).ready(function () {
                 data: {'login': login.val(),'password': password.val()},
                 complete: function (data) {
                     var result = JSON.parse(data.responseText);
-                    alert(111);
                     if(Boolean(result.isValid)){
-                        location.href = "/crud/pages/CrudView.html";
+                        location.href = result.nextPage;
                     }
                     else{
                         alert("Please input correct login");

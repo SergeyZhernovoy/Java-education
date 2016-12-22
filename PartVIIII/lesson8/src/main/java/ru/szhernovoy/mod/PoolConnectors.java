@@ -1,4 +1,4 @@
-package ru.szhernovoy.model;/**
+package ru.szhernovoy.mod;/**
  * Created by szhernovoy on 15.12.2016.
  */
 

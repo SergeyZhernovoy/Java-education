@@ -2,8 +2,8 @@ package ru.szhernovoy.controllers;
 
 
 import com.google.gson.JsonObject;
-import ru.szhernovoy.model.DBManager;
-import ru.szhernovoy.model.User;
+import ru.szhernovoy.mod.DBManager;
+import ru.szhernovoy.mod.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +23,7 @@ public class AuthenticationController extends HttpServlet{
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        String next = String.format("%s/pages/CrudView.html",req.getContextPath());
         DBManager.newInstance().matcherRoot();
         User user = DBManager.newInstance().isCredential(login,password);
         JsonObject json = new JsonObject();
@@ -34,8 +35,9 @@ public class AuthenticationController extends HttpServlet{
             result = true;
         }
         json.addProperty("isValid",result);
+        json.addProperty("nextPage",next);
         PrintWriter out = new PrintWriter(resp.getOutputStream());
-        out.append(json.getAsString());
+        out.append(json.toString());
         out.flush();
     }
 
