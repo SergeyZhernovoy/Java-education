@@ -63,11 +63,13 @@ $(document).ready(function () {
         }
     });
 
-    $("#collapse4").click(function () {
+    $("#collapse1").click(function () {
             $.ajax({
                 url: "info",
                 method: "get",
                 datatype: 'json',
+                data : {'city' : true,
+                        'country': true},
                 complete: function (data) {
                     var result = JSON.parse(data.responseText);
                     if(Boolean(result.successCreate)){
@@ -79,6 +81,10 @@ $(document).ready(function () {
                 }
             });
     });
+
+
+
+
 
 });
 

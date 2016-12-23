@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Lesson1</groupId>
+    <groupId>lesson1</groupId>
     <artifactId>SRP</artifactId>
     <version>1.0.0</version>
     <name>SPR</name>

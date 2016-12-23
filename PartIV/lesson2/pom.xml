@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Lesson2</groupId>
+    <groupId>lesson2</groupId>
     <artifactId>OCP</artifactId>
     <name>OCP</name>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>Lesson1</groupId>
+            <groupId>lesson1</groupId>
             <artifactId>SRP</artifactId>
             <version>1.0.0</version>
         </dependency>
