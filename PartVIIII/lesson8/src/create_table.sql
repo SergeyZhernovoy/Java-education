@@ -2,12 +2,12 @@
 --table author
 
 create table if not exists city(
-    city_id serial primary key NOT NULL,
+    id serial primary key NOT NULL,
     name  CHARACTER VARYING (50) NOT NULL UNIQUE
 );
 
 create table if not exists country(
-    country_id serial primary key NOT NULL,
+    id serial primary key NOT NULL,
     name  CHARACTER VARYING (50) NOT NULL UNIQUE
 );
 
@@ -17,8 +17,8 @@ create table if not exists users(
     login CHARACTER VARYING(25),
     create_date TIMESTAMP without time ZONE,
     password CHARACTER VARYING(25) NOT NULL,
-    city INTEGER REFERENCES city(city_id),
-    country INTEGER REFERENCES country(country_id)
+    city INTEGER REFERENCES city(id),
+    country INTEGER REFERENCES country(id)
 );
 
 INSERT INTO public.country(name)  VALUES ('Russia');

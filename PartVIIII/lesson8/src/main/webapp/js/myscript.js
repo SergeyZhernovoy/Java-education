@@ -44,10 +44,9 @@ $(document).ready(function () {
                 data: {'login': login.val(),
                        'password': password.val(),
                        'email':email.val(),
-                       'city': city.val(),
-                       'country': country.val()
+                       'city': 1,
+                       'country': 1
                 },
-                datatype: 'json',
                 complete: function (data) {
                     var result = JSON.parse(data.responseText);
                     if(Boolean(result.successCreate)){
@@ -63,24 +62,23 @@ $(document).ready(function () {
         }
     });
 
-    $("#collapse1").click(function () {
+
+
+    function GetCountryCity() {
             $.ajax({
                 url: "info",
                 method: "get",
                 datatype: 'json',
-                data : {'city' : true,
-                        'country': true},
+                data : {'city' : 'true',
+                        'country': 'true',
+                        'login' : 'false',
+                        'user':'false'},
                 complete: function (data) {
                     var result = JSON.parse(data.responseText);
-                    if(Boolean(result.successCreate)){
-                        alert("Success create user")
-                    }
-                    else{
-                        alert("Bad try create user. Try again");
-                    }
+
                 }
             });
-    });
+    };
 
 
 

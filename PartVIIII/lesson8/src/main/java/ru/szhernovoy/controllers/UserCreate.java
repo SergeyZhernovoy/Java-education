@@ -3,21 +3,29 @@
  */
 package ru.szhernovoy.controllers;
 
+import com.google.gson.JsonObject;
 import ru.szhernovoy.mod.DBManager;
 import ru.szhernovoy.mod.User;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
-public class UserCreate extends javax.servlet.http.HttpServlet {
+public class UserCreate extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User(req.getParameter("email"), req.getParameter("login"), System.currentTimeMillis(),req.getParameter("password"));
         DBManager.newInstance().addUser(user);
+        PrintWriter out = resp.getWriter();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("successCreate",true);
+        out.append(jsonObject.toString());
+        out.flush();
     }
 
 }

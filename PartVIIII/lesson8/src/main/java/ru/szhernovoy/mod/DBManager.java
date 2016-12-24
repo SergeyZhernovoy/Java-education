@@ -8,7 +8,9 @@ package ru.szhernovoy.mod;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class DBManager {
@@ -113,11 +115,11 @@ public class DBManager {
 		return result;
 	}
 
-	public List<String> getCityOrCountry(int type){
-		List<String> result = new ArrayList<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
-		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement(String.format("SELECT * FROM %s ORDER BY %s",type == 1 ? "country" : "city",type == 1 ? "country_id" : "city_id"  ));ResultSet rs = st.executeQuery() ) {
+	public Map<Integer,String> getCityOrCountry(int type){
+		Map<Integer,String> result = new HashMap<>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement(String.format("SELECT obj.name, obj.id FROM %s AS obj ORDER BY id",type == 1 ? "country" : "city"));ResultSet rs = st.executeQuery() ) {
 		    while (rs.next()) {
-				result.add(rs.getString("name"));
+				result.put(rs.getInt("id"),rs.getString("name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
