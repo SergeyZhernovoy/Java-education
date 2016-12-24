@@ -91,7 +91,7 @@ public class DBManager {
 
 		List<User> result = new ArrayList<User>();//new Item[];// позиция всегда указывает на пустой или возможно пустой элемент
 		ResultSet rs = null;
-		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email, u.login, u.create_date as create, u.password as pass, c.name as cname, u.city as cid, ctr.name as ctrname, u.country as ctrid  FROM users as u left join city as c on u.city = c.city_id left join country as ctr on u.country = ctr.country_id") ) {
+		try(Connection conn = PoolConnectors.getConnection();PreparedStatement st = conn.prepareStatement("SELECT u.email, u.login, u.create_date as create, u.password as pass, c.name as cname, u.city as cid, ctr.name as ctrname, u.country as ctrid  FROM users as u left join city as c on u.city = c.id left join country as ctr on u.country = ctr.id") ) {
 			rs = st.executeQuery();
 			while (rs.next()) {
 				User user = new User(rs.getString("email"),rs.getString("login") ,rs.getTimestamp("create").getTime(),rs.getString("pass"));

@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonWriter;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import ru.szhernovoy.mod.DBManager;
+import ru.szhernovoy.mod.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,46 +34,73 @@ public class GetInformation extends HttpServlet {
         boolean user = Boolean.valueOf(req.getParameter("user"));
         resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
-        PrintWriter out = resp.getWriter();
+        PrintWriter out = new PrintWriter(resp.getOutputStream());
+        JsonObject jsonObject = new JsonObject();
         if(country){
-            out.append(getCountry());
+           jsonObject.addProperty("country",getCountry().toString());
         }
         if(city){
-            out.append(getCity());
+           jsonObject.addProperty("city",getCity().toString());
         }
         if(login){
-            out.append(getLogin());
+           jsonObject.addProperty("login",getLogin().toString());
         }
         if(user){
-            out.append(getUser());
+           jsonObject.addProperty("user",getUsers().toString());
         }
+        out.append(jsonObject.toString());
         out.flush();
     }
 
-    public String getCountry(){
-
+    public JsonArray getCountry(){
         Map<Integer,String> country = DBManager.newInstance().getCityOrCountry(1);
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("country",new Gson().toJson(country));
-        return jsonObject.toString();
-
+        JsonArray array = new JsonArray();
+        Set<Integer> keys = country.keySet();
+        for (Integer key : keys){
+             JsonObject obj = new JsonObject();
+             obj.addProperty("id",key);
+             obj.addProperty("name",country.get(key));
+             array.add(obj);
+        }
+        return array;
     }
 
-    public String getCity(){
+    public JsonArray getCity(){
         Map<Integer,String> city = DBManager.newInstance().getCityOrCountry(2);
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("city",new Gson().toJson(city));
-        return jsonObject.toString();
+        JsonArray array = new JsonArray();
+        Set<Integer> keys = city.keySet();
+        for (Integer key : keys){
+            JsonObject obj = new JsonObject();
+            obj.addProperty("id",key);
+            obj.addProperty("name",city.get(key));
+            array.add(obj);
+        }
+        return array;
     }
 
-    public String getLogin(){
-        JsonObject json = new JsonObject();
-        return json.toString();
+    public JsonArray getLogin(){
+        JsonArray array = new JsonArray();
+        for(User user : DBManager.newInstance().getUsers()){
+           JsonObject obj = new JsonObject();
+           obj.addProperty("log",user.getLogin());
+           array.add(obj);
+        }
+        return array;
     }
 
-    public String getUser(){
-        JsonObject json = new JsonObject();
-        return json.toString();
+    public JsonArray getUsers(){
+        JsonArray array = new JsonArray();
+        for(User user : DBManager.newInstance().getUsers()){
+            JsonObject obj = new JsonObject();
+            obj.addProperty("login",user.getLogin());
+            obj.addProperty("email",user.getEmail());
+            obj.addProperty("city",user.getNameCity());
+            obj.addProperty("country",user.getNameCountry());
+            obj.addProperty("date",user.getCreateDate().toString());
+            obj.addProperty("password",user.getPassword());
+            array.add(obj);
+        }
+        return array;
     }
 
 }

@@ -23,7 +23,7 @@ public class AuthenticationController extends HttpServlet{
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        String next = String.format("%s/pages/CrudView.html",req.getContextPath());
+        String next = String.format("%s/CrudView.html",req.getContextPath());
         DBManager.newInstance().matcherRoot();
         User user = DBManager.newInstance().isCredential(login,password);
         JsonObject json = new JsonObject();
