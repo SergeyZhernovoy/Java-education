@@ -1,7 +1,6 @@
 /**
  * Created by admin on 24.12.2016.
  */
-package ru.szhernovoy;
 
 /**
  Существуют 4 сущности:
