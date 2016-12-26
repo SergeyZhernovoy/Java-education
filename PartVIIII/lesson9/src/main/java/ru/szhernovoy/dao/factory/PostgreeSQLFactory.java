@@ -18,7 +18,7 @@ import java.sql.SQLException;
  */
 public class PostgreeSQLFactory extends DAOFactory {
     private final static Logger log = LoggerFactory.getLogger(PostgreeSQLFactory.class);
-    private static PostgreeSQLFactory postgreeSQLFactory = new PostgreeSQLFactory();
+    private static PostgreeSQLFactory postgreeSQLFactory ;
     private ComboPooledDataSource pool;
 
     private PostgreeSQLFactory(){
@@ -36,6 +36,9 @@ public class PostgreeSQLFactory extends DAOFactory {
     }
 
     public synchronized static PostgreeSQLFactory getInstance(){
+        if(postgreeSQLFactory == null){
+            postgreeSQLFactory = new PostgreeSQLFactory();
+        }
         return postgreeSQLFactory;
     }
 
