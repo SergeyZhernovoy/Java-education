@@ -5,7 +5,6 @@ package ru.szhernovoy.controllers;
 
 import ru.szhernovoy.model.DBManager;
 import ru.szhernovoy.model.Role;
-import ru.szhernovoy.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

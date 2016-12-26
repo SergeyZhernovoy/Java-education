@@ -1,6 +1,6 @@
-package ru.szhernovoy.model.dao.interfaces;
+package ru.szhernovoy.dao.interfaces;
 
-import ru.szhernovoy.model.Address;
+import ru.szhernovoy.dao.value.Address;
 
 import java.util.Collection;
 

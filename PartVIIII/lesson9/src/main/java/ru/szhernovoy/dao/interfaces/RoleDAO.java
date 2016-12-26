@@ -1,6 +1,6 @@
-package ru.szhernovoy.model.dao.interfaces;
+package ru.szhernovoy.dao.interfaces;
 
-import ru.szhernovoy.model.Role;
+import ru.szhernovoy.dao.value.Role;
 
 import java.util.Collection;
 

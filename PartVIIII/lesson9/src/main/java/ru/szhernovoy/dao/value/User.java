@@ -1,4 +1,4 @@
-package ru.szhernovoy.model;
+package ru.szhernovoy.dao.value;
 
 
 import java.io.Serializable;
@@ -9,9 +9,9 @@ import java.io.Serializable;
 public class User implements Serializable{
 
     private String name;
-    private Role role;
+    private int roleId;
     private int id;
-    private Address adress;
-    private MusicType musicType;
+    private int adressId;
+    private int musicTypeId;
 
 }

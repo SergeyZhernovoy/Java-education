@@ -1,9 +1,9 @@
-package ru.szhernovoy.model.dao;
+package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.model.Address;
-import ru.szhernovoy.model.dao.interfaces.UserDAO;
+import ru.szhernovoy.dao.value.Address;
+import ru.szhernovoy.dao.interfaces.UserDAO;
 
 import java.util.Collection;
 

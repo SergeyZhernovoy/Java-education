@@ -1,6 +1,6 @@
-package ru.szhernovoy.model.dao.interfaces;
+package ru.szhernovoy.dao.interfaces;
 
-import ru.szhernovoy.model.MusicType;
+import ru.szhernovoy.dao.value.MusicType;
 
 import java.util.Collection;
 

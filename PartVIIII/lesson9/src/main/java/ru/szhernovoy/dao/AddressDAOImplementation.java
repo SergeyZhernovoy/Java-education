@@ -1,9 +1,9 @@
-package ru.szhernovoy.model.dao;
+package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.model.Address;
-import ru.szhernovoy.model.dao.interfaces.AddressDAO;
+import ru.szhernovoy.dao.value.Address;
+import ru.szhernovoy.dao.interfaces.AddressDAO;
 
 import java.util.Collection;
 
@@ -14,7 +14,7 @@ public class AddressDAOImplementation implements AddressDAO {
     private final static Logger log = LoggerFactory.getLogger(AddressDAOImplementation.class);
 
     @Override
-    public int createAddress() {
+    public int createAddress(String name) {
         return 0;
     }
 
@@ -29,12 +29,12 @@ public class AddressDAOImplementation implements AddressDAO {
     }
 
     @Override
-    public boolean updateAddress() {
+    public boolean updateAddress(int id, String name) {
         return false;
     }
 
     @Override
-    public boolean deleteAddress() {
+    public boolean deleteAddress(int id) {
         return false;
     }
 }

@@ -1,9 +1,9 @@
-package ru.szhernovoy.model.dao;
+package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.model.MusicType;
-import ru.szhernovoy.model.dao.interfaces.MusicTypeDAO;
+import ru.szhernovoy.dao.value.MusicType;
+import ru.szhernovoy.dao.interfaces.MusicTypeDAO;
 
 import java.util.Collection;
 

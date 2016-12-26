@@ -1,7 +1,5 @@
 package ru.szhernovoy.controllers;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

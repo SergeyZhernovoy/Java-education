@@ -1,9 +1,9 @@
-package ru.szhernovoy.model.dao;
+package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.model.Role;
-import ru.szhernovoy.model.dao.interfaces.RoleDAO;
+import ru.szhernovoy.dao.interfaces.RoleDAO;
+import ru.szhernovoy.dao.value.Role;
 
 import java.util.Collection;
 
