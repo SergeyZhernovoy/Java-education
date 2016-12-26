@@ -14,4 +14,43 @@ public class User implements Serializable{
     private int adressId;
     private int musicTypeId;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAdressId() {
+        return adressId;
+    }
+
+    public void setAdressId(int adressId) {
+        this.adressId = adressId;
+    }
+
+    public int getMusicTypeId() {
+        return musicTypeId;
+    }
+
+    public void setMusicTypeId(int musicTypeId) {
+        this.musicTypeId = musicTypeId;
+    }
 }

@@ -2,8 +2,8 @@ package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.dao.interfaces.RoleDAO;
-import ru.szhernovoy.dao.value.Role;
+import ru.szhernovoy.dao.value.MusicType;
+import ru.szhernovoy.dao.interfaces.MusicTypeDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,22 +15,22 @@ import java.util.concurrent.ConcurrentSkipListSet;
 /**
  * Created by dort on 25.12.16.
  */
-public class RoleDAOImplementation implements RoleDAO {
-    private final static Logger log = LoggerFactory.getLogger(RoleDAOImplementation.class);
+public class MusicTypeDAOImplementation implements MusicTypeDAO {
+    private final static Logger log = LoggerFactory.getLogger(MusicTypeDAOImplementation.class);
     Connection conn;
 
-    public RoleDAOImplementation(Connection conn) {
+    public MusicTypeDAOImplementation(Connection conn) {
         this.conn = conn;
     }
 
     @Override
-    public int createRole(String name) {
+    public int createMusicType(String name) {
 
         int result = 0;
         ResultSet rs = null;
         PreparedStatement st = null;
         try {
-            st = this.conn.prepareStatement("INSERT INTO role(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            st = this.conn.prepareStatement("INSERT INTO musictype(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1,name);
             st.executeUpdate();
             rs = st.getGeneratedKeys();
@@ -56,18 +56,18 @@ public class RoleDAOImplementation implements RoleDAO {
     @Override
     public Collection getAll() {
 
-        Collection<Role> roles = new ConcurrentSkipListSet<>();
+        Collection<MusicType> musicTypes = new ConcurrentSkipListSet<>();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM role");
+            st = conn.prepareStatement("SELECT * FROM musictype");
             rs = st.executeQuery();
-            Role role = null;
+            MusicType musicType = null;
             while (rs.next()) {
-                role = new Role();
-                role.setId(rs.getInt("id"));
-                role.setName(rs.getString("name"));
-                roles.add(role);
+                musicType = new MusicType();
+                musicType.setId(rs.getInt("id"));
+                musicType.setName(rs.getString("name"));
+                musicTypes.add(musicType);
             }
 
         } catch (Exception e) {
@@ -83,20 +83,20 @@ public class RoleDAOImplementation implements RoleDAO {
                 log.error(e.getMessage(),e);
             }
         }
-        return roles;
+        return musicTypes;
     }
 
     @Override
-    public Role findRole(int id) {
-        Role result =null;
+    public MusicType findMusicType(int id) {
+        MusicType result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM role WHERE id = ?");
+            st = conn.prepareStatement("SELECT * FROM musictype WHERE id = ?");
             st.setInt(1,id);
             rs = st.executeQuery();
             if (rs.next()) {
-                result = new Role();
+                result = new MusicType();
                 result.setId(rs.getInt("id"));
                 result.setName(rs.getString("name"));
             }
@@ -119,11 +119,11 @@ public class RoleDAOImplementation implements RoleDAO {
     }
 
     @Override
-    public boolean updateRole(int id, String name) {
+    public boolean updateMusicType(int id, String name) {
         boolean result = false;
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE role SET name = ?, WHERE id = ?");
+            st = conn.prepareStatement("UPDATE musictype SET name = ?, WHERE id = ?");
             st.setString(1,name);
             st.setInt(4,id);
             st.executeUpdate();
@@ -145,12 +145,12 @@ public class RoleDAOImplementation implements RoleDAO {
     }
 
     @Override
-    public boolean deleteRole(int id) {
+    public boolean deleteMusicType(int id) {
 
         boolean result = false;
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("DELETE FROM role WHERE id = ?");
+            st = conn.prepareStatement("DELETE FROM musictype WHERE id = ?");
             st.setInt(1,id);
             st.executeUpdate();
             result = true;
@@ -169,5 +169,4 @@ public class RoleDAOImplementation implements RoleDAO {
         }
         return result;
     }
-
 }

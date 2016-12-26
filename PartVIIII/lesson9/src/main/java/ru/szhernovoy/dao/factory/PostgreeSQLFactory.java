@@ -23,14 +23,11 @@ public class PostgreeSQLFactory extends DAOFactory {
 
     private PostgreeSQLFactory(){
         this.pool = new ComboPooledDataSource();
-
-
         try {
             pool.setDriverClass(properties.getProperty("driverClass"));
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-
 
         pool.setJdbcUrl(properties.getProperty("jdbcUrl"));
         pool.setUser(properties.getProperty("user"));
@@ -44,31 +41,32 @@ public class PostgreeSQLFactory extends DAOFactory {
 
     @Override
     public MusicTypeDAO getMusicDAO() {
-        return new MusitTypeDAOImplementation();
+        return new MusicTypeDAOImplementation(this.getConnection());
     }
 
     @Override
     public RoleDAO getRoleDAO() {
-        return new RoleDAOImplementation();
+        return new RoleDAOImplementation(this.getConnection());
     }
 
     @Override
     public AddressDAO getAddressDAO() {
-        return new AddressDAOImplementation();
+        return new AddressDAOImplementation(this.getConnection());
     }
 
     @Override
     public UserDAO getUserDAO() {
-        return new UserDAOImplementation();
+        return new UserDAOImplementation(this.getConnection());
     }
 
-    @Override
-    public Connection createConnection() {
+
+
+    public Connection getConnection() {
         Connection conn = null;
         try {
-            conn =  this.pool.getConnection();
+            conn  = this.pool.getConnection();
         } catch (SQLException e) {
-            log.error(e.getMessage(),e);
+            e.printStackTrace();
         }
         return conn;
     }

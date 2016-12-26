@@ -22,7 +22,6 @@ public abstract class DAOFactory {
     public abstract RoleDAO getRoleDAO();
     public abstract AddressDAO getAddressDAO();
     public abstract UserDAO getUserDAO();
-    public abstract Connection createConnection();
 
     static {
         properties = new Properties();
