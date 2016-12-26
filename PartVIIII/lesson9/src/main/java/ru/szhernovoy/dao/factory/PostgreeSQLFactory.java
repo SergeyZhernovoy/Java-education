@@ -35,7 +35,7 @@ public class PostgreeSQLFactory extends DAOFactory {
         pool.setMaxPoolSize(5);
     }
 
-    public static PostgreeSQLFactory getInstance(){
+    public synchronized static PostgreeSQLFactory getInstance(){
         return postgreeSQLFactory;
     }
 

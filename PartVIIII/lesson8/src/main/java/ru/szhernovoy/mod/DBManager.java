@@ -21,8 +21,12 @@ public class DBManager {
 
 	}
 
+	public static class SingletonHolder {
+		public static final DBManager HOLDER_INSTANCE = new DBManager();
+	}
+
 	public static DBManager newInstance(){
-		return dbManager;
+		return SingletonHolder.HOLDER_INSTANCE;
 	}
 
 	public  void matcherRoot() {
