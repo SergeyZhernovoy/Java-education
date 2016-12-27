@@ -170,4 +170,36 @@ public class RoleDAOImplementation implements RoleDAO {
         return result;
     }
 
+    @Override
+    public Role findRoleByName(String name) {
+        Role result =null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM role WHERE name = ?");
+            st.setString(1,name);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                result = new Role();
+                result.setId(rs.getInt("id"));
+                result.setName(rs.getString("name"));
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
+        finally {
+            try{
+                rs.close();
+                st.close();
+                this.conn.close();
+            }
+            catch (Exception e){
+                log.error(e.getMessage(),e);
+            }
+        }
+
+        return result;
+    }
+
 }

@@ -32,7 +32,7 @@ public abstract class DAOFactory {
         }
     }
 
-    public DAOFactory getFactory(){
+    public static DAOFactory getFactory(){
         DAOFactory factory;
         switch (Integer.valueOf(properties.getProperty("type_base"))){
             case 1:

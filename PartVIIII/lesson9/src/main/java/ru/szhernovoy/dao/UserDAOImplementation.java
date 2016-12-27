@@ -2,7 +2,6 @@ package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.dao.value.Address;
 import ru.szhernovoy.dao.interfaces.UserDAO;
 import ru.szhernovoy.dao.value.User;
 
@@ -180,6 +179,41 @@ public class UserDAOImplementation implements UserDAO {
                 log.error(e.getMessage(),e);
             }
         }
+        return result;
+    }
+
+    @Override
+    public User findUserByName(String name) {
+        User result =null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM users WHERE name = ?");
+            st.setString(1,name);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                result = new User();
+                result.setId(rs.getInt("id"));
+                result.setName(rs.getString("name"));
+                result.setAdressId(rs.getInt("address"));
+                result.setMusicTypeId(rs.getInt("musictype"));
+                result.setRoleId(rs.getInt("role"));
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
+        finally {
+            try{
+                rs.close();
+                st.close();
+                this.conn.close();
+            }
+            catch (Exception e){
+                log.error(e.getMessage(),e);
+            }
+        }
+
         return result;
     }
 

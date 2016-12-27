@@ -13,6 +13,7 @@ public interface AddressDAO {
     public Address findAddress(int id);
     public boolean updateAddress(int id, String name);
     public boolean deleteAddress(int id);
+    public Address findAddressByName(String name);
 
 
 }

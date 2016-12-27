@@ -13,4 +13,5 @@ public interface MusicTypeDAO {
     public MusicType findMusicType(int id);
     public boolean updateMusicType(int id, String name);
     public boolean deleteMusicType(int id);
+    public MusicType findMusicTypeByName(String name);
 }

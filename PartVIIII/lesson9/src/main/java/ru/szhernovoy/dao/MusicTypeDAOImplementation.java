@@ -169,4 +169,36 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         }
         return result;
     }
+
+    @Override
+    public MusicType findMusicTypeByName(String name) {
+        MusicType result =null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM musictype WHERE name = ?");
+            st.setString(1,name);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                result = new MusicType();
+                result.setId(rs.getInt("id"));
+                result.setName(rs.getString("name"));
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
+        finally {
+            try{
+                rs.close();
+                st.close();
+                this.conn.close();
+            }
+            catch (Exception e){
+                log.error(e.getMessage(),e);
+            }
+        }
+
+        return result;
+    }
 }
