@@ -31,8 +31,11 @@ public class UserDAOImplementation implements UserDAO {
         ResultSet rs = null;
         PreparedStatement st = null;
         try {
-            st = this.conn.prepareStatement("INSERT INTO user(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
-            st.setString(1,name);
+            st = this.conn.prepareStatement("INSERT INTO user(name,role,address,musictype) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            st.setString(1,user.getName());
+            st.setInt(2,user.getRoleId());
+            st.setInt(3,user.getAdressId());
+            st.setInt(4,user.getMusicTypeId());
             st.executeUpdate();
             rs = st.getGeneratedKeys();
             if(rs.next()){
@@ -57,18 +60,21 @@ public class UserDAOImplementation implements UserDAO {
     @Override
     public Collection getAll() {
 
-        Collection<Role> roles = new ConcurrentSkipListSet<>();
+        Collection<User> users = new ConcurrentSkipListSet<>();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM role");
+            st = conn.prepareStatement("SELECT * FROM users");
             rs = st.executeQuery();
-            Role role = null;
+            User user = null;
             while (rs.next()) {
-                role = new Role();
-                role.setId(rs.getInt("id"));
-                role.setName(rs.getString("name"));
-                roles.add(role);
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setAdressId(rs.getInt("address"));
+                user.setMusicTypeId(rs.getInt("musictype"));
+                user.setRoleId(rs.getInt("role"));
+                users.add(user);
             }
 
         } catch (Exception e) {
@@ -84,22 +90,25 @@ public class UserDAOImplementation implements UserDAO {
                 log.error(e.getMessage(),e);
             }
         }
-        return roles;
+        return users;
     }
 
     @Override
     public User findUser(int id) {
-        Role result =null;
+        User result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM role WHERE id = ?");
+            st = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
             st.setInt(1,id);
             rs = st.executeQuery();
             if (rs.next()) {
-                result = new Role();
+                result = new User();
                 result.setId(rs.getInt("id"));
                 result.setName(rs.getString("name"));
+                result.setAdressId(rs.getInt("address"));
+                result.setMusicTypeId(rs.getInt("musictype"));
+                result.setRoleId(rs.getInt("role"));
             }
 
         } catch (Exception e) {
@@ -124,9 +133,12 @@ public class UserDAOImplementation implements UserDAO {
         boolean result = false;
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE role SET name = ?, WHERE id = ?");
-            st.setString(1,name);
-            st.setInt(4,id);
+            st = conn.prepareStatement("UPDATE users SET name = ?,address = ?,musictype = ?,role = ?  WHERE id = ?");
+            st.setString(1,user.getName());
+            st.setInt(4,user.getRoleId());
+            st.setInt(2,user.getAdressId());
+            st.setInt(3,user.getMusicTypeId());
+            st.setInt(5,id);
             st.executeUpdate();
             result = true;
         } catch (Exception e) {
@@ -151,7 +163,7 @@ public class UserDAOImplementation implements UserDAO {
         boolean result = false;
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("DELETE FROM role WHERE id = ?");
+            st = conn.prepareStatement("DELETE FROM users WHERE id = ?");
             st.setInt(1,id);
             st.executeUpdate();
             result = true;
