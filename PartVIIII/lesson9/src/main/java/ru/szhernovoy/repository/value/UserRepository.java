@@ -5,29 +5,25 @@ package ru.szhernovoy.repository.value;/**
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import ru.szhernovoy.dao.value.*;
-import ru.szhernovoy.repository.RepositoryInterface;
-
-import java.util.Collection;
-import java.util.Objects;
+import ru.szhernovoy.repository.UserRepositoryInterface;
 
 
-public class UserRepository <T> implements RepositoryInterface {
+public class UserRepository <T> implements UserRepositoryInterface {
     private static Logger log = LoggerFactory.getLogger(UserRepository.class);
-    private User user;
-    private Role role;
-    private MusicType musicType;
-    private Address address;
 
 
-    @Override
-    public User getModelWithRef() {
+
+
+
+    private static class UserReference{
+
+        User user;
+        Role role;
+        MusicType musicType;
+        Address address;
+
+
+
 
     }
-
-    @Override
-    public void createModelWithRef() {
-
-    }
-
-
 }
