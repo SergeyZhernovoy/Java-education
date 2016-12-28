@@ -1,6 +1,11 @@
 package ru.szhernovoy.servlets;
 
 
+import com.google.gson.JsonObject;
+import ru.szhernovoy.dao.factory.DAOFactory;
+import ru.szhernovoy.dao.interfaces.RoleDAO;
+import ru.szhernovoy.dao.value.Role;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,24 +22,24 @@ public class AuthenticationController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-     /*   String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String login = req.getParameter("login");
         String next = String.format("%s/CrudView.html",req.getContextPath());
-        DBManager.newInstance().matcherRoot();
-        User user = DBManager.newInstance().isCredential(login,password);
+        DAOFactory factory = DAOFactory.getFactory();
+        RoleDAO roleDAO = factory.getRoleDAO();
+        Role role = roleDAO.findRoleByName(login);
+
         JsonObject json = new JsonObject();
         boolean result = false;
-        if(user!=null){
+        if(role!=null){
             HttpSession session = req.getSession();
             session.setAttribute("login",login);
-            session.setAttribute("user",user);
             result = true;
         }
         json.addProperty("isValid",result);
         json.addProperty("nextPage",next);
         PrintWriter out = new PrintWriter(resp.getOutputStream());
         out.append(json.toString());
-        out.flush();*/
+        out.flush();
     }
 
 

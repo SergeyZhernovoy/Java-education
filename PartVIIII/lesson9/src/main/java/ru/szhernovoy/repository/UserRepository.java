@@ -7,9 +7,7 @@ import ru.szhernovoy.dao.factory.DAOFactory;
 import ru.szhernovoy.dao.interfaces.*;
 import ru.szhernovoy.dao.value.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
 

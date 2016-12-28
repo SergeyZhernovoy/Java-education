@@ -31,34 +31,26 @@
                     <div class="container">
                      <form class="form-horizontal">
                          <div class="form-group has-success has-feedback">
-                             <label for = "login_field" class="col-sm-3 control-label" >Login <span class="glyphicon glyphicon-password"></span></label>
+                             <label for = "login" class="col-sm-3 control-label" >Имя</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id = "login_field">
+                                <input type="text" class="form-control" id = "login">
                             </div>
-                             <label for="password_field"  class="col-sm-3 control-label" >Password</label>
+                             <label for="role"  class="col-sm-3 control-label" >Роль</label>
                              <div class="col-sm-8">
-                                 <input type="password" class="form-control" id = "password_field">
+                                 <input type="text" class="form-control" id = "role">
                              </div>
-                             <label for="email_field"  class="col-sm-3 control-label" >Email <span style="color: blue" class="glyphicon glyphicon-envelope"></span></label>
+                             <label for="address"  class="col-sm-3 control-label" >Адрес</label>
                              <div class="col-sm-8">
-                                 <input type="text" class="form-control" id = "email_field">
+                                 <input type="text" class="form-control" id = "address">
                              </div>
 
-                             <label  for="city_id" class="col-sm-3 control-label" >City</label>
+                             <label  for="music_type" class="col-sm-3 control-label" >Музыкальный тип</label>
                              <div class="col-sm-8">
-                                 <select id="city_id" class="form-control">
-
-                                 </select>
-                             </div>
-                             <label for="country_id"  class="col-sm-3 control-label" >Country</label>
-                             <div class="col-sm-8 ">
-                                 <select id="country_id" class="form-control" >
-
-                                 </select>
+                                 <input type="text" class="form-control" id = "music_type">
                              </div>
                          </div>
                          <button id = "create-btn" type="button" class="btn btn-default col-sm-offset-7">
-                             <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Создать</button>
+                             <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Создать пользователя</button>
                      </form>
                     </div>
                 </div>
@@ -67,7 +59,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a id = "collapse4_id" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Фильтры</a>
+                        <a id = "collapse4_id" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Фильтры для пользователя и роли</a>
                     </h4>
                 </div>
                 <div id="collapse4" class="panel-collapse collapse">
@@ -79,7 +71,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id = "Address_field">
                                 </div>
-                                <label for = "Role_field" class="col-sm-3 control-label" >Роль <span class="glyphicon glyphicon-password"></span></label>
+                                <label for = "Role_field" class="col-sm-3 control-label" >Роль</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id = "Role_field">
                                 </div>
@@ -89,14 +81,10 @@
                                 </div>
                             </div>
                             <div class="col-sm-offset-3">
-                                <button id = "addr-btn" type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Фильтрвать по адресу</button>
-                                <button id = "role-btn" type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Фильтровать по роли</button>
-                                <button id = "musictype-btn" type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Фильтровать по типу</button>
-                                <button id = "role-all-btn" type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Всё по ролям</button>
+                                <button id = "addr-btn" type="button" class="btn btn-default">Фильтровать по адресу</button>
+                                <button id = "role-btn" type="button" class="btn btn-default">Фильтровать по роли</button>
+                                <button id = "musictype-btn" type="button" class="btn btn-default">Фильтровать по типу</button>
+                                <button id = "role-all-btn" type="button" class="btn btn-default">Всё по ролям</button>
                             </div>
                         </form>
                         <table align="center" class="table-bordered table-hover table-condensed" hidden>

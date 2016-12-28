@@ -4,6 +4,8 @@
 package ru.szhernovoy.servlets;
 
 import com.google.gson.JsonObject;
+import ru.szhernovoy.dao.value.User;
+import ru.szhernovoy.repository.UserRepository;
 
 
 import javax.servlet.ServletException;
@@ -18,15 +20,13 @@ public class UserCreate extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    /*    User user = new User(req.getParameter("email"), req.getParameter("login"), System.currentTimeMillis(),req.getParameter("password"));
-        user.setCity_id(Integer.valueOf(req.getParameter("city")));
-        user.setCountry_id(Integer.valueOf(req.getParameter("country")));
-        DBManager.newInstance().addUser(user);
+        UserRepository userRepository = new UserRepository();
+        boolean result = userRepository.createUserReferences(req.getParameter("name"),req.getParameter("name"),req.getParameter("name"),req.getParameter("name")) > 0 ? true : false;
         PrintWriter out = resp.getWriter();
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("successCreate",true);
+        jsonObject.addProperty("successCreate",result);
         out.append(jsonObject.toString());
-        out.flush();*/
+        out.flush();
     }
 
 }
