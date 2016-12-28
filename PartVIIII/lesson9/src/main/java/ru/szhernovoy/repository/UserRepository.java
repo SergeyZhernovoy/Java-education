@@ -7,8 +7,10 @@ import ru.szhernovoy.dao.factory.DAOFactory;
 import ru.szhernovoy.dao.interfaces.*;
 import ru.szhernovoy.dao.value.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -34,10 +36,10 @@ public class UserRepository {
 
     public Collection<UserReferences> getUserReferences(){
         Collection<UserReferences> storage = new CopyOnWriteArrayList<>();
-        Iterator<User> iter = userDAO.getAll().iterator();
-        while(iter.hasNext()){
+        Collection<User> users  = this.userDAO.getAll();
+        for(User user : users){
             UserReferences userReferences = new UserReferences(addressDAO,roleDAO,userDAO,musicTypeDAO);
-            if(userReferences.fillData(iter.next().getId())){
+            if(userReferences.fillData(user.getId())){
                 storage.add(userReferences);
             }
         }
@@ -73,11 +75,24 @@ public class UserRepository {
     }
 
     public Collection<UserReferences> getUserReferences(Address address){
-        Collection<UserReferences> storage = new CopyOnWriteArrayList<>();
-        Iterator<User> iter = userDAO.getAll().iterator();
-        while(iter.hasNext()){
-            UserReferences userReferences = new UserReferences(addressDAO,roleDAO,userDAO,musicTypeDAO);
-            if(userReferences.fillData(address)){
+
+        Collection<UserReferences> storage = new LinkedList<>();
+        Collection<Address> addresses = this.addressDAO.getAll();
+        Address right = null;
+        for(Address find : addresses){
+            if(find.equals(address)){
+                right = find;
+            }
+        }
+        if(right == null){
+            right = this.addressDAO.findAddressByName(address.getName());
+        }
+
+        Collection<User> users = this.userDAO.getAll();
+        for (User user : users){
+            if(user.getAdressId() == right.getId()){
+                UserReferences userReferences = new UserReferences(this.addressDAO,this.roleDAO ,this.userDAO,this.musicTypeDAO);
+                userReferences.fillData(user.getId());
                 storage.add(userReferences);
             }
         }
@@ -85,11 +100,24 @@ public class UserRepository {
     }
 
     public Collection<UserReferences> getUserReferences(Role role){
-        Collection<UserReferences> storage = new CopyOnWriteArrayList<>();
-        Iterator<User> iter = roleDAO.getAll().iterator();
-        while(iter.hasNext()){
-            UserReferences userReferences = new UserReferences(addressDAO,roleDAO,userDAO,musicTypeDAO);
-            if(userReferences.fillData(role)){
+
+        Collection<UserReferences> storage = new LinkedList<>();
+        Collection<Role> roles = this.roleDAO.getAll();
+        Role right = null;
+        for(Role find : roles){
+            if(find.equals(role)){
+                right = find;
+            }
+        }
+        if(right == null){
+            right = this.roleDAO.findRoleByName(role.getName());
+        }
+
+        Collection<User> users = this.userDAO.getAll();
+        for (User user : users){
+            if(user.getRoleId() == right.getId()){
+                UserReferences userReferences = new UserReferences(this.addressDAO,this.roleDAO ,this.userDAO,this.musicTypeDAO);
+                userReferences.fillData(user.getId());
                 storage.add(userReferences);
             }
         }
@@ -97,11 +125,23 @@ public class UserRepository {
     }
 
     public Collection<UserReferences> getUserReferences(MusicType musicType){
-        Collection<UserReferences> storage = new CopyOnWriteArrayList<>();
-        Iterator<User> iter = userDAO.getAll().iterator();
-        while(iter.hasNext()){
-            UserReferences userReferences = new UserReferences(addressDAO,roleDAO,userDAO,musicTypeDAO);
-            if(userReferences.fillData(musicType)){
+        Collection<UserReferences> storage = new LinkedList<>();
+        Collection<MusicType> musicTypes  = this.musicTypeDAO.getAll();
+        MusicType right = null;
+        for(MusicType find : musicTypes){
+            if(find.equals(musicType)){
+                right = find;
+            }
+        }
+        if(right == null){
+            right = this.musicTypeDAO.findMusicTypeByName(musicType.getName());
+        }
+
+        Collection<User> users = this.userDAO.getAll();
+        for (User user : users){
+            if(user.getMusicTypeId() == right.getId()){
+                UserReferences userReferences = new UserReferences(this.addressDAO,this.roleDAO ,this.userDAO,this.musicTypeDAO);
+                userReferences.fillData(user.getId());
                 storage.add(userReferences);
             }
         }
@@ -155,52 +195,6 @@ public class UserRepository {
             }
             return  result;
         }
-
-        public boolean fillData(Address address){
-            boolean result = false;
-            this.user = this.serviceUser.findUser(id);
-            if(this.user != null){
-                result = true;
-            }
-
-            if(result){
-                this.role = this.serviceRole.findRole(user.getRoleId());
-                this.address = this.serviceAddress.findAddress(user.getAdressId());
-                this.musicType = this.serviceMusicType.findMusicType(user.getMusicTypeId());
-            }
-            return  result;
-        }
-
-        public boolean fillData(Role role){
-            boolean result = false;
-            this.user = this.serviceUser.findUser(id);
-            if(this.user != null){
-                result = true;
-            }
-
-            if(result){
-                this.role = this.serviceRole.findRole(user.getRoleId());
-                this.address = this.serviceAddress.findAddress(user.getAdressId());
-                this.musicType = this.serviceMusicType.findMusicType(user.getMusicTypeId());
-            }
-            return  result;
-        }
-
-        public boolean fillData(MusicType musicType){
-            boolean result = false;
-            this.user = this.serviceUser.findUser(id);
-            if(this.user != null){
-                result = true;
-            }
-
-            if(result){
-                this.role = this.serviceRole.findRole(user.getRoleId());
-                this.address = this.serviceAddress.findAddress(user.getAdressId());
-                this.musicType = this.serviceMusicType.findMusicType(user.getMusicTypeId());
-            }
-            return  result;
-        }
-
 
     }
 

@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public interface AddressDAO {
     public int createAddress(String name);
-    public Collection getAll();
+    public Collection<Address> getAll();
     public Address findAddress(int id);
     public boolean updateAddress(int id, String name);
     public boolean deleteAddress(int id);

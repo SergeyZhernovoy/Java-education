@@ -14,4 +14,7 @@ public interface RoleDAO {
     public boolean updateRole(int id, String name);
     public boolean deleteRole(int id);
     public Role findRoleByName(String name);
+
+
+
 }

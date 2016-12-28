@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
@@ -56,7 +57,7 @@ public class RoleDAOImplementation implements RoleDAO {
     @Override
     public Collection getAll() {
 
-        Collection<Role> roles = new ConcurrentSkipListSet<>();
+        Collection<Role> roles = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {

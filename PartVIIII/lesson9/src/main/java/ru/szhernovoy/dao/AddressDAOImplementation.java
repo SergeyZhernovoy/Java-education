@@ -6,7 +6,9 @@ import ru.szhernovoy.dao.value.Address;
 import ru.szhernovoy.dao.interfaces.AddressDAO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
@@ -51,9 +53,9 @@ public class AddressDAOImplementation implements AddressDAO {
     }
 
     @Override
-    public Collection getAll() {
+    public Collection<Address> getAll() {
 
-        Collection<Address> addresses = new ConcurrentSkipListSet<>();
+        Collection<Address> addresses = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
