@@ -146,7 +146,7 @@ public class UserRepository {
         return storage;
     }
 
-    private static class UserReferences{
+    public static class UserReferences{
         private User user;
         private Role role;
         private Address address;

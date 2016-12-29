@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function () {
-
+    var table = $("#tableinfo");
     $("#auth-btn").click(function () {
 
         var login = $("#role");
@@ -60,46 +60,154 @@ $(document).ready(function () {
         }
     });
 
+    $("#addr-btn").click(function () {
+
+        var address = $("#Address_field");
+        if (address != '') {
+            $.ajax({
+                url: "info",
+                method: "get",
+                datatype: 'json',
+                data: {
+                    'address': address.val(),
+                    'music': '',
+                    'role': '',
+                    'roleAll': ''
+                },
+                complete: function (data) {
+                    var result = JSON.parse(data.responseText);
+                    if(result.user != ''){
+                        var user =  JSON.parse(result.user);
+                        var optional = "";
+                        for (var i = 0; i != user.length; ++i) {
+                            optional += "<tr>";
+                            optional += "<td>"+user[i].login+"</td>";
+                            optional += "<td>"+user[i].music_type+"</td>";
+                            optional += "<td>"+user[i].address+"</td>";
+                            optional += "<td>"+user[i].role+"</td>";
+                            optional += "</tr>";
+                        }
+                        var dropdownMenu = document.getElementById("tdbody");
+                        dropdownMenu.innerHTML = optional;
+                        table.show();
+                    }
+                }
+            });
+        }
+    });
+
+    $("#role-btn").click(function () {
+
+        var role = $("#Role_field");
+        if (role != '') {
+            $.ajax({
+                url: "info",
+                method: "get",
+                datatype: 'json',
+                data: {
+                    'address': '',
+                    'music': '',
+                    'role': role.val(),
+                    'roleAll': ''
+                },
+                complete: function (data) {
+                    var result = JSON.parse(data.responseText);
+                    if(result.user != ''){
+                        var user =  JSON.parse(result.user);
+                        var optional = "";
+                        for (var i = 0; i != user.length; ++i) {
+                            optional += "<tr>";
+                            optional += "<td>"+user[i].login+"</td>";
+                            optional += "<td>"+user[i].music_type+"</td>";
+                            optional += "<td>"+user[i].address+"</td>";
+                            optional += "<td>"+user[i].role+"</td>";
+                            optional += "</tr>";
+                        }
+                        var dropdownMenu = document.getElementById("tdbody");
+                        dropdownMenu.innerHTML = optional;
+                        table.show();
+                    }
+                }
+            });
+        }
+    });
+
+    $("#musictype-btn").click(function () {
+
+        var music = $("#Musictype_field");
+        if (music != '') {
+            $.ajax({
+                url: "info",
+                method: "get",
+                datatype: 'json',
+                data: {
+                    'address': '',
+                    'music': music.val(),
+                    'role': '',
+                    'roleAll': ''
+                },
+                complete: function (data) {
+                    var result = JSON.parse(data.responseText);
+                    if(result.user != ''){
+                        var user =  JSON.parse(result.user);
+                        var optional = "";
+                        for (var i = 0; i != user.length; ++i) {
+                            optional += "<tr>";
+                            optional += "<td>"+user[i].login+"</td>";
+                            optional += "<td>"+user[i].music_type+"</td>";
+                            optional += "<td>"+user[i].address+"</td>";
+                            optional += "<td>"+user[i].role+"</td>";
+                            optional += "</tr>";
+                        }
+                        var dropdownMenu = document.getElementById("tdbody");
+                        dropdownMenu.innerHTML = optional;
+                        table.show();
+                    }
+                }
+            });
+        }
+    });
+
+    $("#role-all-btn").click(function () {
+
+        var role = $("#Role_field");
+        if (address != '') {
+            $.ajax({
+                url: "info",
+                method: "get",
+                datatype: 'json',
+                data: {
+                    'address': '',
+                    'music': '',
+                    'role': '',
+                    'roleAll': role.val()
+                },
+                complete: function (data) {
+                    var result = JSON.parse(data.responseText);
+                    if(result.role != ''){
+                        var user =  JSON.parse(result.role);
+                        var optional = "";
+                        for (var i = 0; i != user.length; ++i) {
+                            optional += "<tr>";
+                            optional += "<td>"+user[i].login+"</td>";
+                            optional += "<td>"+user[i].music_type+"</td>";
+                            optional += "<td>"+user[i].address+"</td>";
+                            optional += "<td>"+user[i].role+"</td>";
+                            optional += "</tr>";
+                        }
+                        var dropdownMenu = document.getElementById("tdbody");
+                        dropdownMenu.innerHTML = optional;
+                        table.show();
+                    }
+                }
+            });
+        }
+    });
+
+
     function clear() {
         $('input').val('');
     };
-
-
-    $("#collapse4_id").click(function () {
-        $.ajax({
-            url: "info",
-            method: "get",
-            datatype: 'json',
-            data: {
-                'city': 'false',
-                'country': 'false',
-                'login': 'false',
-                'user': 'true'
-            },
-            complete: function (data) {
-                var result = JSON.parse(data.responseText);
-                if(result.user != ''){
-                    var user =  JSON.parse(result.user);
-                    var optional = "";
-                    for (var i = 0; i != user.length; ++i) {
-                        optional += "<tr>";
-                        optional += "<td>"+user[i].login+"</td>";
-                        optional += "<td>"+user[i].email+"</td>";
-                        optional += "<td>"+user[i].city+"</td>";
-                        optional += "<td>"+user[i].country+"</td>";
-                        optional += "<td>"+user[i].date+"</td>";
-                        optional += "<td>"+user[i].password+"</td>";
-                        optional += "</tr>";
-                    }
-                    var dropdownMenu = document.getElementById("tdbody");
-                    dropdownMenu.innerHTML = optional;
-                }
-
-
-            }
-        });
-    });
-
 
 });
 

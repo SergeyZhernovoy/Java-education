@@ -1,6 +1,5 @@
-\connect dao
 --table author
-
+\connect dao
 create table if not exists address(
     id serial primary key NOT NULL,
     name  CHARACTER VARYING (50) NOT NULL UNIQUE
@@ -18,7 +17,7 @@ create table if not exists role(
 
 create table if not exists users(
     id serial primary key NOT NULL,
-    name  CHARACTER VARYING (50) NOT NULL UNIQUE
+    name  CHARACTER VARYING (50) NOT NULL UNIQUE,
     role INTEGER REFERENCES role(id),
     musictype INTEGER REFERENCES musictype(id),
     address INTEGER REFERENCES address(id)
@@ -33,4 +32,3 @@ INSERT INTO role(name)  VALUES ('ADMIN');
 INSERT INTO musictype(name)   VALUES ('RAP');
 INSERT INTO musictype(name)   VALUES ('ROCK');
 INSERT INTO musictype(name)   VALUES ('BLUZ');
-

@@ -27,7 +27,7 @@
 
         <servlet-mapping>
             <servlet-name>Filter controller</servlet-name>
-            <url-pattern>/signin</url-pattern>
+            <url-pattern>/info</url-pattern>
         </servlet-mapping>
 
 

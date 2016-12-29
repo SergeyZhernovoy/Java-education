@@ -27,7 +27,7 @@ public class UserDAOImplementation implements UserDAO {
     @Override
     public int createUser(User user) {
 
-        int result = 0;
+        int result = -1;
         ResultSet rs = null;
         PreparedStatement st = null;
         try {

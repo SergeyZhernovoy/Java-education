@@ -4,8 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.szhernovoy.mod.DBManager;
-import ru.szhernovoy.mod.User;
+import ru.szhernovoy.dao.value.*;
+import ru.szhernovoy.repository.RoleRepository;
+import ru.szhernovoy.repository.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by admin on 22.12.2016.
@@ -24,76 +24,102 @@ public class GetInformation extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean country = Boolean.valueOf(req.getParameter("country"));
-        boolean city = Boolean.valueOf(req.getParameter("city"));
-        boolean login = Boolean.valueOf(req.getParameter("login"));
-        boolean user = Boolean.valueOf(req.getParameter("user"));
+
         resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
+
+        String  address =req.getParameter("address");
+        String  music =req.getParameter("music");
+        String  role =req.getParameter("role");
+        String  roleAll =req.getParameter("roleAll");
+
         PrintWriter out = new PrintWriter(resp.getOutputStream());
         JsonObject jsonObject = new JsonObject();
-        if(country){
-           jsonObject.addProperty("country",getCountry().toString());
+
+        boolean isSetProperty =false;
+
+        if(!address.isEmpty()&& !isSetProperty){
+           jsonObject.addProperty("user",getAddres(address).toString());
+            isSetProperty = true;
         }
-        if(city){
-           jsonObject.addProperty("city",getCity().toString());
+        if(!music.isEmpty()&& !isSetProperty){
+           jsonObject.addProperty("user",getMusic(music).toString());
+            isSetProperty = true;
         }
-        if(login){
-           jsonObject.addProperty("login",getLogin().toString());
+        if(!role.isEmpty() && !isSetProperty){
+           jsonObject.addProperty("user",getRole(role).toString());
+            isSetProperty = true;
         }
-        if(user){
-           jsonObject.addProperty("user",getUsers().toString());
+        if(!roleAll.isEmpty() && !isSetProperty){
+           jsonObject.addProperty("user",getAllRole().toString());
+            isSetProperty = true;
         }
         out.append(jsonObject.toString());
         out.flush();
     }
 
-    public JsonArray getCountry(){
-        Map<Integer,String> country = DBManager.newInstance().getCityOrCountry(1);
+    public JsonArray getAddres(String address){
+
+        UserRepository userRepository = new UserRepository();
+        Address newAddress = new Address();
+        newAddress.setName(address);
+        Collection<UserRepository.UserReferences> users = userRepository.getUserReferences(newAddress);
         JsonArray array = new JsonArray();
-        Set<Integer> keys = country.keySet();
-        for (Integer key : keys){
+        for (UserRepository.UserReferences userReferences : users){
              JsonObject obj = new JsonObject();
-             obj.addProperty("id",key);
-             obj.addProperty("name",country.get(key));
+             obj.addProperty("login",userReferences.getUser().getName());
+             obj.addProperty("music_type",userReferences.getMusicType().getName());
+             obj.addProperty("address",userReferences.getAddress().getName());
+             obj.addProperty("role",userReferences.getRole().getName());
              array.add(obj);
         }
         return array;
     }
 
-    public JsonArray getCity(){
-        Map<Integer,String> city = DBManager.newInstance().getCityOrCountry(2);
+    public JsonArray getMusic(String music){
+        UserRepository userRepository = new UserRepository();
+        MusicType newMusic = new MusicType();
+        newMusic.setName(music);
+        Collection<UserRepository.UserReferences> users = userRepository.getUserReferences(newMusic);
         JsonArray array = new JsonArray();
-        Set<Integer> keys = city.keySet();
-        for (Integer key : keys){
+        for (UserRepository.UserReferences userReferences : users){
             JsonObject obj = new JsonObject();
-            obj.addProperty("id",key);
-            obj.addProperty("name",city.get(key));
+            obj.addProperty("login",userReferences.getUser().getName());
+            obj.addProperty("music_type",userReferences.getMusicType().getName());
+            obj.addProperty("address",userReferences.getAddress().getName());
+            obj.addProperty("role",userReferences.getRole().getName());
             array.add(obj);
         }
         return array;
     }
 
-    public JsonArray getLogin(){
+    public JsonArray getRole(String role){
+        UserRepository userRepository = new UserRepository();
+        Role newRole = new Role();
+        newRole.setName(role);
+        Collection<UserRepository.UserReferences> users = userRepository.getUserReferences(newRole);
         JsonArray array = new JsonArray();
-        for(User user : DBManager.newInstance().getUsers()){
-           JsonObject obj = new JsonObject();
-           obj.addProperty("log",user.getLogin());
-           array.add(obj);
+        for (UserRepository.UserReferences userReferences : users){
+            JsonObject obj = new JsonObject();
+            obj.addProperty("login",userReferences.getUser().getName());
+            obj.addProperty("music_type",userReferences.getMusicType().getName());
+            obj.addProperty("address",userReferences.getAddress().getName());
+            obj.addProperty("role",userReferences.getRole().getName());
+            array.add(obj);
         }
         return array;
     }
 
-    public JsonArray getUsers(){
+    public JsonArray getAllRole(){
+        RoleRepository roleRepository = new RoleRepository();
+        Collection<User> users = roleRepository.getRoleReferences();
         JsonArray array = new JsonArray();
-        for(User user : DBManager.newInstance().getUsers()){
+        for (User user : users){
             JsonObject obj = new JsonObject();
-            obj.addProperty("login",user.getLogin());
-            obj.addProperty("email",user.getEmail());
-            obj.addProperty("city",user.getNameCity());
-            obj.addProperty("country",user.getNameCountry());
-            obj.addProperty("date",user.getCreateDate().toString());
-            obj.addProperty("password",user.getPassword());
+            obj.addProperty("login",user.getName());
+            obj.addProperty("music_type",user.getMusicTypeId());
+            obj.addProperty("address",user.getAdressId());
+            obj.addProperty("role",user.getRoleId());
             array.add(obj);
         }
         return array;

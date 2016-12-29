@@ -21,7 +21,7 @@ public class UserCreate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserRepository userRepository = new UserRepository();
-        boolean result = userRepository.createUserReferences(req.getParameter("name"),req.getParameter("name"),req.getParameter("name"),req.getParameter("name")) > 0 ? true : false;
+        boolean result = userRepository.createUserReferences(req.getParameter("login"),req.getParameter("music_type"),req.getParameter("address"),req.getParameter("role")) != -1 ? true : false;
         PrintWriter out = resp.getWriter();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("successCreate",result);
