@@ -15,7 +15,8 @@
         <module>PartVII</module>
 		<module>PartVIII</module>
 		<module>PartVIIII</module>
-	</modules>
+        <module>PartX</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
