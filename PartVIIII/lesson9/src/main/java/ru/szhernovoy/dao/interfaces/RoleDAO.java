@@ -8,13 +8,11 @@ import java.util.Collection;
  * Created by dort on 25.12.16.
  */
 public interface RoleDAO {
-    public int createRole(String name);
-    public Collection getAll();
-    public Role findRole(int id);
-    public boolean updateRole(int id, String name);
-    public boolean deleteRole(int id);
-    public Role findRoleByName(String name);
-
-
-
+     int createRole(String name);
+     Collection getAll();
+     Role findRole(int id);
+     boolean updateRole(int id, String name);
+     boolean deleteRole(int id);
+     Role findRoleByName(String name);
+     void close();
 }

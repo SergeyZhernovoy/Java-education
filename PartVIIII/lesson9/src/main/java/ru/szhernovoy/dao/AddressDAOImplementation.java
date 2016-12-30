@@ -43,7 +43,7 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -76,7 +76,7 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -107,7 +107,7 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -133,7 +133,7 @@ public class AddressDAOImplementation implements AddressDAO {
             finally {
                 try{
                     st.close();
-                    this.conn.close();
+
                 }
                 catch (Exception e){
                     log.error(e.getMessage(),e);
@@ -160,7 +160,7 @@ public class AddressDAOImplementation implements AddressDAO {
             finally {
                 try{
                     st.close();
-                    this.conn.close();
+
                 }
                 catch (Exception e){
                     log.error(e.getMessage(),e);
@@ -191,7 +191,7 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -200,4 +200,16 @@ public class AddressDAOImplementation implements AddressDAO {
 
         return result;
     }
+
+    @Override
+    public void close(){
+        try {
+            if(this.conn != null){
+                this.conn.close();
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(),e);
+        }
+    }
+
 }

@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import ru.szhernovoy.dao.interfaces.UserDAO;
 import ru.szhernovoy.dao.value.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -31,7 +28,7 @@ public class UserDAOImplementation implements UserDAO {
         ResultSet rs = null;
         PreparedStatement st = null;
         try {
-            st = this.conn.prepareStatement("INSERT INTO user(name,role,address,musictype) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            st = this.conn.prepareStatement("INSERT INTO users(name,role,address,musictype) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1,user.getName());
             st.setInt(2,user.getRoleId());
             st.setInt(3,user.getAdressId());
@@ -48,7 +45,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -84,7 +81,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -118,7 +115,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -147,7 +144,7 @@ public class UserDAOImplementation implements UserDAO {
         finally {
             try{
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -174,7 +171,7 @@ public class UserDAOImplementation implements UserDAO {
         finally {
             try{
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -208,7 +205,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -216,6 +213,17 @@ public class UserDAOImplementation implements UserDAO {
         }
 
         return result;
+    }
+
+    @Override
+    public void close(){
+        try {
+            if(this.conn != null){
+                this.conn.close();
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(),e);
+        }
     }
 
 }

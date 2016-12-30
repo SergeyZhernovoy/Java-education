@@ -27,6 +27,7 @@ public class AuthenticationController extends HttpServlet{
         DAOFactory factory = DAOFactory.getFactory();
         RoleDAO roleDAO = factory.getRoleDAO();
         Role role = roleDAO.findRoleByName(login);
+        roleDAO.close();
 
         JsonObject json = new JsonObject();
         boolean result = false;

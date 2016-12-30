@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import ru.szhernovoy.dao.interfaces.RoleDAO;
 import ru.szhernovoy.dao.value.Role;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -45,7 +42,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -78,7 +75,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -109,7 +106,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -135,7 +132,7 @@ public class RoleDAOImplementation implements RoleDAO {
         finally {
             try{
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -162,7 +159,7 @@ public class RoleDAOImplementation implements RoleDAO {
         finally {
             try{
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -193,7 +190,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                this.conn.close();
+
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -201,6 +198,17 @@ public class RoleDAOImplementation implements RoleDAO {
         }
 
         return result;
+    }
+
+    @Override
+    public void close(){
+        try {
+            if(this.conn != null){
+                this.conn.close();
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(),e);
+        }
     }
 
 }

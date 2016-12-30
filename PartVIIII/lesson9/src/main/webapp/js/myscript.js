@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function () {
-    var table = $("#tableinfo");
+
     $("#auth-btn").click(function () {
 
         var login = $("#role");
@@ -89,7 +89,7 @@ $(document).ready(function () {
                         }
                         var dropdownMenu = document.getElementById("tdbody");
                         dropdownMenu.innerHTML = optional;
-                        table.show();
+
                     }
                 }
             });
