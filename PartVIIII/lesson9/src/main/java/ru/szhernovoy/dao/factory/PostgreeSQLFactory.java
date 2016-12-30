@@ -44,26 +44,25 @@ public class PostgreeSQLFactory extends DAOFactory {
 
     @Override
     public MusicTypeDAO getMusicDAO() {
-        return new MusicTypeDAOImplementation(this.getConnection());
+        return new MusicTypeDAOImplementation(this);
     }
 
     @Override
     public RoleDAO getRoleDAO() {
-        return new RoleDAOImplementation(this.getConnection());
+        return new RoleDAOImplementation(this);
     }
 
     @Override
     public AddressDAO getAddressDAO() {
-        return new AddressDAOImplementation(this.getConnection());
+        return new AddressDAOImplementation(this);
     }
 
     @Override
     public UserDAO getUserDAO() {
-        return new UserDAOImplementation(this.getConnection());
+        return new UserDAOImplementation(this);
     }
 
-
-
+    @Override
     public Connection getConnection() {
         Connection conn = null;
         try {

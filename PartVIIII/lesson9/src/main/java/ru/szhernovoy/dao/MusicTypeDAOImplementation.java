@@ -2,6 +2,7 @@ package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.dao.factory.DAOFactory;
 import ru.szhernovoy.dao.value.MusicType;
 import ru.szhernovoy.dao.interfaces.MusicTypeDAO;
 
@@ -16,9 +17,10 @@ import java.util.concurrent.ConcurrentSkipListSet;
 public class MusicTypeDAOImplementation implements MusicTypeDAO {
     private final static Logger log = LoggerFactory.getLogger(MusicTypeDAOImplementation.class);
     Connection conn;
+    private DAOFactory factory;
 
-    public MusicTypeDAOImplementation(Connection conn) {
-        this.conn = conn;
+    public MusicTypeDAOImplementation(final DAOFactory factory) {
+        this.factory  = factory;
     }
 
     @Override
@@ -27,6 +29,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         int result = 0;
         ResultSet rs = null;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = this.conn.prepareStatement("INSERT INTO musictype(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1,name);
@@ -42,6 +45,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -57,6 +61,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         Collection<MusicType> musicTypes = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM musictype");
             rs = st.executeQuery();
@@ -75,6 +80,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -89,6 +95,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         MusicType result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM musictype WHERE id = ?");
             st.setInt(1,id);
@@ -106,6 +113,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -120,6 +128,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
     public boolean updateMusicType(int id, String name) {
         boolean result = false;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("UPDATE musictype SET name = ?, WHERE id = ?");
             st.setString(1,name);
@@ -132,6 +141,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         finally {
             try{
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -147,6 +157,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
 
         boolean result = false;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("DELETE FROM musictype WHERE id = ?");
             st.setInt(1,id);
@@ -159,6 +170,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         finally {
             try{
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -173,6 +185,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         MusicType result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM musictype WHERE name = ?");
             st.setString(1,name);
@@ -190,6 +203,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -198,17 +212,6 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         }
 
         return result;
-    }
-
-    @Override
-    public void close(){
-        try {
-            if(this.conn != null){
-                this.conn.close();
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage(),e);
-        }
     }
 
 

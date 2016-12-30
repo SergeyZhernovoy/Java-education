@@ -14,6 +14,5 @@ public interface AddressDAO {
      boolean updateAddress(int id, String name);
      boolean deleteAddress(int id);
      Address findAddressByName(String name);
-    void close();
 
 }

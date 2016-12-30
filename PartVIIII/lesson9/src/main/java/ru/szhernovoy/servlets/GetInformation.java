@@ -52,7 +52,6 @@ public class GetInformation extends HttpServlet {
         }
         if(!roleAll.isEmpty() && !isSetProperty){
            jsonObject.addProperty("user",getAllRole().toString());
-            isSetProperty = true;
         }
         out.append(jsonObject.toString());
         out.flush();

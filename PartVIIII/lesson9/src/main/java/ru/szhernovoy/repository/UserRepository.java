@@ -54,7 +54,7 @@ public class UserRepository {
             } else{
                 user.setMusicTypeId(musicTypeDAO.createMusicType(music));
             }
-            musicTypeDAO.close();
+
 
             Role role = roleDAO.findRoleByName(roleName);
             if( role!=null){
@@ -62,7 +62,7 @@ public class UserRepository {
             } else{
                 user.setRoleId(roleDAO.createRole(roleName));
             }
-            roleDAO.close();
+
 
             Address address = addressDAO.findAddressByName(addressName);
             if( address!=null){
@@ -70,7 +70,7 @@ public class UserRepository {
             } else{
                 user.setRoleId(addressDAO.createAddress(addressName));
             }
-            addressDAO.close();
+
             return this.userDAO.createUser(user);
 
     }
@@ -88,7 +88,7 @@ public class UserRepository {
         if(right == null){
             right = this.addressDAO.findAddressByName(address.getName());
         }
-        this.addressDAO.close();
+
 
         Collection<User> users = this.userDAO.getAll();
         for (User user : users){
@@ -189,14 +189,14 @@ public class UserRepository {
             if(this.user != null){
                 result = true;
             }
-            this.serviceUser.close();
+
             if(result){
                 this.role = this.serviceRole.findRole(user.getRoleId());
-                this.serviceRole.close();
+
                 this.address = this.serviceAddress.findAddress(user.getAdressId());
-                this.serviceAddress.close();
+
                 this.musicType = this.serviceMusicType.findMusicType(user.getMusicTypeId());
-                this.serviceMusicType.close();
+
             }
             return  result;
         }

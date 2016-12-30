@@ -48,4 +48,6 @@ public abstract class DAOFactory {
         return  factory;
     }
 
+    abstract public Connection getConnection();
+
 }

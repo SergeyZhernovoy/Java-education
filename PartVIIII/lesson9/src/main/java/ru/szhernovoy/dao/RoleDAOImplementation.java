@@ -2,6 +2,7 @@ package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.dao.factory.DAOFactory;
 import ru.szhernovoy.dao.interfaces.RoleDAO;
 import ru.szhernovoy.dao.value.Role;
 
@@ -16,14 +17,16 @@ import java.util.concurrent.ConcurrentSkipListSet;
 public class RoleDAOImplementation implements RoleDAO {
     private final static Logger log = LoggerFactory.getLogger(RoleDAOImplementation.class);
     Connection conn;
+    private DAOFactory factory;
 
-    public RoleDAOImplementation(Connection conn) {
-        this.conn = conn;
+    public RoleDAOImplementation(final DAOFactory factory) {
+        this.factory  = factory;
     }
 
     @Override
     public int createRole(String name) {
 
+        this.conn = this.factory.getConnection();
         int result = 0;
         ResultSet rs = null;
         PreparedStatement st = null;
@@ -42,6 +45,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -57,6 +61,7 @@ public class RoleDAOImplementation implements RoleDAO {
         Collection<Role> roles = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM role");
             rs = st.executeQuery();
@@ -75,6 +80,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -89,6 +95,7 @@ public class RoleDAOImplementation implements RoleDAO {
         Role result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM role WHERE id = ?");
             st.setInt(1,id);
@@ -106,6 +113,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -120,6 +128,7 @@ public class RoleDAOImplementation implements RoleDAO {
     public boolean updateRole(int id, String name) {
         boolean result = false;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("UPDATE role SET name = ?, WHERE id = ?");
             st.setString(1,name);
@@ -132,6 +141,7 @@ public class RoleDAOImplementation implements RoleDAO {
         finally {
             try{
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -147,6 +157,7 @@ public class RoleDAOImplementation implements RoleDAO {
 
         boolean result = false;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("DELETE FROM role WHERE id = ?");
             st.setInt(1,id);
@@ -159,6 +170,7 @@ public class RoleDAOImplementation implements RoleDAO {
         finally {
             try{
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -173,6 +185,7 @@ public class RoleDAOImplementation implements RoleDAO {
         Role result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM role WHERE name = ?");
             st.setString(1,name);
@@ -190,6 +203,7 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -200,15 +214,6 @@ public class RoleDAOImplementation implements RoleDAO {
         return result;
     }
 
-    @Override
-    public void close(){
-        try {
-            if(this.conn != null){
-                this.conn.close();
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage(),e);
-        }
-    }
+
 
 }

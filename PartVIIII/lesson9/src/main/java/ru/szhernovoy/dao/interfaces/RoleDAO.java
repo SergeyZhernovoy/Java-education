@@ -14,5 +14,5 @@ public interface RoleDAO {
      boolean updateRole(int id, String name);
      boolean deleteRole(int id);
      Role findRoleByName(String name);
-     void close();
+
 }

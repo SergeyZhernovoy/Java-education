@@ -35,4 +35,9 @@ public class MySQLFactory extends DAOFactory {
         return null;
     }
 
+    @Override
+    public Connection getConnection() {
+        return null;
+    }
+
 }

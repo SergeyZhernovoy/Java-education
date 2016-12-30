@@ -2,6 +2,7 @@ package ru.szhernovoy.dao;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.dao.factory.DAOFactory;
 import ru.szhernovoy.dao.interfaces.UserDAO;
 import ru.szhernovoy.dao.value.User;
 
@@ -16,9 +17,10 @@ import java.util.concurrent.ConcurrentSkipListSet;
 public class UserDAOImplementation implements UserDAO {
     private final static Logger log = LoggerFactory.getLogger(UserDAOImplementation.class);
     Connection conn;
+    private DAOFactory factory;
 
-    public UserDAOImplementation(Connection conn) {
-        this.conn = conn;
+    public UserDAOImplementation(final DAOFactory factory) {
+        this.factory  = factory;
     }
 
     @Override
@@ -27,6 +29,7 @@ public class UserDAOImplementation implements UserDAO {
         int result = -1;
         ResultSet rs = null;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = this.conn.prepareStatement("INSERT INTO users(name,role,address,musictype) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1,user.getName());
@@ -45,6 +48,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
+                this.conn.close();
 
             }
             catch (Exception e){
@@ -60,6 +64,7 @@ public class UserDAOImplementation implements UserDAO {
         Collection<User> users = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM users");
             rs = st.executeQuery();
@@ -81,6 +86,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -95,6 +101,7 @@ public class UserDAOImplementation implements UserDAO {
         User result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
             st.setInt(1,id);
@@ -115,6 +122,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -129,6 +137,7 @@ public class UserDAOImplementation implements UserDAO {
     public boolean updateUser(User user, int id) {
         boolean result = false;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("UPDATE users SET name = ?,address = ?,musictype = ?,role = ?  WHERE id = ?");
             st.setString(1,user.getName());
@@ -144,6 +153,7 @@ public class UserDAOImplementation implements UserDAO {
         finally {
             try{
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -159,6 +169,7 @@ public class UserDAOImplementation implements UserDAO {
 
         boolean result = false;
         PreparedStatement st = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("DELETE FROM users WHERE id = ?");
             st.setInt(1,id);
@@ -171,6 +182,7 @@ public class UserDAOImplementation implements UserDAO {
         finally {
             try{
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -185,6 +197,7 @@ public class UserDAOImplementation implements UserDAO {
         User result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
+        this.conn = this.factory.getConnection();
         try {
             st = conn.prepareStatement("SELECT * FROM users WHERE name = ?");
             st.setString(1,name);
@@ -205,6 +218,7 @@ public class UserDAOImplementation implements UserDAO {
             try{
                 rs.close();
                 st.close();
+                conn.close();
 
             }
             catch (Exception e){
@@ -215,15 +229,5 @@ public class UserDAOImplementation implements UserDAO {
         return result;
     }
 
-    @Override
-    public void close(){
-        try {
-            if(this.conn != null){
-                this.conn.close();
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage(),e);
-        }
-    }
 
 }
