@@ -1,4 +1,4 @@
-package ru.szhernovy.jobvacancy.view;/**
+package ru.szhernovoy.jobvacancy.view;/**
  * Created by szhernovoy on 14.11.2016.
  */
 
@@ -8,8 +8,8 @@ import org.quartz.JobExecutionException;
 import org.quartz.JobKey;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovy.jobvacancy.controller.DBManager;
-import ru.szhernovy.jobvacancy.controller.HTMLParser;
+import ru.szhernovoy.jobvacancy.controller.DBManager;
+import ru.szhernovoy.jobvacancy.controller.HTMLParser;
 
 import java.util.Date;
 import java.util.Properties;

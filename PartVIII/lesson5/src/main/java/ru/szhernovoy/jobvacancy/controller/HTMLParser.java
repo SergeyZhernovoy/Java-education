@@ -1,4 +1,4 @@
-package ru.szhernovy.jobvacancy.controller;/**
+package ru.szhernovoy.jobvacancy.controller;/**
  * Created by szhernovoy on 14.11.2016.
  */
 
@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovy.jobvacancy.model.Vacancy;
+import ru.szhernovoy.jobvacancy.model.Vacancy;
 
 import java.io.IOException;
 import java.text.ParseException;

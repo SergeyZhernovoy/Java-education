@@ -1,14 +1,11 @@
-package ru.szhernovy.jobvacancy.controller;/**
+package ru.szhernovoy.jobvacancy.controller;/**
  * Created by szhernovoy on 14.11.2016.
  */
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovy.jobvacancy.model.*;
+import ru.szhernovoy.jobvacancy.model.Vacancy;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 

@@ -1,8 +1,8 @@
-package ru.szhernovy.jobvacancy.controller;
+package ru.szhernovoy.jobvacancy.controller;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.szhernovy.jobvacancy.model.Vacancy;
+import ru.szhernovoy.jobvacancy.model.Vacancy;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 /**
  * Created by szhernovoy on 19.11.2016.

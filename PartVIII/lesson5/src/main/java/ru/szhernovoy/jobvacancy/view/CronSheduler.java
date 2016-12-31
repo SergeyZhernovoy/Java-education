@@ -1,4 +1,4 @@
-package ru.szhernovy.jobvacancy.view;
+package ru.szhernovoy.jobvacancy.view;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

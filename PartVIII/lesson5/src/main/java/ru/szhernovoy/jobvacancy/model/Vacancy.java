@@ -1,4 +1,4 @@
-package ru.szhernovy.jobvacancy.model;/**
+package ru.szhernovoy.jobvacancy.model;/**
  * Created by szhernovoy on 14.11.2016.
  */
 

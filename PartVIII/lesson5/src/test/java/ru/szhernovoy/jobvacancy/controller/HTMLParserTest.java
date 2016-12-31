@@ -1,6 +1,5 @@
-package ru.szhernovy.jobvacancy.controller;
+package ru.szhernovoy.jobvacancy.controller;
 
-import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
@@ -13,7 +12,6 @@ import java.util.GregorianCalendar;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 /**
  * Created by szhernovoy on 17.11.2016.

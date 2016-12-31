@@ -1,7 +1,7 @@
 /**
  * Created by admin on 13.11.2016.
  */
-package ru.szhernovy.jobvacancy;
+package ru.szhernovoy.jobvacancy;
 
 
 /**
