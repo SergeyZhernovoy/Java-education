@@ -4,15 +4,18 @@
 
 function viewItems() {
 
+    var all = false;
 
-    var all = $("#checkDone");
+    if($("#checkDone").prop('checked')){
+        var all = true;
+    }
 
     $.ajax({
         url: "list",
         method: "get",
         datatype: 'json',
         data: {
-            'done': all.val()
+            'done': all
         },
         complete: function (data) {
             var result = JSON.parse(data.responseText);
@@ -21,12 +24,12 @@ function viewItems() {
                 var optional = "";
                 for (var i = 0; i != next.length; ++i) {
                     optional += "<tr>";
-                    optional += "<td>next[i].descr</td>";
-                    optional += "<td>next[i].create</td>";
-                    optional += "<td>next[i].done</td>";
+                    optional += "<td>"+next[i].descr+"</td>";
+                    optional += "<td>"+next[i].createDate+"</td>";
+                    optional += "<td>"+next[i].done+"</td>";
                     optional += "</tr>";
                 }
-                var table = document.getElementById("tbody")
+                var table = document.getElementById("tbody");
                 table.innerHTML = optional;
             }
         }
@@ -37,11 +40,12 @@ function viewItems() {
 
 function clear() {
     $('input').val('');
+    $("#done").prop('checked',false);
 };
 
 $(document).ready(function () {
 
-    //viewItems();
+    viewItems();
 
     $("#create").click(function () {
         var descr = $("#descr");
@@ -59,6 +63,7 @@ $(document).ready(function () {
                     if (Boolean(result.successCreate)) {
                         alert("Success create todo task");
                         clear();
+                        viewItems();
                     }
                     else {
                         alert("Bad try create task. Try again");

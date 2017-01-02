@@ -20,15 +20,17 @@ import java.util.Collection;
 public class GetTasks extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     /*   resp.setContentType("text/json");
+        resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
-
+        //int done = req.getParameter("done").equals("1") ? 1 : 0;
         boolean alltasks = Boolean.valueOf(req.getParameter("done"));
         PrintWriter out = new PrintWriter(resp.getOutputStream());
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("tasks",getTasks(alltasks).toString());*/
+        jsonObject.addProperty("tasks",getTasks(alltasks).toString());
+        out.append(jsonObject.toString());
+        out.flush();
     }
-/*
+
     public JsonArray getTasks(boolean all){
 
         JsonArray array = new JsonArray();
@@ -45,17 +47,16 @@ public class GetTasks extends HttpServlet{
 
         Collection<Item> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
-        session.close();
         Item item = null;
         for (Item task : tasks){
             JsonObject obj = new JsonObject();
             obj.addProperty("descr",task.getDesc());
-            obj.addProperty("create",task.getCreate().toString());
-            obj.addProperty("done",task.getDone());
+            obj.addProperty("createDate",task.getCreate().toString());
+            obj.addProperty("done",task.getDone() ? "V": "");
             array.add(obj);
         }
         return array;
     }
-*/
+
 }
 

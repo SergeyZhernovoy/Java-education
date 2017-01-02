@@ -26,14 +26,13 @@ public class CreateTask  extends HttpServlet {
         Item task = new Item();
         task.setCreate(new Timestamp(System.currentTimeMillis()));
         task.setDesc(req.getParameter("descr"));
-        int done = Integer.valueOf(req.getParameter("done"));
+        int done = req.getParameter("done").equals("1") ? 1 : 0;
         task.setDone(done == 1);
         PrintWriter out = resp.getWriter();
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(task);
         session.getTransaction().commit();
-        session.close();
         JsonObject result  = new JsonObject();
         result.addProperty("successCreate",true);
         out.append(result.toString());

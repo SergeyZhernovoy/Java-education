@@ -4,6 +4,7 @@ body{
     background-color: darkgrey;
     padding: 10px 10px 10px 10px;
     border: 1px dotted grey;
+    font-family: "Times New Roman";
 }
 
 .createtask{
