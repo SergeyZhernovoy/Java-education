@@ -40,7 +40,7 @@ public class Item {
         this.create = create;
     }
 
-    public boolean isDone() {
+    public boolean getDone() {
         return done;
     }
 

@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <script src = "js/todolist.js" type="text/javascript"></script>
-        <link href="css/todolist.css" rel="stylesheet">
-        <title>todo list</title>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>todo</title>
+    <link rel="stylesheet" href="css/default.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/default.js"></script>
+</head>
+<body>
+    <div class="container">
 
+        <div class="viewtasks">
+            <form>
+                <input type="checkbox" id="checkDone" value="1">all task
+            </form>
+        </div>
+        <div class="createtask">
+            <form>
+                <label for="descr">description</label>
+                <input type="text" id = "descr">
+                <input type="checkbox" id = "done" value="1">done
+                <button type="button" id="create">Create task</button>
+            </form>
+        </div>
+        <br>
+        <div class="table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>description</th>
+                            <th>create time</th>
+                            <th>done</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+        </div>
 
-    </body>
+    </div>
+
+</body>
 </html>

@@ -1,0 +1,35 @@
+body{
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: darkgrey;
+    padding: 10px 10px 10px 10px;
+    border: 1px dotted grey;
+}
+
+.createtask{
+    text-align: center;
+}
+.viewtasks{
+    text-align: right;
+}
+
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    height: 25px;
+}
+
+td{
+    text-align:  center;
+}
