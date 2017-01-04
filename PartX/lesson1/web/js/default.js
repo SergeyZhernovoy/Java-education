@@ -15,7 +15,7 @@ function viewItems() {
         method: "get",
         datatype: 'json',
         data: {
-            'done': all
+            'doneAll': all
         },
         complete: function (data) {
             var result = JSON.parse(data.responseText);
@@ -49,7 +49,13 @@ $(document).ready(function () {
 
     $("#create").click(function () {
         var descr = $("#descr");
-        var done = $("#done");
+
+        var done = false;
+
+        if($("#done").prop('checked')){
+            var done = true;
+        }
+
 
         if(descr != ''){
             $.ajax({
@@ -57,7 +63,7 @@ $(document).ready(function () {
                 method: "post",
                 data: {
                     'descr': descr.val(),
-                    'done': done.val()},
+                    'done': done},
                 complete: function (data) {
                     var result = JSON.parse(data.responseText);
                     if (Boolean(result.successCreate)) {

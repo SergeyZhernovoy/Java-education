@@ -20,10 +20,10 @@ import java.util.Collection;
 public class GetTasks extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/json");
+        resp.setContentType("text/json;charset=Windows-1251");
         resp.setCharacterEncoding("UTF-8");
         //int done = req.getParameter("done").equals("1") ? 1 : 0;
-        boolean alltasks = Boolean.valueOf(req.getParameter("done"));
+        boolean alltasks = Boolean.valueOf(req.getParameter("doneAll"));
         PrintWriter out = new PrintWriter(resp.getOutputStream());
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("tasks",getTasks(alltasks).toString());

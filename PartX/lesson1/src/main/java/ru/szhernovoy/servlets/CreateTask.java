@@ -26,8 +26,7 @@ public class CreateTask  extends HttpServlet {
         Item task = new Item();
         task.setCreate(new Timestamp(System.currentTimeMillis()));
         task.setDesc(req.getParameter("descr"));
-        int done = req.getParameter("done").equals("1") ? 1 : 0;
-        task.setDone(done == 1);
+        task.setDone(Boolean.valueOf(req.getParameter("done")));
         PrintWriter out = resp.getWriter();
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
