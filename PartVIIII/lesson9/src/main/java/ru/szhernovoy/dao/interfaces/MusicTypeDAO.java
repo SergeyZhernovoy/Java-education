@@ -3,6 +3,7 @@ package ru.szhernovoy.dao.interfaces;
 import ru.szhernovoy.dao.value.MusicType;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by dort on 25.12.16.
@@ -14,5 +15,6 @@ public interface MusicTypeDAO {
      boolean updateMusicType(int id, String name);
      boolean deleteMusicType(int id);
      MusicType findMusicTypeByName(String name);
+     Set<Integer> findMusicTypeById(int userId);
 
 }

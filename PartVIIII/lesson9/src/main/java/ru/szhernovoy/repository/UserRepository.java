@@ -9,6 +9,7 @@ import ru.szhernovoy.dao.value.*;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -44,17 +45,19 @@ public class UserRepository {
         return storage;
     }
 
-    public int createUserReferences(String userName, String music,String addressName,String roleName){
+    public int createUserReferences(String userName, String addressName,String roleName,String ...music){
 
             User user = new User();
             user.setName(userName);
-            MusicType musicType = musicTypeDAO.findMusicTypeByName(music);
-            if( musicType!=null){
-                user.setMusicTypeId(musicType.getId());
-            } else{
-                user.setMusicTypeId(musicTypeDAO.createMusicType(music));
-            }
 
+            for(String typeMusic : music){
+                MusicType musicType = musicTypeDAO.findMusicTypeByName(typeMusic);
+                if( musicType!=null){
+                    user.setMusicTypeId(musicType.getId());
+                } else{
+                    user.setMusicTypeId(musicTypeDAO.createMusicType(typeMusic));
+                }
+            }
 
             Role role = roleDAO.findRoleByName(roleName);
             if( role!=null){
@@ -89,15 +92,14 @@ public class UserRepository {
             right = this.addressDAO.findAddressByName(address.getName());
         }
 
-
         Collection<User> users = this.userDAO.getAll();
         for (User user : users){
-            if(user.getAdressId() == right.getId()){
+            if(user.getRoleId() == right.getId()){
                 UserReferences userReferences = new UserReferences(this.addressDAO,this.roleDAO ,this.userDAO,this.musicTypeDAO);
                 userReferences.fillData(user.getId());
                 storage.add(userReferences);
             }
-        }
+         }
         return storage;
     }
 
@@ -141,7 +143,9 @@ public class UserRepository {
 
         Collection<User> users = this.userDAO.getAll();
         for (User user : users){
-            if(user.getMusicTypeId() == right.getId()){
+
+            Set<Integer> types = user.getMusicTypeId();
+            if(types.contains(right.getId())){
                 UserReferences userReferences = new UserReferences(this.addressDAO,this.roleDAO ,this.userDAO,this.musicTypeDAO);
                 userReferences.fillData(user.getId());
                 storage.add(userReferences);
@@ -154,7 +158,7 @@ public class UserRepository {
         private User user;
         private Role role;
         private Address address;
-        private MusicType musicType;
+        private Set<Integer> musicType;
         private AddressDAO serviceAddress;
         private RoleDAO serviceRole;
         private UserDAO serviceUser;
@@ -179,7 +183,7 @@ public class UserRepository {
             return address;
         }
 
-        public MusicType getMusicType() {
+        public Set<Integer> getMusicType() {
             return musicType;
         }
 
@@ -195,8 +199,7 @@ public class UserRepository {
 
                 this.address = this.serviceAddress.findAddress(user.getAdressId());
 
-                this.musicType = this.serviceMusicType.findMusicType(user.getMusicTypeId());
-
+                this.musicType = this.serviceMusicType.findMusicTypeById(user.getId());
             }
             return  result;
         }

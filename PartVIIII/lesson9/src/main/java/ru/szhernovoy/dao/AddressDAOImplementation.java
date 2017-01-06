@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentSkipListSet;
  */
 public class AddressDAOImplementation implements AddressDAO {
     private final static Logger log = LoggerFactory.getLogger(AddressDAOImplementation.class);
-    private Connection conn;
     private DAOFactory factory;
 
     public AddressDAOImplementation(final DAOFactory factory){
@@ -30,9 +29,9 @@ public class AddressDAOImplementation implements AddressDAO {
         int result = 0;
         ResultSet rs = null;
         PreparedStatement st = null;
-        this.conn = this.factory.getConnection();
-        try {
-            st = this.conn.prepareStatement("INSERT INTO address(name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
+
+        try(Connection conn = this.factory.getConnection()) {
+            st = conn.prepareStatement("INSERT INTO address(name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
             st.setString(1,name);
             st.executeUpdate();
             rs = st.getGeneratedKeys();
@@ -46,8 +45,6 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -62,8 +59,8 @@ public class AddressDAOImplementation implements AddressDAO {
         Collection<Address> addresses = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM address");
             rs = st.executeQuery();
             Address address = null;
@@ -81,9 +78,7 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
-            }
+             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
             }
@@ -96,8 +91,7 @@ public class AddressDAOImplementation implements AddressDAO {
         Address result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM address WHERE id = ?");
             st.setInt(1,id);
             rs = st.executeQuery();
@@ -114,8 +108,6 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -129,8 +121,8 @@ public class AddressDAOImplementation implements AddressDAO {
     public boolean updateAddress(int id, String name) {
             boolean result = false;
             PreparedStatement st = null;
-            this.conn = this.factory.getConnection();
-            try {
+
+            try(Connection conn = this.factory.getConnection()) {
                 st = conn.prepareStatement("UPDATE address SET name = ?, WHERE id = ?");
                 st.setString(1,name);
                 st.setInt(4,id);
@@ -142,8 +134,6 @@ public class AddressDAOImplementation implements AddressDAO {
             finally {
                 try{
                     st.close();
-                    conn.close();
-
                 }
                 catch (Exception e){
                     log.error(e.getMessage(),e);
@@ -158,8 +148,8 @@ public class AddressDAOImplementation implements AddressDAO {
 
             boolean result = false;
             PreparedStatement st = null;
-            this.conn = this.factory.getConnection();
-            try {
+
+            try(Connection conn = this.factory.getConnection()) {
                 st = conn.prepareStatement("DELETE FROM address WHERE id = ?");
                 st.setInt(1,id);
                 st.executeUpdate();
@@ -171,8 +161,6 @@ public class AddressDAOImplementation implements AddressDAO {
             finally {
                 try{
                     st.close();
-                    conn.close();
-
                 }
                 catch (Exception e){
                     log.error(e.getMessage(),e);
@@ -186,8 +174,7 @@ public class AddressDAOImplementation implements AddressDAO {
         Address result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM address WHERE name = ?");
             st.setString(1,name);
             rs = st.executeQuery();
@@ -204,8 +191,6 @@ public class AddressDAOImplementation implements AddressDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -214,7 +199,5 @@ public class AddressDAOImplementation implements AddressDAO {
 
         return result;
     }
-
-
 
 }

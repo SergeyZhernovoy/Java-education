@@ -16,7 +16,6 @@ import java.util.concurrent.ConcurrentSkipListSet;
  */
 public class RoleDAOImplementation implements RoleDAO {
     private final static Logger log = LoggerFactory.getLogger(RoleDAOImplementation.class);
-    Connection conn;
     private DAOFactory factory;
 
     public RoleDAOImplementation(final DAOFactory factory) {
@@ -26,12 +25,12 @@ public class RoleDAOImplementation implements RoleDAO {
     @Override
     public int createRole(String name) {
 
-        this.conn = this.factory.getConnection();
+
         int result = 0;
         ResultSet rs = null;
         PreparedStatement st = null;
-        try {
-            st = this.conn.prepareStatement("INSERT INTO role(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+        try(Connection conn = this.factory.getConnection()) {
+            st = conn.prepareStatement("INSERT INTO role(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1,name);
             st.executeUpdate();
             rs = st.getGeneratedKeys();
@@ -45,8 +44,6 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -61,8 +58,7 @@ public class RoleDAOImplementation implements RoleDAO {
         Collection<Role> roles = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM role");
             rs = st.executeQuery();
             Role role = null;
@@ -80,8 +76,6 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -95,8 +89,7 @@ public class RoleDAOImplementation implements RoleDAO {
         Role result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM role WHERE id = ?");
             st.setInt(1,id);
             rs = st.executeQuery();
@@ -113,8 +106,6 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -128,8 +119,7 @@ public class RoleDAOImplementation implements RoleDAO {
     public boolean updateRole(int id, String name) {
         boolean result = false;
         PreparedStatement st = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("UPDATE role SET name = ?, WHERE id = ?");
             st.setString(1,name);
             st.setInt(4,id);
@@ -141,9 +131,7 @@ public class RoleDAOImplementation implements RoleDAO {
         finally {
             try{
                 st.close();
-                conn.close();
-
-            }
+              }
             catch (Exception e){
                 log.error(e.getMessage(),e);
             }
@@ -157,8 +145,7 @@ public class RoleDAOImplementation implements RoleDAO {
 
         boolean result = false;
         PreparedStatement st = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("DELETE FROM role WHERE id = ?");
             st.setInt(1,id);
             st.executeUpdate();
@@ -170,8 +157,6 @@ public class RoleDAOImplementation implements RoleDAO {
         finally {
             try{
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -185,8 +170,7 @@ public class RoleDAOImplementation implements RoleDAO {
         Role result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM role WHERE name = ?");
             st.setString(1,name);
             rs = st.executeQuery();
@@ -203,8 +187,6 @@ public class RoleDAOImplementation implements RoleDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);

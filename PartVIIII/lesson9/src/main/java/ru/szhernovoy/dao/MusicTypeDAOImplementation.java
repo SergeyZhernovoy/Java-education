@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 import ru.szhernovoy.dao.factory.DAOFactory;
 import ru.szhernovoy.dao.value.MusicType;
 import ru.szhernovoy.dao.interfaces.MusicTypeDAO;
+import ru.szhernovoy.dao.value.User;
 
 import java.sql.*;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
@@ -16,7 +16,6 @@ import java.util.concurrent.ConcurrentSkipListSet;
  */
 public class MusicTypeDAOImplementation implements MusicTypeDAO {
     private final static Logger log = LoggerFactory.getLogger(MusicTypeDAOImplementation.class);
-    Connection conn;
     private DAOFactory factory;
 
     public MusicTypeDAOImplementation(final DAOFactory factory) {
@@ -29,9 +28,9 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         int result = 0;
         ResultSet rs = null;
         PreparedStatement st = null;
-        this.conn = this.factory.getConnection();
-        try {
-            st = this.conn.prepareStatement("INSERT INTO musictype(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+
+        try(Connection conn = this.factory.getConnection()) {
+            st = conn.prepareStatement("INSERT INTO musictype(name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1,name);
             st.executeUpdate();
             rs = st.getGeneratedKeys();
@@ -45,8 +44,6 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -61,8 +58,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         Collection<MusicType> musicTypes = new LinkedList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM musictype");
             rs = st.executeQuery();
             MusicType musicType = null;
@@ -80,9 +76,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
-            }
+             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
             }
@@ -95,8 +89,8 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         MusicType result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM musictype WHERE id = ?");
             st.setInt(1,id);
             rs = st.executeQuery();
@@ -113,7 +107,6 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
 
             }
             catch (Exception e){
@@ -128,8 +121,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
     public boolean updateMusicType(int id, String name) {
         boolean result = false;
         PreparedStatement st = null;
-        this.conn = this.factory.getConnection();
-        try {
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("UPDATE musictype SET name = ?, WHERE id = ?");
             st.setString(1,name);
             st.setInt(4,id);
@@ -141,8 +133,6 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         finally {
             try{
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -157,8 +147,8 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
 
         boolean result = false;
         PreparedStatement st = null;
-        this.conn = this.factory.getConnection();
-        try {
+
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("DELETE FROM musictype WHERE id = ?");
             st.setInt(1,id);
             st.executeUpdate();
@@ -170,9 +160,7 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         finally {
             try{
                 st.close();
-                conn.close();
-
-            }
+             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
             }
@@ -185,8 +173,8 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         MusicType result =null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        this.conn = this.factory.getConnection();
-        try {
+
+        try(Connection conn = this.factory.getConnection()) {
             st = conn.prepareStatement("SELECT * FROM musictype WHERE name = ?");
             st.setString(1,name);
             rs = st.executeQuery();
@@ -203,8 +191,6 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             try{
                 rs.close();
                 st.close();
-                conn.close();
-
             }
             catch (Exception e){
                 log.error(e.getMessage(),e);
@@ -214,5 +200,28 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
         return result;
     }
 
-
+    @Override
+    public Set<Integer> findMusicTypeById(int userId) {
+            Set<Integer> types = new LinkedHashSet<>();
+            ResultSet rs = null;
+            try(Connection conn = this.factory.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users_musictype WHERE user = ?")){
+                st.setInt(1,userId);
+                rs = st.executeQuery();
+                rs = st.executeQuery();
+                while (rs.next()){
+                    types.add(rs.getInt("musictype"));
+                }
+            }catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+            finally {
+                try{
+                    rs.close();
+                }
+                catch (Exception e){
+                    log.error(e.getMessage(),e);
+                }
+            }
+            return types;
+    }
 }

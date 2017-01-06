@@ -67,7 +67,7 @@ public class GetInformation extends HttpServlet {
         for (UserRepository.UserReferences userReferences : users){
              JsonObject obj = new JsonObject();
              obj.addProperty("login",userReferences.getUser().getName());
-             obj.addProperty("music_type",userReferences.getMusicType().getName());
+             obj.addProperty("music_type",userReferences.getMusicType());
              obj.addProperty("address",userReferences.getAddress().getName());
              obj.addProperty("role",userReferences.getRole().getName());
              array.add(obj);

@@ -23,6 +23,14 @@ create table if not exists users(
     address INTEGER REFERENCES address(id)
 );
 
+create table if not exists users_musictype(
+    id serial primary key NOT NULL,
+    musictype INTEGER REFERENCES musictype(id),
+    user INTEGER REFERENCES users(id)
+);
+
+
+
 
 INSERT INTO role(name)  VALUES ('USER');
 INSERT INTO role(name)  VALUES ('MANDATOR');
