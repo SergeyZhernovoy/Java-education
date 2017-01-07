@@ -10,24 +10,13 @@
     </listener>
 
     <servlet>
-        <servlet-name>create</servlet-name>
-        <servlet-class>ru.szhernovoy.servlets.CreateTask</servlet-class>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>ru.szhernovoy.servlets.Controller</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>create</servlet-name>
-        <url-pattern>/create</url-pattern>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/service</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>get tasks</servlet-name>
-        <servlet-class>ru.szhernovoy.servlets.GetTasks</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>get tasks</servlet-name>
-        <url-pattern>/list</url-pattern>
-    </servlet-mapping>
-
 
 </web-app>

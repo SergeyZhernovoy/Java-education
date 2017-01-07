@@ -11,7 +11,7 @@ function viewItems() {
     }
 
     $.ajax({
-        url: "list",
+        url: "service",
         method: "get",
         datatype: 'json',
         data: {
@@ -59,7 +59,7 @@ $(document).ready(function () {
 
         if(descr != ''){
             $.ajax({
-                url: "create",
+                url: "service",
                 method: "post",
                 data: {
                     'descr': descr.val(),
