@@ -67,7 +67,6 @@ public class GetInformation extends HttpServlet {
         for (UserRepository.UserReferences userReferences : users){
              JsonObject obj = new JsonObject();
              obj.addProperty("login",userReferences.getUser().getName());
-             obj.addProperty("music_type",userReferences.getMusicType());
              obj.addProperty("address",userReferences.getAddress().getName());
              obj.addProperty("role",userReferences.getRole().getName());
              array.add(obj);
@@ -84,7 +83,6 @@ public class GetInformation extends HttpServlet {
         for (UserRepository.UserReferences userReferences : users){
             JsonObject obj = new JsonObject();
             obj.addProperty("login",userReferences.getUser().getName());
-            obj.addProperty("music_type",userReferences.getMusicType().getName());
             obj.addProperty("address",userReferences.getAddress().getName());
             obj.addProperty("role",userReferences.getRole().getName());
             array.add(obj);
@@ -101,7 +99,6 @@ public class GetInformation extends HttpServlet {
         for (UserRepository.UserReferences userReferences : users){
             JsonObject obj = new JsonObject();
             obj.addProperty("login",userReferences.getUser().getName());
-            obj.addProperty("music_type",userReferences.getMusicType().getName());
             obj.addProperty("address",userReferences.getAddress().getName());
             obj.addProperty("role",userReferences.getRole().getName());
             array.add(obj);
@@ -116,7 +113,6 @@ public class GetInformation extends HttpServlet {
         for (User user : users){
             JsonObject obj = new JsonObject();
             obj.addProperty("login",user.getName());
-            obj.addProperty("music_type",user.getMusicTypeId());
             obj.addProperty("address",user.getAdressId());
             obj.addProperty("role",user.getRoleId());
             array.add(obj);

@@ -159,7 +159,7 @@ public class UserDAOImplementation implements UserDAO {
     public boolean deleteUser(int id) {
 
         boolean result = false;
-         try(Connection conn = this.factory.getConnection();PreparedStatement st =  conn.prepareStatement("DELETE FROM users WHERE id = ?");PreparedStatement stM =  conn.prepareStatement("DELETE FROM users_musictype where user = ?")) {
+         try(Connection conn = this.factory.getConnection();PreparedStatement st =  conn.prepareStatement("DELETE FROM users WHERE id = ?");PreparedStatement stM =  conn.prepareStatement("DELETE FROM users_musictype where userid = ?")) {
             st.setInt(1,id);
             st.executeUpdate();
             result = true;
@@ -207,7 +207,7 @@ public class UserDAOImplementation implements UserDAO {
 
     private void fillMusicType(User user){
         ResultSet rs = null;
-        try(Connection conn = this.factory.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users_musictype WHERE user = ?")){
+        try(Connection conn = this.factory.getConnection();PreparedStatement st = conn.prepareStatement("SELECT * FROM users_musictype WHERE userid = ?")){
             st.setInt(1,user.getId());
             rs = st.executeQuery();
             rs = st.executeQuery();
@@ -233,11 +233,11 @@ public class UserDAOImplementation implements UserDAO {
         try(Connection conn = this.factory.getConnection()){
 
             Set<Integer> mType = user.getMusicTypeId();
-            st = conn.prepareStatement("DELETE FROM users_musictype where user = ?");
+            st = conn.prepareStatement("DELETE FROM users_musictype where userid = ?");
             st.setInt(1,user.getId());
             st.executeUpdate();
             for(int numberType : mType){
-                st = conn.prepareStatement("INSERT INTO users_musictype(musictype,user) VALUES (?,?)");
+                st = conn.prepareStatement("INSERT INTO users_musictype(musictype,userid) VALUES (?,?)");
                 st.setInt(1,numberType);
                 st.setInt(2,user.getId());
                 st.executeUpdate();

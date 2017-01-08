@@ -154,8 +154,7 @@ public class AddressDAOImplementation implements AddressDAO {
                 st.setInt(1,id);
                 st.executeUpdate();
                 result = true;
-
-            } catch (Exception e) {
+            }catch (Exception e) {
                 log.error(e.getMessage(),e);
             }
             finally {

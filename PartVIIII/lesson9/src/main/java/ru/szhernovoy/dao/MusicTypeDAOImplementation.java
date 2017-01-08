@@ -154,6 +154,10 @@ public class MusicTypeDAOImplementation implements MusicTypeDAO {
             st.executeUpdate();
             result = true;
 
+            st =  conn.prepareStatement("DELETE FROM users_musictype where musictype = ?");
+            st.setInt(1,id);
+            st.executeUpdate();
+
         } catch (Exception e) {
             log.error(e.getMessage(),e);
         }
