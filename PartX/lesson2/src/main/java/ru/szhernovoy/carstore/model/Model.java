@@ -4,19 +4,11 @@ package ru.szhernovoy.carstore.model;
 /**
  * Created by admin on 05.01.2017.
  */
-public class Transmission {
-    private String name;
+public class Model {
     private int id;
+    private String name;
 
-    public Transmission() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Model() {
     }
 
     public int getId() {
@@ -25,5 +17,13 @@ public class Transmission {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
