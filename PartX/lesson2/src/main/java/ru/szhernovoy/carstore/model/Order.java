@@ -8,10 +8,7 @@ import java.util.List;
  * Created by admin on 05.01.2017.
  */
 public class Order {
-    /**
-     * Created by admin on 10.01.2017.
-     */
-    private boolean isSold;
+
     /**
      * Created by admin on 10.01.2017.
      */
@@ -44,6 +41,12 @@ public class Order {
     /**
      * Created by admin on 10.01.2017.
      */
+    private boolean sold;
+
+
+    /**
+     * Created by admin on 10.01.2017.
+     */
     public Order() {
     }
 
@@ -51,8 +54,8 @@ public class Order {
      * Created by admin on 10.01.2017.
      * @return boolean
      */
-    public boolean isSold() {
-        return isSold;
+    public boolean getSold() {
+        return sold;
     }
 
     /**
@@ -60,7 +63,7 @@ public class Order {
      * @param sold .
      */
     public void setSold(boolean sold) {
-        isSold = sold;
+        this.sold = sold;
     }
 
     /**

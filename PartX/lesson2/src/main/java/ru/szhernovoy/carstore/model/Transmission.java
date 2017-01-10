@@ -20,6 +20,10 @@ public class Transmission {
     public Transmission() {
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     /**
      * Created by admin on 10.01.2017.
      * @return String
@@ -51,4 +55,5 @@ public class Transmission {
     public void setId(int id) {
         this.id = id;
     }
+
 }

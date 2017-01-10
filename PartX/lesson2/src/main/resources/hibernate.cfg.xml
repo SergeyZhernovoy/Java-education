@@ -9,8 +9,16 @@
         <property name="connection.username">postgres</property>
         <property name="connection.password">1</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
-        <!-- <mapping resource="ru/szhernovoy/model/Item.hbm.xml"/> -->
-        <property name="show_sql">true</property>
+
+        <mapping resource="ru/szhernovoy/carstore/model/Car.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Body.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/DriveType.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Engine.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Image.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Model.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Orders.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Transmission.hbm.xml"/>
+        <mapping resource="ru/szhernovoy/carstore/model/Users.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

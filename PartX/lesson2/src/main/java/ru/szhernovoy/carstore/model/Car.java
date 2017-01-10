@@ -29,6 +29,20 @@ public class Car {
      * Created by admin on 10.01.2017.
      */
     private int id;
+    /**
+     * Created by admin on 10.01.2017.
+     */
+    private String name;
+
+    /**
+     * Created by admin on 10.01.2017.
+     */
+    public Car() {
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * Created by admin on 10.01.2017.
@@ -48,8 +62,18 @@ public class Car {
 
     /**
      * Created by admin on 10.01.2017.
+     * @return String
      */
-    public Car() {
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Created by admin on 10.01.2017.
+     * @param name .
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -131,4 +155,5 @@ public class Car {
     public void setTransmission(Transmission transmission) {
         this.transmission = transmission;
     }
+
 }

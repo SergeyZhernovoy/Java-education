@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="ru.szhernovoy.carstore.model.User" table="users" schema="public" catalog="carstore">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="login"/>
+        <property name="password" column="pass"/>
+        <bag name="orderSet" inverse="true">
+            <key column="id_user" not-null="true"></key>
+            <one-to-many class="ru.szhernovoy.carstore.model.Order"/>
+        </bag>
+    </class>
+</hibernate-mapping>
