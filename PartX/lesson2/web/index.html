@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/carstore.css">
     <link rel="shortcut icon" href="images/car.png" type="image/png">
+    <script src="js/carstore.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -28,15 +29,16 @@
                     <input id="password" type="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <br>
-                <button type="button" class="btn btn-success" id="auth-btn">Ввойти</button>
+                <button type="button" class="btn btn-link" id="auth-btn">Ввойти</button>
+                <button type="button" class="btn btn-link" id="add-user-btn">Регистрация</button>
             </form>
 
             <div id="info_success_auth" hidden>
-                <span class="label label-info">Успешная авториазация</span>
+                    <h3><span class="label label-info">Успешная авторизация</span></h3>
             </div>
 
             <br>
-            <ul class="nav nav-pills nav-stacked" hidden>
+            <ul id="add_btn" class="nav nav-pills nav-stacked" hidden>
                 <li class="active"><a href="create.html">Добавить объявление</a></li>
             </ul><br>
 
@@ -54,7 +56,7 @@
                         <th>Автомобиль</th>
                         <th>Цена</th>
                         <th>Изображение</th>
-                        <th>Редактировать</th>
+                        <th id="edit">Редактировать</th>
                     </tr>
                     </thead>
                     <tbody>

@@ -3,4 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+
+    <listener>
+        <listener-class>ru.szhernovoy.carstore.controllers.Initial</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>Authorization</servlet-name>
+        <servlet-class>ru.szhernovoy.carstore.controllers.SignIn</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Authorization</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+
+
 </web-app>

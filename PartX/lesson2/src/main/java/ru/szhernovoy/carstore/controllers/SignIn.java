@@ -2,8 +2,11 @@ package ru.szhernovoy.carstore.controllers;/**
  * Created by szhernovoy on 11.01.2017.
  */
 
+import com.google.gson.JsonObject;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.carstore.dao.UserDBManager;
+import ru.szhernovoy.carstore.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -11,7 +14,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class SignIn extends HttpServlet{
@@ -73,5 +78,31 @@ public class SignIn extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        boolean addNewUser = Boolean.valueOf(req.getParameter("addUser"));
+
+        HttpSession session = req.getSession();
+        session.setAttribute("success",false);
+        JsonObject json = new JsonObject();
+        PrintWriter out = new PrintWriter(resp.getOutputStream());
+
+        if(addNewUser){
+            User user = new User();
+            user.setName(login);
+            user.setPassword(password);
+            new UserDBManager().create(user);
+            session.setAttribute("success",true);
+            json.addProperty("success",true);
+        } else{
+            if(new UserDBManager().matchUser(login,password)){
+                session.setAttribute("success",true);
+                json.addProperty("success",true);
+            } else {
+                json.addProperty("success",false);
+            }
+        }
+        out.append(json.toString());
+        out.flush();
     }
 }

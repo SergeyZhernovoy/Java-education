@@ -9,8 +9,71 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/carstore.css">
     <link rel="shortcut icon" href="images/car.png" type="image/png">
-</head>
-<body>
+    <script src="js/carstore.js" type="text/javascript"></script>
 
-</body>
+</head>
+    <body>
+        <h2 align="center">Добавление нового объявления</h2>
+        <br>
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label for="name">Название</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="model"> Брэнд</label>
+                    <select id="model"  class="selectpicker form-control" data-width="35%">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="body">Кузов</label>
+                    <select id="body"  class="selectpicker form-control" data-width="35%">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                <label for="drivetype">Привод</label>
+                    <select id="drivetype"  class="selectpicker form-control" data-width="35%">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="engine"> Вид двигателя</label>
+                    <select id="engine"  class="selectpicker form-control" data-width="35%">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transsmission"> Транссмиссия</label>
+                    <select id="transsmission"  class="selectpicker form-control" data-width="35%">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+                </div>
+
+                <input type="checkbox">Продано
+
+                <input type="BUTTON">Загрузить изображение
+                <br>
+                <button type="button" class="btn btn-link" id="auth-btn">Добавить/редактировать объявление</button>
+
+        </form>
+        </div>
+    </body>
 </html>
