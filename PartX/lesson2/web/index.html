@@ -1,10 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Car store</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/carstore.css">
+    <link rel="shortcut icon" href="images/car.png" type="image/png">
 </head>
 <body>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav">
+            <h4>Авторизация</h4>
+
+            <form id="autorization">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="login" type="text" class="form-control" name="login" placeholder="Login">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <br>
+                <button type="button" class="btn btn-success" id="auth-btn">Ввойти</button>
+            </form>
+
+            <div id="info_success_auth" hidden>
+                <span class="label label-info">Успешная авториазация</span>
+            </div>
+
+            <br>
+            <ul class="nav nav-pills nav-stacked" hidden>
+                <li class="active"><a href="create.html">Добавить объявление</a></li>
+            </ul><br>
+
+        </div>
+
+        <div class="col-sm-9">
+            <h4 align="center">Объявления о продаже автомобилей</h4>
+             <br>
+             <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th hidden>№</th>
+                        <th>Продано</th>
+                        <th>Автомобиль</th>
+                        <th>Цена</th>
+                        <th>Изображение</th>
+                        <th>Редактировать</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td hidden></td>
+                        <td></td>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>Картинки</td>
+                        <td><span><a href="create.html" onclick="return onload">  <i class="material-icons" style="font-size:20px">mode_edit</i> </a></span></td>
+                    </tr>
+                    <tr>
+                        <td hidden></td>
+                        <td>V</td>
+                        <td>John</td>
+                        <td>Moe</td>
+                        <td>Doe</td>
+                        <td><span><a href="create.html"> <i class="material-icons" style="font-size:20px">mode_edit</i> </a></span></td>
+                    </tr>
+                    <tr>
+                        <td hidden></td>
+                        <td></td>
+                        <td>John</td>
+                        <td>Dooley</td>
+                        <td>Doe</td>
+                        <td><span><a href="create.html">  <i class="material-icons" style="font-size:20px">mode_edit</i> </a></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
