@@ -20,5 +20,15 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>Fill controller</servlet-name>
+        <servlet-class>ru.szhernovoy.carstore.controllers.Fill</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Fill controller</servlet-name>
+        <url-pattern>/fill</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

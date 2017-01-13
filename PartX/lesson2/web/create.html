@@ -16,64 +16,58 @@
         <h2 align="center">Добавление нового объявления</h2>
         <br>
         <div class="container">
-            <form>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Название</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="model"> Брэнд</label>
+                        <select id="model"  class="selectpicker form-control" data-width="35%">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body">Кузов</label>
+                        <select id="body"  class="selectpicker form-control" data-width="35%">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="drivetype">Привод</label>
+                        <select id="drivetype"  class="selectpicker form-control" data-width="35%">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="engine"> Вид двигателя</label>
+                        <select id="engine"  class="selectpicker form-control" data-width="35%">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transsmission"> Транссмиссия</label>
+                        <select id="transsmission"  class="selectpicker form-control" data-width="35%">
+
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-warning" id="add-btn">Добавить/редактировать объявление</button>
+            </form>
+        </div>
+        <br>
+        <h4 align="center">Добавить изображения к объявлению</h4>
+        <div class="container">
+           <form class="form-inline" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="name">Название</label>
-                    <input type="text" class="form-control" id="name">
+                    <input type="file" name="f" accept="image/*" id="file-image">
+                    <input type="button" value="Отправить" id="image-btn-load">
                 </div>
-
-                <div class="form-group">
-                    <label for="model"> Брэнд</label>
-                    <select id="model"  class="selectpicker form-control" data-width="35%">
-                        <option>Mustard</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="body">Кузов</label>
-                    <select id="body"  class="selectpicker form-control" data-width="35%">
-                        <option>Mustard</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                <label for="drivetype">Привод</label>
-                    <select id="drivetype"  class="selectpicker form-control" data-width="35%">
-                        <option>Mustard</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="engine"> Вид двигателя</label>
-                    <select id="engine"  class="selectpicker form-control" data-width="35%">
-                        <option>Mustard</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="transsmission"> Транссмиссия</label>
-                    <select id="transsmission"  class="selectpicker form-control" data-width="35%">
-                        <option>Mustard</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
-                    </select>
-                </div>
-
-                <input type="checkbox">Продано
-
-                <input type="BUTTON">Загрузить изображение
-                <br>
-                <button type="button" class="btn btn-link" id="auth-btn">Добавить/редактировать объявление</button>
-
-        </form>
+            </form>
         </div>
     </body>
 </html>
