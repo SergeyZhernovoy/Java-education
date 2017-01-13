@@ -31,4 +31,16 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>Create order</servlet-name>
+        <servlet-class>ru.szhernovoy.carstore.controllers.CreateOrder</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Create order</servlet-name>
+        <url-pattern>/creat</url-pattern>
+    </servlet-mapping>
+
+
+
 </web-app>

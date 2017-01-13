@@ -70,7 +70,7 @@ public class ModelDBManager implements DAOInterface<Model>, JsonConvert<Model>{
     public Collection<Model> get() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        String query = "from ru.szhernovoy.carstore.model.Body";
+        String query = "from ru.szhernovoy.carstore.model.Model";
         Collection<Model> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
         return  tasks;

@@ -71,7 +71,7 @@ public class DriveDBManager implements DAOInterface<DriveType>, JsonConvert<Driv
     public Collection<DriveType> get() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        String query = "from ru.szhernovoy.carstore.model.Body";
+        String query = "from ru.szhernovoy.carstore.model.DriveType";
         Collection<DriveType> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
         return  tasks;

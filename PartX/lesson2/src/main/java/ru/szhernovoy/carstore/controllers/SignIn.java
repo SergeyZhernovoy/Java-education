@@ -86,22 +86,39 @@ public class SignIn extends HttpServlet{
         session.setAttribute("success",false);
         JsonObject json = new JsonObject();
         PrintWriter out = new PrintWriter(resp.getOutputStream());
-
+        User matchUser = null;
         if(addNewUser){
             User user = new User();
             user.setName(login);
             user.setPassword(password);
-            new UserDBManager().create(user);
+            UserDBManager userDBManager = new UserDBManager();
+            matchUser = userDBManager.create(user);
             session.setAttribute("success",true);
             json.addProperty("success",true);
         } else{
-            if(new UserDBManager().matchUser(login,password)){
+            if(new UserDBManager().matchUser(login,password,matchUser)){
                 session.setAttribute("success",true);
                 json.addProperty("success",true);
             } else {
                 json.addProperty("success",false);
             }
         }
+
+        if(matchUser != null){
+            session.setAttribute("id_user",matchUser.getId());
+        }
+
+        out.append(json.toString());
+        out.flush();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        boolean success = (boolean)session.getAttribute("success");
+        PrintWriter out = new PrintWriter(resp.getOutputStream());
+        JsonObject json = new JsonObject();
+        json.addProperty("success",success);
         out.append(json.toString());
         out.flush();
     }

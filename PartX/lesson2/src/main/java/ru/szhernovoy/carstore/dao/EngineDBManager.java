@@ -70,7 +70,7 @@ public class EngineDBManager implements DAOInterface<Engine>, JsonConvert<Engine
     public Collection<Engine> get() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        String query = "from ru.szhernovoy.carstore.model.Body";
+        String query = "from ru.szhernovoy.carstore.model.Engine";
         Collection<Engine> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
         return  tasks;

@@ -5,6 +5,7 @@ package ru.szhernovoy.carstore.controllers;/**
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import ru.szhernovoy.carstore.dao.UserDBManager;
+import ru.szhernovoy.carstore.model.User;
 import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 
 import javax.servlet.ServletContextEvent;
@@ -18,8 +19,6 @@ public class Initial implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         HibernateSessionFactory.getSessionFactory();
-        UserDBManager userDAO = new UserDBManager();
-        userDAO.matchRoot();
     }
 
     @Override

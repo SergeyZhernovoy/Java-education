@@ -20,10 +20,6 @@ public class Model {
     public Model() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     /**
      * Created by admin on 10.01.2017.
      * @return int

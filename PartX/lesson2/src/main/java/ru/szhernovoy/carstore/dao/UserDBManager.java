@@ -48,28 +48,12 @@ public class UserDBManager implements DAOInterface<User> {
         return users;
     }
 
-    public void matchRoot(){
-
-        boolean isRoot = false;
-        for (User user : this.get()){
-            if (user.getName().equalsIgnoreCase("root")){
-                isRoot = true;
-                break;
-            }
-        }
-        if (!isRoot){
-            User root = new User();
-            root.setName("root");
-            root.setPassword("123");
-            this.create(root);
-        }
-    }
-
-    public boolean matchUser(String login, String password){
+    public boolean matchUser(String login, String password,User matchUser){
 
         boolean result = false;
         for (User user : this.get()){
             if (user.getName().equalsIgnoreCase(login) && user.getPassword().equals(password)){
+                matchUser = user;
                 result = true;
                 break;
             }

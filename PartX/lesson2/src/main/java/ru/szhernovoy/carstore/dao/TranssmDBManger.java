@@ -70,7 +70,7 @@ public class TranssmDBManger implements DAOInterface<Transmission>, JsonConvert<
     public Collection<Transmission> get() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        String query = "from ru.szhernovoy.carstore.model.Body";
+        String query = "from ru.szhernovoy.carstore.model.Transmission";
         Collection<Transmission> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
         return  tasks;
