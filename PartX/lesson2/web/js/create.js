@@ -39,10 +39,38 @@ $(document).ready(function () {
                     'release' : release.val(),
                     'mile'  : mile.val()},
                 complete: function (data) {
-                    order_id = JSON.parse(data.responseText);
+                    var result  = JSON.parse(data.responseText);
+                    order_id = result.order;
                     if (order_id !=-1) {
                         alert("Вы успешно добавили объявление. Теперь можно добавить к нему изображения");
                         $('#add-order-btn').prop('disabled',true);
+                    }
+                }
+            });
+        }
+    });
+
+
+    $("#file-btn-load").click(function(e) {
+
+        var data = new FormData();
+
+        $.each($('#file-image')[0].files, function(i, file) {
+            data.append('file-'+i, file);
+        });
+
+
+        if(order_id != -1){
+            $.ajax({
+                url: "image",
+                processData : false,
+                contentType : false,
+                method: "post",
+                data: data,
+                complete: function (data) {
+                    var result  = JSON.parse(data.responseText);
+                    if (result.success) {
+                        alert("Вы успешно загрузиди изображение. Можно добавить ещё");
                     }
                 }
             });
