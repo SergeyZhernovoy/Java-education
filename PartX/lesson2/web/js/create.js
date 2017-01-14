@@ -3,7 +3,7 @@
  */
 
 var login_result = false;
-var order_id = '';
+var order_id = -1;
 
 $(document).ready(function () {
 
@@ -21,7 +21,9 @@ $(document).ready(function () {
         var drivetype = $("#drivetype");
         var engine = $("#engine");
         var transsmission = $("#transsmission");
-
+        var price = $("#price");
+        var mile = $("#mileage");
+        var release = $("#release");
         if(login_result){
             $.ajax({
                 url: "create",
@@ -32,10 +34,13 @@ $(document).ready(function () {
                     'body' : body.val(),
                     'drivetype' : drivetype.val(),
                     'engine' : engine.val(),
-                    'transsmission' : transsmission.val()},
+                    'transsmission' : transsmission.val(),
+                    'price' : price.val(),
+                    'release' : release.val(),
+                    'mile'  : mile.val()},
                 complete: function (data) {
                     order_id = JSON.parse(data.responseText);
-                    if (order_id !='') {
+                    if (order_id !=-1) {
                         alert("Вы успешно добавили объявление. Теперь можно добавить к нему изображения");
                         $('#add-order-btn').prop('disabled',true);
                     }
@@ -43,6 +48,7 @@ $(document).ready(function () {
             });
         }
     });
+
 })
 
 

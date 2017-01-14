@@ -54,7 +54,6 @@ create table if not exists orders(
 create table if not exists image(
     id serial primary key NOT NULL,
     dataimage bytea  NOT NULL,
-    filename  CHARACTER VARYING (50) NOT NULL UNIQUE,
     id_orders INTEGER REFERENCES orders(id) NOT NULL
 );
 

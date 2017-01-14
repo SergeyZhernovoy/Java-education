@@ -41,6 +41,27 @@ public class Car {
     }
 
     /**
+     * default contructor with parametres
+     */
+    public Car(String name, int model,int body,int drive,int transm, int engine){
+        this.name = name;
+
+        this.body = new Body();
+        this.driveType = new DriveType();
+        this.engine = new Engine();
+        this.model = new Model();
+        this.transmission = new Transmission();
+
+        this.driveType.setId(drive);
+        this.body.setId(body);
+        this.model.setId(model);
+        this.transmission.setId(transm);
+        this.engine.setId(engine);
+
+    }
+
+
+    /**
      * Created by admin on 10.01.2017.
      * @return int
      */
@@ -151,5 +172,7 @@ public class Car {
     public void setTransmission(Transmission transmission) {
         this.transmission = transmission;
     }
+
+
 
 }

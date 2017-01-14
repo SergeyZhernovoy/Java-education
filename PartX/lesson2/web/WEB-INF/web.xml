@@ -38,8 +38,20 @@
 
     <servlet-mapping>
         <servlet-name>Create order</servlet-name>
-        <url-pattern>/creat</url-pattern>
+        <url-pattern>/create</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>Load image</servlet-name>
+        <servlet-class>ru.szhernovoy.carstore.controllers.ImageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Load image</servlet-name>
+        <url-pattern>/image</url-pattern>
+    </servlet-mapping>
+
 
 
 

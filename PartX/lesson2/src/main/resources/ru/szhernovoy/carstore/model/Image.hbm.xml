@@ -9,7 +9,6 @@
             <generator class="identity"/>
         </id>
         <property name="dataimage" column="dataimage"/>
-        <property name="filename" column="filename"/>
         <many-to-one name="order" column="id_orders" class="ru.szhernovoy.carstore.model.Order"/>
     </class>
 </hibernate-mapping>

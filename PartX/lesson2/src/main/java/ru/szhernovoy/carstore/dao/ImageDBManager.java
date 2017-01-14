@@ -1,61 +1,54 @@
-package ru.szhernovoy.carstore.dao;
+package ru.szhernovoy.carstore.dao;/**
+ * Created by szhernovoy on 14.01.2017.
+ */
 
-import com.google.gson.JsonArray;
 import org.hibernate.Session;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.carstore.model.Car;
+import ru.szhernovoy.carstore.model.Image;
 import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 
 import java.util.Collection;
 
-/**
- * Created by admin on 14.01.2017.
- */
-public class CarDBManager implements DAOInterface<Car>, JsonConvert<Car> {
-    private final static Logger log = LoggerFactory.getLogger(CarDBManager.class);
 
-    @Override
-    public JsonArray convert(Collection<Car> collection) {
-        return null;
-    }
+public class ImageDBManager implements DAOInterface<Image> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImageDBManager.class);
 
     /**
      * Created by admin on 10.01.2017.
      *
-     * @param car .
+     * @param image .
      * @return T
      */
     @Override
-    public Car create(Car car) {
-
+    public Image create(Image image) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(car);
+        session.save(image);
         session.getTransaction().commit();
-        return car;
-
+        return image;
     }
 
     /**
      * Created by admin on 10.01.2017.
      *
-     * @param car .
+     * @param image .
      * @return T
      */
     @Override
-    public Car update(Car car) {
+    public Image update(Image image) {
         return null;
     }
 
     /**
      * Created by admin on 10.01.2017.
      *
-     * @param car .
+     * @param image .
      * @return boolean
      */
     @Override
-    public boolean delete(Car car) {
+    public boolean delete(Image image) {
         return false;
     }
 
@@ -66,7 +59,7 @@ public class CarDBManager implements DAOInterface<Car>, JsonConvert<Car> {
      * @return Collection<T>
      */
     @Override
-    public Collection<Car> get(int id) {
+    public Collection<Image> get(int id) {
         return null;
     }
 
@@ -76,7 +69,7 @@ public class CarDBManager implements DAOInterface<Car>, JsonConvert<Car> {
      * @return Collection<T>
      */
     @Override
-    public Collection<Car> get() {
+    public Collection<Image> get() {
         return null;
     }
 }

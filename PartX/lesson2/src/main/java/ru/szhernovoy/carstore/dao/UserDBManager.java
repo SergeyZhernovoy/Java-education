@@ -53,7 +53,7 @@ public class UserDBManager implements DAOInterface<User> {
         boolean result = false;
         for (User user : this.get()){
             if (user.getName().equalsIgnoreCase(login) && user.getPassword().equals(password)){
-                matchUser = user;
+                matchUser.setId(user.getId());
                 result = true;
                 break;
             }

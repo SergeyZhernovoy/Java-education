@@ -3,6 +3,7 @@ package ru.szhernovoy.carstore.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by admin on 05.01.2017.
@@ -12,7 +13,7 @@ public class Order {
     /**
      * Created by admin on 10.01.2017.
      */
-    private List<Image> imageCarList;
+    private List<Image> imageCarList = new CopyOnWriteArrayList<>();
     /**
      * Created by admin on 10.01.2017.
      */
@@ -48,6 +49,7 @@ public class Order {
      * Created by admin on 10.01.2017.
      */
     public Order() {
+
     }
 
     /**
@@ -81,6 +83,15 @@ public class Order {
     public void setImageCarList(List<Image> imageCarList) {
         this.imageCarList = imageCarList;
     }
+
+    /**
+     * Created by admin on 14.01.2017.
+     * @param image
+     */
+   public void addImage(Image image){
+        this.imageCarList.add(image);
+   }
+
 
     /**
      * Created by admin on 10.01.2017.

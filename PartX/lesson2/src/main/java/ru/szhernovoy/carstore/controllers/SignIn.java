@@ -84,9 +84,11 @@ public class SignIn extends HttpServlet{
 
         HttpSession session = req.getSession();
         session.setAttribute("success",false);
+        session.setAttribute("currentOrder",-1);
         JsonObject json = new JsonObject();
         PrintWriter out = new PrintWriter(resp.getOutputStream());
-        User matchUser = null;
+        User matchUser = new User();
+        matchUser.setId(-1);
         if(addNewUser){
             User user = new User();
             user.setName(login);
@@ -104,10 +106,7 @@ public class SignIn extends HttpServlet{
             }
         }
 
-        if(matchUser != null){
-            session.setAttribute("id_user",matchUser.getId());
-        }
-
+        session.setAttribute("id_user",matchUser.getId());
         out.append(json.toString());
         out.flush();
     }

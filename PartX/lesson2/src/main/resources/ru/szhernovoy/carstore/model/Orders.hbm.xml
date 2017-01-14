@@ -15,10 +15,11 @@
         <many-to-one name="car" column="id_car" class="ru.szhernovoy.carstore.model.Car"/>
         <many-to-one name="user" column="id_user" class="ru.szhernovoy.carstore.model.User"/>
 
-        <bag name="imageCarList" inverse="true">
+        <bag name="imageCarList" fetch="select" lazy="true" inverse="true">
             <key column="id_orders" not-null="true"></key>
             <one-to-many class="ru.szhernovoy.carstore.model.Image"/>
         </bag>
+
 
     </class>
 </hibernate-mapping>

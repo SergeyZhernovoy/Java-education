@@ -50,12 +50,28 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="transsmission"> Транссмиссия</label>
+                    <div class="form-group" >
+                        <label for="transsmission" > Транссмиссия</label>
                         <select id="transsmission"  class="selectpicker form-control" data-width="35%">
 
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="price">Цена</label>
+                        <input type="number" class="form-control" id="price" placeholder="Введите цену">
+                    </div>
+                    <div class="form-group">
+                        <label for="mileage">Пробег</label>
+                        <input type="number" class="form-control" id="mileage" placeholder="Введите пробег">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="release">Год выпуска</label>
+                        <input type="date" class="form-control" id="release" placeholder="Введите год выпуска">
+                    </div>
+
+
                     <button type="button" class="btn btn-warning" id="add-order-btn">Добавить объявление</button>
             </form>
         </div>
@@ -64,8 +80,8 @@
         <div class="container">
            <form class="form-inline" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="file" name="f" accept="image/*" id="file-image">
-                    <input type="button" value="Отправить" id="image-btn-load">
+                    <input type="file" name="f" accept="image/jpeg" id="file-image">
+                    <input type="button" value="Добавить изображение" id="load-image-btn">
                 </div>
             </form>
         </div>

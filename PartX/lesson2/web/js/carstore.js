@@ -25,7 +25,6 @@ $(document).ready(function () {
                     var result = JSON.parse(data.responseText);
                     login_result = Boolean(result.success);
                     if (login_result) {
-                        alert("Успешная регистрация");
                         directView();
                     }
                     else {
@@ -52,7 +51,6 @@ $(document).ready(function () {
                     var result = JSON.parse(data.responseText);
                     login_result = Boolean(result.success);
                     if (login_result) {
-                        alert("Успешная регистрация");
                         directView();
                     }
                     else {
