@@ -50,3 +50,8 @@ tr:nth-child(even) {
     z-index: 1;
 }
 
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+}

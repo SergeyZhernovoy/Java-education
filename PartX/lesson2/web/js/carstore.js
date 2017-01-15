@@ -8,6 +8,8 @@ $(document).ready(function () {
      controlSession();
      updateTable();
 
+
+
      $("#auth-btn").click(function () {
         var login = $("#login");
         var password = $("#password");
@@ -72,10 +74,15 @@ $(document).ready(function () {
 
     $('.btn-close-modal').click(function(){ //Что будет происходить по клику по форме
         $('.modalWindow').fadeOut('slow');
-        $('.carousel').html('');
+        $('.carousel-inner').html('');
     });
 
 })
+
+
+
+
+
 
 function controlSession() {
     $.ajax({
@@ -128,39 +135,31 @@ function updateTable(){
                 }
             }
         });
-
-
-
 }
 
 function callGallery(orderId) {
+    $.ajax({
+        url: "image",
+        method: "get",
+        data: {'order': orderId},
+        complete: function (data) {
 
-     $.ajax({
-         url: "image",
-         method: "get",
-         data :{ 'order' : orderId},
-         complete: function (data) {
+            var images = JSON.parse(data.responseText);
+            if (images != '') {
+                var optional = "";
+                for (var i = 0; i != images.length; ++i) {
 
-         var result = JSON.parse(data.responseText);
+                    optional += "<div class='item active'>";
 
-         var images = JSON.parse(data.responseText);
-         var result = "";
-         for (var i = 0; i != images.length; ++i) {
-         result += "<div class='col-md-2'><img src='" + images[i] + "' class='img-rounded' alt='' style='width:150px;height:150px'></div>";
-         }
+                    optional += "<img src= '" + images[i] + "'   width='460' height='345'>";
 
-             <div class="item active">
-                 <img src=""  width="460" height="345">
-                 </div>
-
-
-         var imagesContainer = document.getElementById("imageId");
-         imagesContainer.innerHTML = result;
-     }
-     });
-
+                    optional += "</div>";
+                }
+                var table = document.getElementById("carousel-body");
+                table.innerHTML = optional;
+            }
+        }
+    });
     $('.modalWindow').fadeIn('slow');
-
-
 
 }

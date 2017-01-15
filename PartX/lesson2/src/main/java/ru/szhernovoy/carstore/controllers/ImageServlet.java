@@ -1,5 +1,6 @@
 package ru.szhernovoy.carstore.controllers;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemIterator;
@@ -10,6 +11,7 @@ import org.apache.commons.fileupload.servlet.FileCleanerCleanup;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileCleaningTracker;
 import ru.szhernovoy.carstore.dao.ImageDBManager;
+import ru.szhernovoy.carstore.dao.OrderDBManager;
 import ru.szhernovoy.carstore.model.Image;
 import ru.szhernovoy.carstore.model.Order;
 
@@ -21,9 +23,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -88,6 +94,21 @@ public class ImageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("image/jpeg");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        JsonArray jsonObject = new JsonArray();
+        int orderId = Integer.valueOf(req.getParameter("order"));
+        Collection<Order> orderCollection = new OrderDBManager().get(orderId);
+        List<Image> images = new ArrayList<>();
+        for(Order order : orderCollection){
+            images.addAll(order.getImageCarList());
+        }
 
+        for(Image image : images){
+            jsonObject.add(String.format("data:image/jpeg;base64,%s",DatatypeConverter.printBase64Binary(image.getDataimage())));
+        }
+        out.append(jsonObject.toString());
+        out.flush();
     }
 }

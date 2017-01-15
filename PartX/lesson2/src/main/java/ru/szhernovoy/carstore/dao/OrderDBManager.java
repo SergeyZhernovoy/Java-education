@@ -91,7 +91,11 @@ public class OrderDBManager implements DAOInterface<Order>, JsonConvert<Order> {
      */
     @Override
     public Collection<Order> get(int id) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        Collection<Order> orders = session.createQuery(String.format("from ru.szhernovoy.carstore.model.Order as order where order.id = %d",id)).list();
+        session.getTransaction().commit();
+        return orders;
     }
 
     /**
