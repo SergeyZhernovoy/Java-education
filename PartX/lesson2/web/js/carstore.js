@@ -3,11 +3,10 @@
  */
 var login_result;
 
-
 $(document).ready(function () {
 
      controlSession();
-
+     updateTable();
 
      $("#auth-btn").click(function () {
         var login = $("#login");
@@ -26,6 +25,7 @@ $(document).ready(function () {
                     login_result = Boolean(result.success);
                     if (login_result) {
                         directView();
+                        updateTable();
                     }
                     else {
                         alert("Bad try sign in. Try again");
@@ -52,6 +52,7 @@ $(document).ready(function () {
                     login_result = Boolean(result.success);
                     if (login_result) {
                         directView();
+                        updateTable();
                     }
                     else {
                         alert("Bad try sign in. Try again");
@@ -66,6 +67,12 @@ $(document).ready(function () {
         if(login_result){
             location.href = "create.html";
         }
+    });
+
+
+    $('.btn-close-modal').click(function(){ //Что будет происходить по клику по форме
+        $('.modalWindow').fadeOut('slow');
+        $('.carousel').html('');
     });
 
 })
@@ -88,4 +95,72 @@ function directView() {
         $("#info_success_auth").show();
         $("#move-order-page").show();
     }
+}
+
+function updateTable(){
+       $.ajax({
+            url: "create",
+            method: "get",
+            complete: function (data) {
+                var result =  JSON.parse(data.responseText);
+                var userId =  result.currentUser;
+                var orders   =  JSON.parse(result.orders);
+                if(result.orders != ''){
+                    var optional = "";
+                    for (var i = 0; i != orders.length; ++i) {
+                        var userOrder = orders[i].userId;
+                        optional += "<tr>";
+                        optional += "<td>"+orders[i].sold+"</td>";
+                        optional += "<td>"+orders[i].carName+"</td>";
+                        optional += "<td>"+orders[i].price+"</td>";
+                        optional += "<td>"+orders[i].mile+"</td>";
+                        optional += "<td>"+orders[i].data+"</td>";
+                        optional += "<td><button type='button' class='btn btn-link pictures' onclick= 'callGallery(" + orders[i].orderId + ")' >Галлерея</button></td>";
+                        if(userOrder == userId){
+                            optional += "<td><button type='button' class='btn btn-link' onclick= 'callGallery(" + orders[i].orderId + ")' ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
+                        } else {
+                            optional += "<td><button type='button' class='btn btn-link' onclick= 'callGallery(" + orders[i].orderId + " )' disabled ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
+                        }
+                        optional += "</tr>";
+                    }
+                    var table = document.getElementById("table-body");
+                    table.innerHTML = optional;
+                }
+            }
+        });
+
+
+
+}
+
+function callGallery(orderId) {
+
+     $.ajax({
+         url: "image",
+         method: "get",
+         data :{ 'order' : orderId},
+         complete: function (data) {
+
+         var result = JSON.parse(data.responseText);
+
+         var images = JSON.parse(data.responseText);
+         var result = "";
+         for (var i = 0; i != images.length; ++i) {
+         result += "<div class='col-md-2'><img src='" + images[i] + "' class='img-rounded' alt='' style='width:150px;height:150px'></div>";
+         }
+
+             <div class="item active">
+                 <img src=""  width="460" height="345">
+                 </div>
+
+
+         var imagesContainer = document.getElementById("imageId");
+         imagesContainer.innerHTML = result;
+     }
+     });
+
+    $('.modalWindow').fadeIn('slow');
+
+
+
 }

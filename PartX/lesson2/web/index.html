@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/carstore.css">
     <link rel="shortcut icon" href="images/car.png" type="image/png">
     <script src="js/carstore.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -22,11 +23,11 @@
             <form id="autorization">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="login" type="text" class="form-control" name="login" placeholder="Login">
+                    <input id="login" type="text" class="form-control" name="login" placeholder="Login" >
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" >
                 </div>
                 <br>
                 <button type="button" class="btn btn-link" id="auth-btn">Ввойти</button>
@@ -48,45 +49,53 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th hidden>№</th>
                         <th>Продано</th>
                         <th>Автомобиль</th>
                         <th>Цена</th>
-                        <th>Изображение</th>
-                        <th id="edit">Редактировать</th>
+                        <th>Пробег</th>
+                        <th>Год</th>
+                        <th>Галлерея</th>
+                        <th>Редактировать</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
+                    <tbody id = "table-body">
+                    <!--<tr>
                         <td hidden></td>
                         <td></td>
                         <td>John</td>
                         <td>Doe</td>
                         <td>Картинки</td>
                         <td><span><a href="create.html" onclick="return onload">  <i class="material-icons" style="font-size:20px">mode_edit</i> </a></span></td>
-                    </tr>
-                    <tr>
-                        <td hidden></td>
-                        <td>V</td>
-                        <td>John</td>
-                        <td>Moe</td>
-                        <td>Doe</td>
-                        <td><span><a href="create.html"> <i class="material-icons" style="font-size:20px">mode_edit</i> </a></span></td>
-                    </tr>
-                    <tr>
-                        <td hidden></td>
-                        <td></td>
-                        <td>John</td>
-                        <td>Dooley</td>
-                        <td>Doe</td>
-                        <td><span><a href="create.html">  <i class="material-icons" style="font-size:20px">mode_edit</i> </a></span></td>
-                    </tr>
+                    </tr>-->
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modalWindow">
+    <form>
+        <button type="button" class="btn btn-default btn-close-modal">закрыть</button>
+    </form>
+
+    <div class="container">
+        <br>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox" id="carousel-body">
+
+            </div>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

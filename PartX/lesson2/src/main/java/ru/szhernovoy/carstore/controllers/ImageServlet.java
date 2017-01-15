@@ -45,11 +45,8 @@ public class ImageServlet extends HttpServlet {
         JsonObject jsonObject = new JsonObject();
 
         if(isMultipart && userId != -1 && orderId != -1){
-
             // Create a factory for disk-based file items
             DiskFileItemFactory factory = new DiskFileItemFactory();
-
-
             // Configure a repository (to ensure a secure temp location is used)
             ServletContext servletContext = this.getServletConfig().getServletContext();
 

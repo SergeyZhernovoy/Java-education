@@ -19,8 +19,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-
-
 public class CreateOrder extends HttpServlet{
 
     @Override
@@ -43,7 +41,8 @@ public class CreateOrder extends HttpServlet{
             int engineId = Integer.valueOf(req.getParameter("engine"));
             int price = Integer.valueOf(req.getParameter("price"));
             int mileage = Integer.valueOf(req.getParameter("mile"));
-            Timestamp timestamp = null;
+            boolean sold = Boolean.valueOf(req.getParameter("sold"));
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             try {
                 timestamp = new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("release")).getTime());
             } catch (ParseException e) {
@@ -61,6 +60,7 @@ public class CreateOrder extends HttpServlet{
             order.setMilesage(mileage);
             order.setRelease(timestamp);
             order.setUser(user);
+            order.setSold(sold);
 
             orderId = new OrderDBManager().create(order).getId();
             session.setAttribute("currentOrder",orderId);
@@ -71,4 +71,26 @@ public class CreateOrder extends HttpServlet{
         out.flush();
 
      }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        resp.setContentType("text/json;charset=Windows-1251");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        JsonObject jsonObject = new JsonObject();
+        HttpSession session = req.getSession(false);
+        Integer userId = -1;
+        if(session != null){
+            boolean success = (boolean)session.getAttribute("success");
+            if(success){
+                userId = (int)session.getAttribute("id_user");
+            }
+        }
+        OrderDBManager orderDBManager = new OrderDBManager();
+        jsonObject.addProperty("currentUser",userId);
+        jsonObject.addProperty("orders",orderDBManager.convert(orderDBManager.get()).toString());
+        out.append(jsonObject.toString());
+        out.flush();
+    }
 }

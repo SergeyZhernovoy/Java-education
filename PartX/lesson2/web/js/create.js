@@ -15,6 +15,13 @@ $(document).ready(function () {
     controlSession();
 
     $("#add-order-btn").click(function () {
+
+        var sold = false;
+
+        if($("#sold").prop('checked')){
+            var sold = true;
+        }
+
         var name = $("#name");
         var model = $("#model");
         var body = $("#body");
@@ -37,7 +44,9 @@ $(document).ready(function () {
                     'transsmission' : transsmission.val(),
                     'price' : price.val(),
                     'release' : release.val(),
-                    'mile'  : mile.val()},
+                    'mile'  : mile.val(),
+                    'sold'  : sold,
+                },
                 complete: function (data) {
                     var result  = JSON.parse(data.responseText);
                     order_id = result.order;

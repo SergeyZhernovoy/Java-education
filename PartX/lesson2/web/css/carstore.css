@@ -36,3 +36,17 @@ td,th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+.modalWindow {
+    display: none;
+    width: 10px;;
+    height:10px;
+    border:2px solid #FF0000;
+    box-shadow: 0 0 3px #000;
+    position: absolute;
+    top: 20%;
+    left:50%;
+    margin-left:-150px;
+    z-index: 1;
+}
+
