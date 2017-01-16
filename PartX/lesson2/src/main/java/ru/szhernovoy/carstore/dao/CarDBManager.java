@@ -31,7 +31,7 @@ public class CarDBManager implements DAOInterface<Car>, JsonConvert<Car> {
 
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(car);
+        session.saveOrUpdate(car);
         session.getTransaction().commit();
         return car;
 

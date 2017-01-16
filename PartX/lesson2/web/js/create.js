@@ -4,6 +4,7 @@
 
 var login_result = false;
 var order_id = -1;
+var carId = -1;
 
 $(document).ready(function () {
 
@@ -13,6 +14,7 @@ $(document).ready(function () {
     fillModel();
     fillTranssm();
     controlSession();
+    fillExistOrder();
 
     $("#add-order-btn").click(function () {
 
@@ -46,6 +48,7 @@ $(document).ready(function () {
                     'release' : release.val(),
                     'mile'  : mile.val(),
                     'sold'  : sold,
+                    'carId' : carId,
                 },
                 complete: function (data) {
                     var result  = JSON.parse(data.responseText);
@@ -79,7 +82,7 @@ $(document).ready(function () {
                 complete: function (data) {
                     var result  = JSON.parse(data.responseText);
                     if (result.success) {
-                        alert("Вы успешно загрузиди изображение. Можно добавить ещё");
+                        alert("Вы успешно загрузили изображение. Можно добавить ещё");
                     }
                 }
             });
@@ -98,6 +101,38 @@ function controlSession() {
             var result = JSON.parse(data.responseText);
             login_result = Boolean(result.success);
             $('#add-order-btn').prop('disabled',!login_result);
+        }
+    });
+}
+
+function fillExistOrder() {
+    $.ajax({
+        url: "edit",
+        method: "get",
+        complete: function (data) {
+            var struct = JSON.parse(data.responseText);
+            order_id = struct.order;
+
+            if (order_id != -1) {
+                var docOrder = JSON.parse(struct.orderProperties)[0]; // у нас только одна строка в массиве
+                $("#model").val(docOrder.modelId);
+                $("#body").val(docOrder.bodyId);
+                $("#drivetype").val(docOrder.drivetype);
+                $("#engine").val(docOrder.engineId);
+                $("#transsmission").val(docOrder.transsmId);
+                $("#name").val(docOrder.carName);
+                $("#price").val(docOrder.price);
+                $("#mileage").val(docOrder.mile);
+                $("#release").val(docOrder.modelId);
+                $("#sold").val(docOrder.sold);
+
+                $("#date").val(docOrder.data);
+
+                $("#titleOrder").html("Обновить объявление");
+                $("#add-order-btn").html("Обновить");
+
+                carId = docOrder.carId;
+            }
         }
     });
 }

@@ -28,10 +28,10 @@ public class CreateOrder extends HttpServlet{
         resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
         JsonObject jsonObject = new JsonObject();
-        int orderId = -1;
+
         HttpSession session = req.getSession(false);
         Integer userId = (int)session.getAttribute("id_user");
-        session.setAttribute("currentOrder",-1);
+        int orderId = (int)session.getAttribute("currentOrder");
         if(userId != -1) {
             String name = req.getParameter("name");
             int modelId = Integer.valueOf(req.getParameter("model"));
@@ -41,14 +41,21 @@ public class CreateOrder extends HttpServlet{
             int engineId = Integer.valueOf(req.getParameter("engine"));
             int price = Integer.valueOf(req.getParameter("price"));
             int mileage = Integer.valueOf(req.getParameter("mile"));
+            int carId = Integer.valueOf(req.getParameter("carId"));
             boolean sold = Boolean.valueOf(req.getParameter("sold"));
+            //orderId = Integer.valueOf(req.getParameter("orderId"));
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             try {
                 timestamp = new Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("release")).getTime());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
             Car newCar = new Car(name,modelId,bodyId,driveId,transsmId,engineId);
+            if(carId != -1){
+                newCar.setId(carId);
+            }
+
             newCar = new CarDBManager().create(newCar);
 
             User user = new User();
@@ -61,6 +68,9 @@ public class CreateOrder extends HttpServlet{
             order.setRelease(timestamp);
             order.setUser(user);
             order.setSold(sold);
+            if (orderId != -1){
+                order.setId(orderId);
+            }
 
             orderId = new OrderDBManager().create(order).getId();
             session.setAttribute("currentOrder",orderId);

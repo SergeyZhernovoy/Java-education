@@ -46,6 +46,29 @@ public class OrderDBManager implements DAOInterface<Order>, JsonConvert<Order> {
         return array;
     }
 
+
+    public JsonArray convertWithField(Collection<Order> collection) {
+        JsonArray array = new JsonArray();
+        for(Order param : collection){
+            JsonObject obj = new JsonObject();
+            obj.addProperty("orderId", param.getId() );
+            obj.addProperty("mile", param.getMilesage() );
+            obj.addProperty("price", param.getPrice() );
+            obj.addProperty("sold", param.getSold() );
+            obj.addProperty("carName", param.getCar().getName() );
+            obj.addProperty("carId", param.getCar().getId() );
+            obj.addProperty("modelId", param.getCar().getModel().getId() );
+            obj.addProperty("bodyId", param.getCar().getBody().getId() );
+            obj.addProperty("drivetype", param.getCar().getDriveType().getId());
+            obj.addProperty("engineId", param.getCar().getEngine().getId() );
+            obj.addProperty("transsmId", param.getCar().getTransmission().getId() );
+            obj.addProperty("data", param.getRelease().getTime());
+            obj.addProperty("userId", param.getUser().getId() );
+            array.add(obj);
+        }
+        return array;
+    }
+
     /**
      * Created by admin on 10.01.2017.
      *
@@ -56,7 +79,7 @@ public class OrderDBManager implements DAOInterface<Order>, JsonConvert<Order> {
     public Order create(Order order) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(order);
+        session.saveOrUpdate(order);
         session.getTransaction().commit();
         return order;
     }

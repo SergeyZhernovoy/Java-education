@@ -57,7 +57,15 @@
         <url-pattern>/image</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Edit order</servlet-name>
+        <servlet-class>ru.szhernovoy.carstore.controllers.UpdateOrder</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>Edit order</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

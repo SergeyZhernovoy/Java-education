@@ -65,12 +65,15 @@ $(document).ready(function () {
     });
 
     $("#move-order-page").click(function () {
-
         if(login_result){
+            $.ajax({
+                url: "edit",
+                method: "post",
+                data: { "order" : -1}
+            });
             location.href = "create.html";
         }
     });
-
 
     $('.btn-close-modal').click(function(){ //Что будет происходить по клику по форме
         $('.modalWindow').fadeOut('slow');
@@ -124,9 +127,9 @@ function updateTable(){
                         optional += "<td>"+orders[i].data+"</td>";
                         optional += "<td><button type='button' class='btn btn-link pictures' onclick= 'callGallery(" + orders[i].orderId + ")' >Галлерея</button></td>";
                         if(userOrder == userId){
-                            optional += "<td><button type='button' class='btn btn-link' onclick= 'callGallery(" + orders[i].orderId + ")' ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
+                            optional += "<td><button type='button' class='btn btn-link' onclick= 'editOrder(" + orders[i].orderId + ")' ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
                         } else {
-                            optional += "<td><button type='button' class='btn btn-link' onclick= 'callGallery(" + orders[i].orderId + " )' disabled ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
+                            optional += "<td><button type='button' class='btn btn-link' disabled ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
                         }
                         optional += "</tr>";
                     }
@@ -162,4 +165,16 @@ function callGallery(orderId) {
     });
     $('.modalWindow').fadeIn('slow');
 
+}
+
+function editOrder(orderId) {
+        $.ajax({
+            url: "edit",
+            method: "post",
+            datatype : 'json',
+            data : {"order": orderId},
+            complete: function (data) {
+                location.href = "create.html";
+            }
+        });
 }
