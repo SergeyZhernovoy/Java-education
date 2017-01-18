@@ -24,18 +24,12 @@ public class DBManager {
 
     /**
      * Created by admin on 30.12.2016.
-     * @param description .
-     * @param done .
      * @return boolean
      */
-    public boolean createTask(String description, boolean done) {
+    public boolean createTask(Item task) {
         boolean result = false;
         try {
             result = true;
-            Item task = new Item();
-            task.setCreate(new Timestamp(System.currentTimeMillis()));
-            task.setDesc(description);
-            task.setDone(done);
             Session session = HibernateSessionFactory.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(task);
@@ -52,7 +46,7 @@ public class DBManager {
      * @param all .
      * @return String
      */
-    public String getItemsInJson(boolean all) {
+    public Collection<Item> getItems(boolean all) {
 
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
@@ -66,20 +60,7 @@ public class DBManager {
 
         Collection<Item> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
-        JsonArray array = new JsonArray();
-        Item item = null;
-        for (Item task : tasks) {
-            JsonObject obj = new JsonObject();
-            obj.addProperty("descr", task.getDesc());
-            obj.addProperty("createDate", task.getCreate().toString());
-            String done = "";
-            if (task.getDone()) {
-                done = "V";
-            }
-            obj.addProperty("done", done);
-            array.add(obj);
-        }
-        return array.toString();
+        return  tasks;
     }
 
 }

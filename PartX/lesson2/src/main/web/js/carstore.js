@@ -71,7 +71,7 @@ $(document).ready(function () {
                 method: "post",
                 data: { "order" : -1}
             });
-            location.href = "create.html";
+            location.href = "../create.html";
         }
     });
 
@@ -174,7 +174,7 @@ function editOrder(orderId) {
             datatype : 'json',
             data : {"order": orderId},
             complete: function (data) {
-                location.href = "create.html";
+                location.href = "../create.html";
             }
         });
 }
