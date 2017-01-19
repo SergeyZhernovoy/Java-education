@@ -13,7 +13,7 @@ import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 import java.util.Collection;
 
 
-public class BodyDBManager implements DAOInterface<Body>, JsonConvert<Body>{
+public class BodyDBManager implements DAOInterface<Body>{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BodyDBManager.class);
 
@@ -77,16 +77,5 @@ public class BodyDBManager implements DAOInterface<Body>, JsonConvert<Body>{
         return  tasks;
     }
 
-    @Override
-    public JsonArray convert(Collection<Body> collection) {
-        JsonArray array = new JsonArray();
-        for(Body param : collection){
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", param.getId() );
-            obj.addProperty("name", param.getName());
-            array.add(obj);
-        }
-        return array;
-    }
 
 }

@@ -13,7 +13,7 @@ import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 import java.util.Collection;
 
 
-public class ModelDBManager implements DAOInterface<Model>, JsonConvert<Model>{
+public class ModelDBManager implements DAOInterface<Model>{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelDBManager.class);
 
@@ -76,7 +76,7 @@ public class ModelDBManager implements DAOInterface<Model>, JsonConvert<Model>{
         return  tasks;
     }
 
-    @Override
+
     public JsonArray convert(Collection<Model> collection) {
         JsonArray array = new JsonArray();
         for(Model param : collection){

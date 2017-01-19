@@ -41,8 +41,6 @@ public class ImageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setContentType("text/json");
-        resp.setCharacterEncoding("UTF-8");
         boolean isMultipart = ServletFileUpload.isMultipartContent(req);
         HttpSession session = req.getSession(false);
         Integer userId = (int)session.getAttribute("id_user");
@@ -95,7 +93,6 @@ public class ImageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("image/jpeg");
-        resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
         JsonArray jsonObject = new JsonArray();
         int orderId = Integer.valueOf(req.getParameter("order"));

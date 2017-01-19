@@ -15,11 +15,11 @@ import java.util.GregorianCalendar;
 /**
  * Created by admin on 14.01.2017.
  */
-public class OrderDBManager implements DAOInterface<Order>, JsonConvert<Order> {
+public class OrderDBManager implements DAOInterface<Order>{
     private final static Logger log = LoggerFactory.getLogger(OrderDBManager.class);
 
 
-    @Override
+
     public JsonArray convert(Collection<Order> collection) {
         JsonArray array = new JsonArray();
         for(Order param : collection){

@@ -12,13 +12,9 @@ import java.util.Collection;
 /**
  * Created by admin on 14.01.2017.
  */
-public class CarDBManager implements DAOInterface<Car>, JsonConvert<Car> {
+public class CarDBManager implements DAOInterface<Car> {
     private final static Logger log = LoggerFactory.getLogger(CarDBManager.class);
 
-    @Override
-    public JsonArray convert(Collection<Car> collection) {
-        return null;
-    }
 
     /**
      * Created by admin on 10.01.2017.

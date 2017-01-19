@@ -13,7 +13,7 @@ import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 import java.util.Collection;
 
 
-public class TranssmDBManger implements DAOInterface<Transmission>, JsonConvert<Transmission> {
+public class TranssmDBManger implements DAOInterface<Transmission> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TranssmDBManger.class);
 
@@ -76,7 +76,6 @@ public class TranssmDBManger implements DAOInterface<Transmission>, JsonConvert<
         return  tasks;
     }
 
-    @Override
     public JsonArray convert(Collection<Transmission> collection) {
         JsonArray array = new JsonArray();
         for(Transmission param : collection){

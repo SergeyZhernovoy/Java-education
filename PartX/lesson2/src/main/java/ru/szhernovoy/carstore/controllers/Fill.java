@@ -2,23 +2,21 @@ package ru.szhernovoy.carstore.controllers;/**
  * Created by szhernovoy on 13.01.2017.
  */
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.JsonNodeFactory;
+import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import ru.szhernovoy.carstore.dao.*;
-import ru.szhernovoy.carstore.model.*;
+import ru.szhernovoy.carstore.utilite.JsonController;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.List;
-
 
 public class Fill extends HttpServlet {
 
@@ -27,44 +25,38 @@ public class Fill extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setContentType("text/json;charset=Windows-1251");
-        resp.setCharacterEncoding("UTF-8");
         int typeReq = Integer.valueOf(req.getParameter("type"));
         PrintWriter out = resp.getWriter();
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("item", getJsonArray(typeReq));
-        out.append(jsonObject.toString());
+        out.append(getCollectionInJson(typeReq));
         out.flush();
 
     }
 
-    public String getJsonArray(int type){
+    public String getCollectionInJson(int type){
 
-        JsonArray jsonArray = null;
+        ObjectNode root  = JsonNodeFactory.instance.objectNode();
+        ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+
         switch (type){
             case 1:
-                BodyDBManager bodyDBManager = new BodyDBManager();
-                jsonArray = bodyDBManager.convert(bodyDBManager.get());
+                jsonArray = JsonController.getInstance().convert(new BodyDBManager().get());
                 break;
             case 2:
-                ModelDBManager modelDBManager = new ModelDBManager();
-                jsonArray = modelDBManager.convert(modelDBManager.get());
+             //   jsonArray = JsonController.getInstance().convert(new ModelDBManager().get());
                 break;
             case 3:
-                EngineDBManager engineDBManager = new EngineDBManager();
-                jsonArray = engineDBManager.convert(engineDBManager.get());
+             //   jsonArray = JsonController.getInstance().convert(new EngineDBManager().get());
                 break;
             case 4:
-                DriveDBManager driveDBManager = new DriveDBManager();
-                jsonArray = driveDBManager.convert(driveDBManager.get());
+            //    jsonArray = JsonController.getInstance().convert(new DriveDBManager().get());
                 break;
             case 5:
-                TranssmDBManger transsmDBManger = new TranssmDBManger();
-                jsonArray = transsmDBManger.convert(transsmDBManger.get());
+             //   jsonArray = JsonController.getInstance().convert(new TranssmDBManger().get());
                 break;
         }
 
-        return jsonArray.toString();
+        root.put("item",jsonArray);
+        return root.toString();
 
     }
 

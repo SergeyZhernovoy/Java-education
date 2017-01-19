@@ -14,7 +14,7 @@ import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 import java.util.Collection;
 
 
-public class DriveDBManager implements DAOInterface<DriveType>, JsonConvert<DriveType> {
+public class DriveDBManager implements DAOInterface<DriveType>{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DriveDBManager.class);
 
@@ -77,7 +77,7 @@ public class DriveDBManager implements DAOInterface<DriveType>, JsonConvert<Driv
         return  tasks;
     }
 
-    @Override
+
     public JsonArray convert(Collection<DriveType> collection) {
         JsonArray array = new JsonArray();
         for(DriveType param : collection){
