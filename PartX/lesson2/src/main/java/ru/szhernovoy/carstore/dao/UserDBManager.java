@@ -19,6 +19,7 @@ public class UserDBManager implements DAOInterface<User> {
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
+        session.close();
         return user;
     }
 
@@ -45,6 +46,7 @@ public class UserDBManager implements DAOInterface<User> {
         String query = "from ru.szhernovoy.carstore.model.User as user";
         Collection<User> users = session.createQuery(query).list();
         session.getTransaction().commit();
+        session.close();
         return users;
     }
 

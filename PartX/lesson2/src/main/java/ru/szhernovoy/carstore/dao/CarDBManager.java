@@ -24,13 +24,12 @@ public class CarDBManager implements DAOInterface<Car> {
      */
     @Override
     public Car create(Car car) {
-
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         session.saveOrUpdate(car);
         session.getTransaction().commit();
+        session.close();
         return car;
-
     }
 
     /**

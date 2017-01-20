@@ -74,18 +74,8 @@ public class DriveDBManager implements DAOInterface<DriveType>{
         String query = "from ru.szhernovoy.carstore.model.DriveType";
         Collection<DriveType> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
+        session.close();
         return  tasks;
     }
 
-
-    public JsonArray convert(Collection<DriveType> collection) {
-        JsonArray array = new JsonArray();
-        for(DriveType param : collection){
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", param.getId() );
-            obj.addProperty("name", param.getName());
-            array.add(obj);
-        }
-        return array;
-    }
 }

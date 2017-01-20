@@ -143,9 +143,8 @@ function fillBody() {
         method: "get",
         data: {'type': 1},
         complete: function (data) {
-            var result = JSON.parse(data.responseText);
-            if(result.item != ''){
-                var next =  JSON.parse(result.item);
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
                 var optional = "";
                 for (var i = 0; i != next.length; ++i) {
                     optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";
@@ -163,9 +162,8 @@ function fillModel() {
         method: "get",
         data: {'type': 2},
         complete: function (data) {
-            var result = JSON.parse(data.responseText);
-            if(result.item != ''){
-                var next =  JSON.parse(result.item);
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
                 var optional = "";
                 for (var i = 0; i != next.length; ++i) {
                     optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";
@@ -183,9 +181,8 @@ function fillDrive() {
         method: "get",
         data: {'type': 4},
         complete: function (data) {
-            var result = JSON.parse(data.responseText);
-            if(result.item != ''){
-                var next =  JSON.parse(result.item);
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
                 var optional = "";
                 for (var i = 0; i != next.length; ++i) {
                     optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";
@@ -203,9 +200,8 @@ function fillEngine() {
         method: "get",
         data: {'type': 3},
         complete: function (data) {
-            var result = JSON.parse(data.responseText);
-            if(result.item != ''){
-                var next =  JSON.parse(result.item);
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
                 var optional = "";
                 for (var i = 0; i != next.length; ++i) {
                     optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";
@@ -223,9 +219,8 @@ function fillTranssm() {
         method: "get",
         data: {'type': 5},
         complete: function (data) {
-            var result = JSON.parse(data.responseText);
-            if(result.item != ''){
-                var next =  JSON.parse(result.item);
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
                 var optional = "";
                 for (var i = 0; i != next.length; ++i) {
                     optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";

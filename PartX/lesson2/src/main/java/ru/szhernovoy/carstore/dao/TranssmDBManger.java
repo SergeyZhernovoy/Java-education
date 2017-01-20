@@ -73,17 +73,8 @@ public class TranssmDBManger implements DAOInterface<Transmission> {
         String query = "from ru.szhernovoy.carstore.model.Transmission";
         Collection<Transmission> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
+        session.close();
         return  tasks;
     }
 
-    public JsonArray convert(Collection<Transmission> collection) {
-        JsonArray array = new JsonArray();
-        for(Transmission param : collection){
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", param.getId() );
-            obj.addProperty("name", param.getName());
-            array.add(obj);
-        }
-        return array;
-    }
 }

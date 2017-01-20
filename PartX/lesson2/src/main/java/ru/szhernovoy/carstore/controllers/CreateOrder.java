@@ -3,6 +3,7 @@ package ru.szhernovoy.carstore.controllers;/**
  */
 
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import ru.szhernovoy.carstore.dao.CarDBManager;
 import ru.szhernovoy.carstore.dao.OrderDBManager;
@@ -18,12 +19,14 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.GregorianCalendar;
 
 public class CreateOrder extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 
         PrintWriter out = resp.getWriter();
         JsonObject jsonObject = new JsonObject();
@@ -32,6 +35,8 @@ public class CreateOrder extends HttpServlet{
         Integer userId = (int)session.getAttribute("id_user");
         int orderId = (int)session.getAttribute("currentOrder");
         if(userId != -1) {
+
+
             String name = req.getParameter("name");
             int modelId = Integer.valueOf(req.getParameter("model"));
             int bodyId = Integer.valueOf(req.getParameter("body"));
@@ -42,6 +47,8 @@ public class CreateOrder extends HttpServlet{
             int mileage = Integer.valueOf(req.getParameter("mile"));
             int carId = Integer.valueOf(req.getParameter("carId"));
             boolean sold = Boolean.valueOf(req.getParameter("sold"));
+
+
             //orderId = Integer.valueOf(req.getParameter("orderId"));
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             try {
@@ -96,8 +103,38 @@ public class CreateOrder extends HttpServlet{
         }
         OrderDBManager orderDBManager = new OrderDBManager();
         jsonObject.addProperty("currentUser",userId);
-        jsonObject.addProperty("orders",orderDBManager.convert(orderDBManager.get()).toString());
+        jsonObject.addProperty("orders",convert(orderDBManager.get()).toString());
         out.append(jsonObject.toString());
         out.flush();
     }
+
+    public JsonArray convert(Collection<Order> collection) {
+        JsonArray array = new JsonArray();
+        for(Order param : collection){
+            JsonObject obj = new JsonObject();
+            obj.addProperty("orderId", param.getId() );
+            obj.addProperty("mile", param.getMilesage() );
+            obj.addProperty("price", param.getPrice() );
+            if(param.getSold()){
+                obj.addProperty("sold", "V" );
+            } else {
+                obj.addProperty("sold", "" );
+            }
+            obj.addProperty("carName", param.getCar().getName() );
+            obj.addProperty("carId", param.getCar().getId() );
+
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTimeInMillis(param.getRelease().getTime());
+            //calendar.get(Calendar.YEAR);
+
+            obj.addProperty("data", String.valueOf(calendar.get(Calendar.YEAR)));
+            obj.addProperty("userId", param.getUser().getId() );
+            array.add(obj);
+        }
+        return array;
+    }
+
+
+
+
 }

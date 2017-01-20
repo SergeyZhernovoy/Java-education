@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.carstore.dao.BodyDBManager;
 import ru.szhernovoy.carstore.model.Body;
 
 import java.io.IOException;
@@ -26,23 +27,34 @@ public class CarTest {
         body.setCharact("2");
         body.setId(1);
 
+        Item item = new Item();
+        item.id = 1;
+        item.name  = "test";
+        body.setItem(item);
+
+
         Body two = new Body();
         two.setName("Rtyu");
         two.setCharact("1");
         two.setCharact("2");
         two.setId(1);
-
+     //   two.setItem(item);
 
         List<Body> bodies = new ArrayList<>();
         bodies.add(body);
         bodies.add(two);
+
+
         ObjectMapper mapper = new ObjectMapper();
+
+        String json = null;
         try {
-            String json =  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bodies);
-            System.out.println(json);
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bodies);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(json);
+
 
 
 
@@ -54,6 +66,16 @@ public class CarTest {
         private String name;
         private int id;
         List<String> charact = new ArrayList<>();
+
+        private Item item;
+
+        public Item getItem() {
+            return item;
+        }
+
+        public void setItem(Item item) {
+            this.item = item;
+        }
 
         public String getName() {
             return name;
@@ -79,6 +101,12 @@ public class CarTest {
             this.charact.add(mess);
         }
     }
+
+    private class Item{
+        int id;
+        String name;
+    }
+
 
 
 }

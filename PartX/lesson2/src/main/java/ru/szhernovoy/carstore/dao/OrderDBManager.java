@@ -19,56 +19,6 @@ public class OrderDBManager implements DAOInterface<Order>{
     private final static Logger log = LoggerFactory.getLogger(OrderDBManager.class);
 
 
-
-    public JsonArray convert(Collection<Order> collection) {
-        JsonArray array = new JsonArray();
-        for(Order param : collection){
-            JsonObject obj = new JsonObject();
-            obj.addProperty("orderId", param.getId() );
-            obj.addProperty("mile", param.getMilesage() );
-            obj.addProperty("price", param.getPrice() );
-            if(param.getSold()){
-                obj.addProperty("sold", "V" );
-            } else {
-                obj.addProperty("sold", "" );
-            }
-            obj.addProperty("carName", param.getCar().getName() );
-            obj.addProperty("carId", param.getCar().getId() );
-
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTimeInMillis(param.getRelease().getTime());
-            //calendar.get(Calendar.YEAR);
-
-            obj.addProperty("data", String.valueOf(calendar.get(Calendar.YEAR)));
-            obj.addProperty("userId", param.getUser().getId() );
-            array.add(obj);
-        }
-        return array;
-    }
-
-
-    public JsonArray convertWithField(Collection<Order> collection) {
-        JsonArray array = new JsonArray();
-        for(Order param : collection){
-            JsonObject obj = new JsonObject();
-            obj.addProperty("orderId", param.getId() );
-            obj.addProperty("mile", param.getMilesage() );
-            obj.addProperty("price", param.getPrice() );
-            obj.addProperty("sold", param.getSold() );
-            obj.addProperty("carName", param.getCar().getName() );
-            obj.addProperty("carId", param.getCar().getId() );
-            obj.addProperty("modelId", param.getCar().getModel().getId() );
-            obj.addProperty("bodyId", param.getCar().getBody().getId() );
-            obj.addProperty("drivetype", param.getCar().getDriveType().getId());
-            obj.addProperty("engineId", param.getCar().getEngine().getId() );
-            obj.addProperty("transsmId", param.getCar().getTransmission().getId() );
-            obj.addProperty("data", param.getRelease().getTime());
-            obj.addProperty("userId", param.getUser().getId() );
-            array.add(obj);
-        }
-        return array;
-    }
-
     /**
      * Created by admin on 10.01.2017.
      *
@@ -81,6 +31,7 @@ public class OrderDBManager implements DAOInterface<Order>{
         session.beginTransaction();
         session.saveOrUpdate(order);
         session.getTransaction().commit();
+        session.close();
         return order;
     }
 
@@ -118,6 +69,7 @@ public class OrderDBManager implements DAOInterface<Order>{
         session.beginTransaction();
         Collection<Order> orders = session.createQuery(String.format("from ru.szhernovoy.carstore.model.Order as order where order.id = %d",id)).list();
         session.getTransaction().commit();
+        session.close();
         return orders;
     }
 
@@ -133,6 +85,7 @@ public class OrderDBManager implements DAOInterface<Order>{
         String query = "from ru.szhernovoy.carstore.model.Order";
         Collection<Order> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
+        session.close();
         return  tasks;
     }
 }

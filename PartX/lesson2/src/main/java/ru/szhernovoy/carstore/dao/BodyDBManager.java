@@ -74,6 +74,7 @@ public class BodyDBManager implements DAOInterface<Body>{
         String query = "from ru.szhernovoy.carstore.model.Body";
         Collection<Body> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
+        session.close();
         return  tasks;
     }
 

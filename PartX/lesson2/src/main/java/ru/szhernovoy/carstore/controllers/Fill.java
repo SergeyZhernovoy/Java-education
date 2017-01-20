@@ -2,13 +2,10 @@ package ru.szhernovoy.carstore.controllers;/**
  * Created by szhernovoy on 13.01.2017.
  */
 
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.JsonNodeFactory;
-import org.codehaus.jackson.node.ObjectNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import ru.szhernovoy.carstore.dao.*;
-import ru.szhernovoy.carstore.utilite.JsonController;
 
 import javax.servlet.ServletException;
 
@@ -24,40 +21,38 @@ public class Fill extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         int typeReq = Integer.valueOf(req.getParameter("type"));
         PrintWriter out = resp.getWriter();
         out.append(getCollectionInJson(typeReq));
         out.flush();
-
     }
 
     public String getCollectionInJson(int type){
 
-        ObjectNode root  = JsonNodeFactory.instance.objectNode();
-        ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
-
-        switch (type){
-            case 1:
-                jsonArray = JsonController.getInstance().convert(new BodyDBManager().get());
-                break;
-            case 2:
-             //   jsonArray = JsonController.getInstance().convert(new ModelDBManager().get());
-                break;
-            case 3:
-             //   jsonArray = JsonController.getInstance().convert(new EngineDBManager().get());
-                break;
-            case 4:
-            //    jsonArray = JsonController.getInstance().convert(new DriveDBManager().get());
-                break;
-            case 5:
-             //   jsonArray = JsonController.getInstance().convert(new TranssmDBManger().get());
-                break;
+        ObjectMapper mapper = new ObjectMapper();
+        String result = null;
+        try {
+            switch (type){
+                case 1:
+                    result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new BodyDBManager().get());
+                    break;
+                case 2:
+                    result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new ModelDBManager().get());
+                    break;
+                case 3:
+                    result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new EngineDBManager().get());
+                    break;
+                case 4:
+                    result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new DriveDBManager().get());
+                    break;
+                case 5:
+                    result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new TranssmDBManger().get());
+                    break;
+            }
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(),e);
         }
-
-        root.put("item",jsonArray);
-        return root.toString();
-
+        return result;
     }
 
 }

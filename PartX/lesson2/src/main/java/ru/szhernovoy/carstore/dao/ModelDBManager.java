@@ -73,18 +73,8 @@ public class ModelDBManager implements DAOInterface<Model>{
         String query = "from ru.szhernovoy.carstore.model.Model";
         Collection<Model> tasks = session.createQuery(query).list();
         session.getTransaction().commit();
+        session.close();
         return  tasks;
     }
 
-
-    public JsonArray convert(Collection<Model> collection) {
-        JsonArray array = new JsonArray();
-        for(Model param : collection){
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", param.getId() );
-            obj.addProperty("name", param.getName());
-            array.add(obj);
-        }
-        return array;
-    }
 }

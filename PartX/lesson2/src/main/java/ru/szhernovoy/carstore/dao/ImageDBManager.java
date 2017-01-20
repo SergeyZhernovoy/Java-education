@@ -27,6 +27,7 @@ public class ImageDBManager implements DAOInterface<Image> {
         session.beginTransaction();
         session.save(image);
         session.getTransaction().commit();
+        session.close();
         return image;
     }
 
