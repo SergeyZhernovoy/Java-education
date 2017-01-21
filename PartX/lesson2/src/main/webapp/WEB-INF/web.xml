@@ -67,7 +67,7 @@
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 
-    <filter>
+   <filter>
         <filter-name>Filter encoding</filter-name>
         <filter-class>ru.szhernovoy.carstore.controllers.FilterController</filter-class>
         <init-param>

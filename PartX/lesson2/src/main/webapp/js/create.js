@@ -27,7 +27,6 @@ $(document).ready(function () {
         var release = $("#release");
         var car = {
             'name' : $("#name").val(),
-            'id' : carId,
             'body' : { 'id': $("#body").val()},
             'driveType' : {'id' : $("#drivetype").val() },
             'engine' : {'id' : $("#engine").val()},
@@ -37,7 +36,7 @@ $(document).ready(function () {
         var order = {
             'price' : $("#price").val(),
             'milesage' : $("#mileage").val(),
-            'sold' : sold,
+            'sold' : sold
         };
 
         if(login_result){
@@ -49,6 +48,7 @@ $(document).ready(function () {
                     'order' : JSON.stringify(order),
                     'car'   : JSON.stringify(car),
                     'release' : release.val(),
+                    'carId' : carId
                 },
                 complete: function (data) {
                     order_id  = JSON.parse(data.responseText);
@@ -104,15 +104,15 @@ function controlSession() {
 }
 
 function fillExistOrder() {
-    $.ajax({
+      $.ajax({
         url: "edit",
         method: "get",
         complete: function (data) {
             var struct = JSON.parse(data.responseText);
             order_id = struct.order;
-
             if (order_id != -1) {
-                var docOrder = JSON.parse(struct.orderProperties)[0]; // у нас только одна строка в массиве
+                var docOrder = struct.orderProperties[0]; // у нас только одна строка в массиве
+
                 $("#model").val(docOrder.modelId);
                 $("#body").val(docOrder.bodyId);
                 $("#drivetype").val(docOrder.drivetype);
@@ -122,7 +122,7 @@ function fillExistOrder() {
                 $("#price").val(docOrder.price);
                 $("#mileage").val(docOrder.mile);
                 $("#release").val(docOrder.modelId);
-                $("#sold").val(docOrder.sold);
+                $("#sold").prop('checked',docOrder.sold)
 
                 $("#date").val(docOrder.data);
 
@@ -130,6 +130,7 @@ function fillExistOrder() {
                 $("#add-order-btn").html("Обновить");
 
                 carId = docOrder.carId;
+
             }
         }
     });

@@ -11,9 +11,11 @@ import org.codehaus.jackson.node.BooleanNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.NumericNode;
 import org.codehaus.jackson.node.ObjectNode;
+import org.hibernate.Session;
 import ru.szhernovoy.carstore.dao.CarDBManager;
 import ru.szhernovoy.carstore.dao.OrderDBManager;
 import ru.szhernovoy.carstore.model.*;
+import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,8 +51,9 @@ public class CreateOrder extends HttpServlet{
                 e.printStackTrace();
             }
             Car newCar =   mapper.readValue((String) req.getParameter("car"), Car.class);
-            if(newCar.getId() == -1){
-                newCar.setId(null);
+            int carId = Integer.valueOf(req.getParameter("carId"));
+            if( carId!= -1){
+                newCar.setId(carId);
             }
             newCar = new CarDBManager().create(newCar);
 
