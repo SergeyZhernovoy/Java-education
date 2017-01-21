@@ -4,8 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import ru.szhernovoy.carstore.dao.BodyDBManager;
-import ru.szhernovoy.carstore.model.Body;
+import ru.szhernovoy.carstore.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,92 +20,42 @@ public class CarTest {
     @Test
     public void whenNeedConvertPOJOToJsonWeGetStringForResponceToWeb(){
 
+        Car car = new Car();
         Body body = new Body();
-        body.setName("Rtyu");
-        body.setCharact("1");
-        body.setCharact("2");
+        DriveType driveType = new DriveType();
+        Engine engine = new Engine();
+        Transmission transmission = new Transmission();
+        Model model = new Model();
+
         body.setId(1);
+        body.setName("test body");
+        driveType.setId(1);
+        driveType.setName("test drive");
+        engine.setId(1);
+        engine.setName("test engine");
+        transmission.setId(1);
+        transmission.setName("test transm");
+        model.setId(1);
+        model.setName("test model");
 
-        Item item = new Item();
-        item.id = 1;
-        item.name  = "test";
-        body.setItem(item);
-
-
-        Body two = new Body();
-        two.setName("Rtyu");
-        two.setCharact("1");
-        two.setCharact("2");
-        two.setId(1);
-     //   two.setItem(item);
-
-        List<Body> bodies = new ArrayList<>();
-        bodies.add(body);
-        bodies.add(two);
-
+        car.setId(1);
+        car.setName("test car");
+        car.setBody(body);
+        car.setDriveType(driveType);
+        car.setEngine(engine);
+        car.setModel(model);
+        car.setTransmission(transmission);
 
         ObjectMapper mapper = new ObjectMapper();
 
         String json = null;
         try {
-            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bodies);
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(car);
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println(json);
 
-
-
-
     }
-
-
-
-    private class Body{
-        private String name;
-        private int id;
-        List<String> charact = new ArrayList<>();
-
-        private Item item;
-
-        public Item getItem() {
-            return item;
-        }
-
-        public void setItem(Item item) {
-            this.item = item;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public List<String> getCharact() {
-            return charact;
-        }
-
-        public void setCharact(String mess) {
-            this.charact.add(mess);
-        }
-    }
-
-    private class Item{
-        int id;
-        String name;
-    }
-
-
 
 }

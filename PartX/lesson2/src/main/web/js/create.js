@@ -24,35 +24,34 @@ $(document).ready(function () {
             var sold = true;
         }
 
-        var name = $("#name");
-        var model = $("#model");
-        var body = $("#body");
-        var drivetype = $("#drivetype");
-        var engine = $("#engine");
-        var transsmission = $("#transsmission");
-        var price = $("#price");
-        var mile = $("#mileage");
         var release = $("#release");
+        var car = {
+            'name' : $("#name").val(),
+            'id' : carId,
+            'body' : { 'id': $("#body").val()},
+            'driveType' : {'id' : $("#drivetype").val() },
+            'engine' : {'id' : $("#engine").val()},
+            'transmission' : {'id':$("#transsmission").val()},
+            'model' : {'id': $("#model").val()}
+            };
+        var order = {
+            'price' : $("#price").val(),
+            'milesage' : $("#mileage").val(),
+            'sold' : sold,
+        };
+
         if(login_result){
             $.ajax({
                 url: "create",
                 method: "post",
+                datatype : 'JSON',
                 data: {
-                    'name': name.val(),
-                    'model': model.val(),
-                    'body' : body.val(),
-                    'drivetype' : drivetype.val(),
-                    'engine' : engine.val(),
-                    'transsmission' : transsmission.val(),
-                    'price' : price.val(),
+                    'order' : JSON.stringify(order),
+                    'car'   : JSON.stringify(car),
                     'release' : release.val(),
-                    'mile'  : mile.val(),
-                    'sold'  : sold,
-                    'carId' : carId,
                 },
                 complete: function (data) {
-                    var result  = JSON.parse(data.responseText);
-                    order_id = result.order;
+                    order_id  = JSON.parse(data.responseText);
                     if (order_id !=-1) {
                         alert("Вы успешно добавили объявление. Теперь можно добавить к нему изображения");
                         $('#add-order-btn').prop('disabled',true);
@@ -70,7 +69,6 @@ $(document).ready(function () {
         $.each($('#file-image')[0].files, function(i, file) {
             data.append('file-'+i, file);
         });
-
 
         if(order_id != -1){
             $.ajax({

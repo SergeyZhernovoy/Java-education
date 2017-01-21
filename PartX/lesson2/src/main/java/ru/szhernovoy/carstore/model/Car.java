@@ -28,7 +28,7 @@ public class Car {
     /**
      * Created by admin on 10.01.2017.
      */
-    private int id;
+    private Integer id;
     /**
      * Created by admin on 10.01.2017.
      */
@@ -73,7 +73,7 @@ public class Car {
      * Created by admin on 10.01.2017.
      * @param id .
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

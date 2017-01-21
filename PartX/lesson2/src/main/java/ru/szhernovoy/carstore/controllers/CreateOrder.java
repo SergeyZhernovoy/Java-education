@@ -5,6 +5,12 @@ package ru.szhernovoy.carstore.controllers;/**
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.BooleanNode;
+import org.codehaus.jackson.node.JsonNodeFactory;
+import org.codehaus.jackson.node.NumericNode;
+import org.codehaus.jackson.node.ObjectNode;
 import ru.szhernovoy.carstore.dao.CarDBManager;
 import ru.szhernovoy.carstore.dao.OrderDBManager;
 import ru.szhernovoy.carstore.model.*;
@@ -28,27 +34,13 @@ public class CreateOrder extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        resp.setContentType("application/json");
+        ObjectMapper mapper = new ObjectMapper();
         PrintWriter out = resp.getWriter();
-        JsonObject jsonObject = new JsonObject();
-
         HttpSession session = req.getSession(false);
         Integer userId = (int)session.getAttribute("id_user");
         int orderId = (int)session.getAttribute("currentOrder");
         if(userId != -1) {
-
-
-            String name = req.getParameter("name");
-            int modelId = Integer.valueOf(req.getParameter("model"));
-            int bodyId = Integer.valueOf(req.getParameter("body"));
-            int transsmId = Integer.valueOf(req.getParameter("transsmission"));
-            int driveId = Integer.valueOf(req.getParameter("drivetype"));
-            int engineId = Integer.valueOf(req.getParameter("engine"));
-            int price = Integer.valueOf(req.getParameter("price"));
-            int mileage = Integer.valueOf(req.getParameter("mile"));
-            int carId = Integer.valueOf(req.getParameter("carId"));
-            boolean sold = Boolean.valueOf(req.getParameter("sold"));
-
-
             //orderId = Integer.valueOf(req.getParameter("orderId"));
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             try {
@@ -56,34 +48,26 @@ public class CreateOrder extends HttpServlet{
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-            Car newCar = new Car(name,modelId,bodyId,driveId,transsmId,engineId);
-            if(carId != -1){
-                newCar.setId(carId);
+            Car newCar =   mapper.readValue((String) req.getParameter("car"), Car.class);
+            if(newCar.getId() == -1){
+                newCar.setId(null);
             }
-
             newCar = new CarDBManager().create(newCar);
 
             User user = new User();
             user.setId(userId);
 
-            Order order = new Order();
+            Order order = mapper.readValue((String) req.getParameter("order"), Order.class);
             order.setCar(newCar);
-            order.setPrice(price);
-            order.setMilesage(mileage);
             order.setRelease(timestamp);
             order.setUser(user);
-            order.setSold(sold);
             if (orderId != -1){
                 order.setId(orderId);
             }
-
             orderId = new OrderDBManager().create(order).getId();
             session.setAttribute("currentOrder",orderId);
         }
-
-        jsonObject.addProperty("order", orderId);
-        out.append(jsonObject.toString());
+        out.append(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(JsonNodeFactory.instance.numberNode(orderId)));
         out.flush();
 
      }
@@ -133,8 +117,4 @@ public class CreateOrder extends HttpServlet{
         }
         return array;
     }
-
-
-
-
 }
