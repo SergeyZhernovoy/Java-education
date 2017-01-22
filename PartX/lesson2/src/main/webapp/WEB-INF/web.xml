@@ -81,7 +81,15 @@
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
+    <servlet>
+        <servlet-name>Filter order</servlet-name>
+        <servlet-class>ru.szhernovoy.carstore.controllers.FilterOrder</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>Filter order</servlet-name>
+        <url-pattern>/cut</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

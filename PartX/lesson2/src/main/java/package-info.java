@@ -17,22 +17,6 @@
  кто подал заявление. только он может менять статус.
  *
  *
- *
-
- 4. ты используешь json. для чтения. а для создания используешь param
-
- String name = req.getParameter("name");
- int modelId = Integer.valueOf(req.getParameter("model"));
- int bodyId = Integer.valueOf(req.getParameter("body"));
- int transsmId = Integer.valueOf(req.getParameter("transsmission"));
- int driveId = Integer.valueOf(req.getParameter("drivetype"));
- int engineId = Integer.valueOf(req.getParameter("engine"));
- int price = Integer.valueOf(req.getParameter("price"));
- int mileage = Integer.valueOf(req.getParameter("mile"));
- int carId = Integer.valueOf(req.getParameter("carId"));
- boolean sold = Boolean.valueOf(req.getParameter("sold"));
-
- можно для создания тоже использовать json и в разы сократить код.
-
+ *3 PART Реализовать пользовательские фильтры для площадок машин [#6299]
  *
  */

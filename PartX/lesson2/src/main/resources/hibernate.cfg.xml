@@ -9,6 +9,8 @@
         <property name="connection.username">postgres</property>
         <property name="connection.password">1</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
+        <property name="hibernate.connection.isolation">2</property>
+
 
         <mapping resource="ru/szhernovoy/carstore/model/Car.hbm.xml"/>
         <mapping resource="ru/szhernovoy/carstore/model/Body.hbm.xml"/>
@@ -19,6 +21,8 @@
         <mapping resource="ru/szhernovoy/carstore/model/Orders.hbm.xml"/>
         <mapping resource="ru/szhernovoy/carstore/model/Transmission.hbm.xml"/>
         <mapping resource="ru/szhernovoy/carstore/model/Users.hbm.xml"/>
+
+
 
     </session-factory>
 </hibernate-configuration>

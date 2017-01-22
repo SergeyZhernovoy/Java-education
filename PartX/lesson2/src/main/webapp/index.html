@@ -45,6 +45,38 @@
         <div class="col-sm-9">
             <h4 align="center">Объявления о продаже автомобилей</h4>
              <br>
+
+            <div align="center">
+                    <h5 align="center" >Фильтр объявлений</h5>
+                <br>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            Цена не более:
+                             <input type="number" class="form-control"  placeholder="Цена" id = "price">
+                        </div>
+                        <div class="form-group">
+                            Пробег не более:
+                            <input type="number" class="form-control"  placeholder="Пробег" id = "miles">
+                        </div>
+                        <div class="form-group">
+                            Тип кузова:
+                            <select id="body"  class="selectpicker form-control" data-width="35%">
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            Трансмиссия:
+                            <select id="transsmission"  class="selectpicker form-control" data-width="35%">
+
+                            </select>
+                        </div>
+
+
+                        <button type="button" class="btn btn-default btn-filter" >Поиск</button>
+                    </form>
+
+            </div>
+<br><br>
              <div class="container">
                 <table class="table">
                     <thead>

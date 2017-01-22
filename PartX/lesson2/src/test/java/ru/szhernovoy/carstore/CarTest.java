@@ -8,7 +8,9 @@ import ru.szhernovoy.carstore.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 20.01.2017.
@@ -48,9 +50,17 @@ public class CarTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        Map<String,Integer> map = new HashMap<>();
+        map.put("1",1);
+        map.put("2",2);
+
+
+
+
+
         String json = null;
         try {
-            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(car);
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
         } catch (IOException e) {
             e.printStackTrace();
         }

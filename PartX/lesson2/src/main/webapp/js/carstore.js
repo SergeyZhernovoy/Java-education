@@ -6,8 +6,9 @@ var login_result;
 $(document).ready(function () {
 
      controlSession();
-     updateTable();
-
+    updateTable();
+     fillTranssm();
+     fillBody();
 
 
      $("#auth-btn").click(function () {
@@ -80,11 +81,11 @@ $(document).ready(function () {
         $('.carousel-inner').html('');
     });
 
+    $('.btn-filter').click(function(){ //Что будет происходить по клику по форме
+       filterTable();
+    });
+
 })
-
-
-
-
 
 
 function controlSession() {
@@ -140,6 +141,59 @@ function updateTable(){
         });
 }
 
+function filterTable(){
+
+    var filter = {};
+    if($("#price").val() != '') {
+        filter['price'] = $("#price").val();
+    }
+    if($("#miles").val() != '') {
+        filter['milesage'] = ("#miles").val();
+    }
+    if($("#body").val() != '') {
+        filter['car.body.id']= $("#body").val();
+    }
+    if($("#transsmission").val() != '') {
+        filter['car.transmission.id'] = $("#transsmission").val();
+    }
+
+    $.ajax({
+        url: "cut",
+        method: "get",
+        datatype : 'JSON',
+        data: {
+            'filter' : JSON.stringify(filter)
+        },
+        complete: function (data) {
+            var result =  JSON.parse(data.responseText);
+            var userId =  result.currentUser;
+            var orders   =  result.orders;
+            if(result.orders != ''){
+                var optional = "";
+                for (var i = 0; i != orders.length; ++i) {
+                    var userOrder = orders[i].userId;
+                    optional += "<tr>";
+                    optional += "<td>"+orders[i].sold+"</td>";
+                    optional += "<td>"+orders[i].carName+"</td>";
+                    optional += "<td>"+orders[i].price+"</td>";
+                    optional += "<td>"+orders[i].mile+"</td>";
+                    optional += "<td>"+orders[i].data+"</td>";
+                    optional += "<td><button type='button' class='btn btn-link pictures' onclick= 'callGallery(" + orders[i].orderId + ")' >Галлерея</button></td>";
+                    if(userOrder == userId){
+                        optional += "<td><button type='button' class='btn btn-link' onclick= 'editOrder(" + orders[i].orderId + ")' ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
+                    } else {
+                        optional += "<td><button type='button' class='btn btn-link' disabled ><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>";
+                    }
+                    optional += "</tr>";
+                }
+                var table = document.getElementById("table-body");
+                table.innerHTML = optional;
+            }
+        }
+    });
+}
+
+
 function callGallery(orderId) {
     $.ajax({
         url: "image",
@@ -177,4 +231,42 @@ function editOrder(orderId) {
                 location.href = "create.html";
             }
         });
+}
+
+function fillBody() {
+    $.ajax({
+        url: "fill",
+        method: "get",
+        data: {'type': 1},
+        complete: function (data) {
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
+                var optional = "";
+                for (var i = 0; i != next.length; ++i) {
+                    optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";
+                }
+                var dropdownMenu = document.getElementById("body");
+                dropdownMenu.innerHTML = optional;
+            }
+        }
+    });
+}
+
+function fillTranssm() {
+    $.ajax({
+        url: "fill",
+        method: "get",
+        data: {'type': 5},
+        complete: function (data) {
+            var next = JSON.parse(data.responseText);
+            if(next != ''){
+                var optional = "";
+                for (var i = 0; i != next.length; ++i) {
+                    optional += "<option value = "+next[i].id+">" + next[i].name + "</option>";
+                }
+                var dropdownMenu = document.getElementById("transsmission");
+                dropdownMenu.innerHTML = optional;
+            }
+        }
+    });
 }
