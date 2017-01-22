@@ -1,18 +1,22 @@
 package ru.szhernovoy.carstore.dao;
 
 
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
+
+
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaQuery;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.query.Query;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import ru.szhernovoy.carstore.model.Body;
+import ru.szhernovoy.carstore.model.Car;
 import ru.szhernovoy.carstore.model.Order;
+import ru.szhernovoy.carstore.model.Transmission;
 import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
 
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.*;
 
@@ -99,29 +103,35 @@ public class OrderDBManager implements DAOInterface<Order>{
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Criteria cr = session.createCriteria(Order.class)
-        .setFetchMode("car", FetchMode.JOIN)
-        .setFetchMode("transmission")        ;
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> orderRoot = criteriaQuery.from(Order.class);
+        Join<Order,Car> orderCar = null;
+
+
+        if(parametres.containsKey("body") || parametres.containsKey("body")){
+            orderCar = orderRoot.join("car");
+        }
+
         Set<String> keyByParam = parametres.keySet();
 
         for (String key : keyByParam) {
             switch (key){
                 case "price":
-                    cr.add(Restrictions.gt(key,parametres.get(key)));
+                 //   cr.add(Restrictions.gt(key,parametres.get(key)));
                     break;
                 case "milesage":
-                    cr.add(Restrictions.gt(key,parametres.get(key)));
+                  //  cr.add(Restrictions.gt(key,parametres.get(key)));
                     break;
-                case "car.body.id" :
-
-                    cr.add(Restrictions.eqOrIsNull(key,parametres.get(key)));
+                case "body" :
+                    Join<Car,Body> carBody = orderCar.join("body");
                     break;
-                case "car.transmission.id" :
-                    cr.add(Restrictions.eqOrIsNull(key,parametres.get(key)));
+                case "transmission" :
+                    Join<Car,Transmission> carTransmission = orderCar.join("transmission");
                     break;
             }
         }
-        orders = cr.list();
+        orders = session.createQuery(criteriaQuery).list();
         session.getTransaction().commit();
         session.close();
         return  orders;

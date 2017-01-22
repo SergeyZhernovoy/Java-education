@@ -151,10 +151,10 @@ function filterTable(){
         filter['milesage'] = ("#miles").val();
     }
     if($("#body").val() != '') {
-        filter['car.body.id']= $("#body").val();
+        filter['body']= $("#body").val();
     }
     if($("#transsmission").val() != '') {
-        filter['car.transmission.id'] = $("#transsmission").val();
+        filter['transmission'] = $("#transsmission").val();
     }
 
     $.ajax({
