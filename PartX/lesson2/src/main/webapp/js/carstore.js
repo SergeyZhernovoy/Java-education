@@ -168,7 +168,7 @@ function filterTable(){
             var result =  JSON.parse(data.responseText);
             var userId =  result.currentUser;
             var orders   =  result.orders;
-            if(result.orders != ''){
+            if(orders != ''){
                 var optional = "";
                 for (var i = 0; i != orders.length; ++i) {
                     var userOrder = orders[i].userId;

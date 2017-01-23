@@ -19,4 +19,9 @@
  *
  *3 PART Реализовать пользовательские фильтры для площадок машин [#6299]
  *
+ * 4 PART TEST
+ *
+ * CONTROL question
+ *
+ * https://www.tutorialspoint.com/hibernate/hibernate_interview_questions.htm
  */
