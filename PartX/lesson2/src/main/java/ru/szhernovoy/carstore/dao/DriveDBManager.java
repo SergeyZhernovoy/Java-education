@@ -26,7 +26,12 @@ public class DriveDBManager implements DAOInterface<DriveType>{
      */
     @Override
     public DriveType create(DriveType driveType) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(driveType);
+        session.getTransaction().commit();
+        session.close();
+        return driveType;
     }
 
     /**

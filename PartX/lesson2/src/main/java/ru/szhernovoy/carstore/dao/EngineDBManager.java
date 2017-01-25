@@ -25,7 +25,12 @@ public class EngineDBManager implements DAOInterface<Engine>{
      */
     @Override
     public Engine create(Engine engine) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(engine);
+        session.getTransaction().commit();
+        session.close();
+        return engine;
     }
 
     /**
@@ -36,7 +41,12 @@ public class EngineDBManager implements DAOInterface<Engine>{
      */
     @Override
     public Engine update(Engine engine) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(engine);
+        session.getTransaction().commit();
+        session.close();
+        return engine;
     }
 
     /**

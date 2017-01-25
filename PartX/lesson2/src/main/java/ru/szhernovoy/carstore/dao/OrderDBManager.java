@@ -12,9 +12,6 @@ import ru.szhernovoy.carstore.model.Car;
 import ru.szhernovoy.carstore.model.Order;
 import ru.szhernovoy.carstore.model.Transmission;
 import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
-
-
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.util.*;
 

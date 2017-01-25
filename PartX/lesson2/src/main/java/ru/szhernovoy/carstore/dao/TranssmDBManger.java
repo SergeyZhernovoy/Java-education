@@ -25,7 +25,12 @@ public class TranssmDBManger implements DAOInterface<Transmission> {
      */
     @Override
     public Transmission create(Transmission transmission) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(transmission);
+        session.getTransaction().commit();
+        session.close();
+        return transmission;
     }
 
     /**

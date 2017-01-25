@@ -25,7 +25,12 @@ public class ModelDBManager implements DAOInterface<Model>{
      */
     @Override
     public Model create(Model model) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(model);
+        session.getTransaction().commit();
+        session.close();
+        return model;
     }
 
     /**

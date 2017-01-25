@@ -25,7 +25,12 @@ public class BodyDBManager implements DAOInterface<Body>{
      */
     @Override
     public Body create(Body body) {
-        return null;
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(body);
+        session.getTransaction().commit();
+        session.close();
+        return body;
     }
 
     /**
