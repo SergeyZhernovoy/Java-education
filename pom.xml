@@ -16,6 +16,7 @@
 		<module>PartVIII</module>
 		<module>PartVIIII</module>
         <module>PartX</module>
+        <module>PartXI</module>
     </modules>
 
 	<properties>
