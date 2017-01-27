@@ -1,9 +1,9 @@
-package ru.szhernovoy.springbeans;/**
+package ru.szhernovoy.storages;/**
  * Created by Admin on 27.01.2017.
  */
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class User {
 
