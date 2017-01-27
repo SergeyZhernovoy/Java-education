@@ -10,7 +10,7 @@
        <!--<bean id="memory" class="ru.szhernovoy.springbeans.MemoryStorageImpl"/>-->
 
         <context:component-scan base-package="ru.szhernovoy.springbeans"/>
-
-
+        <context:component-scan base-package="ru.szhernovoy.storages"/>
+        <!--<bean id="membase" class="ru.szhernovoy.storages.MemoryDAO"/>-->
 
 </beans>

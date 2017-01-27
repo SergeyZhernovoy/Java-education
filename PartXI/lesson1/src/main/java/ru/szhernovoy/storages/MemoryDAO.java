@@ -2,38 +2,63 @@ package ru.szhernovoy.storages;/**
  * Created by szhernovoy on 27.01.2017.
  */
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 public class MemoryDAO implements Crud {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MemoryDAO.class);
+    private List<User> storage = new ArrayList<>();
+    private int id;
 
     @Override
     public User add(User user) {
-        return null;
+        this.storage.add(user);
+        user.setId(++id);
+        return user;
     }
 
     @Override
-    public User update(User user) {
-        return null;
+    public boolean update(User user) {
+        boolean result = false;
+        if(this.storage.contains(user)){
+            result = true;
+            int index = this.storage.indexOf(user);
+            this.storage.set(index,user);
+        }
+        return result;
     }
 
     @Override
     public boolean delete(User user) {
-        return false;
-    }
+
+        boolean result = false;
+        if(this.storage.contains(user)){
+            result = true;
+            int index = this.storage.indexOf(user);
+            this.storage.remove(index);
+        }
+        return result;
+
+   }
 
     @Override
-    public User get(int id) {
-        return null;
+    public User get(int idUser) {
+        User user = new User();
+        user.setId(idUser);
+        if(this.storage.contains(user)){
+            int index = this.storage.indexOf(user);
+            user = this.storage.get(index);
+        }
+        return user;
     }
 
     @Override
     public Collection<User> get() {
-        return null;
+
+        return this.storage;
+
     }
 }
