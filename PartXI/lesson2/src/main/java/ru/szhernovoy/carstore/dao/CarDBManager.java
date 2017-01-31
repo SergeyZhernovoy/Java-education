@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.szhernovoy.carstore.model.Car;
-import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
+import ru.szhernovoy.carstore.utils.HibernateSessionFactory;
 
 import java.util.Collection;
 

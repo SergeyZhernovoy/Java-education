@@ -1,5 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%--
+  Created by IntelliJ IDEA.
+  User: Admin
+  Date: 31.01.2017
+  Time: 23:34
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <title>Car store</title>
     <meta charset="utf-8">
@@ -35,7 +42,7 @@
             </form>
 
             <div id="info_success_auth" hidden>
-                    <h3><span class="label label-info">Успешная авторизация</span></h3>
+                <h3><span class="label label-info">Успешная авторизация</span></h3>
             </div>
 
             <br>
@@ -44,40 +51,40 @@
 
         <div class="col-sm-9">
             <h4 align="center">Объявления о продаже автомобилей</h4>
-             <br>
+            <br>
 
             <div align="center">
-                    <h5 align="center" >Фильтр объявлений</h5>
+                <h5 align="center" >Фильтр объявлений</h5>
                 <br>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            Цена не более:
-                             <input type="number" class="form-control"  placeholder="Цена" id = "price">
-                        </div>
-                        <div class="form-group">
-                            Пробег не более:
-                            <input type="number" class="form-control"  placeholder="Пробег" id = "miles">
-                        </div>
-                        <div class="form-group">
-                            Тип кузова:
-                            <select id="body"  class="selectpicker form-control" data-width="35%">
+                <form class="form-inline">
+                    <div class="form-group">
+                        Цена не более:
+                        <input type="number" class="form-control"  placeholder="Цена" id = "price">
+                    </div>
+                    <div class="form-group">
+                        Пробег не более:
+                        <input type="number" class="form-control"  placeholder="Пробег" id = "miles">
+                    </div>
+                    <div class="form-group">
+                        Тип кузова:
+                        <select id="body"  class="selectpicker form-control" data-width="35%">
 
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            Трансмиссия:
-                            <select id="transsmission"  class="selectpicker form-control" data-width="35%">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        Трансмиссия:
+                        <select id="transsmission"  class="selectpicker form-control" data-width="35%">
 
-                            </select>
-                        </div>
+                        </select>
+                    </div>
 
 
-                        <button type="button" class="btn btn-default btn-filter" >Поиск</button>
-                    </form>
+                    <button type="button" class="btn btn-default btn-filter" >Поиск</button>
+                </form>
 
             </div>
-<br><br>
-             <div class="container">
+            <br><br>
+            <div class="container">
                 <table class="table">
                     <thead>
                     <tr>

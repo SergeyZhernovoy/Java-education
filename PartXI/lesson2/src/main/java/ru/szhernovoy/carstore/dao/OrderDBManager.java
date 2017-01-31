@@ -8,7 +8,7 @@ import ru.szhernovoy.carstore.model.Body;
 import ru.szhernovoy.carstore.model.Car;
 import ru.szhernovoy.carstore.model.Order;
 import ru.szhernovoy.carstore.model.Transmission;
-import ru.szhernovoy.carstore.utilite.HibernateSessionFactory;
+import ru.szhernovoy.carstore.utils.HibernateSessionFactory;
 
 import javax.persistence.criteria.*;
 import java.util.Collection;
