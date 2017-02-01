@@ -6,7 +6,7 @@ var login_result;
 $(document).ready(function () {
 
      controlSession();
-    updateTable();
+     updateTable();
      fillTranssm();
      fillBody();
 
