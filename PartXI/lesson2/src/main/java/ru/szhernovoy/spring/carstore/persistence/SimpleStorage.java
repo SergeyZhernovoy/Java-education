@@ -1,7 +1,7 @@
 package ru.szhernovoy.spring.carstore.persistence;
 
 import org.springframework.stereotype.Component;
-import ru.szhernovoy.spring.carstore.model.User;
+import ru.szhernovoy.spring.carstore.domain.User;
 
 import java.util.ArrayList;
 
