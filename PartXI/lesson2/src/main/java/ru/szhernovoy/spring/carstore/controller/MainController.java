@@ -14,7 +14,7 @@ public class MainController {
     @RequestMapping(value = "/")
     public String welcome(Model model){
 
-        model.addAttribute("greeting","Education spring");
+      //  model.addAttribute("succesAuto",false);
         return "index";
     }
 }

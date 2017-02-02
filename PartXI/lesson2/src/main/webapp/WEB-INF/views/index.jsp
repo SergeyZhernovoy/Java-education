@@ -13,8 +13,8 @@
 <head>
     <title>Car store</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="${request.contextPath}/resources/images/car.png" type="image/png">
-    <link rel="stylesheet" href="${request.contextPath}/resources/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/car.png" type="image/png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
     <body>
     <h1>${greeting}</h1>
@@ -22,27 +22,39 @@
         <div class="row content">
             <div class="col-sm-3 sidenav">
                 <h4>Авторизация</h4>
+                <c:choose>
+                    <c:when test="${succesAuto}">
+                        <div>
+                            <h3><span class="label label-info">Успешная авторизация</span></h3>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <form id="autorization">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="login" type="text" class="form-control" name="login" placeholder="Login" >
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Password" >
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-link" id="auth-btn">Ввойти</button>
+                            <button type="button" class="btn btn-link" id="add-user-btn">Регистрация</button>
+                        </form>
 
-                <form id="autorization">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login" type="text" class="form-control" name="login" placeholder="Login" >
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="password" type="password" class="form-control" name="password" placeholder="Password" >
-                    </div>
-                    <br>
-                    <button type="button" class="btn btn-link" id="auth-btn">Ввойти</button>
-                    <button type="button" class="btn btn-link" id="add-user-btn">Регистрация</button>
-                </form>
+                        <c:if test="${not empty succesAuto && !succesAuto}">
+                            <div >
+                                <span style="color: red; ">Пожалуйста, проверьте правильность написания логина и пароля!</span>
+                            </div>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
 
-                <div id="info_success_auth" hidden>
-                    <h3><span class="label label-info">Успешная авторизация</span></h3>
-                </div>
-
+                <c:if test="${succesAuto}">
+                    <button type="button" class="btn btn-link" id="move-order-page" >Добавить объявление</button>
+                </c:if>
                 <br>
-                <button type="button" class="btn btn-link" id="move-order-page" hidden>Добавить объявление</button>
             </div>
 
             <div class="col-sm-9">
@@ -63,7 +75,22 @@
                         </tr>
                         </thead>
                         <tbody id = "table-body">
-
+                        <c:forEach var="order" items="${orders}">
+                            <td><c:out value="${order.sold}"></c:out></td>
+                            <td><c:out value="${order.carName}"></c:out></td>
+                            <td><c:out value="${order.price}"></c:out></td>
+                            <td><c:out value="${order.mile}"></c:out></td>
+                            <td><c:out value="${order.data}"></c:out></td>
+                            <td><button type='button' class='btn btn-link pictures' onclick= "" >Галлерея</button></td>
+                            <c:choose>
+                                <c:when test="${succesAuto}">
+                                    <td><button type='button' class='btn btn-link' onclick=""><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><button type='button' class='btn btn-link' disabled><i class= 'material-icons' style='font-size:20px'>mode_edit</i></button></td>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
