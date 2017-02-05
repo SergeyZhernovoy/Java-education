@@ -13,10 +13,6 @@ public class Order {
     /**
      * Created by admin on 10.01.2017.
      */
-    private List<Image> imageCarList = new CopyOnWriteArrayList<>();
-    /**
-     * Created by admin on 10.01.2017.
-     */
     private Car car;
     /**
      * Created by admin on 10.01.2017.
@@ -34,16 +30,13 @@ public class Order {
      * Created by admin on 10.01.2017.
      */
     private int id;
-    /**
-     * Created by admin on 10.01.2017.
-     */
-    private User user;
+
+    private byte[] image;
 
     /**
      * Created by admin on 10.01.2017.
      */
     private boolean sold;
-
 
     /**
      * Created by admin on 10.01.2017.
@@ -67,30 +60,6 @@ public class Order {
     public void setSold(boolean sold) {
         this.sold = sold;
     }
-
-    /**
-     * Created by admin on 10.01.2017.
-     * @return List<Image>
-     */
-    public List<Image> getImageCarList() {
-        return imageCarList;
-    }
-
-    /**
-     * Created by admin on 10.01.2017.
-     * @param imageCarList .
-     */
-    public void setImageCarList(List<Image> imageCarList) {
-        this.imageCarList = imageCarList;
-    }
-
-    /**
-     * Created by admin on 14.01.2017.
-     * @param image
-     */
-   public void addImage(Image image){
-        this.imageCarList.add(image);
-   }
 
 
     /**
@@ -173,19 +142,15 @@ public class Order {
         this.id = id;
     }
 
-    /**
-     * Created by admin on 10.01.2017.
-     * @return User
-     */
-    public User getUser() {
-        return user;
+    public byte[] getImage() {
+        return image;
     }
 
-    /**
-     * Created by admin on 10.01.2017.
-     * @param user .
-     */
-    public void setUser(User user) {
-        this.user = user;
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public boolean isSold() {
+        return sold;
     }
 }
