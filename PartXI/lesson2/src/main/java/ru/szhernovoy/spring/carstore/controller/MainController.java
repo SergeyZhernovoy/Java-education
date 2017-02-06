@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.szhernovoy.spring.carstore.domain.Car;
-import ru.szhernovoy.spring.carstore.domain.Order;
+import org.springframework.web.servlet.ModelAndView;
+import ru.szhernovoy.spring.carstore.domain.*;
+import ru.szhernovoy.spring.carstore.dto.OrderDTO;
 import ru.szhernovoy.spring.carstore.service.CarService;
 import ru.szhernovoy.spring.carstore.service.OrderService;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by Admin on 01.02.2017.
@@ -118,9 +120,8 @@ public class MainController {
     }
 
     @RequestMapping("/")
-    public String main(Model model){
-        model.addAttribute("orders",orderService.get());
-        return "index";
+    public ModelAndView main(Model model){
+        return new ModelAndView("index", "orders",orderService.get() );
     }
 
     @RequestMapping("/car")
@@ -136,23 +137,48 @@ public class MainController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String getAddNewProductForm(Model model, @ModelAttribute Order order, @ModelAttribute Car car) {
+    public String getAddNewProductForm(Model model, @ModelAttribute OrderDTO order) {
         model.addAttribute("newOrder", order);
-        model.addAttribute("newCar",car);
-        model.addAttribute("model",this.carService.getAllModel());
-        model.addAttribute("body",this.carService.getAllBody());
-        model.addAttribute("engine",this.carService.getAllEngine());
-        model.addAttribute("transsm",this.carService.getAllTransmission());
-        model.addAttribute("drive",this.carService.getAllDriveType());
+   //     model.addAttribute("model",this.carService.getAllModel());
+   //     model.addAttribute("body",this.carService.getAllBody());
+   //     model.addAttribute("engine",this.carService.getAllEngine());
+   //     model.addAttribute("transsm",this.carService.getAllTransmission());
+   //     model.addAttribute("drive",this.carService.getAllDriveType());
         return "add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newOrder") Order order,@ModelAttribute("newCar") Car car ) {
-        this.carService.add(car);
-        this.orderService.create(order);
-        order.setCar(car);
+    public String processAddNewProductForm(@ModelAttribute("newOrder") OrderDTO order) {
+     //   this.carService.add(car);
+      //  this.orderService.create(order);
+     //   order.setCar(car);
         return "redirect:/";
     }
+
+    @ModelAttribute("body")
+    public List<Body> getBody(){
+        return this.carService.getAllBody();
+    }
+
+    @ModelAttribute("model")
+    public List<ru.szhernovoy.spring.carstore.domain.Model> getModel(){
+        return this.carService.getAllModel();
+    }
+
+    @ModelAttribute("engine")
+    public List<Engine> getEngine(){
+        return this.carService.getAllEngine();
+    }
+
+    @ModelAttribute("transsm")
+    public List<Transmission> getTranssm(){
+        return this.carService.getAllTransmission();
+    }
+
+    @ModelAttribute("drivetype")
+    public List<DriveType> getDriveType(){
+        return this.carService.getAllDriveType();
+    }
+
 
 }
