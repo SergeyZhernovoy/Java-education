@@ -139,19 +139,21 @@ public class MainController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getAddNewProductForm(Model model, @ModelAttribute OrderDTO order) {
         model.addAttribute("newOrder", order);
-   //     model.addAttribute("model",this.carService.getAllModel());
-   //     model.addAttribute("body",this.carService.getAllBody());
-   //     model.addAttribute("engine",this.carService.getAllEngine());
-   //     model.addAttribute("transsm",this.carService.getAllTransmission());
-   //     model.addAttribute("drive",this.carService.getAllDriveType());
         return "add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddNewProductForm(@ModelAttribute("newOrder") OrderDTO order) {
-     //   this.carService.add(car);
-      //  this.orderService.create(order);
-     //   order.setCar(car);
+
+        Car car = new Car();
+        this.carService.add(car);
+        car.setBody(this.carService.getBodyById(order.getBodyId()));
+        car.setName(order.getNameCar());
+        Order newOrder = new Order();
+        this.orderService.create(newOrder);
+        newOrder.setCar(car);
+        newOrder.setPrice(order.getPrice());
+        newOrder.setMilesage(order.getMile());
         return "redirect:/";
     }
 
