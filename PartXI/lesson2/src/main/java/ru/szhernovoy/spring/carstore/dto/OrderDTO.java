@@ -1,6 +1,9 @@
 package ru.szhernovoy.spring.carstore.dto;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.Date;
 
@@ -21,6 +24,16 @@ public class OrderDTO {
     private int mile;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date release;
+
+    private MultipartFile multipartFile = null;
+
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
+    }
+
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
+    }
 
     public Date getRelease() {
         return release;

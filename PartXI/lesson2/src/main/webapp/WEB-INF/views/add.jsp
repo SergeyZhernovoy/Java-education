@@ -21,7 +21,7 @@
 
 
     <section class="container">
-        <form:form modelAttribute="newOrder" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/add">
+        <form:form modelAttribute="newOrder" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/add" enctype="multipart/form-data">
             <fieldset>
                 <legend>Add new order and car</legend>
 
@@ -96,6 +96,13 @@
                         <form:select path="drivetypeId" id="drive" cssClass="form-control">
                             <form:options items="${drivetype}" itemLabel="name" itemValue="id"></form:options>
                         </form:select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="carImage">car image</label>
+                    <div class="col-lg-10">
+                        <form:input id="carImage" path="multipartFile" type="file" class="form:input-large" />
                     </div>
                 </div>
 
