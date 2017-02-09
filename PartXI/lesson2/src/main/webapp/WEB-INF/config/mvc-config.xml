@@ -19,4 +19,12 @@
         <!-- Static Resources Configuration (get access to static sources such as CSS and JavaScript files) -->
         <mvc:resources mapping="/resources/**" location="/resources/" />
 
+
+        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+            <property name="maxUploadSize" value="10240000"/>
+        </bean>
+
+
+
+
 </beans>

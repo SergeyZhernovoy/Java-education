@@ -18,6 +18,9 @@
         <section class="container">
             <div class="row">
                 <div class="col-md-5">
+                    <img src="<c:url value="/resources/images/${car.id}.jpg"></c:url>" alt="image" style = "width:100%"/>
+                </div>
+                <div class="col-md-5">
                     <h3><strong>Car : </strong><span class="label label-warning">${car.name}</span></h3>
                     <p><strong>Brand : </strong>${model.name}</p>
                     <p><strong>Body : </strong>${body.name}</p>

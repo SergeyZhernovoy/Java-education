@@ -1,6 +1,8 @@
 package ru.szhernovoy.spring.carstore.domain;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * Created by admin on 09.01.2017.
  */
@@ -37,6 +39,9 @@ public class Car {
     /**
      * Created by admin on 10.01.2017.
      */
+    private MultipartFile carImage;
+
+
     public Car() {
     }
 

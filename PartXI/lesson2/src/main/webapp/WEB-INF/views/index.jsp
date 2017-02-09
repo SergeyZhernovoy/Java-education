@@ -30,6 +30,7 @@
             <div class="row"><c:forEach items="${orders}" var="order">
                 <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
                     <div class="thumbnail">
+                        <img src="<c:url value="/resources/images/${order.car.id}.jpg"></c:url>" alt="image" style = "width:100%"/>
                         <div class="caption">
                             <h3><strong>Car :</strong> <span class="label label-warning">${order.car.name}</span></h3>
                             <p><strong>price :</strong>$${order.price}</p>

@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.szhernovoy.spring.carstore.domain.*;
 import ru.szhernovoy.spring.carstore.dto.OrderDTO;
 import ru.szhernovoy.spring.carstore.service.CarService;
 import ru.szhernovoy.spring.carstore.service.OrderService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -139,19 +142,36 @@ public class MainController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getAddNewProductForm(Model model, @ModelAttribute OrderDTO order) {
         model.addAttribute("newOrder", order);
-   //     model.addAttribute("model",this.carService.getAllModel());
-   //     model.addAttribute("body",this.carService.getAllBody());
-   //     model.addAttribute("engine",this.carService.getAllEngine());
-   //     model.addAttribute("transsm",this.carService.getAllTransmission());
-   //     model.addAttribute("drive",this.carService.getAllDriveType());
         return "add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newOrder") OrderDTO order) {
-     //   this.carService.add(car);
-      //  this.orderService.create(order);
-     //   order.setCar(car);
+    public String processAddNewProductForm(@ModelAttribute("newOrder") OrderDTO order, HttpServletRequest request) {
+        Car car = new Car();
+        this.carService.add(car);
+        car.setBody(this.carService.getBodyById(order.getBodyId()));
+        car.setTransmission(this.carService.getTransmissionById(order.getTranssmId()));
+        car.setModel(this.carService.getModelById(order.getModelId()));
+        car.setDriveType(this.carService.getDriveTypeById(order.getDrivetypeId()));
+        car.setEngine(this.carService.getEngineById(order.getEngineId()));
+        car.setName(order.getNameCar());
+        Order newOrder = new Order();
+
+        MultipartFile image = order.getMultipartFile();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        if(image != null && !image.isEmpty()){
+                try{
+                   image.transferTo(new File(rootDirectory+"resources\\images\\"+car.getId() + ".jpg"));
+            } catch (Exception e) {
+                throw new RuntimeException("Car image saving failed",e);
+            }
+        }
+
+        this.orderService.create(newOrder);
+        newOrder.setCar(car);
+        newOrder.setPrice(order.getPrice());
+        newOrder.setMilesage(order.getMile());
+        newOrder.setRelease(new Timestamp(order.getRelease().getTime()));
         return "redirect:/";
     }
 
