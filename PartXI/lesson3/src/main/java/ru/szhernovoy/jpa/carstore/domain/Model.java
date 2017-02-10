@@ -1,10 +1,7 @@
 package ru.szhernovoy.jpa.carstore.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by admin on 05.01.2017.
@@ -16,7 +13,7 @@ public class Model {
      * Created by admin on 10.01.2017.
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     /**
      * Created by admin on 10.01.2017.

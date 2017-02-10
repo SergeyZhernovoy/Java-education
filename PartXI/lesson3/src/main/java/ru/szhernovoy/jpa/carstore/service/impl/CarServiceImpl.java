@@ -37,62 +37,62 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Body> getAllBody() {
-        return this.bodyCrud.getAll();
+        return this.bodyCrud.findByAll();
     }
 
     @Override
     public Body getBodyById(int id) {
-        return this.bodyCrud.getById(id);
+        return this.bodyCrud.findById(id);
     }
 
     @Override
     public List<Engine> getAllEngine() {
-        return this.engineCrud.getAll();
+        return this.engineCrud.findByAll();
     }
 
     @Override
     public Engine getEngineById(int id) {
-        return this.engineCrud.getById(id);
+        return this.engineCrud.findById(id);
     }
 
     @Override
     public List<DriveType> getAllDriveType() {
-        return this.driveTypeCrud.getAll();
+        return this.driveTypeCrud.findByAll();
     }
 
     @Override
     public DriveType getDriveTypeById(int id) {
-        return this.driveTypeCrud.getById(id);
+        return this.driveTypeCrud.findById(id);
     }
 
     @Override
     public List<Model> getAllModel() {
-        return this.modelCrud.getAll();
+        return this.modelCrud.findByAll();
     }
 
     @Override
     public Model getModelById(int id) {
-        return this.modelCrud.getById(id);
+        return this.modelCrud.findById(id);
     }
 
     @Override
     public List<Transmission> getAllTransmission() {
-        return this.transsmCrud.getAll();
+        return this.transsmCrud.findByAll();
     }
 
     @Override
     public Transmission getTransmissionById(int id) {
-        return this.transsmCrud.getById(id);
+        return this.transsmCrud.findById(id);
     }
 
     @Override
     public List<Car> getAllCar() {
-        return this.carCrud.getAll();
+        return this.carCrud.findByAll();
     }
 
     @Override
     public Car getCarById(int id) {
-        return this.carCrud.getById(id);
+        return this.carCrud.findById(id);
     }
 
     @Override
