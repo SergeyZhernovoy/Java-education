@@ -37,17 +37,17 @@ public class ModelCrudImpl implements ModelCrud {
     }
 
     @Override
-    public Model add(Model model) {
+    public synchronized Model add(Model model) {
         return null;
     }
 
     @Override
-    public boolean delete(Model model) {
+    public synchronized boolean delete(Model model) {
         return false;
     }
 
     @Override
-    public Model update(Model model) {
+    public synchronized Model update(Model model) {
         return null;
     }
 

@@ -1,9 +1,16 @@
 package ru.szhernovoy.jpa.carstore.domain;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by admin on 05.01.2017.
  */
+@Entity
+@Table(name = "body")
 public class Body {
 
     /**
@@ -13,6 +20,8 @@ public class Body {
     /**
      * Created by admin on 10.01.2017.
      */
+    @Id
+    @GeneratedValue
     private int id;
 
     /**

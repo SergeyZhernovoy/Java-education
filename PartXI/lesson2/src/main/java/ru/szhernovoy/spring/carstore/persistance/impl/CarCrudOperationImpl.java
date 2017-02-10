@@ -19,14 +19,14 @@ public class CarCrudOperationImpl implements CarCrud {
     private int id = 0;
 
     @Override
-    public Car add(Car car) {
+    public synchronized Car add(Car car) {
         car.setId(id++);
         this.list.add(car);
         return car;
     }
 
     @Override
-    public boolean delete(Car car) {
+    public synchronized boolean delete(Car car) {
         return false;
     }
 

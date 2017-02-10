@@ -20,19 +20,19 @@ public class OrderCrudImpl implements OrderCrud {
 
 
     @Override
-    public Order add(Order order) {
+    public synchronized Order add(Order order) {
         order.setId(id++);
         this.list.add(order);
         return order;
     }
 
     @Override
-    public boolean delete(Order order) {
+    public synchronized boolean delete(Order order) {
         return false;
     }
 
     @Override
-    public Order update(Order order) {
+    public synchronized Order update(Order order) {
         if(this.list.contains(order)){
             this.list.set(order.getId(),order);
         }

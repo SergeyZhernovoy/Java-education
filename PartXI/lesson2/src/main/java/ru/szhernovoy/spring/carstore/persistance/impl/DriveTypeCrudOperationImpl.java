@@ -39,14 +39,14 @@ public class DriveTypeCrudOperationImpl implements DriveTypeCrud {
     }
 
     @Override
-    public DriveType add(DriveType driveType) {
+    public synchronized DriveType add(DriveType driveType) {
         driveType.setId(id++);
         this.list.add(driveType);
         return driveType;
     }
 
     @Override
-    public boolean delete(DriveType driveType) {
+    public synchronized boolean delete(DriveType driveType) {
         boolean result = false;
         if(this.list.contains(driveType)){
             this.list.remove(driveType);
@@ -56,7 +56,7 @@ public class DriveTypeCrudOperationImpl implements DriveTypeCrud {
     }
 
     @Override
-    public DriveType update(DriveType driveType) {
+    public synchronized DriveType update(DriveType driveType) {
         if(this.list.contains(driveType)){
             this.list.set(driveType.getId(),driveType);
         }
@@ -69,7 +69,7 @@ public class DriveTypeCrudOperationImpl implements DriveTypeCrud {
     }
 
     @Override
-    public DriveType getById(int id) {
+    public synchronized DriveType getById(int id) {
         DriveType partCar = null;
         for(DriveType driveType : this.getAll()){
             if(driveType.getId() == id){

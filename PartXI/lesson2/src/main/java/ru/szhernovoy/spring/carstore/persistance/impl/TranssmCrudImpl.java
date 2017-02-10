@@ -43,17 +43,17 @@ public class TranssmCrudImpl implements TranssmCrud {
     }
 
     @Override
-    public Transmission add(Transmission transmission) {
+    public synchronized Transmission add(Transmission transmission) {
         return null;
     }
 
     @Override
-    public boolean delete(Transmission transmission) {
+    public synchronized boolean delete(Transmission transmission) {
         return false;
     }
 
     @Override
-    public Transmission update(Transmission transmission) {
+    public synchronized Transmission update(Transmission transmission) {
         return null;
     }
 

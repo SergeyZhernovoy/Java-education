@@ -26,9 +26,16 @@
         <property name="packagesToScan" value="ru.szhernovoy.jpa.carstore"/>
     </bean>
 
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+
+
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
+        <property name="jpaDialect" ref="jpaDialect"/>
     </bean>
+
+
+
 
     <jpa:repositories base-package="ru.szhernovoy.jpa.carstore"/>
 

@@ -1,14 +1,23 @@
 package ru.szhernovoy.jpa.carstore.domain;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * type engine : privod ; backoff front full
  * Created by admin on 05.01.2017.
  */
+@Entity
+@Table(name = "drivetype")
 public class DriveType {
     /**
      * Created by admin on 10.01.2017.
      */
+    @Id
+    @GeneratedValue
     private int id;
     /**
      * Created by admin on 10.01.2017.

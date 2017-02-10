@@ -37,14 +37,14 @@ public class EngineCrudImpl implements EngineCrud {
     }
 
     @Override
-    public Engine add(Engine engine) {
+    public synchronized Engine add(Engine engine) {
         engine.setId(id++);
         this.list.add(engine);
         return engine;
     }
 
     @Override
-    public boolean delete(Engine engine) {
+    public synchronized boolean delete(Engine engine) {
         boolean result = false;
         if(this.list.contains(engine)){
             this.list.remove(engine);
@@ -54,7 +54,7 @@ public class EngineCrudImpl implements EngineCrud {
     }
 
     @Override
-    public Engine update(Engine engine) {
+    public synchronized Engine update(Engine engine) {
         if(this.list.contains(engine)){
             this.list.set(engine.getId(),engine);
         }

@@ -52,4 +52,22 @@ public class DriveType {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DriveType driveType = (DriveType) o;
+
+        if (id != driveType.id) return false;
+        return name != null ? name.equals(driveType.name) : driveType.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
 }

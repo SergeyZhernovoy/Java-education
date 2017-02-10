@@ -41,14 +41,14 @@ public class BodyCrudOperationImpl implements BodyCrud {
     }
 
     @Override
-    public Body add(Body body) {
+    public synchronized Body add(Body body) {
         body.setId(id++);
         this.list.add(body);
         return body;
     }
 
     @Override
-    public boolean delete(Body body) {
+    public synchronized boolean delete(Body body) {
         boolean result = false;
         if(this.list.contains(body)){
             this.list.remove(body);
@@ -58,7 +58,7 @@ public class BodyCrudOperationImpl implements BodyCrud {
     }
 
     @Override
-    public Body update(Body body) {
+    public synchronized Body update(Body body) {
 
         if(this.list.contains(body)){
             this.list.set(body.getId(),body);
