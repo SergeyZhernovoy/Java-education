@@ -1,33 +1,49 @@
 package ru.szhernovoy.jpa.carstore.domain;
 
 
+import javax.persistence.*;
+
 /**
  * Created by admin on 09.01.2017.
  */
+@Entity
+@Table(name = "car")
 public class Car {
     /**
      * Created by admin on 10.01.2017.
      */
+    @ManyToOne
+    @JoinColumn(name = "id_body")
     private Body body;
     /**
      * Created by admin on 10.01.2017.
      */
+    @ManyToOne
+    @JoinColumn(name = "id_drivetype")
     private DriveType driveType;
     /**
      * Created by admin on 10.01.2017.
      */
+    @ManyToOne
+    @JoinColumn(name = "id_engine")
     private Engine engine;
     /**
      * Created by admin on 10.01.2017.
      */
+    @ManyToOne
+    @JoinColumn(name = "id_model")
     private Model model;
     /**
      * Created by admin on 10.01.2017.
      */
+    @ManyToOne
+    @JoinColumn(name = "id_transmission")
     private Transmission transmission;
     /**
      * Created by admin on 10.01.2017.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     /**
      * Created by admin on 10.01.2017.

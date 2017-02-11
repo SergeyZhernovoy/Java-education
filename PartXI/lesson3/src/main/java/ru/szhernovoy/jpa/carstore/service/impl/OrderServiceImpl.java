@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.szhernovoy.jpa.carstore.domain.Car;
 import ru.szhernovoy.jpa.carstore.domain.Order;
 import ru.szhernovoy.jpa.carstore.persistance.OrderCrud;
 import ru.szhernovoy.jpa.carstore.service.OrderService;
@@ -24,26 +25,34 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(Order order) {
-        return this.orderCrud.add(order);
+        return this.orderCrud.save(order);
     }
 
     @Override
     public Order update(Order order) {
-        return this.orderCrud.update(order);
+        return this.orderCrud.save(order);
     }
 
     @Override
-    public boolean delete(Order order) {
-        return this.orderCrud.delete(order);
+    public void delete(Order order) {
+        this.orderCrud.delete(order);
     }
 
     @Override
-    public Order get(int id) {
-        return this.orderCrud.getById(id);
+    public Order findById(int id) {
+        return this.orderCrud.findById(id);
     }
 
     @Override
-    public Collection<Order> get() {
-        return this.orderCrud.getAll();
+    public Order findByCAr(Car car) {
+        return this.orderCrud.findByCar(car);
     }
+
+    @Override
+    public Collection<Order> findByAll() {
+        return this.orderCrud.findByAll();
+    }
+
+
+
 }

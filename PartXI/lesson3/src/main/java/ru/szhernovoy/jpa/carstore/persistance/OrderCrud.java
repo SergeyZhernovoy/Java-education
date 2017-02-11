@@ -1,7 +1,8 @@
 package ru.szhernovoy.jpa.carstore.persistance;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.szhernovoy.jpa.carstore.domain.Order;
+import ru.szhernovoy.jpa.carstore.domain.*;
+
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ import java.util.List;
 public interface OrderCrud extends CrudRepository<Order,Integer> {
     List<Order> findByAll();
     Order findById(int id);
+    Order findByCar(Car car);
 }

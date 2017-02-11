@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.szhernovoy.jpa.carstore.domain.*;
 import ru.szhernovoy.jpa.carstore.persistance.*;
-import ru.szhernovoy.spring.carstore.domain.*;
-import ru.szhernovoy.spring.carstore.persistance.*;
 import ru.szhernovoy.jpa.carstore.service.CarService;
 
 import java.util.List;
@@ -86,28 +84,28 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> getAllCar() {
+    public List<Car> findByAll() {
         return this.carCrud.findByAll();
     }
 
     @Override
-    public Car getCarById(int id) {
+    public Car findById(int id) {
         return this.carCrud.findById(id);
     }
 
     @Override
     public Car add(Car car) {
-        return this.carCrud.add(car);
+        return this.carCrud.save(car);
     }
 
     @Override
-    public boolean delete(Car car) {
-        return this.carCrud.delete(car);
+    public void delete(Car car) {
+        this.carCrud.delete(car);
     }
 
     @Override
     public Car update(Car car) {
-        return this.carCrud.update(car);
+        return this.carCrud.save(car);
     }
 
 

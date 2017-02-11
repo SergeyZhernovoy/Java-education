@@ -1,5 +1,6 @@
 package ru.szhernovoy.jpa.carstore.service;
 
+import ru.szhernovoy.jpa.carstore.domain.Car;
 import ru.szhernovoy.jpa.carstore.domain.Order;
 
 import java.util.Collection;
@@ -10,7 +11,8 @@ import java.util.Collection;
 public interface OrderService {
     Order create(Order order);
     Order update(Order order);
-    boolean delete(Order order);
-    Order get(int id);
-    Collection<Order> get();
+    void delete(Order order);
+    Order findById(int id);
+    Order findByCAr(Car car);
+    Collection<Order> findByAll();
 }

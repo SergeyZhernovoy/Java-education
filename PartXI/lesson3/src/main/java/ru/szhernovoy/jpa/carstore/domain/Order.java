@@ -1,16 +1,21 @@
 package ru.szhernovoy.jpa.carstore.domain;
 
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by admin on 05.01.2017.
  */
+@Entity
+@Table(name = "orders")
 public class Order {
 
     /**
      * Created by admin on 10.01.2017.
      */
+    @OneToOne
+    @JoinColumn(name = "id_car")
     private Car car;
     /**
      * Created by admin on 10.01.2017.
@@ -27,9 +32,11 @@ public class Order {
     /**
      * Created by admin on 10.01.2017.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private byte[] image;
+    private String image;
 
     /**
      * Created by admin on 10.01.2017.
@@ -140,11 +147,11 @@ public class Order {
         this.id = id;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

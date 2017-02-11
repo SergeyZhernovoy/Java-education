@@ -1,8 +1,6 @@
 package ru.szhernovoy.jpa.carstore.service;
 
 import ru.szhernovoy.jpa.carstore.domain.*;
-import ru.szhernovoy.spring.carstore.domain.*;
-
 
 import java.util.List;
 
@@ -26,11 +24,11 @@ public interface CarService  {
     List<Transmission> getAllTransmission();
     Transmission getTransmissionById(int id);
 
-    List<Car> getAllCar();
-    Car getCarById(int id);
+    List<Car> findByAll();
+    Car findById(int id);
 
     Car add(Car car);
-    boolean delete(Car cart);
+    void delete(Car car);
     Car update(Car car);
 
 }

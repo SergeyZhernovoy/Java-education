@@ -17,6 +17,18 @@
         </section>
         <section class="container">
             <div class="row">
+
+                <div class='col-md-5'>
+                    <c:choose>
+                        <c:when test="${empty order.photo}">
+                            <img class='img-rounded' src="<c:url value="/resources/images/default.jpg"></c:url>" alt="image" style = "width:100%"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img class='img-rounded' src="<c:url value="/resources/images/${order.image}"></c:url>" alt="image" style = "width:100%"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
                 <div class="col-md-5">
                     <h3><strong>Car : </strong><span class="label label-warning">${car.name}</span></h3>
                     <p><strong>Brand : </strong>${model.name}</p>
