@@ -2,20 +2,18 @@ package ru.szhernovoy.jpa.carstore.service.impl;/**
  * Created by Admin on 05.02.2017.
  */
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.szhernovoy.jpa.carstore.domain.Car;
+import org.springframework.stereotype.Component;
 import ru.szhernovoy.jpa.carstore.domain.Order;
-import ru.szhernovoy.jpa.carstore.persistance.OrderCrud;
+import ru.szhernovoy.jpa.carstore.repositories.OrderCrud;
 import ru.szhernovoy.jpa.carstore.service.OrderService;
 
-import java.util.Collection;
+import java.util.List;
 
-@Service
+@Component
 public class OrderServiceImpl implements OrderService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
+
     private OrderCrud orderCrud;
 
     @Autowired
@@ -39,20 +37,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(int id) {
-        return this.orderCrud.findById(id);
+    public Order get(int id) {
+        return this.orderCrud.findOne(id);
     }
 
     @Override
-    public Order findByCAr(Car car) {
-        return this.orderCrud.findByCar(car);
+    public List<Order> get() {
+        return Lists.newArrayList(this.orderCrud.findAll());
     }
-
-    @Override
-    public Collection<Order> findByAll() {
-        return this.orderCrud.findByAll();
-    }
-
-
-
 }

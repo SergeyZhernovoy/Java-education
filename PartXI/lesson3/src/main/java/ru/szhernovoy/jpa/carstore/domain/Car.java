@@ -6,8 +6,7 @@ import javax.persistence.*;
 /**
  * Created by admin on 09.01.2017.
  */
-@Entity
-@Table(name = "car")
+@Entity(name = "car")
 public class Car {
     /**
      * Created by admin on 10.01.2017.
@@ -53,6 +52,16 @@ public class Car {
     /**
      * Created by admin on 10.01.2017.
      */
+    private String carImage;
+
+    public String getCarImage() {
+        return carImage;
+    }
+
+    public void setCarImage(String carImage) {
+        this.carImage = carImage;
+    }
+
     public Car() {
     }
 
@@ -169,5 +178,21 @@ public class Car {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Car car = (Car) o;
+
+        if (id != car.id) return false;
+        return name != null ? name.equals(car.name) : car.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
 }

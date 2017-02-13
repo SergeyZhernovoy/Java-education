@@ -2,19 +2,18 @@ package ru.szhernovoy.jpa.carstore.service.impl;/**
  * Created by Admin on 05.02.2017.
  */
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
 import ru.szhernovoy.jpa.carstore.domain.*;
-import ru.szhernovoy.jpa.carstore.persistance.*;
+import ru.szhernovoy.jpa.carstore.repositories.*;
 import ru.szhernovoy.jpa.carstore.service.CarService;
 
 import java.util.List;
 
-@Service
+@Component
 public class CarServiceImpl implements CarService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarServiceImpl.class);
 
     private CarCrud carCrud;
     private BodyCrud bodyCrud;
@@ -24,73 +23,73 @@ public class CarServiceImpl implements CarService {
     private EngineCrud engineCrud;
 
     @Autowired
-    public CarServiceImpl(CarCrud carCrud, BodyCrud bodyCrud, DriveTypeCrud driveTypeCrud, ModelCrud modelCrud, TranssmCrud transsmCrud, EngineCrud engineCrud) {
-        this.carCrud = carCrud;
+    public CarServiceImpl(BodyCrud bodyCrud, DriveTypeCrud driveTypeCrud, ModelCrud modelCrud, TranssmCrud transsmCrud, EngineCrud engineCrud,CarCrud carCrud) {
         this.bodyCrud = bodyCrud;
         this.driveTypeCrud = driveTypeCrud;
         this.modelCrud = modelCrud;
         this.transsmCrud = transsmCrud;
         this.engineCrud = engineCrud;
+        this.carCrud = carCrud;
     }
 
     @Override
     public List<Body> getAllBody() {
-        return this.bodyCrud.findByAll();
+        return Lists.newArrayList(this.bodyCrud.findAll());
     }
 
     @Override
     public Body getBodyById(int id) {
-        return this.bodyCrud.findById(id);
+        return this.bodyCrud.findOne(id);
     }
 
     @Override
     public List<Engine> getAllEngine() {
-        return this.engineCrud.findByAll();
+        return Lists.newArrayList(this.engineCrud.findAll());
     }
 
     @Override
     public Engine getEngineById(int id) {
-        return this.engineCrud.findById(id);
+        return this.engineCrud.findOne(id);
     }
 
     @Override
     public List<DriveType> getAllDriveType() {
-        return this.driveTypeCrud.findByAll();
+        return Lists.newArrayList(this.driveTypeCrud.findAll());
     }
 
     @Override
     public DriveType getDriveTypeById(int id) {
-        return this.driveTypeCrud.findById(id);
+        return this.driveTypeCrud.findOne(id);
     }
 
     @Override
     public List<Model> getAllModel() {
-        return this.modelCrud.findByAll();
+        return Lists.newArrayList(this.modelCrud.findAll());
     }
 
     @Override
     public Model getModelById(int id) {
-        return this.modelCrud.findById(id);
+        return this.modelCrud.findOne(id);
     }
 
     @Override
     public List<Transmission> getAllTransmission() {
-        return this.transsmCrud.findByAll();
+        return Lists.newArrayList(this.transsmCrud.findAll());
     }
 
     @Override
     public Transmission getTransmissionById(int id) {
-        return this.transsmCrud.findById(id);
+        return this.transsmCrud.findOne(id);
     }
 
     @Override
-    public List<Car> findByAll() {
-        return this.carCrud.findByAll();
+    public List<Car> getAllCar() {
+        return Lists.newArrayList(this.carCrud.findAll());
     }
 
     @Override
-    public Car findById(int id) {
-        return this.carCrud.findById(id);
+    public Car getCarById(int id) {
+        return this.carCrud.findOne(id);
     }
 
     @Override
@@ -107,6 +106,5 @@ public class CarServiceImpl implements CarService {
     public Car update(Car car) {
         return this.carCrud.save(car);
     }
-
 
 }

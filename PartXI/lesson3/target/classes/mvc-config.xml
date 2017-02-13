@@ -10,6 +10,8 @@
 	                       http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd">
        <context:component-scan base-package="ru.szhernovoy.jpa.carstore" />
+
+        <import resource="spring-data.xml"/>
         <mvc:annotation-driven/>
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
             <property name="prefix" value="/WEB-INF/views/" />

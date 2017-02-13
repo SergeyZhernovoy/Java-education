@@ -7,14 +7,13 @@ import java.sql.Timestamp;
 /**
  * Created by admin on 05.01.2017.
  */
-@Entity
-@Table(name = "orders")
+@Entity(name = "orders")
 public class Order {
 
     /**
      * Created by admin on 10.01.2017.
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_car")
     private Car car;
     /**
@@ -35,8 +34,6 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String image;
 
     /**
      * Created by admin on 10.01.2017.
@@ -147,15 +144,22 @@ public class Order {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public boolean isSold() {
         return sold;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        return id == order.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

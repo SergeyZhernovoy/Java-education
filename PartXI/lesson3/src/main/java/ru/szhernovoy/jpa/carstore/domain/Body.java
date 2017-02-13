@@ -1,13 +1,15 @@
 package ru.szhernovoy.jpa.carstore.domain;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created by admin on 05.01.2017.
  */
-@Entity
-@Table(name = "body")
+@Entity(name = "body")
 public class Body {
 
     /**
@@ -57,5 +59,23 @@ public class Body {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Body body = (Body) o;
+
+        if (id != body.id) return false;
+        return name != null ? name.equals(body.name) : body.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + id;
+        return result;
     }
 }

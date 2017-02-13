@@ -24,11 +24,12 @@ public interface CarService  {
     List<Transmission> getAllTransmission();
     Transmission getTransmissionById(int id);
 
-    List<Car> findByAll();
-    Car findById(int id);
+
+    List<Car> getAllCar();
+    Car getCarById(int id);
 
     Car add(Car car);
-    void delete(Car car);
+    void delete(Car cart);
     Car update(Car car);
 
 }

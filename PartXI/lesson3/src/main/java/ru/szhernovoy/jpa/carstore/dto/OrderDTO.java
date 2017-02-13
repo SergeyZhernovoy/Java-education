@@ -57,7 +57,6 @@ public class OrderDTO {
         this.mile = mile;
     }
 
-
     public String getNameCar() {
         return nameCar;
     }
