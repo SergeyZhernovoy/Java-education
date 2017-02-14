@@ -33,17 +33,14 @@
 
                         <div class='car-photo'>
                             <c:choose>
-                                <c:when test="${empty order.photo}">
+                                <c:when test="${empty order.car.carImage}">
                                     <img class='img-rounded' src="<c:url value="/resources/images/default.jpg"></c:url>" alt="image" style = "width:100%"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img class='img-rounded' src="<c:url value="/resources/images/${order.image}"></c:url>" alt="image" style = "width:100%"/>
+                                    <img class='img-rounded' src="<c:url value="/resources/images/${order.car.carImage}"></c:url>" alt="image" style = "width:100%"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
-
-
-
 
                         <div class="caption">
                             <h3><strong>Car :</strong> <span class="label label-warning">${order.car.name}</span></h3>

@@ -20,11 +20,11 @@
 
                 <div class='col-md-5'>
                     <c:choose>
-                        <c:when test="${empty order.photo}">
+                        <c:when test="${empty car.carImage}">
                             <img class='img-rounded' src="<c:url value="/resources/images/default.jpg"></c:url>" alt="image" style = "width:100%"/>
                         </c:when>
                         <c:otherwise>
-                            <img class='img-rounded' src="<c:url value="/resources/images/${order.image}"></c:url>" alt="image" style = "width:100%"/>
+                            <img class='img-rounded' src="<c:url value="/resources/images/${car.carImage}"></c:url>" alt="image" style = "width:100%"/>
                         </c:otherwise>
                     </c:choose>
                 </div>

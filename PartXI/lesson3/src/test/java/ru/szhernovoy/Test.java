@@ -1,4 +1,4 @@
-package ru.szhernovoy.jpa.carstore.controllers;
+package ru.szhernovoy;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

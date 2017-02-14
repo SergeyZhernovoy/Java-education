@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import ru.szhernovoy.jpa.carstore.domain.*;
+import ru.szhernovoy.jpa.carstore.dto.*;
+import ru.szhernovoy.jpa.carstore.service.CarService;
+import ru.szhernovoy.jpa.carstore.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -21,7 +25,7 @@ import java.util.List;
 
 @Controller
 public class MainController {
-/*
+
     private OrderService orderService;
     private CarService carService;
 
@@ -50,38 +54,40 @@ public class MainController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String getAddNewProductForm(Model model, @ModelAttribute OrderDTO order) {
-        model.addAttribute("newOrder", order);
+    public String getAddNewProductForm(Model model, @ModelAttribute("orderDTO") ViewDTO order) {
+        //model.addAttribute("orderDTO", order);
         return "add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newOrder") OrderDTO order, HttpServletRequest request) {
+    public String processAddNewProductForm(@ModelAttribute("orderDTO") ViewDTO order, HttpServletRequest request) {
+
         Car car = new Car();
-        this.carService.add(car);
         car.setBody(this.carService.getBodyById(order.getBodyId()));
         car.setTransmission(this.carService.getTransmissionById(order.getTranssmId()));
         car.setModel(this.carService.getModelById(order.getModelId()));
         car.setDriveType(this.carService.getDriveTypeById(order.getDrivetypeId()));
         car.setEngine(this.carService.getEngineById(order.getEngineId()));
         car.setName(order.getNameCar());
-        Order newOrder = new Order();
 
         MultipartFile image = order.getMultipartFile();
+        car.setCarImage(image.getOriginalFilename());
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         if(image != null && !image.isEmpty()){
                 try{
-                   image.transferTo(new File(rootDirectory+"resources\\images\\"+car.getId() + ".jpg"));
+                   image.transferTo(new File(rootDirectory+"resources\\images\\"+car.getCarImage()));
             } catch (Exception e) {
                 throw new RuntimeException("Car image saving failed",e);
             }
         }
 
-        this.orderService.create(newOrder);
+        this.carService.add(car);
+        Order newOrder = new Order();
         newOrder.setCar(car);
         newOrder.setPrice(order.getPrice());
         newOrder.setMilesage(order.getMile());
         newOrder.setRelease(new Timestamp(order.getRelease().getTime()));
+        this.orderService.create(newOrder);
         return "redirect:/";
     }
 
@@ -91,7 +97,7 @@ public class MainController {
     }
 
     @ModelAttribute("model")
-    public List<ru.szhernovoy.spring.carstore.domain.Model> getModel(){
+    public List<ru.szhernovoy.jpa.carstore.domain.Model> getModel(){
         return this.carService.getAllModel();
     }
 
@@ -109,6 +115,5 @@ public class MainController {
     public List<DriveType> getDriveType(){
         return this.carService.getAllDriveType();
     }
-*/
 
 }

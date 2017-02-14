@@ -21,7 +21,7 @@
 
 
     <section class="container">
-        <form:form modelAttribute="newOrder" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/add" enctype="multipart/form-data">
+        <form:form modelAttribute="orderDTO" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/add" enctype="multipart/form-data">
             <fieldset>
                 <legend>Add new order and car</legend>
 
@@ -111,8 +111,6 @@
                         <input type="submit" id="btnAdd" class="btn btn-primary" value ="Add"/>
                     </div>
                 </div>
-
-
             </fieldset>
         </form:form>
     </section>
