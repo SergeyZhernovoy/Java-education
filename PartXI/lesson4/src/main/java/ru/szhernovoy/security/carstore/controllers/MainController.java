@@ -1,4 +1,4 @@
-package ru.szhernovoy.jpa.carstore.controllers;
+package ru.szhernovoy.security.carstore.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import ru.szhernovoy.jpa.carstore.domain.*;
-import ru.szhernovoy.jpa.carstore.dto.ViewDTO;
-import ru.szhernovoy.jpa.carstore.service.CarService;
-import ru.szhernovoy.jpa.carstore.service.OrderService;
+import ru.szhernovoy.security.carstore.dto.ViewDTO;
+import ru.szhernovoy.security.carstore.service.CarService;
+import ru.szhernovoy.security.carstore.service.OrderService;
+import ru.szhernovoy.security.carstore.domain.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -97,7 +97,7 @@ public class MainController {
     }
 
     @ModelAttribute("model")
-    public List<ru.szhernovoy.jpa.carstore.domain.Model> getModel(){
+    public List<Model> getModel(){
         return this.carService.getAllModel();
     }
 

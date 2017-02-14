@@ -1,13 +1,13 @@
-package ru.szhernovoy.jpa.carstore.service.impl;/**
+package ru.szhernovoy.security.carstore.service.impl;/**
  * Created by Admin on 05.02.2017.
  */
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.szhernovoy.jpa.carstore.repositories.OrderCrud;
-import ru.szhernovoy.jpa.carstore.domain.Order;
-import ru.szhernovoy.jpa.carstore.service.OrderService;
+import ru.szhernovoy.security.carstore.domain.Order;
+import ru.szhernovoy.security.carstore.repositories.OrderCrud;
+import ru.szhernovoy.security.carstore.service.OrderService;
 
 import java.util.List;
 

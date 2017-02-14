@@ -2,10 +2,6 @@ package ru.szhernovoy;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.szhernovoy.jpa.carstore.domain.Car;
-import ru.szhernovoy.jpa.carstore.domain.DriveType;
-import ru.szhernovoy.jpa.carstore.domain.Model;
-import ru.szhernovoy.jpa.carstore.domain.Transmission;
 import ru.szhernovoy.jpa.carstore.repositories.*;
 import ru.szhernovoy.jpa.carstore.service.CarService;
 import ru.szhernovoy.jpa.carstore.service.OrderService;
