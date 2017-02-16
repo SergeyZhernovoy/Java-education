@@ -25,14 +25,14 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="packagesToScan" value="ru.szhernovoy.jpa.carstore"/>
+        <property name="packagesToScan" value="ru.szhernovoy.security.carstore"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <jpa:repositories base-package="ru.szhernovoy.jpa.carstore.repositories"/>
+    <jpa:repositories base-package="ru.szhernovoy.security.carstore.repositories"/>
 
 
 </beans>

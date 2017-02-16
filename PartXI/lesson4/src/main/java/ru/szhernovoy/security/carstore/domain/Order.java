@@ -35,6 +35,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
     /**
      * Created by admin on 10.01.2017.
      */
