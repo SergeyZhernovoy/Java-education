@@ -97,7 +97,7 @@ public class MainController {
     }
 
     @ModelAttribute("model")
-    public List<Model> getModel(){
+    public List<ru.szhernovoy.security.carstore.domain.Model> getModel(){
         return this.carService.getAllModel();
     }
 
