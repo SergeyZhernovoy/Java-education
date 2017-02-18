@@ -13,16 +13,16 @@ public class LoginController {
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String login() {
-        return "login";
+        return "index";
     }
     @RequestMapping(value="/loginfailed", method = RequestMethod.GET)
     public String loginError(Model model) {
         model.addAttribute("error", "true");
-        return "login";
+        return "index";
     }
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logout(Model model) {
-        return "login";
+        return "index";
     }
 }
 

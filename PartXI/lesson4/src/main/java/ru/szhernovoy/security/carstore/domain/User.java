@@ -1,30 +1,25 @@
 package ru.szhernovoy.security.carstore.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by admin on 17.02.2017.
  */
 @Entity(name = "body")
 public class User {
-    private String userName;
+    private String username;
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private boolean enabled;
 
     public String getPassword() {
         return password;
@@ -40,5 +35,29 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

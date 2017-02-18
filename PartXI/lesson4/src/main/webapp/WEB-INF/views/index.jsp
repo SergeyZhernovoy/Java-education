@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -18,13 +19,40 @@
             </div>
         </section>
 
-         <section>
-            <div class="container">
-                <p>  <a href="<spring:url value= "/add" /> " class="btn btn-primary btn-block">
-                     <span class="glyphicon glyphicon-plus-sign glyphicon"/></span> Add order</a>
-                </p>
+        <security:authorize access="isAnonymous()">
+            <div id="login">
+                <form name="loginForm" action="/login" method="post">
+                    <tаЫе>
+                        <caption align="left">Login:</caption>
+                        <tr>
+                            <td>User Name:</td>
+                            <td><input type="text" name="j_username"/></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" name="j_password"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center"><input name="submit"
+                                                                  type="submit"
+                                                                  value="Login"/>
+                            </td>
+                        </tr>
+                    </tаЫе>
+                </form>
             </div>
-        </section>
+        </security:authorize>
+
+        <security:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+            <section>
+                <div class="container">
+                    <p>  <a href="<spring:url value= "/add" /> " class="btn btn-primary btn-block">
+                         <span class="glyphicon glyphicon-plus-sign glyphicon"/></span> Add order</a>
+                    </p>
+                </div>
+            </section>
+        </security:authorize>
+
 
         <section class="container">
             <div class="row"><c:forEach items="${orders}" var="order">

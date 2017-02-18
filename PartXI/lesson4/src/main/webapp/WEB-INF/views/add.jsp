@@ -19,6 +19,8 @@
         </div>
     </section>
 
+    <a href="<c:url value="/logout" />" class="btn btndanger btn-mini pull-right">logout</a>
+
 
     <section class="container">
         <form:form modelAttribute="orderDTO" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/add" enctype="multipart/form-data">

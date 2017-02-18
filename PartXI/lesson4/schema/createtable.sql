@@ -45,6 +45,21 @@ create table if not exists orders(
 
 );
 
+create table role (
+  id serial primary key,
+  name varchar(200)
+);
+
+create table user (
+  id serial primary key,
+  username varchar(200),
+  password varchar(200),
+  enabled BOOLEAN,
+  role int not null references role(id)
+);
+
+insert into role(name) values ('ROLE_ADMIN');
+insert into user(username, password, role) values ('root','root' , (select id from role where name='ROLE_ADMIN'));
 
 INSERT INTO body(name)  VALUES ('седан');
 INSERT INTO body(name)  VALUES ('хэтчбек');
