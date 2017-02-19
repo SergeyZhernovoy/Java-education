@@ -50,7 +50,7 @@ create table role (
   name varchar(200)
 );
 
-create table user (
+create table users (
   id serial primary key,
   username varchar(200),
   password varchar(200),
@@ -59,7 +59,7 @@ create table user (
 );
 
 insert into role(name) values ('ROLE_ADMIN');
-insert into user(username, password, role) values ('root','root' , (select id from role where name='ROLE_ADMIN'));
+insert into users(username, password, role) values ('root','root' , (select id from role where name='ROLE_ADMIN'));
 
 INSERT INTO body(name)  VALUES ('седан');
 INSERT INTO body(name)  VALUES ('хэтчбек');

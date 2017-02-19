@@ -19,29 +19,6 @@
             </div>
         </section>
 
-        <security:authorize access="isAnonymous()">
-            <div id="login">
-                <form name="loginForm" action="/login" method="post">
-                    <tаЫе>
-                        <caption align="left">Login:</caption>
-                        <tr>
-                            <td>User Name:</td>
-                            <td><input type="text" name="j_username"/></td>
-                        </tr>
-                        <tr>
-                            <td>Password:</td>
-                            <td><input type="password" name="j_password"/></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center"><input name="submit"
-                                                                  type="submit"
-                                                                  value="Login"/>
-                            </td>
-                        </tr>
-                    </tаЫе>
-                </form>
-            </div>
-        </security:authorize>
 
         <security:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
             <section>

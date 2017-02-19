@@ -6,7 +6,7 @@ import javax.persistence.*;
 /**
  * Created by admin on 17.02.2017.
  */
-@Entity(name = "body")
+@Entity(name = "users")
 public class User {
     private String username;
     private String password;

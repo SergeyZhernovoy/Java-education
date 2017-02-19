@@ -1,1 +1,1 @@
-CREATE DATABASE carstorespring
+CREATE DATABASE spring

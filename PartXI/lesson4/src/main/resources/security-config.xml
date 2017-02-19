@@ -8,12 +8,12 @@
                            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/" access="permitAll()" />
+        <intercept-url pattern="/login*" access="isAnonymous()" />
+        <intercept-url pattern="/view*" access="permitAll()" />
         <intercept-url pattern="/car*" access="permitAll()" />
         <intercept-url pattern="/add*" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')" />
-        <intercept-url pattern="/edit*" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')" />
         <form-login login-page="/login"
-                    default-target-url="/"
+                    default-target-url="/view"
                     authentication-failure-url="/login?error=error"
                     username-parameter="username"
                     password-parameter="password"
@@ -23,18 +23,15 @@
         <logout delete-cookies="JSESSIONID" />
     </http>
 
-    <b:bean name="bcryptEncoder"
-                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-
     <authentication-manager>
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource"
 
                                users-by-username-query=
-                                       "select username, password, enabled from user
+                                       "select username, password, enabled from users
                                         where  username=?"
                                authorities-by-username-query=
-                                       "select u.username, r.name from role as r, user as u
+                                       "select u.username, r.name from role as r, users as u
                                         where r.id = u.id_role and u.username=?"/>
         </authentication-provider>
     </authentication-manager>

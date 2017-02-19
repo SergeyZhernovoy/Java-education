@@ -151,12 +151,7 @@
             <version>4.2.1.RELEASE</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>4.2.1.RELEASE</version>
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -177,11 +172,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-
-
-
-
-
 </project>
