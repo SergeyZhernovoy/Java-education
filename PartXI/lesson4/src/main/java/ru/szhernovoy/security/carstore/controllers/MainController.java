@@ -36,7 +36,7 @@ public class MainController {
 
     }
 
-    @RequestMapping("/view")
+    @RequestMapping("/")
     public ModelAndView main(Model model){
         return new ModelAndView("index", "orders",orderService.get() );
     }

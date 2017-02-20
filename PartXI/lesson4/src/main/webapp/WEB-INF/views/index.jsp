@@ -20,7 +20,7 @@
         </section>
 
 
-        <security:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+
             <section>
                 <div class="container">
                     <p>  <a href="<spring:url value= "/add" /> " class="btn btn-primary btn-block">
@@ -28,7 +28,7 @@
                     </p>
                 </div>
             </section>
-        </security:authorize>
+
 
 
         <section class="container">
