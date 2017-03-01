@@ -9,7 +9,7 @@
 
     <http auto-config="true">
         <intercept-url pattern="/" access="permitAll()" />
-        <intercept-url pattern="/add" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')" />
+        <intercept-url pattern="/add" access="hasRole('ROLE_ADMIN')" />
 
 
         <logout logout-success-url="/login?logout" />
@@ -26,7 +26,7 @@
                                         where  username=?"
                                authorities-by-username-query=
                                        "select u.username, r.name from role as r, users as u
-                                        where r.id = u.id_role and u.username=?"/>
+                                        where r.id = u.role and u.username=?"/>
         </authentication-provider>
     </authentication-manager>
 

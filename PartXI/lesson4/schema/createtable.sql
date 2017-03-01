@@ -59,7 +59,7 @@ create table users (
 );
 
 insert into role(name) values ('ROLE_ADMIN');
-insert into users(username, password, role) values ('root','root' , (select id from role where name='ROLE_ADMIN'));
+insert into users(username, password, role, enabled) values ('root','root' , (select id from role where name='ROLE_ADMIN'),TRUE );
 
 INSERT INTO body(name)  VALUES ('седан');
 INSERT INTO body(name)  VALUES ('хэтчбек');
