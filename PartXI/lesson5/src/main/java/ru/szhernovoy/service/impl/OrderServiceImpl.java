@@ -4,14 +4,14 @@ package ru.szhernovoy.service.impl;/**
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.szhernovoy.domain.Order;
 import ru.szhernovoy.repositories.OrderCrud;
 import ru.szhernovoy.service.OrderService;
 
 import java.util.List;
 
-@Component
+@Service
 public class OrderServiceImpl implements OrderService {
 
     private OrderCrud orderCrud;

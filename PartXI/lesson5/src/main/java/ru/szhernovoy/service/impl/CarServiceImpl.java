@@ -4,14 +4,14 @@ package ru.szhernovoy.service.impl;/**
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.szhernovoy.repositories.*;
 import ru.szhernovoy.service.CarService;
 import ru.szhernovoy.domain.*;
 
 import java.util.List;
 
-@Component
+@Service
 public class CarServiceImpl implements CarService {
 
     private CarCrud carCrud;

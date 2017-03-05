@@ -2,6 +2,7 @@ package ru.szhernovoy.service.impl;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.szhernovoy.domain.User;
 import ru.szhernovoy.repositories.UserCrud;
 import ru.szhernovoy.service.UserService;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by admin on 17.02.2017.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
