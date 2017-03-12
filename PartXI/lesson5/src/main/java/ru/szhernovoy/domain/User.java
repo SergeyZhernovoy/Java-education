@@ -12,7 +12,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "id_role")
+    @JoinColumn(name = "role")
     private Role role;
 
     @Id
